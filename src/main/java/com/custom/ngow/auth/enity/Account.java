@@ -1,5 +1,6 @@
 package com.custom.ngow.auth.enity;
 
+import com.custom.ngow.auth.constant.AccountStatus;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -41,6 +42,12 @@ public class Account {
   @NotNull
   @Size(max = 255)
   String password;
+
+  @NotNull
+  String role;
+
+  @NotNull
+  String status;
 
   @NotNull
   Timestamp createdAt;

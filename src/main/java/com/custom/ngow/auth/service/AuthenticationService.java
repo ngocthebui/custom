@@ -1,5 +1,6 @@
 package com.custom.ngow.auth.service;
 
+import com.custom.ngow.auth.constant.AccountStatus;
 import com.custom.ngow.auth.dto.request.AuthenticationRequest;
 import com.custom.ngow.auth.dto.response.AuthenticationResponse;
 import com.custom.ngow.auth.enity.Account;
@@ -17,6 +18,7 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -39,6 +41,10 @@ public class AuthenticationService {
 
         if (!authenticated) {
             throw new ForwardException(ErrorCode.E401100);
+        }
+
+        if (!StringUtils.equals(account.getStatus(), AccountStatus.ACTIVE.name())) {
+            throw new ForwardException(ErrorCode.E403100, "Account is blocked!");
         }
 
         String token = generateToken(request.getUsername());

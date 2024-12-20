@@ -16,5 +16,7 @@ public class AccountResponse {
 
   String email;
   String username;
+  String role;
+  String status;
 
 }

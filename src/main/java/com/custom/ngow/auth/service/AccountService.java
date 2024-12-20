@@ -1,5 +1,7 @@
 package com.custom.ngow.auth.service;
 
+import com.custom.ngow.auth.constant.AccountStatus;
+import com.custom.ngow.auth.constant.Role;
 import com.custom.ngow.auth.dto.request.AccountRequest;
 import com.custom.ngow.auth.dto.response.AccountResponse;
 import com.custom.ngow.auth.enity.Account;
@@ -31,6 +33,8 @@ public class AccountService {
         .email(accountRequest.getEmail())
         .username(accountRequest.getUsername())
         .password(passwordEncoder.encode(accountRequest.getPassword()))
+        .role(Role.USER.name())
+        .status(AccountStatus.ACTIVE.name())
         .createdAt(new Timestamp(System.currentTimeMillis()))
         .build();
 
