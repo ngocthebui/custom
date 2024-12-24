@@ -1,0 +1,51 @@
+name: build and run test of feature branch
+
+on:
+  push:
+    branches:
+      - 'feature/**'
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout code
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Setup Java 21 (Azul Zulu)
+      - name: Set up JDK 21 (Azul Zulu)
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'zulu'
+
+      # 3. Cache Maven dependencies
+      - name: Cache Maven dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      # 4. Install dependencies and run tests
+      - name: Build and Test
+        run: |
+          mvn clean install -Ptestcontainers -Dspring.profiles.active=test
+
+      # 5. Upload test results
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: target/surefire-reports/*.xml
+
+      # 6. Upload coverage report (if applicable)
+      - name: Upload coverage report
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: target/site/jacoco
