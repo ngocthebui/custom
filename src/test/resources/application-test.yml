@@ -2,13 +2,6 @@ server:
   port: 6820
 
 spring:
-  #mysql
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/custom
-    username: root
-    password: root
-
   #jpa
   jpa:
     show-sql: true
@@ -23,10 +16,5 @@ logging:
       springframework:
         web: INFO
 
-#variables
 jwt:
   signer_key: gv39I0MSQOp75qfmT7fdR+YmJPenVOfhOZg07HtQJ0zv/mhUv5mnlf+dyhEvEpJZ
-
-mail:
-  username: ngocthe.affiliate@gmail.com
-  password: xgsofpbrlhacsvsx

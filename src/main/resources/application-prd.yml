@@ -16,3 +16,11 @@ spring:
       hibernate:
         format_sql: true
         type: trace
+
+#variables
+jwt:
+  signer_key:
+
+mail:
+  username:
+  password:
