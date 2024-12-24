@@ -1,5 +1,6 @@
 package com.custom.ngow.auth.dto.response;
 
+import java.sql.Timestamp;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,7 +15,10 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AccountResponse {
 
-  String email;
-  String username;
-
+    String email;
+    String username;
+    String role;
+    String status;
+    Timestamp createdAt;
+    Timestamp updatedAt;
 }

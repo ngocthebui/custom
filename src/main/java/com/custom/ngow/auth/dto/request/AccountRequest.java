@@ -1,5 +1,7 @@
 package com.custom.ngow.auth.dto.request;
 
+import com.custom.ngow.common.constant.Regex;
+import jakarta.validation.constraints.Pattern;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,8 +16,13 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AccountRequest {
 
-  String email;
-  String username;
-  String password;
+    @Pattern(regexp = Regex.EMAIL)
+    String email;
+
+    @Pattern(regexp = Regex.USERNAME)
+    String username;
+
+    @Pattern(regexp = Regex.PASSWORD)
+    String password;
 
 }
