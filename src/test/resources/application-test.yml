@@ -16,5 +16,14 @@ logging:
       springframework:
         web: INFO
 
+#variables
 jwt:
   signer_key: gv39I0MSQOp75qfmT7fdR+YmJPenVOfhOZg07HtQJ0zv/mhUv5mnlf+dyhEvEpJZ
+
+mail:
+  username: ngocthe.affiliate@gmail.com
+  password: xgsofpbrlhacsvsx
+
+frontend:
+  url: http://localhost:6820
+  verify_account_path: /auth/active

@@ -39,6 +39,10 @@
         margin: 20px 0;
         border-radius: 5px;
         text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
     }
     .verification-link:hover {
         background-color: #45a049;
@@ -54,6 +58,11 @@
         text-decoration: none;
         font-weight: bold;
     }
+    .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
   </style>
 </head>
 <body>
@@ -66,7 +75,9 @@
   <p>
     Bạn vừa đăng ký tài khoản tại chúng tôi. Để hoàn tất quá trình đăng ký, vui lòng nhấp vào liên kết dưới đây để xác thực tài khoản của bạn.
   </p>
+  <div class="container">
   <a href="{{verification_link}}" class="verification-link">Xác Thực Tài Khoản</a>
+  </div>
   <p>
     Lưu ý rằng liên kết xác thực sẽ hết hạn trong
     <strong>{{time}}</strong> phút kể từ lúc nhận được thông báo này.
@@ -84,7 +95,9 @@
   <p>
     You have registered an account with us. To complete your registration, please click on the link below to verify your account.
   </p>
-  <a href="{{verification_link}}" class="verification-link">Verify Account</a>
+  <div class="container">
+    <a href="{{verification_link}}" class="verification-link">Xác Thực Tài Khoản</a>
+  </div>
   <p>
     Please note that the verification link will expire in
     <strong>{{time}}</strong> minutes from the time this notification was received.

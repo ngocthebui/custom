@@ -54,7 +54,7 @@ public class AccountController {
 
     @PutMapping("/{aid}/update")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<AccountResponse> blockAccount(@PathVariable("aid") Long aid,
+    public ResponseEntity<AccountResponse> updateAccountStatus(@PathVariable("aid") Long aid,
             @RequestParam String status) {
         AccountResponse response = modelMapper
                 .map(accountService.updateStatusByAid(aid, status), AccountResponse.class);

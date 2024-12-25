@@ -10,6 +10,7 @@ import jakarta.validation.constraints.Pattern;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,5 +46,13 @@ public class AuthenticationController {
             @RequestParam String otp) {
         otpService.validOTP(email, otp);
         return ResponseEntity.ok("OTP is valid");
+    }
+
+    @PostMapping("/active/{username}")
+    public ResponseEntity<String> verifyAccount(
+            @PathVariable("username") @Pattern(regexp = Regex.USERNAME) String username,
+            @RequestParam String otp) {
+        authenticationService.activeAccount(username, otp);
+        return ResponseEntity.ok("Verify account: " + username);
     }
 }

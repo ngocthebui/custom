@@ -4,6 +4,7 @@ import com.custom.ngow.auth.constant.AccountStatus;
 import com.custom.ngow.auth.dto.request.AuthenticationRequest;
 import com.custom.ngow.auth.dto.response.AuthenticationResponse;
 import com.custom.ngow.auth.enity.Account;
+import com.custom.ngow.auth.enity.Otp;
 import com.custom.ngow.auth.repository.AccountRepository;
 import com.custom.ngow.common.constant.ErrorCode;
 import com.custom.ngow.common.exception.ForwardException;
@@ -18,24 +19,27 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AuthenticationService {
 
-    private final AccountRepository accountRepository;
+    private final AccountService accountService;
     private final PasswordEncoder passwordEncoder;
+    private final MailService mailService;
+    private final OtpService otpService;
 
     @Value("${jwt.signer_key}")
     private String signerKey;
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        Account account = accountRepository.findByUsername(request.getUsername())
-                .orElseThrow(() -> new ForwardException(ErrorCode.E404101));
+        Account account = accountService.getByUsername(request.getUsername());
 
         boolean authenticated = passwordEncoder.matches(request.getPassword(),
                 account.getPassword());
@@ -45,7 +49,10 @@ public class AuthenticationService {
         }
 
         if (!StringUtils.equals(account.getStatus(), AccountStatus.ACTIVE.name())) {
-            throw new ForwardException(ErrorCode.E403100, "Account is not active!");
+            if (StringUtils.equals(account.getStatus(), AccountStatus.WAITING.name())) {
+                mailService.sendActiveAccount(account.getUsername(), account.getEmail());
+            }
+            throw new ForwardException(ErrorCode.E403100, "Your account is " + account.getStatus());
         }
 
         String token = generateToken(account);
@@ -76,5 +83,13 @@ public class AuthenticationService {
         } catch (JOSEException e) {
             throw new ForwardException(ErrorCode.E500100, "Can not generate Token");
         }
+    }
+
+    public void activeAccount(String username, String otp) {
+        Account account = accountService.getByUsername(username);
+
+        otpService.validOTP(account.getEmail(), otp);
+
+        accountService.updateStatus(account, AccountStatus.ACTIVE);
     }
 }

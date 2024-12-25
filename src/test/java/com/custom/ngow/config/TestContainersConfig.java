@@ -16,28 +16,28 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @Slf4j
 public class TestContainersConfig {
 
-  @Container
-  private static final MySQLContainer<?> mySQLContainer;
+    @Container
+    private static final MySQLContainer<?> mySQLContainer;
 
-  static {
-    mySQLContainer = new MySQLContainer<>("mysql:8.0.33")
-        .withDatabaseName("custom")
-        .withUsername("root")
-        .withPassword("root")
-        .withStartupTimeout(Duration.ofMinutes(10L));
+    static {
+        mySQLContainer = new MySQLContainer<>("mysql:8.0.33")
+                .withDatabaseName("custom")
+                .withUsername("root")
+                .withPassword("root")
+                .withStartupTimeout(Duration.ofMinutes(10L));
 
-    mySQLContainer.start();
+        mySQLContainer.start();
 
-    JdbcDatabaseDelegate containerDelegate = new JdbcDatabaseDelegate(mySQLContainer, "");
-    ScriptUtils.runInitScript(containerDelegate, "mysql/mysql_schema.sql");
-    ScriptUtils.runInitScript(containerDelegate, "mysql/mysql_data.sql");
-    log.info("Create databases test");
-  }
+        JdbcDatabaseDelegate containerDelegate = new JdbcDatabaseDelegate(mySQLContainer, "");
+        ScriptUtils.runInitScript(containerDelegate, "mysql/mysql_schema.sql");
+        ScriptUtils.runInitScript(containerDelegate, "mysql/mysql_data.sql");
+        log.info("Create databases test");
+    }
 
-  @DynamicPropertySource
-  static void registerDynamicProperties(DynamicPropertyRegistry registry) {
-    registry.add("spring.datasource.url", mySQLContainer::getJdbcUrl);
-    registry.add("spring.datasource.username", mySQLContainer::getUsername);
-    registry.add("spring.datasource.password", mySQLContainer::getPassword);
-  }
+    @DynamicPropertySource
+    static void registerDynamicProperties(DynamicPropertyRegistry registry) {
+        registry.add("spring.datasource.url", mySQLContainer::getJdbcUrl);
+        registry.add("spring.datasource.username", mySQLContainer::getUsername);
+        registry.add("spring.datasource.password", mySQLContainer::getPassword);
+    }
 }

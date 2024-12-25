@@ -23,6 +23,7 @@ public class AccountService {
 
     private final AccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
+    private final MailService mailService;
 
     public Account createNewAccount(AccountRequest accountRequest) {
         if (accountRepository.findByUsername(accountRequest.getUsername()).isPresent()) {
@@ -36,21 +37,25 @@ public class AccountService {
                 .username(accountRequest.getUsername())
                 .password(passwordEncoder.encode(accountRequest.getPassword()))
                 .role(Role.USER.name())
-                .status(AccountStatus.ACTIVE.name())
+                .status(AccountStatus.WAITING.name())
                 .createdAt(time)
                 .updatedAt(time)
                 .build();
 
         Account account = accountRepository.save(requestAccount);
         log.info("Create new account: {}", account.getUsername());
+
+        mailService.sendActiveAccount(account.getUsername(), account.getEmail());
         return account;
     }
 
     public Account softDeleteByAid(Long aid) {
-        return updateStatus(aid, AccountStatus.DELETE);
+        Account account = getByAid(aid);
+        return updateStatus(account, AccountStatus.DELETE);
     }
 
     public Account updateStatusByAid(Long aid, String status) {
+        Account account = getByAid(aid);
         AccountStatus accountStatus;
         try {
             accountStatus = AccountStatus.valueOf(StringUtils.upperCase(status));
@@ -58,11 +63,10 @@ public class AccountService {
             throw new ForwardException(ErrorCode.E404100, "Can not find status");
         }
 
-        return updateStatus(aid, accountStatus);
+        return updateStatus(account, accountStatus);
     }
 
-    private Account updateStatus(Long aid, AccountStatus status) {
-        Account account = getByAid(aid);
+    public Account updateStatus(Account account, AccountStatus status) {
         account.setStatus(status.name());
         account.setUpdatedAt(new Timestamp(System.currentTimeMillis()));
 
@@ -73,6 +77,11 @@ public class AccountService {
 
     public Account getByAid(Long aid) {
         return accountRepository.findById(aid)
+                .orElseThrow(() -> new ForwardException(ErrorCode.E404101));
+    }
+
+    public Account getByUsername(String username) {
+        return accountRepository.findByUsername(username)
                 .orElseThrow(() -> new ForwardException(ErrorCode.E404101));
     }
 

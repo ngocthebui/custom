@@ -3,6 +3,7 @@ package com.custom.ngow.auth.service;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.anyString;
 
 import com.custom.ngow.auth.constant.AccountStatus;
 import com.custom.ngow.auth.constant.Role;
@@ -16,117 +17,125 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 @SpringBootTest
 class AccountServiceTest extends TestContainersConfig {
 
-  @Autowired
-  private AccountService accountService;
+    @Autowired
+    private AccountService accountService;
 
-  @Test
-  void createAccount_validRequest() {
-    //given
-    AccountRequest accountRequest = new AccountRequest();
-    accountRequest.setEmail("test@gmail.com");
-    accountRequest.setUsername("test");
-    accountRequest.setPassword("test");
+    @MockitoBean
+    private MailService mailService;
 
-    //when
-    Account account = accountService.createNewAccount(accountRequest);
+    @Test
+    void createAccount_validRequest() {
+        //given
+        AccountRequest accountRequest = new AccountRequest();
+        accountRequest.setEmail("the.bui@tda.company");
+        accountRequest.setUsername("test");
+        accountRequest.setPassword("test");
 
-    //then
-    assertAll(
-        () -> assertEquals("test@gmail.com", account.getEmail()),
-        () -> assertEquals("test", account.getUsername()),
-        () -> assertEquals(AccountStatus.ACTIVE.name(), account.getStatus()),
-        () -> assertEquals(Role.USER.name(), account.getRole())
-    );
-  }
+        //when
+        Account account = accountService.createNewAccount(accountRequest);
+        Mockito.doNothing().when(mailService).sendActiveAccount(anyString(), anyString());
 
-  @Test
-  void createAccount_invalidRequest() {
-    //given
-    AccountRequest accountRequest = new AccountRequest();
-    accountRequest.setEmail("test@gmail.com");
-    accountRequest.setUsername("ngow");
-    accountRequest.setPassword("test");
+        //then
+        assertAll(
+                () -> assertEquals("the.bui@tda.company", account.getEmail()),
+                () -> assertEquals("test", account.getUsername()),
+                () -> assertEquals(AccountStatus.WAITING.name(), account.getStatus()),
+                () -> assertEquals(Role.USER.name(), account.getRole())
+        );
+    }
 
-    //when
-    ForwardException actualException = assertThrows(ForwardException.class,
-        () -> accountService.createNewAccount(accountRequest));
+    @Test
+    void createAccount_invalidRequest() {
+        //given
+        AccountRequest accountRequest = new AccountRequest();
+        accountRequest.setEmail("test@gmail.com");
+        accountRequest.setUsername("ngow");
+        accountRequest.setPassword("test");
 
-    //then
-    assertEquals(ErrorCode.E400102, actualException.getErrorCode());
-  }
+        //when
+        ForwardException actualException = assertThrows(ForwardException.class,
+                () -> accountService.createNewAccount(accountRequest));
 
-  @Test
-  void getAccountByAid_validAid() throws ParseException {
-    //given
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    Date date = dateFormat.parse("2024-12-20 11:44:54");
+        //then
+        assertEquals(ErrorCode.E400102, actualException.getErrorCode());
+    }
 
-    Account expectedAccount = Account.builder()
-        .aid(2L)
-        .email("ngow@gmail.com")
-        .username("ngow")
-        .createdAt(new Timestamp(date.getTime()))
-        .role(Role.USER.name())
-        .status(AccountStatus.ACTIVE.name())
-        .build();
+    @Test
+    void getAccountByAid_validAid() throws ParseException {
+        //given
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = dateFormat.parse("2024-12-20 11:44:54");
 
-    //when
-    Account actualAccount = accountService.getByAid(2L);
+        Account expectedAccount = Account.builder()
+                .aid(2L)
+                .email("ngow@gmail.com")
+                .username("ngow")
+                .createdAt(new Timestamp(date.getTime()))
+                .updatedAt(new Timestamp(date.getTime()))
+                .role(Role.USER.name())
+                .status(AccountStatus.ACTIVE.name())
+                .build();
 
-    //then
-    assertAll(
-        () -> assertEquals(expectedAccount.getAid(), actualAccount.getAid()),
-        () -> assertEquals(expectedAccount.getEmail(), actualAccount.getEmail()),
-        () -> assertEquals(expectedAccount.getUsername(), actualAccount.getUsername()),
-        () -> assertEquals(expectedAccount.getCreatedAt(), actualAccount.getCreatedAt()),
-        () -> assertEquals(expectedAccount.getRole(), actualAccount.getRole()),
-        () -> assertEquals(expectedAccount.getStatus(), actualAccount.getStatus())
-    );
-  }
+        //when
+        Account actualAccount = accountService.getByAid(2L);
 
-  @Test
-  void getAccountByAid_invalidAid() {
-    //when
-    ForwardException exception = assertThrows(ForwardException.class,
-        () -> accountService.getByAid(-1L));
+        //then
+        assertAll(
+                () -> assertEquals(expectedAccount.getAid(), actualAccount.getAid()),
+                () -> assertEquals(expectedAccount.getEmail(), actualAccount.getEmail()),
+                () -> assertEquals(expectedAccount.getUsername(), actualAccount.getUsername()),
+                () -> assertEquals(expectedAccount.getCreatedAt(), actualAccount.getCreatedAt()),
+                () -> assertEquals(expectedAccount.getUpdatedAt(), actualAccount.getUpdatedAt()),
+                () -> assertEquals(expectedAccount.getRole(), actualAccount.getRole()),
+                () -> assertEquals(expectedAccount.getStatus(), actualAccount.getStatus())
+        );
+    }
 
-    //then
-    assertEquals(ErrorCode.E404101, exception.getErrorCode());
-  }
+    @Test
+    void getAccountByAid_invalidAid() {
+        //when
+        ForwardException exception = assertThrows(ForwardException.class,
+                () -> accountService.getByAid(-1L));
 
-  @Test
-  void deleteAccountByAid_validAid() throws ParseException {
-    //given
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    Date date = dateFormat.parse("2024-12-20 11:44:54");
+        //then
+        assertEquals(ErrorCode.E404101, exception.getErrorCode());
+    }
 
-    Account expectedAccount = Account.builder()
-        .aid(2L)
-        .email("ngow@gmail.com")
-        .username("ngow")
-        .createdAt(new Timestamp(date.getTime()))
-        .role(Role.USER.name())
-        .status(AccountStatus.ACTIVE.name())
-        .build();
+    @Test
+    void softDeleteAccountByAid_validAid() throws ParseException {
+        //given
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = dateFormat.parse("2024-12-20 11:44:54");
 
-    //when
-    Account actualAccount = accountService.softDeleteByAid(2L);
+        Account expectedAccount = Account.builder()
+                .aid(2L)
+                .email("ngow@gmail.com")
+                .username("ngow")
+                .createdAt(new Timestamp(date.getTime()))
+                .role(Role.USER.name())
+                .status(AccountStatus.DELETE.name())
+                .build();
 
-    //then
-    assertAll(
-        () -> assertEquals(expectedAccount.getAid(), actualAccount.getAid()),
-        () -> assertEquals(expectedAccount.getEmail(), actualAccount.getEmail()),
-        () -> assertEquals(expectedAccount.getUsername(), actualAccount.getUsername()),
-        () -> assertEquals(expectedAccount.getCreatedAt(), actualAccount.getCreatedAt()),
-        () -> assertEquals(expectedAccount.getRole(), actualAccount.getRole()),
-        () -> assertEquals(expectedAccount.getStatus(), actualAccount.getStatus())
-    );
-  }
+        //when
+        Account actualAccount = accountService.softDeleteByAid(2L);
+
+        //then
+        assertAll(
+                () -> assertEquals(expectedAccount.getAid(), actualAccount.getAid()),
+                () -> assertEquals(expectedAccount.getEmail(), actualAccount.getEmail()),
+                () -> assertEquals(expectedAccount.getUsername(), actualAccount.getUsername()),
+                () -> assertEquals(expectedAccount.getCreatedAt(), actualAccount.getCreatedAt()),
+                () -> assertEquals(expectedAccount.getRole(), actualAccount.getRole()),
+                () -> assertEquals(expectedAccount.getStatus(), actualAccount.getStatus())
+        );
+    }
 
 }
