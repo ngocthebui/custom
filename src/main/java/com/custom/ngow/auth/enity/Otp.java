@@ -1,13 +1,9 @@
 package com.custom.ngow.auth.enity;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-import java.sql.Timestamp;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,40 +13,26 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 @Entity
-@Table(name = "accounts")
+@Table(name = "otps")
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Account {
+public class Otp {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long aid;
-
     @NotNull
-    @Size(max = 255)
     String email;
 
     @NotNull
-    @Size(max = 255)
-    String username;
+    String otp;
 
     @NotNull
-    @Size(max = 255)
-    String password;
+    long expiredTime;
 
     @NotNull
-    String role;
-
-    @NotNull
-    String status;
-
-    @NotNull
-    Timestamp createdAt;
-
-    Timestamp updatedAt;
+    boolean isActive;
 
 }

@@ -11,6 +11,8 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ExceptionResponse {
-  String responseCode;
-  String responseMessage;
+
+    String responseCode;
+    String responseMessage;
+
 }
