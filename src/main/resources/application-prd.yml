@@ -4,10 +4,22 @@ server:
 spring:
   #mysql
   datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
     url: ${MYSQL_URL}
     username: ${MYSQL_USERNAME}
     password: ${MYSQL_PASSWORD}
-    driver-class-name: com.mysql.cj.jdbc.Driver
+
+    #connection pool
+    hikari:
+      pool-name: AppHikariCP
+      maximum-pool-size: 20
+      minimum-idle: 5
+      idle-timeout: 30000
+      max-lifetime: 1800000
+      connection-timeout: 20000
+      auto-commit: true
+      validation-timeout: 5000
+      connection-test-query: SELECT 1
 
   #jpa
   jpa:
@@ -19,8 +31,12 @@ spring:
 
 #variables
 jwt:
-  signer_key:
+  signer_key: ${JWT_SIGNER_KEY}
 
 mail:
-  username:
-  password:
+  username: ${MAIL_USERNAME}
+  password: ${MAIL_PASSWORD}
+
+frontend:
+  url: ${FRONTEND_URL}
+  verify_account_path: ${FRONTEND_VERIFY_PATH}
