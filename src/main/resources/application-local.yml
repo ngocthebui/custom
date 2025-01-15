@@ -5,9 +5,10 @@ spring:
   #mysql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/custom
-    username: root
-    password: root
+    url: ${MYSQL_URL:jdbc:mysql://localhost:3306/custom}
+    username: ${MYSQL_USERNAME:root}
+    password: ${MYSQL_PASSWORD:root}
+
     #connection pool
     hikari:
       pool-name: AppHikariCP
@@ -35,12 +36,12 @@ logging:
 
 #variables
 jwt:
-  signer_key: gv39I0MSQOp75qfmT7fdR+YmJPenVOfhOZg07HtQJ0zv/mhUv5mnlf+dyhEvEpJZ
+  signer_key: ${JWT_SIGNER_KEY:gv39I0MSQOp75qfmT7fdR+YmJPenVOfhOZg07HtQJ0zv/mhUv5mnlf+dyhEvEpJZ}
 
 mail:
-  username: ngocthe.affiliate@gmail.com
-  password: xgsofpbrlhacsvsx
+  username: ${MAIL_USERNAME:ngocthe.affiliate@gmail.com}
+  password: ${MAIL_PASSWORD:xgsofpbrlhacsvsx}
 
 frontend:
-  url: http://localhost:6820
-  verify_account_path: /auth/active
+  url: ${FRONTEND_URL:http://localhost:6820}
+  verify_account_path: ${FRONTEND_VERIFY_PATH:/auth/active}
