@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+</head>
+<body>
+<nav th:fragment="navbar" class="custom-navbar py-2">
+  <div class="container">
+    <ul class="nav justify-content-center">
+      <li class="nav-item">
+        <a class="nav-link active" href="/static">Trang chủ</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Danh mục
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <li><a class="dropdown-item" href="/category/1">Túi xách nữ</a></li>
+          <li><a class="dropdown-item" href="/category/2">Túi đeo chéo</a></li>
+          <li><a class="dropdown-item" href="/category/3">Balo</a></li>
+          <li><a class="dropdown-item" href="/category/4">Túi du lịch</a></li>
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/new-arrivals">Hàng mới về</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/sale">Khuyến mãi</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/about">Giới thiệu</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/contact">Liên hệ</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+</body>
+</html>

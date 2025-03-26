@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luxe Bags - Thương hiệu túi xách cao cấp</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+    }
+
+    .main-content {
+      display: flex;
+      width: 100%;
+      height: 100vh;
+      position: relative;
+    }
+
+    .video-container,
+    .slideshow-container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .video-section, .slideshow-section {
+      position: relative;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .video-container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .video-container video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.5s;
+      opacity: 0.9;
+    }
+
+    .video-container:hover video {
+      opacity: 1;
+    }
+
+    .slideshow-container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .slide {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .slide.active {
+      opacity: 1;
+    }
+
+    .section-content {
+      position: absolute;
+      bottom: 10%;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      color: white;
+      z-index: 10;
+      pointer-events: none; /* Thêm dòng này */
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      margin-bottom: 15px;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+    }
+
+    .shop-now-btn {
+      display: inline-block;
+      padding: 10px 25px;
+      background-color: transparent;
+      border: 1px solid white;
+      color: white;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      letter-spacing: 2px;
+      transition: all 0.3s;
+      cursor: pointer;
+      pointer-events: auto;
+    }
+
+    .shop-now-btn:hover {
+      background-color: white;
+      color: #333;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.5));
+      pointer-events: none;
+    }
+
+    .slide-indicators {
+      position: absolute;
+      bottom: 5%;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
+      z-index: 10;
+    }
+
+    .indicator {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .indicator.active {
+      background-color: white;
+    }
+
+    .video-btn {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      z-index: 10;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      background-color: rgba(0, 0, 0, 0.3);
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+
+    .social-icons a {
+      color: #fff;
+      margin-right: 15px;
+      font-size: 18px;
+      transition: color 0.3s;
+    }
+
+    .social-icons a:hover {
+      color: #ff6b6b;
+    }
+
+    .brand-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 100;
+      pointer-events: none; /* Để có thể click qua nó vào các phần tử bên dưới */
+    }
+
+    .brand-name {
+      font-size: 120px;
+      font-weight: 700;
+      color: white;
+      letter-spacing: 15px;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+      font-family: 'Times New Roman', serif;
+      text-align: center;
+    }
+
+    /* Responsive Styles */
+    @media screen and (max-width: 768px) {
+      .main-content {
+        flex-direction: column;
+        height: auto;
+      }
+
+      .video-section, .slideshow-section {
+        height: 100vh;
+        flex: none; /* Loại bỏ flex: 1 để đảm bảo chiều cao cố định */
+        width: 100%;
+        min-height: 100vh;
+        position: relative;
+        display: block;
+      }
+
+      .slideshow-section {
+        margin-top: 0;
+        display: block !important; /* Đảm bảo hiển thị */
+        visibility: visible !important;
+      }
+
+      .slideshow-container, .slide {
+        position: relative;
+        height: 100vh;
+      }
+
+      .slide {
+        position: absolute;
+      }
+    }
+
+  </style>
+</head>
+<body>
+<main class="main-content">
+  <div class="brand-overlay">
+    <h1 class="brand-name">Lingbao</h1>
+  </div>
+
+  <section class="video-section">
+    <div class="video-container">
+      <video id="promo-video" loop muted>
+        <source th:src="@{/videos/lingbao-clip.mp4}" type="video/mp4">
+      </video>
+      <div class="overlay"></div>
+    </div>
+    <div class="section-content">
+      <h2 class="section-title">Túi xách & Phụ kiện</h2>
+      <a href="#" class="shop-now-btn">Mua ngay</a>
+    </div>
+    <div class="video-btn">⏸</div>
+  </section>
+
+  <section class="slideshow-section">
+    <div class="slideshow-container">
+      <div class="slide active" th:each="product, stat : ${newProducts}"
+           th:style="'background-image: url(' + @{${product.imageUrl}} + ');'"
+           th:classappend="${stat.first} ? 'active' : ''">
+        <div class="overlay"></div>
+      </div>
+      <div class="slide-indicators">
+        <div class="indicator" th:each="product, stat : ${newProducts}"
+             th:classappend="${stat.first} ? 'active' : ''"
+             th:data-index="${stat.index}">
+        </div>
+      </div>
+    </div>
+    <div class="section-content">
+      <h2 class="section-title">Bộ sưu tập mới</h2>
+      <a href="#" class="shop-now-btn">Khám phá ngay</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- Import Footer -->
+<div th:replace="~{views/fragments/footer :: footer}"></div>
+
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+<script th:inline="javascript">
+  // Video section
+  const videoContainer = document.querySelector('.video-container');
+  const promoVideo = document.getElementById('promo-video');
+  const videoButton = document.querySelector('.video-btn');
+  const shopNowBtn = document.querySelector('.shop-now-btn');
+
+  let isMouseOverContainer = false;
+  let isMouseOverButton = false;
+  let isVideoStop = false;
+
+  videoContainer.addEventListener('mouseenter', () => {
+    if (!isVideoStop) {
+      isMouseOverContainer = true;
+      promoVideo.play();
+      videoButton.innerHTML = '⏸';
+      videoButton.classList.remove('play-icon');
+      videoButton.classList.add('pause-icon');
+    }
+  });
+
+  videoContainer.addEventListener('mouseleave', () => {
+    if (!isVideoStop) {
+      isMouseOverContainer = false;
+
+      setTimeout(() => {
+        if (!isMouseOverContainer && !isMouseOverButton) {
+          promoVideo.pause();
+          videoButton.innerHTML = '▶';
+          videoButton.classList.remove('pause-icon');
+          videoButton.classList.add('play-icon');
+        }
+      }, 50);
+    }
+  });
+
+  shopNowBtn.addEventListener('mouseenter', () => {
+    isMouseOverButton = true;
+  });
+
+  shopNowBtn.addEventListener('mouseleave', () => {
+    isMouseOverButton = false;
+  });
+
+  videoButton.addEventListener('mouseenter', () => {
+    isMouseOverButton = true;
+  });
+
+  videoButton.addEventListener('mouseleave', () => {
+    isMouseOverButton = false;
+  });
+
+  videoButton.addEventListener('click', () => {
+    if (promoVideo.paused) {
+      isVideoStop = false;
+      promoVideo.play();
+      videoButton.innerHTML = '⏸';
+      videoButton.classList.remove('play-icon');
+      videoButton.classList.add('pause-icon');
+    } else {
+      isVideoStop = true;
+      promoVideo.pause();
+      videoButton.innerHTML = '▶';
+      videoButton.classList.remove('pause-icon');
+      videoButton.classList.add('play-icon');
+    }
+  });
+
+  // Slideshow section
+  const slides = document.querySelectorAll('.slide');
+  const indicators = document.querySelectorAll('.indicator');
+  const slideshowContainer = document.querySelector('.slideshow-container');
+
+  let currentSlide = 0;
+  let slideshowPaused = true;
+  let slideInterval;
+
+  function showSlide(n) {
+    slides.forEach(slide => slide.classList.remove('active'));
+    indicators.forEach(indicator => indicator.classList.remove('active'));
+
+    currentSlide = (n + slides.length) % slides.length;
+
+    slides[currentSlide].classList.add('active');
+    indicators[currentSlide].classList.add('active');
+  }
+
+  function nextSlide() {
+    showSlide(currentSlide + 1);
+  }
+
+  function startSlideshow() {
+    if (slideshowPaused) {
+      slideInterval = setInterval(nextSlide, 2000);
+      slideshowPaused = false;
+    }
+  }
+
+  function pauseSlideshow() {
+    clearInterval(slideInterval);
+    slideshowPaused = true;
+  }
+
+  indicators.forEach((indicator, index) => {
+    indicator.addEventListener('click', () => {
+      showSlide(index);
+      pauseSlideshow();
+    });
+  });
+
+  slideshowContainer.addEventListener('mouseenter', startSlideshow);
+  slideshowContainer.addEventListener('mouseleave', pauseSlideshow);
+
+  // Initialize with first slide
+  showSlide(0);
+
+  // Bắt đầu slideshow tự động trên thiết bị di động
+  if (window.innerWidth <= 768) {
+    startSlideshow();
+  }
+</script>
+</body>
+</html>
