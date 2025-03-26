@@ -1,6 +1,5 @@
 package com.custom.ngow.auth.service;
 
-import com.custom.ngow.auth.enity.Otp;
 import com.custom.ngow.common.constant.ErrorCode;
 import com.custom.ngow.common.exception.ForwardException;
 import jakarta.mail.MessagingException;
@@ -56,7 +55,7 @@ public class MailService {
     }
 
     private String getEmailOTPTemplate(String toEmail, String otp) {
-        String template = getTemplateByClassPathResource("template/otp_email_template.html");
+        String template = getTemplateByClassPathResource("templates/otp_email_template.html");
 
         template = template.replace("{{email}}", toEmail);
         template = template.replace("{{otp}}", otp);
@@ -91,7 +90,8 @@ public class MailService {
     }
 
     private String getEmailVerifyAccountTemplate(String toEmail, String url) {
-        String template = getTemplateByClassPathResource("template/verify_account_email_template.html");
+        String template = getTemplateByClassPathResource(
+                "templates/verify_account_email_template.html");
 
         template = template.replace("{{email}}" , toEmail);
         template = template.replace("{{verification_link}}", url);
