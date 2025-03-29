@@ -103,10 +103,16 @@ document.addEventListener('DOMContentLoaded', function () {
     tl.to(transitionLogo, {
       top: '6%',
       scale: 0.25,
-      opacity: 0,
+      // opacity: 0,
       duration: 1,
       ease: 'power2.inOut'
     }, '-=0.3'); // Bắt đầu sớm hơn 0.3s
+
+    tl.to(transitionLogo, {
+      opacity: 0,
+      duration: 0.3,
+      ease: 'power2.inOut'
+    }, '-=0.3');
 
     tl.to(header, {
       display: 'flex',
@@ -118,11 +124,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }, '-=0.1');
 
     // 4. Nội dung trang mới chạy từ dưới lên trong 1 giây
-    tl.to(transitionContent, {
-      bottom: '0%',
-      duration: 1,
-      ease: 'power2.inOut'
-    }, '-=0.3'); // Bắt đầu sớm hơn 0.3s
+    // tl.to(transitionContent, {
+    //   bottom: '0%',
+    //   duration: 1,
+    //   ease: 'power2.inOut'
+    // }, '-=0.3'); // Bắt đầu sớm hơn 0.3s
   }
 
   // Áp dụng sự kiện click cho tất cả các liên kết chuyển trang
