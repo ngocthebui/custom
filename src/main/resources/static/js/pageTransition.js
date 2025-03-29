@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const transitionContent = document.querySelector('.transition-content');
   const brandOverlay = document.querySelector('.brand-overlay');
   const brandLogo = document.querySelector('.brand-name');
+  const header = document.querySelector('.header');
 
   // Lấy tất cả các liên kết có hiệu ứng chuyển trang
   const transitionLinks = document.querySelectorAll('.page-transition-link');
@@ -33,9 +34,6 @@ document.addEventListener('DOMContentLoaded', function () {
         brandLogo).letterSpacing;
     transitionLogo.style.fontFamily = window.getComputedStyle(
         brandLogo).fontFamily;
-
-    // Lấy vị trí của brand-name gốc
-    const logoRect = brandLogo.getBoundingClientRect();
 
     // Thiết lập vị trí ban đầu cho transition-logo giống với brand-name
     transitionLogo.style.color = 'white';
@@ -67,31 +65,31 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
 
-    // 1. Logo phóng to 1.5 lần và chuyển màu đen trong 1.5 giây
+    // 1. Logo phóng to 1.3 lần và chuyển màu đen trong 1 giây
     // Logo animation khác nhau cho mobile và desktop
     if (!isMobile) {
       // Trên desktop: phóng to như hiện tại
       tl.to(transitionLogo, {
-        scale: 1.5,
-        duration: 1.5,
+        scale: 1.3,
+        duration: 1,
         ease: 'power2.inOut'
       });
     }
 
-    // 2. Background trắng chạy từ dưới lên trong 2 giây
+    // 2. Background trắng chạy từ dưới lên trong 1.5 giây
     tl.to(transitionBackground, {
       opacity: 1,
       visibility: 'visible',
       bottom: '0%',
-      duration: 2,
+      duration: 1.5,
       ease: 'power2.inOut'
-    }, '-=0.5'); // Bắt đầu sớm hơn 0.5s
+    }, '-=0.3'); // Bắt đầu sớm hơn 0.3s
 
     if (isMobile) {
       tl.to(transitionLogo, {
         opacity: 1,
         visibility: 'visible',
-      }, '-=1.1');
+      }, '-=0.73');
     }
 
     tl.to(transitionLogo, {
@@ -99,45 +97,36 @@ document.addEventListener('DOMContentLoaded', function () {
       duration: 0.5,
       ease: 'power2.inOut',
       zIndex: 10003
-    }, '-=1.2'); // 1.5 - 0.5 + (2 * 0.45) - 1.5 = -0.95
+    }, '-=0.9'); // 1 - 0.5 + (2 * 0.45) - 1.5 = -0.95
 
-    // 3. Logo di chuyển lên trên và thu nhỏ trong 2 giây
+    // 3. Logo di chuyển lên trên và thu nhỏ trong 1 giây
     tl.to(transitionLogo, {
-      top: '10%',
-      scale: 0.5,
-      duration: 2,
+      top: '6%',
+      scale: 0.25,
+      opacity: 0,
+      duration: 1,
       ease: 'power2.inOut'
-    }, '-=0.5'); // Bắt đầu sớm hơn 0.5s
+    }, '-=0.3'); // Bắt đầu sớm hơn 0.3s
 
-    // 4. Nội dung trang mới chạy từ dưới lên trong 1.5 giây
+    tl.to(header, {
+      display: 'flex',
+      opacity: 1,
+      visibility: 'visible',
+      y: 0,
+      duration: 0.5,
+      ease: 'power2.out'
+    }, '-=0.1');
+
+    // 4. Nội dung trang mới chạy từ dưới lên trong 1 giây
     tl.to(transitionContent, {
       bottom: '0%',
-      duration: 1.5,
+      duration: 1,
       ease: 'power2.inOut'
-    }, '-=0.5'); // Bắt đầu sớm hơn 1s
+    }, '-=0.3'); // Bắt đầu sớm hơn 0.3s
   }
 
   // Áp dụng sự kiện click cho tất cả các liên kết chuyển trang
   transitionLinks.forEach(link => {
     link.addEventListener('click', handlePageTransition);
-  });
-
-  // Sự kiện này sẽ được kích hoạt khi trang mới được tải
-  window.addEventListener('pageshow', function (event) {
-    // Hiển thị lại brand-name
-    if (brandOverlay) {
-      brandOverlay.style.opacity = '1';
-      brandOverlay.style.visibility = 'visible';
-    }
-
-    // Ẩn các phần tử hiệu ứng chuyển trang
-    pageTransition.style.visibility = 'hidden';
-    transitionLogo.style.visibility = 'hidden';
-    transitionLogo.style.opacity = '0';
-    transitionBackground.style.bottom = '-100%';
-    transitionContent.style.bottom = '-100%';
-
-    // Xóa nội dung đã fetch để tránh xung đột
-    transitionContent.innerHTML = '';
   });
 });

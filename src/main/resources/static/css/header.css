@@ -6,7 +6,7 @@
 }
 
 .header {
-  display: none;  /* Ẩn header trên màn hình lớn */
+  display: flex;  /* Ẩn header trên màn hình lớn */
   position: fixed;
   top: 0;
   left: 0;
@@ -36,11 +36,4 @@
   width: 24px;
   height: 24px;
   cursor: pointer;
-}
-
-/* Hiển thị header trên màn hình điện thoại */
-@media screen and (max-width: 768px) {
-  .header {
-    display: flex;  /* Hiển thị header chỉ trên điện thoại */
-  }
 }
