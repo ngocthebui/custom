@@ -2,21 +2,25 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
+  <title>Header Fragment</title>
+
 </head>
 <body>
-<header th:fragment="header" class="custom-header">
-  <div class="container">
-    <div class="d-flex justify-content-between align-items-center">
-      <a href="/static" class="logo">BagShop</a>
-      <div class="d-flex align-items-center">
-        <a href="/login" class="btn btn-outline-dark me-2">Đăng nhập</a>
-        <a href="/cart" class="btn position-relative">
-          <i class="fas fa-shopping-cart fs-5"></i>
-          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                th:text="${cartItemCount}">0</span>
-        </a>
-      </div>
-    </div>
+<!-- Header Fragment Definition -->
+<header th:fragment="header" class="header">
+  <div class="menu-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </div>
+  <div class="logo">Lingbao</div>
+  <div class="search-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+      <circle cx="11" cy="11" r="8"></circle>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </svg>
   </div>
 </header>
 </body>

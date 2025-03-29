@@ -8,9 +8,12 @@
   <link rel="stylesheet" th:href="@{/css/home.css}">
   <!--  Page Transition Styles-->
   <link rel="stylesheet" th:href="@{/css/pageTransition.css}">
+  <link rel="stylesheet" th:href="@{/css/header.css}">
 
 </head>
 <body>
+<!-- Import Header -->
+<div th:replace="~{views/fragments/header :: header}"></div>
 <main class="main-content">
   <div class="brand-overlay">
     <h1 class="brand-name">Lingbao</h1>
@@ -25,7 +28,7 @@
     </div>
     <div class="section-content">
       <h2 class="section-title">Túi xách & Phụ kiện</h2>
-      <a th:href="@{/trans}" class="shop-now-btn page-transition-link" th:data-href="@{/trans}">Mua ngay</a>
+      <a th:href="@{/login}" class="shop-now-btn page-transition-link" th:data-href="@{/login}">Mua ngay</a>
     </div>
     <div class="video-btn">⏸</div>
   </section>

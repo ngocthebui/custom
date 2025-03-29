@@ -27,9 +27,29 @@ public class TestController {
         return "views/home";
     }
 
+    @GetMapping("/login")
+    public String login() {
+        return "auth/login";
+    }
+
     @GetMapping("/trans")
     public String trans() {
-        return "auth/login";
+        return "views/trans";
+    }
+
+    @GetMapping("/test")
+    public String test() {
+        return "views/testtrans";
+    }
+
+    @GetMapping("/newPage")
+    public String home(Model model) {
+        // Add data to be displayed on the page
+        model.addAttribute("season", "Spring-Summer 2025");
+        model.addAttribute("title", "A tribute to the assertive power of femininity");
+        model.addAttribute("buttonText", "Discover");
+
+        return "views/newPage"; // Name of your Thymeleaf template without extension
     }
 
 }

@@ -124,9 +124,9 @@ document.addEventListener('DOMContentLoaded', function() {
       // 4. Nội dung trang mới chạy từ dưới lên trong 3 giây
       tl.to(transitionContent, {
         bottom: '0%',
-        duration: 3,
+        duration: 2,
         ease: 'power2.inOut'
-      }, '-=1'); // Bắt đầu sớm hơn 1s
+      }, '-=0.5'); // Bắt đầu sớm hơn 1s
     })
     .catch(error => {
       console.error('Lỗi khi tải trang mới:', error);
