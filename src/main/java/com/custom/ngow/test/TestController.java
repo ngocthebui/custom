@@ -9,11 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/home")
 @CrossOrigin("*")
 public class TestController {
 
-    @GetMapping()
+    @GetMapping("/home")
     public String test(Model model) {
         List<Product> featuredProducts = Arrays.asList(
                 new Product(1L, "Túi xách thời trang nữ", 850000, "/images/lingbao1.jpg"),
@@ -26,6 +25,11 @@ public class TestController {
         model.addAttribute("newProducts", featuredProducts);
         model.addAttribute("cartItemCount", 0);
         return "views/home";
+    }
+
+    @GetMapping("/trans")
+    public String trans() {
+        return "auth/login";
     }
 
 }
