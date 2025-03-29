@@ -46,6 +46,35 @@
       overflow: hidden;
       transform: translateY(0);
       transition: all 0.5s ease;
+
+      /* Thêm animation cho container */
+      opacity: 0;
+      transform: translateY(100px);
+      animation: none; /* Ban đầu không có animation, sẽ được thêm bằng JS */
+    }
+
+    /* Animation cho container chạy từ dưới lên */
+    @keyframes slideUpContainer {
+      0% {
+        opacity: 0;
+        transform: translateY(100px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Animation cho container chạy xuống dưới khi rời khỏi trang */
+    @keyframes slideDownContainer {
+      0% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(100px);
+      }
     }
 
     .login-container:hover {
@@ -239,12 +268,48 @@
         opacity: 0;
       }
     }
+
+    /* CSS cho hiệu ứng chuyển trang */
+    .page-transition-overlay {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      z-index: 9999;
+      transform: translateY(100%);
+      transition: transform 0s;
+    }
+
+    /* Hiệu ứng chạy vào từ dưới lên */
+    @keyframes slideInUp {
+      0% {
+        transform: translateY(100%);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+
+    /* Hiệu ứng chạy ra */
+    @keyframes slideOutUp {
+      0% {
+        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(-100%);
+      }
+    }
   </style>
 </head>
 <body>
+<!-- Overlay cho hiệu ứng chuyển trang -->
+<div id="pageTransitionOverlay" class="page-transition-overlay"></div>
+
 <div class="particles" id="particles"></div>
 
-<div class="login-container">
+<div class="login-container" id="loginContainer">
   <div class="form-box">
     <h2>Đăng Nhập</h2>
     <form th:action="@{/login}" method="post">
@@ -272,7 +337,7 @@
       <button type="submit" class="btn">Đăng Nhập</button>
 
       <div class="register-link">
-        <p>Chưa có tài khoản? <a href="#" th:href="@{/register}">Đăng ký ngay</a></p>
+        <p>Chưa có tài khoản? <a href="#" th:href="@{/register}" class="transition-link">Đăng ký ngay</a></p>
       </div>
 
       <div th:if="${param.error}" class="alert alert-error" style="color: #ff6b6b; text-align: center; margin-top: 20px;">
@@ -327,6 +392,86 @@
         input.parentElement.classList.remove('focus');
       }
     });
+  });
+
+  // Hiệu ứng chuyển trang
+  document.addEventListener('DOMContentLoaded', function() {
+    const overlay = document.getElementById('pageTransitionOverlay');
+    const loginContainer = document.getElementById('loginContainer');
+    const transitionLinks = document.querySelectorAll('.transition-link');
+
+    // Tạo hiệu ứng khi trang được tải
+    // overlay.style.animation = 'slideOutUp 2s ease forwards';
+
+    // Sau khi overlay chạy được một chút, hiển thị form đăng nhập từ dưới chạy lên
+    setTimeout(() => {
+      loginContainer.style.animation = 'slideUpContainer 3s ease forwards';
+    }, 500);
+
+    // Xử lý khi click vào các link chuyển trang
+    // transitionLinks.forEach(link => {
+    //   link.addEventListener('click', function(e) {
+    //     e.preventDefault();
+    //     const targetUrl = this.getAttribute('href');
+    //
+    //     // Hiệu ứng form chạy xuống
+    //     loginContainer.style.animation = 'slideDownContainer 0.5s ease forwards';
+    //
+    //     // Hiệu ứng overlay chạy từ dưới lên
+    //     setTimeout(() => {
+    //       overlay.style.animation = 'slideInUp 1.5s ease forwards';
+    //     }, 300);
+    //
+    //     // Chuyển trang sau khi hiệu ứng hoàn tất
+    //     setTimeout(() => {
+    //       window.location.href = targetUrl;
+    //     }, 2000);
+    //   });
+    // });
+
+    // Khi submit form thì cũng tạo hiệu ứng
+    // const form = document.querySelector('form');
+    // if (form) {
+    //   form.addEventListener('submit', function(e) {
+    //     e.preventDefault();
+    //
+    //     // Hiệu ứng form chạy xuống
+    //     loginContainer.style.animation = 'slideDownContainer 0.5s ease forwards';
+    //
+    //     // Hiệu ứng overlay chạy từ dưới lên
+    //     setTimeout(() => {
+    //       overlay.style.animation = 'slideInUp 1.5s ease forwards';
+    //     }, 300);
+    //
+    //     // Submit form sau khi hiệu ứng hoàn tất
+    //     setTimeout(() => {
+    //       this.submit();
+    //     }, 2000);
+    //   });
+    // }
+  });
+
+  // Xử lý cho việc bấm nút back trên trình duyệt
+  window.addEventListener('pageshow', function(event) {
+    // Kiểm tra nếu trang được load từ cache (khi bấm nút back)
+    if (event.persisted) {
+      const loginContainer = document.getElementById('loginContainer');
+      const overlay = document.getElementById('pageTransitionOverlay');
+
+      // Reset animation
+      overlay.style.animation = 'none';
+      loginContainer.style.animation = 'none';
+
+      // Force reflow
+      void overlay.offsetWidth;
+      void loginContainer.offsetWidth;
+
+      // Áp dụng lại animation
+      overlay.style.animation = 'slideOutUp 2s ease forwards';
+      setTimeout(() => {
+        loginContainer.style.animation = 'slideUpContainer 1.5s ease forwards';
+      }, 500);
+    }
   });
 </script>
 </body>

@@ -177,6 +177,7 @@ body {
   transform: translate(-50%, -50%);
   z-index: 100;
   pointer-events: none;
+  display: block; /* Mặc định hiển thị trên màn hình lớn */
 }
 
 .brand-name {
@@ -218,5 +219,9 @@ body {
 
   .slide {
     position: absolute;
+  }
+
+  .brand-overlay {
+    display: none; /* Ẩn brand-overlay trên điện thoại */
   }
 }
