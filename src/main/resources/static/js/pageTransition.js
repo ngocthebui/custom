@@ -89,7 +89,11 @@ document.addEventListener('DOMContentLoaded', function () {
       tl.to(transitionLogo, {
         opacity: 1,
         visibility: 'visible',
-      }, '-=0.73');
+      }, '-=0.8');
+      tl.to(header, {
+        display: 'none',
+        // ease: 'power2.out'
+      });
     }
 
     tl.to(transitionLogo, {
@@ -99,11 +103,14 @@ document.addEventListener('DOMContentLoaded', function () {
       zIndex: 10003
     }, '-=0.9'); // 1 - 0.5 + (2 * 0.45) - 1.5 = -0.95
 
+    tl.to(header, {
+      transform: 'translateY(70%)'
+    });
+
     // 3. Logo di chuyển lên trên và thu nhỏ trong 1 giây
     tl.to(transitionLogo, {
       top: '6%',
       scale: 0.25,
-      // opacity: 0,
       duration: 1,
       ease: 'power2.inOut'
     }, '-=0.3'); // Bắt đầu sớm hơn 0.3s
@@ -117,6 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
     tl.to(header, {
       display: 'flex',
       opacity: 1,
+      transform: 'translateY(0)',
       visibility: 'visible',
       y: 0,
       duration: 0.5,
