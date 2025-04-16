@@ -23,5 +23,9 @@ Please complete the JDK set-up first.
 2. Run docker
 
    ```shell
+   docker run -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=custom -p 33066:3306 -d mysql:latest
+   ```
+
+   ```shell
    docker run -p 6820:6820 custom-service:latest
    ```
