@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
   // Lấy các phần tử hiệu ứng chuyển trang
-  const pageTransition = document.querySelector('.page-transition');
+  const pageTransition = document.querySelector('.page-transition-before');
   const transitionLogo = document.querySelector('.transition-logo');
   const transitionBackground = document.querySelector('.transition-background');
   const brandOverlay = document.querySelector('.brand-overlay');
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function () {
     transitionLogo.style.transform = 'translate(-50%, -50%)';
 
     const isMobile = window.innerWidth < 768;
-    
+
     if (isMobile) {
       // Trên điện thoại: không hiển thị transition-logo và không ẩn brand-overlay
       transitionLogo.style.opacity = '0';
@@ -84,6 +84,12 @@ document.addEventListener('DOMContentLoaded', function () {
       ease: 'power2.inOut'
     }, '-=0.3'); // Bắt đầu sớm hơn 0.3s
 
+    tl.to(header, {
+      opacity: 0,
+      duration: 0.2,
+      ease: 'power2.out'
+    }, '-=0.4');
+
     if (isMobile) {
       tl.to(transitionLogo, {
         opacity: 1,
@@ -103,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }, '-=0.9'); // 1 - 0.5 + (2 * 0.45) - 1.5 = -0.95
 
     tl.to(header, {
-      transform: 'translateY(70%)'
+      transform: 'translateY(95%)'
     });
 
     // 3. Logo di chuyển lên trên và thu nhỏ trong 1 giây
@@ -116,9 +122,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     tl.to(transitionLogo, {
       opacity: 0,
-      duration: 0.3,
+      duration: 0.2,
       ease: 'power2.inOut'
-    }, '-=0.3');
+    }, '-=0.5');
 
     tl.to(header, {
       display: 'flex',
@@ -126,16 +132,9 @@ document.addEventListener('DOMContentLoaded', function () {
       transform: 'translateY(0)',
       visibility: 'visible',
       y: 0,
-      duration: 0.5,
+      duration: 0.3,
       ease: 'power2.out'
-    }, '-=0.1');
-
-    // 4. Nội dung trang mới chạy từ dưới lên trong 1 giây
-    // tl.to(transitionContent, {
-    //   bottom: '0%',
-    //   duration: 1,
-    //   ease: 'power2.inOut'
-    // }, '-=0.3'); // Bắt đầu sớm hơn 0.3s
+    }, '-=0.3');
   }
 
   // Áp dụng sự kiện click cho tất cả các liên kết chuyển trang
