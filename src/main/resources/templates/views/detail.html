@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Charles & Keith - Túi đeo chéo phom chữ nhật Ivette Woven Front Flap</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Times New Roman", sans-serif;
+    }
+
+    body {
+      background-color: #f8f8f8;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      background-color: white;
+      border-bottom: 1px solid #eee;
+    }
+
+    .search-icon, .wishlist-icon, .cart-icon, .user-icon {
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-align: center;
+    }
+
+    .header-right {
+      display: flex;
+      gap: 15px;
+    }
+
+    .header-left {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+
+    .nav-items {
+      display: none;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: center;
+      padding: 10px 0;
+      background-color: white;
+      border-bottom: 1px solid #eee;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      margin: 5px 10px;
+      text-decoration: none;
+      color: #333;
+      font-size: 12px;
+    }
+
+    .breadcrumb {
+      padding: 10px 15px;
+      background-color: white;
+      font-size: 12px;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+
+    .breadcrumb a {
+      text-decoration: none;
+      color: #333;
+    }
+
+    .container {
+      width: 100%;
+      margin: 0 auto;
+      background-color: white;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-images {
+      display: flex;
+      width: 100%;
+      position: relative;
+    }
+
+    .product-thumbs {
+      width: 80px;
+      height: auto;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .thumb {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      object-fit: cover;
+      border: 1px solid #ddd;
+    }
+
+    .thumb.active {
+      border: 2px solid #000;
+    }
+
+    .main-image-container {
+      flex: 1;
+      position: relative;
+      height: 500px;
+      overflow: hidden;
+    }
+
+    .main-image-scroll {
+      position: relative;
+      width: 100%;
+      transition: transform 0.3s;
+    }
+
+    .main-image {
+      width: 100%;
+      display: block;
+      margin-bottom: 5px;
+      object-fit: contain;
+    }
+
+    .mobile-gallery-indicator {
+      display: none;
+      text-align: center;
+      margin: 10px 0;
+    }
+
+    .indicator-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #ddd;
+      margin: 0 5px;
+    }
+
+    .indicator-dot.active {
+      background-color: #333;
+    }
+
+    .product-info {
+      padding: 20px 10px;
+    }
+
+    .product-title {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .product-price {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+
+    .color-options {
+      margin-bottom: 20px;
+    }
+
+    .color-option {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 10px;
+      cursor: pointer;
+      border: 1px solid #ddd;
+    }
+
+    .color-option.black {
+      background-color: black;
+    }
+
+    .color-option.brown {
+      background-color: #a0522d;
+    }
+
+    .color-option.selected {
+      border: 2px solid #333;
+    }
+
+    .size-options {
+      margin-bottom: 20px;
+    }
+
+    .size-option {
+      padding: 5px 15px;
+      border: 1px solid #ddd;
+      display: inline-block;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+
+    .size-option.selected {
+      border: 1px solid #333;
+      background-color: #333;
+      color: white;
+    }
+
+    .add-to-cart {
+      background-color: #333;
+      color: white;
+      border: none;
+      padding: 15px 0;
+      width: 100%;
+      font-size: 16px;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+
+    .add-to-wishlist {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      margin-bottom: 30px;
+    }
+
+    .accordion {
+      margin-top: 20px;
+      border-top: 1px solid #ddd;
+    }
+
+    .accordion-item {
+      border-bottom: 1px solid #ddd;
+    }
+
+    .accordion-header {
+      padding: 15px 0;
+      display: flex;
+      justify-content: space-between;
+      cursor: pointer;
+    }
+
+    .accordion-content {
+      padding: 0 0 15px;
+      display: none;
+    }
+
+    .accordion-content.active {
+      display: block;
+    }
+
+    .accordion-content ul {
+      padding-left: 20px;
+    }
+
+    .accordion-content p {
+      margin-bottom: 8px;
+    }
+
+    .stock-info {
+      color: green;
+      margin-bottom: 20px;
+      display: block;
+      margin-top: 5px;
+    }
+
+    /* Media Queries for Responsive Design */
+    @media screen and (min-width: 768px) {
+      .header {
+        padding: 20px 40px;
+      }
+
+      .logo {
+        font-size: 24px;
+      }
+
+      .nav-items {
+        display: flex;
+        gap: 20px;
+      }
+
+      .nav a {
+        font-size: 14px;
+      }
+
+      .container {
+        flex-direction: row;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .product-images {
+        flex: 1;
+      }
+
+      .main-image-container {
+        height: 600px;
+      }
+
+      .product-info {
+        flex: 1;
+        padding: 0 40px;
+      }
+
+      .product-title {
+        font-size: 20px;
+      }
+
+      .product-price {
+        font-size: 18px;
+      }
+    }
+
+    /* Mobile styles */
+    @media screen and (max-width: 767px) {
+      .product-thumbs {
+        display: none;
+      }
+
+      .mobile-gallery-indicator {
+        display: block;
+      }
+
+      .main-image-container {
+        height: 400px;
+      }
+
+      .main-image {
+        height: 400px;
+      }
+
+      .container {
+        padding: 0;
+      }
+
+      .product-info {
+        padding: 20px 15px;
+      }
+    }
+
+    /* Tablet styles */
+    @media screen and (min-width: 768px) and (max-width: 1023px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .product-images {
+        flex-direction: row;
+        margin-bottom: 20px;
+      }
+
+      .product-info {
+        padding: 0 20px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="header">
+  <div class="header-left">
+    <div class="search-icon">🔍</div>
+    <div class="nav-items">
+      <span>SHOP</span>
+      <span>HÀNG MỚI</span>
+      <span>BÀI VIẾT</span>
+    </div>
+  </div>
+  <div class="logo">CHARLES & KEITH</div>
+  <div class="header-right">
+    <div class="wishlist-icon">❤</div>
+    <div class="cart-icon">🛒</div>
+    <div class="user-icon">👤</div>
+  </div>
+</div>
+
+<div class="nav">
+  <a href="#">Trang Chủ</a>
+  <a href="#">Túi</a>
+  <a href="#">Túi đeo vai</a>
+  <a href="#">Túi đeo chéo phom chữ nhật Ivette Woven Front Flap</a>
+</div>
+
+<div class="container">
+  <div class="product-images">
+    <div class="product-thumbs">
+      <img class="thumb active" src="/api/placeholder/80/80" alt="Túi xách đen 1" data-index="0">
+      <img class="thumb" src="/api/placeholder/80/80" alt="Túi xách đen 2" data-index="1">
+      <img class="thumb" src="/api/placeholder/80/80" alt="Túi xách đen 3" data-index="2">
+      <img class="thumb" src="/api/placeholder/80/80" alt="Túi xách đen 4" data-index="3">
+      <img class="thumb" src="/api/placeholder/80/80" alt="Túi xách đen 5" data-index="4">
+      <img class="thumb" src="/api/placeholder/80/80" alt="Túi xách đen 6" data-index="5">
+    </div>
+    <div class="main-image-container">
+      <div class="main-image-scroll">
+        <img class="main-image" src="/api/placeholder/500/500" alt="Túi xách đen 1">
+        <img class="main-image" src="/api/placeholder/500/500" alt="Túi xách đen 2">
+        <img class="main-image" src="/api/placeholder/500/500" alt="Túi xách đen 3">
+        <img class="main-image" src="/api/placeholder/500/500" alt="Túi xách đen 4">
+        <img class="main-image" src="/api/placeholder/500/500" alt="Túi xách đen 5">
+        <img class="main-image" src="/api/placeholder/500/500" alt="Túi xách đen 6">
+      </div>
+    </div>
+  </div>
+
+  <div class="mobile-gallery-indicator">
+    <span class="indicator-dot active" data-index="0"></span>
+    <span class="indica   tor-dot" data-index="1"></span>
+    <span class="indicator-dot" data-index="2"></span>
+    <span class="indicator-dot" data-index="3"></span>
+    <span class="indicator-dot" data-index="4"></span>
+    <span class="indicator-dot" data-index="5"></span>
+  </div>
+
+  <div class="product-info">
+    <h1 class="product-title">Túi đeo chéo phom chữ nhật Ivette Woven Front Flap - Noir</h1>
+    <div class="product-price">2,390,000 ₫</div>
+
+    <div>
+      <p>Màu sắc: Noir</p>
+      <div class="color-options">
+        <span class="color-option black selected"></span>
+        <span class="color-option brown"></span>
+      </div>
+    </div>
+
+    <div>
+      <p>Kích thước: M <span class="stock-info">ĐANG CÓ HÀNG</span></p>
+      <div class="size-options">
+        <span class="size-option selected">M</span>
+      </div>
+    </div>
+
+    <button class="add-to-cart">THÊM VÀO GIỎ HÀNG</button>
+
+    <div class="add-to-wishlist">
+      <span>❤</span>
+      <span>Thêm vào Danh sách yêu thích</span>
+    </div>
+
+    <div class="accordion">
+      <div class="accordion-item">
+        <div class="accordion-header">
+          <span>Lời nhắn từ biên tập</span>
+          <span class="accordion-icon">+</span>
+        </div>
+        <div class="accordion-content">
+          <p>Túi đeo chéo Ivette với thiết kế đan dạng quả trám độc đáo, tạo nên phong cách thời thượng và sang trọng. Chiếc túi này sẽ là người bạn đồng hành lý tưởng cho các buổi đi chơi, dạo phố hay gặp gỡ bạn bè.</p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header">
+          <span>Thông tin chi tiết Sản phẩm</span>
+          <span class="accordion-icon">+</span>
+        </div>
+        <div class="accordion-content">
+          <ul>
+            <li>Chất liệu: Da tổng hợp cao cấp</li>
+            <li>Kích thước: 20cm x 15cm x 6cm</li>
+            <li>Dây đeo có thể điều chỉnh</li>
+            <li>Đóng mở bằng nắp gập</li>
+            <li>Mặt trước đan hoạ tiết</li>
+            <li>1 ngăn chính và 2 ngăn nhỏ bên trong</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header">
+          <span>Khuyến mãi</span>
+          <span class="accordion-icon">+</span>
+        </div>
+        <div class="accordion-content">
+          <p>Giảm 10% cho đơn hàng từ 3,000,000₫</p>
+          <p>Miễn phí vận chuyển cho đơn hàng từ 1,500,000₫</p>
+          <p>Tặng kèm túi vải khi mua sản phẩm từ dòng Ivette</p>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header">
+          <span>Vận chuyển & trả hàng</span>
+          <span class="accordion-icon">+</span>
+        </div>
+        <div class="accordion-content">
+          <p>Thời gian giao hàng dự kiến: 2-5 ngày làm việc</p>
+          <p>Chính sách đổi trả: 30 ngày kể từ ngày nhận hàng</p>
+          <p>Điều kiện đổi trả: Sản phẩm còn nguyên tem mác, chưa qua sử dụng</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script th:inline="javascript">
+  document.addEventListener('DOMContentLoaded', function() {
+    // Xử lý hình ảnh
+    const thumbs = document.querySelectorAll('.thumb');
+    const mainImageScroll = document.querySelector('.main-image-scroll');
+    const mainImages = document.querySelectorAll('.main-image');
+    const mainImageContainer = document.querySelector('.main-image-container');
+    const indicators = document.querySelectorAll('.indicator-dot');
+    let isMobile = window.innerWidth < 768;
+
+    // Resize event để cập nhật giá trị isMobile
+    window.addEventListener('resize', function() {
+      isMobile = window.innerWidth < 768;
+      updateImageLayout();
+    });
+
+    // Thiết lập chiều cao cho container cuộn ảnh chính
+    function updateImageLayout() {
+      const imgHeight = isMobile ? 400 : 600;
+      mainImageScroll.style.height = (mainImages.length * imgHeight) + 'px';
+
+      mainImages.forEach(img => {
+        img.style.height = imgHeight + 'px';
+      });
+    }
+
+    updateImageLayout();
+
+    // Xử lý click vào ảnh thumbnail
+    thumbs.forEach(thumb => {
+      thumb.addEventListener('click', function() {
+        const index = parseInt(this.getAttribute('data-index'));
+        updateActiveImage(index);
+      });
+    });
+
+    // Xử lý click vào indicator dots (trên mobile)
+    indicators.forEach(indicator => {
+      indicator.addEventListener('click', function() {
+        const index = parseInt(this.getAttribute('data-index'));
+        updateActiveImage(index);
+      });
+    });
+
+    // Hàm cập nhật hình ảnh active
+    function updateActiveImage(index) {
+      // Cập nhật vị trí ảnh
+      const imgHeight = isMobile ? 400 : 600;
+      mainImageScroll.style.transform = `translateY(-${index * imgHeight}px)`;
+
+      // Cập nhật thumbnail active
+      thumbs.forEach(t => t.classList.remove('active'));
+      if (thumbs[index]) {
+        thumbs[index].classList.add('active');
+      }
+
+      // Cập nhật indicator dot active
+      indicators.forEach(i => i.classList.remove('active'));
+      if (indicators[index]) {
+        indicators[index].classList.add('active');
+      }
+
+      // Gán giá trị currentIndex
+      currentIndex = index;
+
+      // Đảm bảo thumbnail active luôn hiển thị trong vùng nhìn thấy
+      if (thumbs[index]) {
+        thumbs[index].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+
+    // Xử lý cuộn chuột trên ảnh chính
+    let currentIndex = 0;
+    mainImageContainer.addEventListener('wheel', function(e) {
+      e.preventDefault();
+
+      if (e.deltaY > 0 && currentIndex < mainImages.length - 1) {
+        // Cuộn xuống
+        currentIndex++;
+      } else if (e.deltaY < 0 && currentIndex > 0) {
+        // Cuộn lên
+        currentIndex--;
+      }
+
+      updateActiveImage(currentIndex);
+    });
+
+    // Xử lý vuốt trên điện thoại
+    let touchStartY = 0;
+    let touchEndY = 0;
+
+    mainImageContainer.addEventListener('touchstart', function(e) {
+      touchStartY = e.changedTouches[0].screenY;
+    }, false);
+
+    mainImageContainer.addEventListener('touchend', function(e) {
+      touchEndY = e.changedTouches[0].screenY;
+      handleSwipe();
+    }, false);
+
+    function handleSwipe() {
+      if (touchEndY < touchStartY && currentIndex < mainImages.length - 1) {
+        // Vuốt lên -> chuyển ảnh tiếp theo
+        currentIndex++;
+        updateActiveImage(currentIndex);
+      } else if (touchEndY > touchStartY && currentIndex > 0) {
+        // Vuốt xuống -> chuyển ảnh trước đó
+        currentIndex--;
+        updateActiveImage(currentIndex);
+      }
+    }
+
+    // Xử lý accordion
+    const accordionHeaders = document.querySelectorAll('.accordion-header');
+
+    accordionHeaders.forEach(header => {
+      header.addEventListener('click', function() {
+        const content = this.nextElementSibling;
+        const icon = this.querySelector('.accordion-icon');
+
+        // Toggle hiển thị nội dung
+        content.classList.toggle('active');
+
+        // Cập nhật icon
+        if (content.classList.contains('active')) {
+          icon.textContent = '-';
+        } else {
+          icon.textContent = '+';
+        }
+      });
+    });
+
+    // Xử lý chọn màu sắc
+    const colorOptions = document.querySelectorAll('.color-option');
+
+    colorOptions.forEach(option => {
+      option.addEventListener('click', function() {
+        colorOptions.forEach(o => o.classList.remove('selected'));
+        this.classList.add('selected');
+      });
+    });
+
+    // Xử lý chọn kích thước
+    const sizeOptions = document.querySelectorAll('.size-option');
+
+    sizeOptions.forEach(option => {
+      option.addEventListener('click', function() {
+        sizeOptions.forEach(o => o.classList.remove('selected'));
+        this.classList.add('selected');
+      });
+    });
+  });
+</script>
+</body>
+</html>

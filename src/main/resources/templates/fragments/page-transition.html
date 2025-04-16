@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <!-- Fragment cho hiệu ứng chuyển trang -->
+    <div th:fragment="page-transition-resources">
+        <!-- CSS cho hiệu ứng chuyển trang -->
+        <link rel="stylesheet" th:href="@{/css/page-transition.css}">
+        
+        <!-- JavaScript cho hiệu ứng chuyển trang -->
+        <script th:src="@{/js/page-transition.js}"></script>
+    </div>
+    
+    <!-- Fragment tùy chỉnh logo -->
+    <div th:fragment="page-transition-config(logoText, logoClass)">
+        <script th:inline="javascript">
+            document.addEventListener('DOMContentLoaded', function() {
+                // Tùy chỉnh nội dung và lớp CSS cho logo
+                window.PAGE_TRANSITION_CONFIG = {
+                    logoText: /*[[${logoText}]]*/ 'LOGO',
+                    logoClass: /*[[${logoClass}]]*/ ''
+                };
+                
+                // Override hàm tạo logo
+                const originalPerformPageTransition = window.performPageTransition;
+                window.performPageTransition = function(targetUrl) {
+                    // Thêm class transitioning vào body để ngăn cuộn trang
+                    document.body.classList.add('transitioning');
+                    
+                    // Tạo phần tử chứa hiệu ứng chuyển trang
+                    const transitionContainer = document.createElement('div');
+                    transitionContainer.className = 'page-transition active';
+                    
+                    // Tạo container cho logo
+                    const logoContainer = document.createElement('div');
+                    logoContainer.className = 'logo-container ' + (window.PAGE_TRANSITION_CONFIG.logoClass || '');
+                    logoContainer.textContent = window.PAGE_TRANSITION_CONFIG.logoText || 'LOGO';
+                    
+                    // Tạo background overlay
+                    const backgroundOverlay = document.createElement('div');
+                    backgroundOverlay.className = 'background-overlay';
+                    
+                    // Tạo container cho trang mới
+                    const newPageContainer = document.createElement('div');
+                    newPageContainer.className = 'new-page-container';
+                    
+                    // Thêm các phần tử vào DOM
+                    transitionContainer.appendChild(backgroundOverlay);
+                    transitionContainer.appendChild(logoContainer);
+                    transitionContainer.appendChild(newPageContainer);
+                    document.body.appendChild(transitionContainer);
+                    
+                    // Bắt đầu hiệu ứng: Logo phóng to
+                    setTimeout(() => {
+                        logoContainer.classList.add('stage-1');
+                        
+                        // Sau khi logo phóng to, bắt đầu chạy background từ dưới lên
+                        setTimeout(() => {
+                            backgroundOverlay.classList.add('active');
+                            
+                            // Khi background đi lên đến nửa màn hình (chạm vào logo), đổi màu logo
+                            setTimeout(() => {
+                                logoContainer.classList.add('stage-2');
+                                
+                                // Logo di chuyển lên trên đầu trang
+                                setTimeout(() => {
+                                    logoContainer.classList.add('stage-3');
+                                    
+                                    // Trang mới chạy từ dưới lên
+                                    setTimeout(() => {
+                                        // Tải nội dung trang mới
+                                        fetch(targetUrl)
+                                            .then(response => response.text())
+                                            .then(html => {
+                                                // Phân tích HTML nhận được
+                                                const parser = new DOMParser();
+                                                const doc = parser.parseFromString(html, 'text/html');
+                                                
+                                                // Chuẩn bị nội dung cho trang mới
+                                                newPageContainer.innerHTML = doc.body.innerHTML;
+                                                
+                                                // Hiển thị trang mới
+                                                newPageContainer.classList.add('active');
+                                                
+                                                // Sau khi hoàn tất hiệu ứng, chuyển hướng đến trang mới
+                                                setTimeout(() => {
+                                                    window.location.href = targetUrl;
+                                                }, 1000);
+                                            })
+                                            .catch(() => {
+                                                // Nếu có lỗi, chuyển hướng trực tiếp
+                                                window.location.href = targetUrl;
+                                            });
+                                    }, 100);
+                                }, 1000);
+                            }, 500);
+                        }, 1500);
+                    }, 100);
+                };
+            });
+        </script>
+    </div>
+</body>
+</html> 
