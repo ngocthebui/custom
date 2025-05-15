@@ -4,21 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lingbao</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+  <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500&display=swap"
+      rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/css/base.css}">
   <link rel="stylesheet" th:href="@{/css/home.css}">
+  <link rel="stylesheet" th:href="@{/css/fragments/header.css}">
+  <link rel="stylesheet" th:href="@{/css/fragments/hidingHeader.css}">
   <!--  Page Transition Styles-->
   <link rel="stylesheet" th:href="@{/css/homeTransition/pageTransitionBefore.css}">
-  <link rel="stylesheet" th:href="@{/css/header.css}">
-  <link rel="stylesheet" th:href="@{/css/hidingHeader.css}">
 
 </head>
 <body>
 <!-- Import Header -->
 <div th:replace="~{views/fragments/header :: header}"></div>
+
 <main class="main-content">
-  <div class="brand-overlay">
-    <h1 class="brand-name">Lingbao</h1>
-  </div>
+  <h1 class="brand-name">LINGBAO</h1>
 
   <section class="video-section">
     <div class="video-container">
@@ -29,7 +31,8 @@
     </div>
     <div class="section-content">
       <h2 class="section-title">Túi xách & Phụ kiện</h2>
-      <a th:href="@{/login}" class="shop-now-btn page-transition-link" th:data-href="@{/login}">Mua ngay</a>
+      <a th:href="@{/login}" class="shop-now-btn page-transition-link" th:data-href="@{/login}">Mua
+        ngay</a>
     </div>
     <div class="video-btn">⏸</div>
   </section>
@@ -50,25 +53,23 @@
     </div>
     <div class="section-content">
       <h2 class="section-title">Bộ sưu tập mới</h2>
-      <a th:href="@{/newPage}" class="shop-now-btn page-transition-link" th:data-href="@{/newPage}">Khám phá ngay</a>
+      <a th:href="@{/newPage}" class="shop-now-btn page-transition-link" th:data-href="@{/newPage}">Khám
+        phá ngay</a>
     </div>
   </section>
-
 </main>
+
+<div class="page-transition-before">
+  <div class="transition-logo">LINGBAO</div>
+  <div class="transition-background"></div>
+</div>
 
 <!-- Import Footer -->
 <div th:replace="~{views/fragments/footer :: footer}"></div>
 
-<!-- Page Transition Elements -->
-<!--<div class="page-transition">-->
-<!--  <div class="transition-logo">Lingbao</div>-->
-<!--  <div class="transition-background"></div>-->
-<!--  <div class="transition-content"></div>-->
-<!--</div>-->
-<div th:replace="~{views/homeTransition/pageTransitionBefore :: page-transition-before}"></div>
-
 <!-- Scripts -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script th:src="@{/js/home.js}"></script>
 <!--Page transition functionality-->

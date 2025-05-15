@@ -49,7 +49,7 @@ public class TestController {
         model.addAttribute("title", "A tribute to the assertive power of femininity");
         model.addAttribute("buttonText", "Discover");
 
-        return "views/viewPage"; // Name of your Thymeleaf template without extension
+        return "views/newPage"; // Name of your Thymeleaf template without extension
     }
 
 }
