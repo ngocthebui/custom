@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lingbao - Spring-Summer 2025</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Times New Roman', Times, serif;
+    }
+
+    body {
+      overflow: hidden;
+    }
+
+    .video-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    video {
+      min-width: 100%;
+      min-height: 100%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      object-fit: cover;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.3);
+      z-index: 0;
+    }
+
+    .content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: #fff;
+      z-index: 1;
+      width: 80%;
+    }
+
+    .season, .title, .discover-btn {
+      opacity: 0;
+      transform: translateY(50px);
+      animation: fadeInUp 1.5s forwards;
+    }
+
+    .title {
+      font-size: 40px;
+      margin-bottom: 30px;
+      line-height: 1.2;
+      animation-delay: 0.3s;
+    }
+
+    .season {
+      font-size: 18px;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+
+    .discover-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      border: 1px solid #fff;
+      color: #fff;
+      text-decoration: none;
+      font-size: 14px;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      animation-delay: 0.6s;
+    }
+
+    .discover-btn:hover {
+      background-color: #fff;
+      color: #000;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .title {
+        font-size: 32px;
+      }
+    }
+  </style>
+  <link rel="stylesheet" th:href="@{/css/header.css}">
+  <link rel="stylesheet" th:href="@{/css/homeTransition/pageTransitionAfter.css}">
+</head>
+<body>
+<div th:replace="~{views/fragments/header :: header}"></div>
+<!-- Video Background -->
+<div class="video-container">
+  <video autoplay loop muted th:src="@{/videos/lingbao-clip.mp4}">
+    Your browser does not support the video tag.
+  </video>
+  <div class="overlay"></div>
+</div>
+
+<!-- Main Content -->
+<div class="content">
+  <p class="season" th:text="${season}">Spring-Summer 2025</p>
+  <h1 class="title" th:text="${title}">A tribute to the assertive power of femininity</h1>
+  <a th:href="@{/newPage}" class="discover-btn page-transition-link " th:data-href="@{/newPage}" th:text="${buttonText}">Discover</a>
+</div>
+
+<div th:replace="~{views/homeTransition/pageTransitionAfter :: page-transition-after}"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script th:src="@{/js/homeTransition/pageTransitionAfter.js}"></script>
+</body>
+</html>

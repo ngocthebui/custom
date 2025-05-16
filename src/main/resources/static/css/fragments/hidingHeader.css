@@ -1,0 +1,5 @@
+@media screen and (min-width: 769px) {
+  .header {
+    display: none;  /* Ẩn header trên màn hình máy tính  */
+  }
+}

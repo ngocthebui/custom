@@ -1,0 +1,39 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.header {
+  display: flex;  /* Ẩn header trên màn hình lớn */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 10010;
+  background-color: transparent;
+}
+
+.menu-icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.logo {
+  font-size: 36px;
+  font-weight: bold;
+  color: #000000;
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+.search-icon {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}

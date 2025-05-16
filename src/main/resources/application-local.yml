@@ -5,9 +5,9 @@ spring:
   #mysql
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${MYSQL_URL:jdbc:mysql://localhost:33066/custom}
-    username: ${MYSQL_USERNAME:root}
-    password: ${MYSQL_PASSWORD:root}
+    url: ${MYSQL_URL:jdbc:mysql://localhost:3333/custom}
+    username: ${MYSQL_USERNAME:custom}
+    password: ${MYSQL_PASSWORD:custom}
 
     #connection pool
     hikari:

@@ -1,0 +1,42 @@
+.page-transition-before {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    pointer-events: none;
+    visibility: hidden;
+}
+
+.transition-logo {
+    visibility: hidden;
+    font-size: 80px;
+    font-weight: 700;
+    color: var(--white-color);
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10001;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.transition-background {
+    position: fixed;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    z-index: 10000;
+}
+
+/* Class cho các liên kết cần hiệu ứng chuyển trang */
+.page-transition-link {
+    transition: all 0.3s;
+}
