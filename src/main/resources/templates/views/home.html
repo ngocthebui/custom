@@ -24,8 +24,9 @@
 
   <section class="video-section">
     <div class="video-container">
-      <video id="promo-video" loop muted>
+      <video id="promo-video" playsinline preload="metadata" muted loop>
         <source th:src="@{/videos/lingbao-clip.mp4}" type="video/mp4">
+        Trình duyệt của bạn không hỗ trợ thẻ video.
       </video>
       <div class="overlay"></div>
     </div>
