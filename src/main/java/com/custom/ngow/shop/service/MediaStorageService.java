@@ -1,17 +1,17 @@
 package com.custom.ngow.shop.service;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.UUID;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @Slf4j
@@ -132,5 +132,45 @@ public class MediaStorageService {
      */
     public Path getVideoPath(String filename) {
         return this.videoStorageLocation.resolve(filename);
+    }
+
+    /**
+     * Xác định MediaType cho file ảnh
+     */
+    public MediaType getImageMediaType(String filename) {
+        String lowercaseFilename = filename.toLowerCase();
+        if (lowercaseFilename.endsWith(".jpg") || lowercaseFilename.endsWith(".jpeg")) {
+            return MediaType.IMAGE_JPEG;
+        } else if (lowercaseFilename.endsWith(".png")) {
+            return MediaType.IMAGE_PNG;
+        } else if (lowercaseFilename.endsWith(".gif")) {
+            return MediaType.IMAGE_GIF;
+        } else if (lowercaseFilename.endsWith(".webp")) {
+            return MediaType.valueOf("image/webp");
+        } else {
+            return MediaType.APPLICATION_OCTET_STREAM;
+        }
+    }
+
+    /**
+     * Xác định MediaType cho file video
+     */
+    public MediaType getVideoMediaType(String filename) {
+        String lowercaseFilename = filename.toLowerCase();
+        if (lowercaseFilename.endsWith(".mp4")) {
+            return MediaType.valueOf("video/mp4");
+        } else if (lowercaseFilename.endsWith(".webm")) {
+            return MediaType.valueOf("video/webm");
+        } else if (lowercaseFilename.endsWith(".avi")) {
+            return MediaType.valueOf("video/x-msvideo");
+        } else if (lowercaseFilename.endsWith(".mov")) {
+            return MediaType.valueOf("video/quicktime");
+        } else if (lowercaseFilename.endsWith(".wmv")) {
+            return MediaType.valueOf("video/x-ms-wmv");
+        } else if (lowercaseFilename.endsWith(".mkv")) {
+            return MediaType.valueOf("video/x-matroska");
+        } else {
+            return MediaType.APPLICATION_OCTET_STREAM;
+        }
     }
 }
