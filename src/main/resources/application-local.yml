@@ -28,6 +28,12 @@ spring:
         format_sql: true
         type: trace
 
+  #servlet
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
 logging:
   level:
     org:
@@ -45,3 +51,7 @@ mail:
 frontend:
   url: ${FRONTEND_URL:http://localhost:6820}
   verify_account_path: ${FRONTEND_VERIFY_PATH:/auth/active}
+
+media:
+  image-upload-dir: ./uploads/images
+  video-upload-dir: ./uploads/videos
