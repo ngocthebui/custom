@@ -1,8 +1,8 @@
 package com.custom.ngow.shop.page;
 
+import com.custom.ngow.shop.entity.HomeSlide;
+import com.custom.ngow.shop.service.HomeSlideService;
 import com.custom.ngow.shop.service.HomeVideoService;
-import com.custom.ngow.test.Product;
-import java.util.Arrays;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -16,16 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
 
     private final HomeVideoService homeVideoService;
+    private final HomeSlideService homeSlideService;
 
     @GetMapping
     public String home(Model model) {
-        List<Product> featuredProducts = Arrays.asList(
-                new Product(1L, "Túi xách thời trang nữ", 850000, "/images/lingbao1.jpg"),
-                new Product(2L, "Túi đeo chéo da thật", 1250000, "/images/lingbao2.jpg"),
-                new Product(3L, "Balo du lịch cao cấp", 1500000, "/images/lingbao3.jpg"),
-                new Product(4L, "Túi xách công sở", 950000, "/images/lingbao4.jpg"),
-                new Product(4L, "Túi xách du lịch", 950000, "/images/lingbao5.jpg")
-        );
+        List<HomeSlide> featuredProducts = homeSlideService.getActiveHomeSlides();
 
         model.addAttribute("newProducts", featuredProducts);
         model.addAttribute("homeVideo", homeVideoService.getActiveHomeVideo());

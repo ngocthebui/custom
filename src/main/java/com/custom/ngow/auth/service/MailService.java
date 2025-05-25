@@ -21,15 +21,12 @@ import org.springframework.stereotype.Service;
 public class MailService {
 
     private static final String TIME_OTP_EXPIRED = "5";
-
-    @Value("${frontend.url}")
-    private String frontendUrl;
-
-    @Value("${frontend.verify_account_path}")
-    private String verifyAccountPath;
-
     private final JavaMailSender mailSender;
     private final OtpService otpService;
+    @Value("${frontend.url}")
+    private String frontendUrl;
+    @Value("${frontend.verify_account_path}")
+    private String verifyAccountPath;
 
     private void sendMail(String toEmail, String subject, String content) {
         MimeMessage message = mailSender.createMimeMessage();
@@ -93,7 +90,7 @@ public class MailService {
         String template = getTemplateByClassPathResource(
                 "templates/verify_account_email_template.html");
 
-        template = template.replace("{{email}}" , toEmail);
+        template = template.replace("{{email}}", toEmail);
         template = template.replace("{{verification_link}}", url);
         template = template.replace("{{time}}", TIME_OTP_EXPIRED);
 

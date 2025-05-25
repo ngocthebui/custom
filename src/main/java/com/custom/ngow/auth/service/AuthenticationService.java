@@ -4,8 +4,6 @@ import com.custom.ngow.auth.constant.AccountStatus;
 import com.custom.ngow.auth.dto.request.AuthenticationRequest;
 import com.custom.ngow.auth.dto.response.AuthenticationResponse;
 import com.custom.ngow.auth.enity.Account;
-import com.custom.ngow.auth.enity.Otp;
-import com.custom.ngow.auth.repository.AccountRepository;
 import com.custom.ngow.common.constant.ErrorCode;
 import com.custom.ngow.common.exception.ForwardException;
 import com.nimbusds.jose.JOSEException;

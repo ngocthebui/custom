@@ -1,7 +1,7 @@
 package com.custom.ngow.shop.controller;
 
-import com.custom.ngow.shop.entity.HomeVideo;
-import com.custom.ngow.shop.service.HomeVideoService;
+import com.custom.ngow.shop.entity.HomeSlide;
+import com.custom.ngow.shop.service.HomeSlideService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,17 +12,20 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequestMapping("/api/home-video")
+@RequestMapping("/api/home-slide")
 @RequiredArgsConstructor
-public class HomeVideoController {
+public class HomeSlideController {
 
-    private final HomeVideoService homeVideoService;
+    private final HomeSlideService homeSlideService;
 
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<HomeVideo> uploadVideo(
+    public ResponseEntity<HomeSlide> uploadSlide(
             @RequestParam("video") MultipartFile file,
             @RequestParam("title") String title,
-            @RequestParam("description") String description) {
-        return ResponseEntity.ok(homeVideoService.createHomeVideo(file, title, description));
+            @RequestParam("description") String description,
+            @RequestParam("displayOrder") Integer displayOrder) {
+        return ResponseEntity.ok(
+                homeSlideService.createHomeSlide(file, title, description, displayOrder));
     }
+
 }
