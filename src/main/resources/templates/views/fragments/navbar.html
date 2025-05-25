@@ -4,17 +4,18 @@
   <meta charset="UTF-8">
 </head>
 <body>
-<nav th:fragment="navbar" class="custom-navbar py-2">
+<nav class="custom-navbar py-2" th:fragment="navbar">
   <div class="container">
     <ul class="nav justify-content-center">
       <li class="nav-item">
         <a class="nav-link active" href="/static">Trang chủ</a>
       </li>
       <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <a aria-expanded="false" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
+           id="navbarDropdown" role="button">
           Danh mục
         </a>
-        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <ul aria-labelledby="navbarDropdown" class="dropdown-menu">
           <li><a class="dropdown-item" href="/category/1">Túi xách nữ</a></li>
           <li><a class="dropdown-item" href="/category/2">Túi đeo chéo</a></li>
           <li><a class="dropdown-item" href="/category/3">Balo</a></li>

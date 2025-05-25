@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="vi">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <title>Lingbao</title>
   <link
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;500&display=swap"
@@ -24,14 +24,14 @@
 
   <section class="video-section">
     <div class="video-container">
-      <video id="promo-video" playsinline preload="metadata" muted loop>
-        <source th:src="@{${homeVideo.url}}" type="video/mp4" th:text="${homeVideo.title}">
+      <video id="promo-video" loop muted playsinline preload="metadata">
+        <source th:src="@{${homeVideo.url}}" th:text="${homeVideo.title}" type="video/mp4">
       </video>
       <div class="overlay"></div>
     </div>
     <div class="section-content">
       <h2 class="section-title">Túi xách & Phụ kiện</h2>
-      <a th:href="@{/login}" class="shop-now-btn page-transition-link" th:data-href="@{/login}">Mua
+      <a class="shop-now-btn page-transition-link" th:data-href="@{/login}" th:href="@{/login}">Mua
         ngay</a>
     </div>
     <div class="video-btn">⏸</div>
@@ -39,21 +39,21 @@
 
   <section class="slideshow-section">
     <div class="slideshow-container">
-      <div class="slide active" th:each="product, stat : ${newProducts}"
-           th:style="'background-image: url(' + @{${product.imageUrl}} + ');'"
-           th:classappend="${stat.first} ? 'active' : ''">
+      <div class="slide active" th:classappend="${stat.first} ? 'active' : ''"
+           th:each="product, stat : ${newProducts}"
+           th:style="'background-image: url(' + @{${product.url}} + ');'">
         <div class="overlay"></div>
       </div>
       <div class="slide-indicators">
-        <div class="indicator" th:each="product, stat : ${newProducts}"
-             th:classappend="${stat.first} ? 'active' : ''"
-             th:data-index="${stat.index}">
+        <div class="indicator" th:classappend="${stat.first} ? 'active' : ''"
+             th:data-index="${stat.index}"
+             th:each="product, stat : ${newProducts}">
         </div>
       </div>
     </div>
     <div class="section-content">
       <h2 class="section-title">Bộ sưu tập mới</h2>
-      <a th:href="@{/newPage}" class="shop-now-btn page-transition-link" th:data-href="@{/newPage}">Khám
+      <a class="shop-now-btn page-transition-link" th:data-href="@{/newPage}" th:href="@{/newPage}">Khám
         phá ngay</a>
     </div>
   </section>
