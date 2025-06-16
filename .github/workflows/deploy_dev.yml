@@ -59,6 +59,7 @@ jobs:
             -e MAIL_USERNAME=${{ secrets.MAIL_USERNAME }} \
             -e MAIL_PASSWORD=${{ secrets.MAIL_PASSWORD }} \
             -e FRONTEND_URL=${{ secrets.FRONTEND_URL }} \
-            -e FRONTEND_VERIFY_PATH=${{ secrets.FRONTEND_VERIFY_PATH }}
+            -e FRONTEND_VERIFY_PATH=${{ secrets.FRONTEND_VERIFY_PATH }} \
             --name ${{ secrets.CONTAINER_NAME }} \
-            -p 80:6820 ${{ secrets.DOCKER_USERNAME }}/${{ secrets.IMAGE_NAME }}:latest
+            -p 80:6820 \
+            ${{ secrets.DOCKER_USERNAME }}/${{ secrets.IMAGE_NAME }}:latest
