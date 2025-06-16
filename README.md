@@ -31,5 +31,10 @@ Please complete the JDK set-up first.
    ```
 
    ```shell
-   docker run -d -p 6820:6820 custom-service:latest
+   docker run -d --name ${{ secrets.CONTAINER_NAME }} \
+            -p 6820:6820 ${{ secrets.DOCKER_USERNAME }}/${{ secrets.IMAGE_NAME }}:latest \
+            -e ACTIVE_PROFILES=${{ secrets.ACTIVE_PROFILES }} \
+            -e MYSQL_URL=${{ secrets.MYSQL_URL }} \
+            -e MYSQL_USERNAME=${{ secrets.MYSQL_USERNAME }} \
+            -e MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }}
    ```
