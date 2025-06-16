@@ -40,3 +40,7 @@ mail:
 frontend:
   url: ${FRONTEND_URL}
   verify_account_path: ${FRONTEND_VERIFY_PATH}
+
+media:
+  image-upload-dir: ./uploads/images
+  video-upload-dir: ./uploads/videos
