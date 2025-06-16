@@ -50,8 +50,7 @@ jobs:
             docker rm ${{ secrets.CONTAINER_NAME }} || true
             
             # Step 8: Run container with new image
-            docker run -d --name ${{ secrets.CONTAINER_NAME }} \
-            -p 80:6820 ${{ secrets.DOCKER_USERNAME }}/${{ secrets.IMAGE_NAME }}:latest \
+            docker run -d \
             -e ACTIVE_PROFILES=${{ secrets.ACTIVE_PROFILES }} \
             -e MYSQL_URL=${{ secrets.MYSQL_URL }} \
             -e MYSQL_USERNAME=${{ secrets.MYSQL_USERNAME }} \
@@ -61,3 +60,5 @@ jobs:
             -e MAIL_PASSWORD=${{ secrets.MAIL_PASSWORD }} \
             -e FRONTEND_URL=${{ secrets.FRONTEND_URL }} \
             -e FRONTEND_VERIFY_PATH=${{ secrets.FRONTEND_VERIFY_PATH }}
+            --name ${{ secrets.CONTAINER_NAME }} \
+            -p 80:6820 ${{ secrets.DOCKER_USERNAME }}/${{ secrets.IMAGE_NAME }}:latest
