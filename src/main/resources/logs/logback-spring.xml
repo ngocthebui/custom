@@ -1,0 +1,16 @@
+<configuration>
+  <springProperty scope="context" name="springAppName" source="spring.application.name"/>
+  <appender name="consoleJsonAppender" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder class="net.logstash.logback.encoder.LogstashEncoder">
+      <jsonGeneratorDecorator class="net.logstash.logback.decorate.PrettyPrintingJsonGeneratorDecorator"/>
+      <fieldNames>
+        <message>message</message>
+        <levelValue>[ignore]</levelValue> </fieldNames>
+      <customFields>{"application":"${springAppName:-}"}</customFields>
+    </encoder>
+  </appender>
+
+  <root level="INFO">
+    <appender-ref ref="consoleJsonAppender" />
+  </root>
+</configuration>
