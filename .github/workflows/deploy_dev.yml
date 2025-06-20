@@ -65,8 +65,6 @@ jobs:
             -e MAIL_PASSWORD=${{ secrets.MAIL_PASSWORD }} \
             -e FRONTEND_URL=${{ secrets.FRONTEND_URL }} \
             -e FRONTEND_VERIFY_PATH=${{ secrets.FRONTEND_VERIFY_PATH }} \
-            --log-driver=gcplogs \
-            --log-opt gcp-project=${{ secrets.PROJECT_ID }} \
             --name ${{ secrets.CONTAINER_NAME }} \
             -p 80:6820 \
             ${{ secrets.DOCKER_USERNAME }}/${{ secrets.IMAGE_NAME }}:latest
