@@ -37,6 +37,7 @@ spring:
       max-request-size: 100MB
 
 logging:
+  config: classpath:logs/logback-spring.xml
   level:
     org:
       springframework:

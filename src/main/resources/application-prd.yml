@@ -24,10 +24,25 @@ spring:
   #jpa
   jpa:
     show-sql: true
+    hibernate:
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
         type: trace
+
+  #servlet
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+logging:
+  config: classpath:logs/logback-spring.xml
+  level:
+    org:
+      springframework:
+        web: INFO
 
 #variables
 jwt:
