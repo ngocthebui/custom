@@ -11,7 +11,7 @@
     <loggingEnhancer>com.google.cloud.logging.logback.TraceIdLoggingEnhancer</loggingEnhancer>
   </appender>
 
-  <root level="DEBUG">
+  <root level="INFO">
     <appender-ref ref="STDOUT"/>
   </root>
 

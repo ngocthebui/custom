@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
-import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.ext.ScriptUtils;
 import org.testcontainers.jdbc.JdbcDatabaseDelegate;
 import org.testcontainers.junit.jupiter.Container;
@@ -17,27 +17,27 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 public class TestContainersConfig {
 
     @Container
-    private static final MySQLContainer<?> mySQLContainer;
+    private static final PostgreSQLContainer<?> postgreSQLContainer;
 
     static {
-        mySQLContainer = new MySQLContainer<>("mysql:8.0.33")
+        postgreSQLContainer = new PostgreSQLContainer<>("postgres:15")
                 .withDatabaseName("custom")
-                .withUsername("root")
-                .withPassword("root")
+                .withUsername("postgres")
+                .withPassword("postgres")
                 .withStartupTimeout(Duration.ofMinutes(10L));
 
-        mySQLContainer.start();
+        postgreSQLContainer.start();
 
-        JdbcDatabaseDelegate containerDelegate = new JdbcDatabaseDelegate(mySQLContainer, "");
-        ScriptUtils.runInitScript(containerDelegate, "mysql/mysql_schema.sql");
-        ScriptUtils.runInitScript(containerDelegate, "mysql/mysql_data.sql");
+        JdbcDatabaseDelegate containerDelegate = new JdbcDatabaseDelegate(postgreSQLContainer, "");
+        ScriptUtils.runInitScript(containerDelegate, "postgresql/postgresql_schema.sql");
+        ScriptUtils.runInitScript(containerDelegate, "postgresql/postgresql_data.sql");
         log.info("Create databases test");
     }
 
     @DynamicPropertySource
     static void registerDynamicProperties(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", mySQLContainer::getJdbcUrl);
-        registry.add("spring.datasource.username", mySQLContainer::getUsername);
-        registry.add("spring.datasource.password", mySQLContainer::getPassword);
+        registry.add("spring.datasource.url", postgreSQLContainer::getJdbcUrl);
+        registry.add("spring.datasource.username", postgreSQLContainer::getUsername);
+        registry.add("spring.datasource.password", postgreSQLContainer::getPassword);
     }
 }
