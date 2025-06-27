@@ -50,44 +50,16 @@ public class MediaController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/images/{filename:.+}")
-    public ResponseEntity<Resource> serveImage(@PathVariable String filename) {
-        try {
-            Path imagePath = mediaStorageService.getImagePath(filename);
-            Resource resource = new UrlResource(imagePath.toUri());
-
-            if (resource.exists() && resource.isReadable()) {
-                return ResponseEntity.ok()
-                        .header(HttpHeaders.CONTENT_DISPOSITION,
-                                "inline; filename=\"" + resource.getFilename() + "\"")
-                        .contentType(mediaStorageService.getImageMediaType(filename))
-                        .body(resource);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        } catch (MalformedURLException e) {
-            return ResponseEntity.badRequest().build();
-        }
+    @GetMapping("/images/{filename}")
+    public ResponseEntity<String> getImageUrl(@PathVariable String filename) {
+        String imageUrl = mediaStorageService.getImageUrl(filename);
+        return ResponseEntity.ok(imageUrl);
     }
 
-    @GetMapping("/videos/{filename:.+}")
-    public ResponseEntity<Resource> serveVideo(@PathVariable String filename) {
-        try {
-            Path videoPath = mediaStorageService.getVideoPath(filename);
-            Resource resource = new UrlResource(videoPath.toUri());
-
-            if (resource.exists() && resource.isReadable()) {
-                return ResponseEntity.ok()
-                        .header(HttpHeaders.CONTENT_DISPOSITION,
-                                "inline; filename=\"" + resource.getFilename() + "\"")
-                        .contentType(mediaStorageService.getVideoMediaType(filename))
-                        .body(resource);
-            } else {
-                return ResponseEntity.notFound().build();
-            }
-        } catch (MalformedURLException e) {
-            return ResponseEntity.badRequest().build();
-        }
+    @GetMapping("/videos/{filename}")
+    public ResponseEntity<String> getVideoUrl(@PathVariable String filename) {
+        String videoUrl = mediaStorageService.getVideoUrl(filename);
+        return ResponseEntity.ok(videoUrl);
     }
 
 }

@@ -14,11 +14,15 @@ public class HomeVideoService {
     private final MediaStorageService mediaStorageService;
 
     public HomeVideo createHomeVideo(MultipartFile video, String title, String description) {
-        String storedVideoUrl = mediaStorageService.storeVideo(video);
+        // Lưu video lên S3 và lấy tên file
+        String storedVideoFilename = mediaStorageService.storeVideo(video);
+        
+        // Lấy URL đầy đủ từ S3
+        String videoUrl = mediaStorageService.getVideoUrl(storedVideoFilename);
 
         HomeVideo homeVideo = HomeVideo.builder()
                 .title(title)
-                .url("/api/media/videos/" + storedVideoUrl)
+                .url(videoUrl)  // Sử dụng URL đầy đủ từ S3
                 .description(description)
                 .isActive(true)
                 .build();

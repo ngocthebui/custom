@@ -1,66 +1,62 @@
 package com.custom.ngow.shop.service;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.util.Objects;
 import java.util.UUID;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.model.GetUrlRequest;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class MediaStorageService {
 
-    private final Path imageStorageLocation;
-    private final Path videoStorageLocation;
+    private final S3Client s3Client;
 
-    public MediaStorageService(
-            @Value("${media.image-upload-dir:./uploads/images}") String imageUploadDir,
-            @Value("${media.video-upload-dir:./uploads/videos}") String videoUploadDir) {
+    @Value("${aws.s3.bucket-name}")
+    private String bucketName;
 
-        this.imageStorageLocation = Paths.get(imageUploadDir)
-                .toAbsolutePath().normalize();
-        this.videoStorageLocation = Paths.get(videoUploadDir)
-                .toAbsolutePath().normalize();
+    @Value("${aws.s3.image-folder}")
+    private String imageFolder;
 
-        try {
-            Files.createDirectories(this.imageStorageLocation);
-            Files.createDirectories(this.videoStorageLocation);
-            log.info("Đã tạo thư mục lưu trữ ảnh tại: {}", this.imageStorageLocation);
-            log.info("Đã tạo thư mục lưu trữ video tại: {}", this.videoStorageLocation);
-        } catch (IOException ex) {
-            throw new RuntimeException("Không thể tạo thư mục để lưu trữ tệp media.", ex);
-        }
-    }
+    @Value("${aws.s3.video-folder}")
+    private String videoFolder;
+
+    @Value("${aws.s3.cdn-url}")
+    private String cdnUrl;
 
     /**
-     * Lưu trữ ảnh vào thư mục local
+     * Lưu trữ ảnh lên S3
      */
     public String storeImage(MultipartFile file) {
-        return storeFile(file, this.imageStorageLocation, true);
+        return storeFileToS3(file, imageFolder, true);
     }
 
     /**
-     * Lưu trữ video vào thư mục local
+     * Lưu trữ video lên S3
      */
     public String storeVideo(MultipartFile file) {
-        return storeFile(file, this.videoStorageLocation, false);
+        return storeFileToS3(file, videoFolder, false);
     }
 
-    private String storeFile(MultipartFile file, Path storageLocation, boolean isImage) {
+    private String storeFileToS3(MultipartFile file, String folder, boolean isImage) {
         // Kiểm tra file không rỗng
         if (file.isEmpty()) {
             throw new RuntimeException("Không thể lưu trữ tệp rỗng");
         }
 
         // Lấy tên file gốc và làm sạch
-        String originalFilename = StringUtils.cleanPath(file.getOriginalFilename());
+        String originalFilename = StringUtils.cleanPath(
+            Objects.requireNonNull(file.getOriginalFilename()));
 
         // Kiểm tra định dạng file
         if (isImage) {
@@ -74,16 +70,33 @@ public class MediaStorageService {
             String fileExtension = getFileExtension(originalFilename);
             String newFilename = UUID.randomUUID() + fileExtension;
 
-            // Tạo đường dẫn đầy đủ để lưu file
-            Path targetLocation = storageLocation.resolve(newFilename);
+            // Tạo key cho S3 (bao gồm folder)
+            String s3Key = folder + newFilename;
 
-            // Sao chép file vào vị trí đích
-            Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+            // Xác định content type
+            String contentType = isImage ?
+                getImageContentType(originalFilename) :
+                getVideoContentType(originalFilename);
 
-            log.info("Đã lưu tệp {} thành công tại: {}", isImage ? "ảnh" : "video", targetLocation);
+            // Tạo request để upload lên S3
+            PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+                    .bucket(bucketName)
+                    .key(s3Key)
+                    .contentType(contentType)
+                    .contentLength(file.getSize())
+                    .build();
+
+            // Upload file lên S3
+            s3Client.putObject(putObjectRequest,
+                    RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
+
+            log.info("Đã upload {} thành công lên S3 với key: {}",
+                    isImage ? "ảnh" : "video", s3Key);
+
             return newFilename;
+
         } catch (IOException ex) {
-            throw new RuntimeException("Không thể lưu tệp " + originalFilename, ex);
+            throw new RuntimeException("Không thể upload tệp " + originalFilename + " lên S3", ex);
         }
     }
 
@@ -121,21 +134,61 @@ public class MediaStorageService {
     }
 
     /**
-     * Lấy đường dẫn tệp ảnh theo tên tệp
+     * Lấy URL đầy đủ của ảnh từ S3
      */
-    public Path getImagePath(String filename) {
-        return this.imageStorageLocation.resolve(filename);
+    public String getImageUrl(String filename) {
+        return cdnUrl + imageFolder + filename;
     }
 
     /**
-     * Lấy đường dẫn tệp video theo tên tệp
+     * Lấy URL đầy đủ của video từ S3
      */
-    public Path getVideoPath(String filename) {
-        return this.videoStorageLocation.resolve(filename);
+    public String getVideoUrl(String filename) {
+        return cdnUrl + videoFolder + filename;
     }
 
     /**
-     * Xác định MediaType cho file ảnh
+     * Xác định content type cho file ảnh
+     */
+    private String getImageContentType(String filename) {
+        String lowercaseFilename = filename.toLowerCase();
+        if (lowercaseFilename.endsWith(".jpg") || lowercaseFilename.endsWith(".jpeg")) {
+            return "image/jpeg";
+        } else if (lowercaseFilename.endsWith(".png")) {
+            return "image/png";
+        } else if (lowercaseFilename.endsWith(".gif")) {
+            return "image/gif";
+        } else if (lowercaseFilename.endsWith(".webp")) {
+            return "image/webp";
+        } else {
+            return "application/octet-stream";
+        }
+    }
+
+    /**
+     * Xác định content type cho file video
+     */
+    private String getVideoContentType(String filename) {
+        String lowercaseFilename = filename.toLowerCase();
+        if (lowercaseFilename.endsWith(".mp4")) {
+            return "video/mp4";
+        } else if (lowercaseFilename.endsWith(".webm")) {
+            return "video/webm";
+        } else if (lowercaseFilename.endsWith(".avi")) {
+            return "video/x-msvideo";
+        } else if (lowercaseFilename.endsWith(".mov")) {
+            return "video/quicktime";
+        } else if (lowercaseFilename.endsWith(".wmv")) {
+            return "video/x-ms-wmv";
+        } else if (lowercaseFilename.endsWith(".mkv")) {
+            return "video/x-matroska";
+        } else {
+            return "application/octet-stream";
+        }
+    }
+
+    /**
+     * Xác định MediaType cho file ảnh (giữ lại để backward compatibility)
      */
     public MediaType getImageMediaType(String filename) {
         String lowercaseFilename = filename.toLowerCase();
@@ -153,7 +206,7 @@ public class MediaStorageService {
     }
 
     /**
-     * Xác định MediaType cho file video
+     * Xác định MediaType cho file video (giữ lại để backward compatibility)
      */
     public MediaType getVideoMediaType(String filename) {
         String lowercaseFilename = filename.toLowerCase();

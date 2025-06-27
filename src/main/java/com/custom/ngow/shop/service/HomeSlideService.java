@@ -16,11 +16,15 @@ public class HomeSlideService {
 
     public HomeSlide createHomeSlide(MultipartFile slide, String title, String description,
             Integer displayOrder) {
-        String storedSlideUrl = mediaStorageService.storeImage(slide);
+        // Lưu ảnh lên S3 và lấy tên file
+        String storedSlideFilename = mediaStorageService.storeImage(slide);
+        
+        // Lấy URL đầy đủ từ S3
+        String slideUrl = mediaStorageService.getImageUrl(storedSlideFilename);
 
         HomeSlide homeSlide = HomeSlide.builder()
                 .title(title)
-                .url("/api/media/images/" + storedSlideUrl)
+                .url(slideUrl)  // Sử dụng URL đầy đủ từ S3
                 .description(description)
                 .isActive(true)
                 .displayOrder(displayOrder)
@@ -32,5 +36,4 @@ public class HomeSlideService {
     public List<HomeSlide> getActiveHomeSlides() {
         return homeSlideRepository.findAllByIsActiveTrueOrderByDisplayOrderAsc();
     }
-
 }
