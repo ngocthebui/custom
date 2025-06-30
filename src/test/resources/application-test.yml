@@ -2,15 +2,45 @@ server:
   port: 6820
 
 spring:
+  #postgresql
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:54321/custom}
+    username: ${POSTGRES_USERNAME:custom}
+    password: ${POSTGRES_PASSWORD:custom}
+
+    #connection pool
+    hikari:
+      pool-name: AppHikariCP
+      maximum-pool-size: 20
+      minimum-idle: 5
+      idle-timeout: 30000
+      max-lifetime: 1800000
+      connection-timeout: 20000
+      auto-commit: true
+      validation-timeout: 5000
+      connection-test-query: SELECT 1
+
   #jpa
   jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
+    hibernate:
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
         type: trace
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  #servlet
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
 
 logging:
+  config: classpath:logs/logback-spring.xml
   level:
     org:
       springframework:
@@ -18,12 +48,27 @@ logging:
 
 #variables
 jwt:
-  signer_key: gv39I0MSQOp75qfmT7fdR+YmJPenVOfhOZg07HtQJ0zv/mhUv5mnlf+dyhEvEpJZ
+  signer_key: ${JWT_SIGNER_KEY:gv39I0MSQOp75qfmT7fdR+YmJPenVOfhOZg07HtQJ0zv/mhUv5mnlf+dyhEvEpJZ}
 
 mail:
-  username: ngocthe.affiliate@gmail.com
-  password: xgsofpbrlhacsvsx
+  username: ${MAIL_USERNAME:ngocthe.affiliate@gmail.com}
+  password: ${MAIL_PASSWORD:xgsofpbrlhacsvsx}
 
 frontend:
-  url: http://localhost:6820
-  verify_account_path: /auth/active
+  url: ${FRONTEND_URL:http://localhost:6820}
+  verify_account_path: ${FRONTEND_VERIFY_PATH:/auth/active}
+
+media:
+  image-upload-dir: ./uploads/images
+  video-upload-dir: ./uploads/videos
+
+aws:
+  s3:
+    bucket-name: ngow-shop
+    region: ap-southeast-1
+    access-key: ${AWS_ACCESS_KEY_ID:ae16473c03f2e04cad79f381d62490f6}
+    secret-key: ${AWS_SECRET_ACCESS_KEY:24065966c774f591ba3d63c5b6cd85dc7f83622e2e7bcddc1ee6a17ef52b503b}
+    image-folder: uploads/images/
+    video-folder: uploads/videos/
+    cdn-url: https://cpmbiildtwwdramvyeaf.supabase.co/storage/v1/s3
+    public-url: https://cpmbiildtwwdramvyeaf.supabase.co/storage/v1/object/public
