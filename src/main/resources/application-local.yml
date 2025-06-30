@@ -66,8 +66,9 @@ aws:
   s3:
     bucket-name: ngow-shop
     region: ap-southeast-1
-    access-key: ${AWS_ACCESS_KEY_ID:9f56ead5a1159fc16a112a73189846ee}
-    secret-key: ${AWS_SECRET_ACCESS_KEY:5343bb96bb241fe9eb936cd218f5fce64d96c279aa8ccef58496365f2c3eac54}
+    access-key: ${AWS_ACCESS_KEY_ID:ae16473c03f2e04cad79f381d62490f6}
+    secret-key: ${AWS_SECRET_ACCESS_KEY:24065966c774f591ba3d63c5b6cd85dc7f83622e2e7bcddc1ee6a17ef52b503b}
     image-folder: uploads/images/
     video-folder: uploads/videos/
     cdn-url: https://cpmbiildtwwdramvyeaf.supabase.co/storage/v1/s3
+    public-url: https://cpmbiildtwwdramvyeaf.supabase.co/storage/v1/object/public

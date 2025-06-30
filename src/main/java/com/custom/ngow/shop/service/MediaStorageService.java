@@ -33,6 +33,9 @@ public class MediaStorageService {
   @Value("${aws.s3.cdn-url}")
   private String cdnUrl;
 
+  @Value("${aws.s3.public-url}")
+  private String publicUrl;
+
   /**
    * Lưu trữ ảnh lên S3
    */
@@ -136,14 +139,18 @@ public class MediaStorageService {
    * Lấy URL đầy đủ của ảnh từ S3
    */
   public String getImageUrl(String filename) {
-    return cdnUrl + imageFolder + filename;
+    return getFileUrl(imageFolder, filename);
   }
 
   /**
    * Lấy URL đầy đủ của video từ S3
    */
   public String getVideoUrl(String filename) {
-    return cdnUrl + videoFolder + filename;
+    return getFileUrl(videoFolder, filename);
+  }
+
+  private String getFileUrl(String folder, String filename) {
+    return publicUrl + "/" + bucketName + "/" + folder + filename;
   }
 
   /**
