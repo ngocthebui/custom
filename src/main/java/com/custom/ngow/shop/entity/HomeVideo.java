@@ -22,18 +22,18 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class HomeVideo {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  Long id;
 
-    @Column(nullable = false)
-    String title;
+  @Column(nullable = false)
+  String title;
 
-    @Column(nullable = false)
-    String url;
+  @Column(nullable = false)
+  String url;
 
-    Boolean isActive = false;
+  Boolean isActive = false;
 
-    String description;
+  String description;
 
 }

@@ -28,66 +28,66 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthenticationService {
 
-    private final AccountService accountService;
-    private final PasswordEncoder passwordEncoder;
-    private final MailService mailService;
-    private final OtpService otpService;
+  private final AccountService accountService;
+  private final PasswordEncoder passwordEncoder;
+  private final MailService mailService;
+  private final OtpService otpService;
 
-    @Value("${jwt.signer_key}")
-    private String signerKey;
+  @Value("${jwt.signer_key}")
+  private String signerKey;
 
-    public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        Account account = accountService.getByUsername(request.getUsername());
+  public AuthenticationResponse authenticate(AuthenticationRequest request) {
+    Account account = accountService.getByUsername(request.getUsername());
 
-        boolean authenticated = passwordEncoder.matches(request.getPassword(),
-                account.getPassword());
+    boolean authenticated = passwordEncoder.matches(request.getPassword(),
+        account.getPassword());
 
-        if (!authenticated) {
-            throw new ForwardException(ErrorCode.E401100, "Your password is not correct");
-        }
-
-        if (!StringUtils.equals(account.getStatus(), AccountStatus.ACTIVE.name())) {
-            if (StringUtils.equals(account.getStatus(), AccountStatus.WAITING.name())) {
-                mailService.sendActiveAccount(account.getUsername(), account.getEmail());
-            }
-            throw new ForwardException(ErrorCode.E403100, "Your account is " + account.getStatus());
-        }
-
-        String token = generateToken(account);
-
-        return AuthenticationResponse.builder()
-                .token(token)
-                .build();
+    if (!authenticated) {
+      throw new ForwardException(ErrorCode.E401100, "Your password is not correct");
     }
 
-    private String generateToken(Account account) {
-        JWSHeader header = new JWSHeader(JWSAlgorithm.HS512);
-
-        JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
-                .subject(account.getUsername())
-                .issuer("nthe.bui@gmail.com")
-                .issueTime(new Date())
-                .expirationTime(new Date(Instant.now().plus(1, ChronoUnit.HOURS).toEpochMilli()))
-                .claim("scope", account.getRole())
-                .build();
-
-        Payload payload = new Payload(jwtClaimsSet.toJSONObject());
-
-        JWSObject jwsObject = new JWSObject(header, payload);
-
-        try {
-            jwsObject.sign(new MACSigner(signerKey.getBytes()));
-            return jwsObject.serialize();
-        } catch (JOSEException e) {
-            throw new ForwardException(ErrorCode.E500100, "Can not generate Token");
-        }
+    if (!StringUtils.equals(account.getStatus(), AccountStatus.ACTIVE.name())) {
+      if (StringUtils.equals(account.getStatus(), AccountStatus.WAITING.name())) {
+        mailService.sendActiveAccount(account.getUsername(), account.getEmail());
+      }
+      throw new ForwardException(ErrorCode.E403100, "Your account is " + account.getStatus());
     }
 
-    public void activeAccount(String username, String otp) {
-        Account account = accountService.getByUsername(username);
+    String token = generateToken(account);
 
-        otpService.validOTP(account.getEmail(), otp);
+    return AuthenticationResponse.builder()
+        .token(token)
+        .build();
+  }
 
-        accountService.updateStatus(account, AccountStatus.ACTIVE);
+  private String generateToken(Account account) {
+    JWSHeader header = new JWSHeader(JWSAlgorithm.HS512);
+
+    JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
+        .subject(account.getUsername())
+        .issuer("nthe.bui@gmail.com")
+        .issueTime(new Date())
+        .expirationTime(new Date(Instant.now().plus(1, ChronoUnit.HOURS).toEpochMilli()))
+        .claim("scope", account.getRole())
+        .build();
+
+    Payload payload = new Payload(jwtClaimsSet.toJSONObject());
+
+    JWSObject jwsObject = new JWSObject(header, payload);
+
+    try {
+      jwsObject.sign(new MACSigner(signerKey.getBytes()));
+      return jwsObject.serialize();
+    } catch (JOSEException e) {
+      throw new ForwardException(ErrorCode.E500100, "Can not generate Token");
     }
+  }
+
+  public void activeAccount(String username, String otp) {
+    Account account = accountService.getByUsername(username);
+
+    otpService.validOTP(account.getEmail(), otp);
+
+    accountService.updateStatus(account, AccountStatus.ACTIVE);
+  }
 }

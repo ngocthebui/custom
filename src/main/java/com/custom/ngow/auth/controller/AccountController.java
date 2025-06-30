@@ -26,54 +26,54 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AccountController {
 
-    private final AccountService accountService;
-    private final ModelMapper modelMapper;
+  private final AccountService accountService;
+  private final ModelMapper modelMapper;
 
-    @PostMapping("/create")
-    public ResponseEntity<AccountResponse> createAccount(
-            @RequestBody @Valid AccountRequest accountRequest) {
-        AccountResponse response = modelMapper
-                .map(accountService.createNewAccount(accountRequest), AccountResponse.class);
-        return ResponseEntity.ok().body(response);
-    }
+  @PostMapping("/create")
+  public ResponseEntity<AccountResponse> createAccount(
+      @RequestBody @Valid AccountRequest accountRequest) {
+    AccountResponse response = modelMapper
+        .map(accountService.createNewAccount(accountRequest), AccountResponse.class);
+    return ResponseEntity.ok().body(response);
+  }
 
-    @GetMapping("/{aid}")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<AccountResponse> getAccount(@PathVariable("aid") Long aid) {
-        AccountResponse response = modelMapper.map(accountService.getByAid(aid),
-                AccountResponse.class);
-        return ResponseEntity.ok().body(response);
-    }
+  @GetMapping("/{aid}")
+  @PreAuthorize("hasRole('ADMIN')")
+  public ResponseEntity<AccountResponse> getAccount(@PathVariable("aid") Long aid) {
+    AccountResponse response = modelMapper.map(accountService.getByAid(aid),
+        AccountResponse.class);
+    return ResponseEntity.ok().body(response);
+  }
 
-    @DeleteMapping("/{aid}")
-    public ResponseEntity<AccountResponse> softDeleteAccount(@PathVariable("aid") Long aid) {
-        AccountResponse response = modelMapper
-                .map(accountService.softDeleteByAid(aid), AccountResponse.class);
-        return ResponseEntity.ok().body(response);
-    }
+  @DeleteMapping("/{aid}")
+  public ResponseEntity<AccountResponse> softDeleteAccount(@PathVariable("aid") Long aid) {
+    AccountResponse response = modelMapper
+        .map(accountService.softDeleteByAid(aid), AccountResponse.class);
+    return ResponseEntity.ok().body(response);
+  }
 
-    @PutMapping("/{aid}/update")
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<AccountResponse> updateAccountStatus(@PathVariable("aid") Long aid,
-            @RequestParam String status) {
-        AccountResponse response = modelMapper
-                .map(accountService.updateStatusByAid(aid, status), AccountResponse.class);
-        return ResponseEntity.ok().body(response);
-    }
+  @PutMapping("/{aid}/update")
+  @PreAuthorize("hasRole('ADMIN')")
+  public ResponseEntity<AccountResponse> updateAccountStatus(@PathVariable("aid") Long aid,
+      @RequestParam String status) {
+    AccountResponse response = modelMapper
+        .map(accountService.updateStatusByAid(aid, status), AccountResponse.class);
+    return ResponseEntity.ok().body(response);
+  }
 
-    @GetMapping()
-    @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<AccountResponse>> getAll() {
-        List<AccountResponse> response = accountService.getAllAccounts()
-                .stream().map(account -> modelMapper.map(account, AccountResponse.class)).toList();
-        return ResponseEntity.ok().body(response);
-    }
+  @GetMapping()
+  @PreAuthorize("hasRole('ADMIN')")
+  public ResponseEntity<List<AccountResponse>> getAll() {
+    List<AccountResponse> response = accountService.getAllAccounts()
+        .stream().map(account -> modelMapper.map(account, AccountResponse.class)).toList();
+    return ResponseEntity.ok().body(response);
+  }
 
-    @GetMapping("/myInfo")
-    public ResponseEntity<AccountResponse> getMyInfo() {
-        AccountResponse response = modelMapper.map(accountService.getMyInfo(),
-                AccountResponse.class);
-        return ResponseEntity.ok().body(response);
-    }
+  @GetMapping("/myInfo")
+  public ResponseEntity<AccountResponse> getMyInfo() {
+    AccountResponse response = modelMapper.map(accountService.getMyInfo(),
+        AccountResponse.class);
+    return ResponseEntity.ok().body(response);
+  }
 
 }

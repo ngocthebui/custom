@@ -15,16 +15,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class HomeController {
 
-    private final HomeVideoService homeVideoService;
-    private final HomeSlideService homeSlideService;
+  private final HomeVideoService homeVideoService;
+  private final HomeSlideService homeSlideService;
 
-    @GetMapping
-    public String home(Model model) {
-        List<HomeSlide> featuredProducts = homeSlideService.getActiveHomeSlides();
+  @GetMapping
+  public String home(Model model) {
+    List<HomeSlide> featuredProducts = homeSlideService.getActiveHomeSlides();
 
-        model.addAttribute("newProducts", featuredProducts);
-        model.addAttribute("homeVideo", homeVideoService.getActiveHomeVideo());
-        return "views/home";
-    }
+    model.addAttribute("newProducts", featuredProducts);
+    model.addAttribute("homeVideo", homeVideoService.getActiveHomeVideo());
+    return "views/home";
+  }
 
 }

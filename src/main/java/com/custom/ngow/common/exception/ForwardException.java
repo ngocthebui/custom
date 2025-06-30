@@ -8,16 +8,16 @@ import lombok.Setter;
 @Setter
 public class ForwardException extends RuntimeException {
 
-    private final ErrorCode errorCode;
+  private final ErrorCode errorCode;
 
-    public ForwardException(ErrorCode errorCode) {
-        super(errorCode.getMessage());
-        this.errorCode = errorCode;
-    }
+  public ForwardException(ErrorCode errorCode) {
+    super(errorCode.getMessage());
+    this.errorCode = errorCode;
+  }
 
-    public ForwardException(ErrorCode errorCode, String message) {
-        super(message);
-        this.errorCode = errorCode;
-    }
+  public ForwardException(ErrorCode errorCode, String message) {
+    super(message);
+    this.errorCode = errorCode;
+  }
 
 }

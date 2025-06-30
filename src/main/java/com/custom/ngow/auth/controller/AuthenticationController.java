@@ -23,36 +23,36 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthenticationController {
 
-    private final AuthenticationService authenticationService;
-    private final MailService mailService;
-    private final OtpService otpService;
+  private final AuthenticationService authenticationService;
+  private final MailService mailService;
+  private final OtpService otpService;
 
-    @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> authenticate(
-            @RequestBody AuthenticationRequest request) {
-        return ResponseEntity.ok(authenticationService.authenticate(request));
-    }
+  @PostMapping("/login")
+  public ResponseEntity<AuthenticationResponse> authenticate(
+      @RequestBody AuthenticationRequest request) {
+    return ResponseEntity.ok(authenticationService.authenticate(request));
+  }
 
-    @PostMapping("/otp/send")
-    public ResponseEntity<String> sendOTP(
-            @RequestParam @Pattern(regexp = Regex.EMAIL) String email) {
-        mailService.sendOtp(email);
-        return ResponseEntity.ok("OTP sent to " + email);
-    }
+  @PostMapping("/otp/send")
+  public ResponseEntity<String> sendOTP(
+      @RequestParam @Pattern(regexp = Regex.EMAIL) String email) {
+    mailService.sendOtp(email);
+    return ResponseEntity.ok("OTP sent to " + email);
+  }
 
-    @PostMapping("/otp/verify")
-    public ResponseEntity<String> verifyOTP(
-            @RequestParam @Pattern(regexp = Regex.EMAIL) String email,
-            @RequestParam String otp) {
-        otpService.validOTP(email, otp);
-        return ResponseEntity.ok("OTP is valid");
-    }
+  @PostMapping("/otp/verify")
+  public ResponseEntity<String> verifyOTP(
+      @RequestParam @Pattern(regexp = Regex.EMAIL) String email,
+      @RequestParam String otp) {
+    otpService.validOTP(email, otp);
+    return ResponseEntity.ok("OTP is valid");
+  }
 
-    @PostMapping("/active/{username}")
-    public ResponseEntity<String> verifyAccount(
-            @PathVariable("username") @Pattern(regexp = Regex.USERNAME) String username,
-            @RequestParam String otp) {
-        authenticationService.activeAccount(username, otp);
-        return ResponseEntity.ok("Verify account: " + username);
-    }
+  @PostMapping("/active/{username}")
+  public ResponseEntity<String> verifyAccount(
+      @PathVariable("username") @Pattern(regexp = Regex.USERNAME) String username,
+      @RequestParam String otp) {
+    authenticationService.activeAccount(username, otp);
+    return ResponseEntity.ok("Verify account: " + username);
+  }
 }

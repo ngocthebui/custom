@@ -15,10 +15,10 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AccountResponse {
 
-    String email;
-    String username;
-    String role;
-    String status;
-    Timestamp createdAt;
-    Timestamp updatedAt;
+  String email;
+  String username;
+  String role;
+  String status;
+  Timestamp createdAt;
+  Timestamp updatedAt;
 }

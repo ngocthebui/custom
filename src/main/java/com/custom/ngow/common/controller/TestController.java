@@ -10,7 +10,8 @@ public class TestController {
 
   @GetMapping("/test-error")
   public String testError() {
-    log.error("This is a test error log to check alerting.", new RuntimeException("Test Exception Details"));
+    log.error("This is a test error log to check alerting.",
+        new RuntimeException("Test Exception Details"));
     return "Test error log has been generated!";
   }
 }

@@ -22,17 +22,17 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Otp {
 
-    @Id
-    @NotNull
-    String email;
+  @Id
+  @NotNull
+  String email;
 
-    @NotNull
-    String otp;
+  @NotNull
+  String otp;
 
-    @NotNull
-    long expiredTime;
+  @NotNull
+  long expiredTime;
 
-    @NotNull
-    boolean isActive;
+  @NotNull
+  boolean isActive;
 
 }
