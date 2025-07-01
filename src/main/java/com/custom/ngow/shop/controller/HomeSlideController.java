@@ -16,16 +16,16 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 public class HomeSlideController {
 
-    private final HomeSlideService homeSlideService;
+  private final HomeSlideService homeSlideService;
 
-    @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<HomeSlide> uploadSlide(
-            @RequestParam("video") MultipartFile file,
-            @RequestParam("title") String title,
-            @RequestParam("description") String description,
-            @RequestParam("displayOrder") Integer displayOrder) {
-        return ResponseEntity.ok(
-                homeSlideService.createHomeSlide(file, title, description, displayOrder));
-    }
+  @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+  public ResponseEntity<HomeSlide> uploadSlide(
+      @RequestParam("video") MultipartFile file,
+      @RequestParam("title") String title,
+      @RequestParam("description") String description,
+      @RequestParam("displayOrder") Integer displayOrder) {
+    return ResponseEntity.ok(
+        homeSlideService.createHomeSlide(file, title, description, displayOrder));
+  }
 
 }

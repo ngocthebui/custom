@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface HomeSlideRepository extends JpaRepository<HomeSlide, Long> {
 
-    List<HomeSlide> findAllByIsActiveTrueOrderByDisplayOrderAsc();
+  List<HomeSlide> findAllByIsActiveTrueOrderByDisplayOrderAsc();
 
 }

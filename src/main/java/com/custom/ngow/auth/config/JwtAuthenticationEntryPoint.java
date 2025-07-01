@@ -13,21 +13,21 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
-    @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response,
-            AuthenticationException authException) throws IOException, ServletException {
-        ErrorCode errorCode = ErrorCode.E401100;
-        response.setStatus(errorCode.getValue());
-        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+  @Override
+  public void commence(HttpServletRequest request, HttpServletResponse response,
+      AuthenticationException authException) throws IOException, ServletException {
+    ErrorCode errorCode = ErrorCode.E401100;
+    response.setStatus(errorCode.getValue());
+    response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 
-        ExceptionResponse exceptionResponse = new ExceptionResponse();
-        exceptionResponse.setResponseCode(errorCode.name());
-        exceptionResponse.setResponseMessage(errorCode.getMessage());
+    ExceptionResponse exceptionResponse = new ExceptionResponse();
+    exceptionResponse.setResponseCode(errorCode.name());
+    exceptionResponse.setResponseMessage(errorCode.getMessage());
 
-        ObjectMapper objectMapper = new ObjectMapper();
+    ObjectMapper objectMapper = new ObjectMapper();
 
-        response.getWriter().write(objectMapper.writeValueAsString(exceptionResponse));
-        response.flushBuffer();
-    }
+    response.getWriter().write(objectMapper.writeValueAsString(exceptionResponse));
+    response.flushBuffer();
+  }
 
 }

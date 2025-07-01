@@ -11,26 +11,29 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 public class HomeSlideService {
 
-    private final HomeSlideRepository homeSlideRepository;
-    private final MediaStorageService mediaStorageService;
+  private final HomeSlideRepository homeSlideRepository;
+  private final MediaStorageService mediaStorageService;
 
-    public HomeSlide createHomeSlide(MultipartFile slide, String title, String description,
-            Integer displayOrder) {
-        String storedSlideUrl = mediaStorageService.storeImage(slide);
+  public HomeSlide createHomeSlide(MultipartFile slide, String title, String description,
+      Integer displayOrder) {
+    // Lưu ảnh lên S3 và lấy tên file
+    String storedSlideFilename = mediaStorageService.storeImage(slide);
 
-        HomeSlide homeSlide = HomeSlide.builder()
-                .title(title)
-                .url("/api/media/images/" + storedSlideUrl)
-                .description(description)
-                .isActive(true)
-                .displayOrder(displayOrder)
-                .build();
+    // Lấy URL đầy đủ từ S3
+    String slideUrl = mediaStorageService.getImageUrl(storedSlideFilename);
 
-        return homeSlideRepository.save(homeSlide);
-    }
+    HomeSlide homeSlide = HomeSlide.builder()
+        .title(title)
+        .url(slideUrl)  // Sử dụng URL đầy đủ từ S3
+        .description(description)
+        .isActive(true)
+        .displayOrder(displayOrder)
+        .build();
 
-    public List<HomeSlide> getActiveHomeSlides() {
-        return homeSlideRepository.findAllByIsActiveTrueOrderByDisplayOrderAsc();
-    }
+    return homeSlideRepository.save(homeSlide);
+  }
 
+  public List<HomeSlide> getActiveHomeSlides() {
+    return homeSlideRepository.findAllByIsActiveTrueOrderByDisplayOrderAsc();
+  }
 }

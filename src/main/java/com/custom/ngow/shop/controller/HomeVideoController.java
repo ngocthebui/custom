@@ -16,13 +16,13 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 public class HomeVideoController {
 
-    private final HomeVideoService homeVideoService;
+  private final HomeVideoService homeVideoService;
 
-    @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<HomeVideo> uploadVideo(
-            @RequestParam("video") MultipartFile file,
-            @RequestParam("title") String title,
-            @RequestParam("description") String description) {
-        return ResponseEntity.ok(homeVideoService.createHomeVideo(file, title, description));
-    }
+  @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+  public ResponseEntity<HomeVideo> uploadVideo(
+      @RequestParam("video") MultipartFile file,
+      @RequestParam("title") String title,
+      @RequestParam("description") String description) {
+    return ResponseEntity.ok(homeVideoService.createHomeVideo(file, title, description));
+  }
 }

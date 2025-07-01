@@ -16,13 +16,13 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AccountRequest {
 
-    @Pattern(regexp = Regex.EMAIL)
-    String email;
+  @Pattern(regexp = Regex.EMAIL)
+  String email;
 
-    @Pattern(regexp = Regex.USERNAME)
-    String username;
+  @Pattern(regexp = Regex.USERNAME)
+  String username;
 
-    @Pattern(regexp = Regex.PASSWORD)
-    String password;
+  @Pattern(regexp = Regex.PASSWORD)
+  String password;
 
 }

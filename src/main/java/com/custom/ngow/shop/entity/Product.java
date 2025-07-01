@@ -24,31 +24,31 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Product {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  Long id;
 
-    @Column(nullable = false)
-    String name;
-    String sku;
-    String description;
+  @Column(nullable = false)
+  String name;
+  String sku;
+  String description;
 
-    @Column(nullable = false)
-    BigDecimal price;
+  @Column(nullable = false)
+  BigDecimal price;
 
-    BigDecimal salePrice;
+  BigDecimal salePrice;
 
-    @Column(nullable = false)
-    Integer stock = 0;
+  @Column(nullable = false)
+  Integer stock = 0;
 
-    String material;
-    String color;
-    String dimensions;
+  String material;
+  String color;
+  String dimensions;
 
-    Boolean isFeatured = false;
-    Boolean isNewArrival = false;
-    Boolean isActive = true;
-    Timestamp createdAt;
-    Timestamp updatedAt;
+  Boolean isFeatured = false;
+  Boolean isNewArrival = false;
+  Boolean isActive = true;
+  Timestamp createdAt;
+  Timestamp updatedAt;
 
 }

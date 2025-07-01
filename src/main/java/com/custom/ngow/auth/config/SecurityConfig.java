@@ -22,58 +22,58 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity
 public class SecurityConfig {
 
-    private static final String[] PUBLIC_API_LIST = {
-            "/health",
-            "/auth/**",
-            "/accounts/create"
-    };
+  private static final String[] PUBLIC_API_LIST = {
+      "/health",
+      "/auth/**",
+      "/accounts/create"
+  };
 
-    @Value("${jwt.signer_key}")
-    private String signerKey;
+  @Value("${jwt.signer_key}")
+  private String signerKey;
 
-    @Bean
-    PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+  @Bean
+  PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(PUBLIC_API_LIST).permitAll()
-                        .anyRequest().permitAll()
-                );
-
-        // verify token
-        httpSecurity.oauth2ResourceServer(oauth2 ->
-                oauth2.jwt(jwtConfigurer -> jwtConfigurer
-                                .decoder(jwtDecoder())
-                                .jwtAuthenticationConverter(jwtAuthenticationConverter()))
-                        .authenticationEntryPoint(new JwtAuthenticationEntryPoint())
+  @Bean
+  public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+    httpSecurity
+        .authorizeHttpRequests(authorize -> authorize
+            .requestMatchers(PUBLIC_API_LIST).permitAll()
+            .anyRequest().permitAll()
         );
 
-        httpSecurity.csrf(AbstractHttpConfigurer::disable);
+    // verify token
+    httpSecurity.oauth2ResourceServer(oauth2 ->
+        oauth2.jwt(jwtConfigurer -> jwtConfigurer
+                .decoder(jwtDecoder())
+                .jwtAuthenticationConverter(jwtAuthenticationConverter()))
+            .authenticationEntryPoint(new JwtAuthenticationEntryPoint())
+    );
 
-        return httpSecurity.build();
-    }
+    httpSecurity.csrf(AbstractHttpConfigurer::disable);
 
-    @Bean
-    JwtAuthenticationConverter jwtAuthenticationConverter() {
-        JwtGrantedAuthoritiesConverter converter = new JwtGrantedAuthoritiesConverter();
-        converter.setAuthorityPrefix("ROLE_");
+    return httpSecurity.build();
+  }
 
-        JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
-        jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(converter);
-        return jwtAuthenticationConverter;
-    }
+  @Bean
+  JwtAuthenticationConverter jwtAuthenticationConverter() {
+    JwtGrantedAuthoritiesConverter converter = new JwtGrantedAuthoritiesConverter();
+    converter.setAuthorityPrefix("ROLE_");
 
-    @Bean
-    JwtDecoder jwtDecoder() {
-        SecretKeySpec secretKeySpec = new SecretKeySpec(signerKey.getBytes(), "HS512");
-        return NimbusJwtDecoder
-                .withSecretKey(secretKeySpec)
-                .macAlgorithm(MacAlgorithm.HS512)
-                .build();
-    }
+    JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
+    jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(converter);
+    return jwtAuthenticationConverter;
+  }
+
+  @Bean
+  JwtDecoder jwtDecoder() {
+    SecretKeySpec secretKeySpec = new SecretKeySpec(signerKey.getBytes(), "HS512");
+    return NimbusJwtDecoder
+        .withSecretKey(secretKeySpec)
+        .macAlgorithm(MacAlgorithm.HS512)
+        .build();
+  }
 
 }

@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface HomeVideoRepository extends JpaRepository<HomeVideo, Long> {
 
-    HomeVideo findHomeVideoByIsActiveTrue();
+  HomeVideo findHomeVideoByIsActiveTrue();
 }

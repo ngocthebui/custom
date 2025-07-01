@@ -26,31 +26,31 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Account {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long aid;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  Long aid;
 
-    @NotNull
-    @Size(max = 255)
-    String email;
+  @NotNull
+  @Size(max = 255)
+  String email;
 
-    @NotNull
-    @Size(max = 255)
-    String username;
+  @NotNull
+  @Size(max = 255)
+  String username;
 
-    @NotNull
-    @Size(max = 255)
-    String password;
+  @NotNull
+  @Size(max = 255)
+  String password;
 
-    @NotNull
-    String role;
+  @NotNull
+  String role;
 
-    @NotNull
-    String status;
+  @NotNull
+  String status;
 
-    @NotNull
-    Timestamp createdAt;
+  @NotNull
+  Timestamp createdAt;
 
-    Timestamp updatedAt;
+  Timestamp updatedAt;
 
 }
