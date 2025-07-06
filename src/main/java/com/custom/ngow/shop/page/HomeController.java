@@ -24,7 +24,7 @@ public class HomeController {
 
     model.addAttribute("newProducts", featuredProducts);
     model.addAttribute("homeVideo", homeVideoService.getActiveHomeVideo());
-    return "views/home";
+    return "view/pages/home";
   }
 
 }
