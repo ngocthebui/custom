@@ -28,4 +28,19 @@ public class HomeController {
     return "view/pages/login";
   }
 
+  @GetMapping("/shop-5-columns")
+  public String shop5columns() {
+    return "view/pages/shop-5-columns";
+  }
+
+  @GetMapping("/shop-2-columns")
+  public String shop2columns() {
+    return "view/pages/shop-2-columns";
+  }
+
+  @GetMapping("/product-detail")
+  public String productDetail() {
+    return "view/pages/product-detail";
+  }
+
 }
