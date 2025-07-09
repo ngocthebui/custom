@@ -1,6 +1,6 @@
 /* ---------------------------------------------------------
     * Name: Ochaka - Multipurpose eCommerce HTML Template
-    * Version: 1.0.0
+    * Version: 1.0.1
     * Author: Themesflat
     * Author URI: http://themesflat.com 
 
@@ -15,7 +15,7 @@
         * accordion
         * animation
         * blog
-        * box iocn
+        * box icon
         * button
         * carousel
         * avatar
@@ -44,6 +44,8 @@
   --text-3: #ACAFAB;
   --text-4: #E4E4E4;
   --text-5: #FFFFFF80;
+  --text-6: #00000080;
+  --text-7: #B3907A;
   --bg: #E4E4E4;
   --bg-2: #F5F5F5;
   --bg-3: #021A62;
@@ -57,6 +59,10 @@
   --bg-11: #EEDFC6;
   --bg-12: #F7F7F7;
   --bg-13: #F8F8F8;
+  --bg-14: #4F684C;
+  --bg-15: #42514A;
+  --bg-16: #F7EDE4;
+  --bg-17: #FAFAFD;
   --line: #EDEDED;
   --line-2: #FFFFFF33;
   --line-3: #FFFFFF1A;
@@ -65,6 +71,7 @@
   --line-6: #E7E7E7;
   --line-7: #E2E2E2;
   --line-8: #00000012;
+  --line-9: #FFFFFF4D;
   --shadow-1: #A3A3A340;
   --linear-1: linear-gradient(180deg, rgba(246, 221, 190, 0) 0%, rgba(246, 221, 190, 0.5) 100%);
   --linear-2: linear-gradient(137.6deg, #C09C71 23.87%, #664B18 99.83%);
@@ -72,13 +79,38 @@
   --linear-4: linear-gradient(133.57deg, #FFF0D3 25.62%, #EBD1A2 100%);
   --linear-5: linear-gradient(138.03deg, #FFF3E5 23.68%, #FFCDA2 100%);
   --verified: #00BF43;
-  --success: #3DAB25;
+  --success: #28A745;
+  --error: #ff4949;
+}
+
+.primary {
+  --primary: #C8102E;
+}
+
+.primary-2 {
+  --primary: #007a41;
+}
+
+.primary-3 {
+  --primary: rgb(67, 107, 228);
+}
+
+.primary-4 {
+  --primary: rgb(104, 91, 199);
+}
+
+.primary-5 {
+  --primary: rgb(232, 83, 49);
+}
+
+.primary-6 {
+  --primary: rgb(88, 126, 87);
 }
 
 /*---------- Reset css styles ----------- */
 /* ---------------------------------------------------------
     * Name: Ochaka - Multipurpose eCommerce HTML Template
-    * Version: 1.0.0
+    * Version: 1.0.1
     * Author: Themesflat
     * Author URI: http://themesflat.com 
 
@@ -93,7 +125,7 @@
         * accordion
         * animation
         * blog
-        * box iocn
+        * box icon
         * button
         * carousel
         * avatar
@@ -240,7 +272,7 @@ body {
   background-color: var(--white);
 }
 body::-webkit-scrollbar {
-  width: 5px;
+  width: 0px;
 }
 body::-webkit-scrollbar-thumb {
   cursor: grab;
@@ -358,6 +390,38 @@ th {
   }
 }
 
+.container-full-3 {
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: 0px 16px;
+}
+@media (min-width: 1200px) {
+  .container-full-3 {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+@media (min-width: 1600px) {
+  .container-full-3 {
+    padding-left: 54px;
+    padding-right: 54px;
+  }
+}
+
+.container-full-4 {
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: 0px 16px;
+}
+@media (min-width: 1200px) {
+  .container-full-4 {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
 .container-layout-right {
   width: calc(100vw - (100vw - 1548px) / 2 - 4px);
   margin-right: unset;
@@ -468,6 +532,11 @@ h6,
 .text-display-2 {
   font-size: clamp(32px, 5vw, 48px);
   line-height: 120%;
+}
+
+.text-display-3 {
+  font-size: clamp(24px, 4.5vw, 40px);
+  line-height: 95%;
 }
 
 .text-large {
@@ -633,8 +702,24 @@ video {
   color: var(--text-5) !important;
 }
 
+.text-main-6 {
+  color: var(--text-6) !important;
+}
+
+.text-main-7 {
+  color: var(--text-7) !important;
+}
+
+.text-price {
+  color: #E85331 !important;
+}
+
 .text-star {
   color: #E69600 !important;
+}
+
+.outline {
+  outline: 1px solid var(--line);
 }
 
 .line-black {
@@ -657,6 +742,10 @@ video {
   border-bottom: 1px solid var(--line-3);
 }
 
+.line-tp {
+  border-top: 1px solid var(--line);
+}
+
 .line-bt {
   border-bottom: 1px solid var(--line);
 }
@@ -675,7 +764,7 @@ video {
 }
 
 .bg-line {
-  background-color: var(--line);
+  background-color: var(--line) !important;
 }
 
 .bg-dark {
@@ -684,6 +773,10 @@ video {
 
 .bg-line-3 {
   background-color: var(--line-3) !important;
+}
+
+.bg-min-white {
+  background-color: var(--bg-8) !important;
 }
 
 .bg-rose-white {
@@ -710,8 +803,20 @@ video {
   background-color: var(--bg-6);
 }
 
+.bg-baby-blue-2 {
+  background-color: #ECF5FF;
+}
+
+.bg-baby-blue-3 {
+  background-color: #EDF1FD;
+}
+
 .bg-blue-1 {
   background-color: rgb(178, 203, 234) !important;
+}
+
+.bg-ice-blue {
+  background-color: #E5EFF0 !important;
 }
 
 .bg-vivid-orange {
@@ -750,6 +855,10 @@ video {
   background-color: #444828 !important;
 }
 
+.bg-dark-olive-2 {
+  background-color: #4F684C !important;
+}
+
 .bg-hot-pink {
   background-color: #F56EB7 !important;
 }
@@ -784,6 +893,42 @@ video {
 
 .bg-off-white {
   background-color: var(--bg-9) !important;
+}
+
+.bg-ghost-white {
+  background-color: #FAFAFD;
+}
+
+.bg-deep-green {
+  background-color: #42514A !important;
+}
+
+.bg-soft-peach {
+  background-color: #F7EDE4 !important;
+}
+
+.bg-black-gray {
+  background: linear-gradient(to right, #000000 50%, #888888 50%) !important;
+}
+
+.bg-black-green {
+  background: linear-gradient(to right, #888888 50%, #4CAF50 50%) !important;
+}
+
+.bg-dusty-rose {
+  background-color: #B3907A !important;
+}
+
+.bg-sand-white {
+  background-color: #EFE7DA !important;
+}
+
+.bg-cosmic-purple {
+  background-color: #685BC7 !important;
+}
+
+.bg-brown {
+  background-color: #8b674d;
 }
 
 .text-stroke-white {
@@ -904,12 +1049,16 @@ a:focus, a:hover {
   gap: 12px !important;
 }
 
+.gap-13 {
+  gap: 13px !important;
+}
+
 .gap-15 {
   gap: 15px;
 }
 
 .gap-16 {
-  gap: 16px;
+  gap: 16px !important;
 }
 
 .gap-20 {
@@ -1240,14 +1389,14 @@ a:focus, a:hover {
 }
 
 .text-line-clamp-2 {
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 2 !important;
   -webkit-box-orient: vertical;
   display: -webkit-box;
   overflow: hidden;
 }
 
 .text-line-clamp-3 {
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 3 !important;
   -webkit-box-orient: vertical;
   display: -webkit-box;
   overflow: hidden;
@@ -1375,6 +1524,18 @@ a:focus, a:hover {
   backdrop-filter: unset !important;
 }
 
+.mb-2 {
+  margin-bottom: 2px !important;
+}
+
+.mb-4 {
+  margin-bottom: 4px !important;
+}
+
+.mb-7 {
+  margin-bottom: 7px !important;
+}
+
 .mb-8 {
   margin-bottom: 8px !important;
 }
@@ -1384,7 +1545,31 @@ a:focus, a:hover {
 }
 
 .mb-24 {
-  margin-bottom: 24px;
+  margin-bottom: 24px !important;
+}
+
+.mb-32 {
+  margin-bottom: 32px !important;
+}
+
+.mb-12 {
+  margin-bottom: 12px !important;
+}
+
+.mb-14 {
+  margin-bottom: 14px !important;
+}
+
+.mb-15 {
+  margin-bottom: 15px !important;
+}
+
+.mb-16 {
+  margin-bottom: 16px !important;
+}
+
+.mb-40 {
+  margin-bottom: 40px !important;
 }
 
 .mt-30 {
@@ -1438,18 +1623,6 @@ a:focus, a:hover {
 
 .cs-pointer {
   cursor: pointer;
-}
-
-.mb-12 {
-  margin-bottom: 12px !important;
-}
-
-.mb-15 {
-  margin-bottom: 15px !important;
-}
-
-.mb-16 {
-  margin-bottom: 16px !important;
 }
 
 .pt-30 {
@@ -1563,8 +1736,18 @@ a:focus, a:hover {
   min-width: unset !important;
 }
 
+.opacity-100 {
+  opacity: 1 !important;
+}
+
 .flex-1 {
   flex: 1;
+}
+
+@media (min-width: 1200px) {
+  .flex-xl-1 {
+    flex: 1 !important;
+  }
 }
 
 @media (min-width: 576px) {
@@ -1573,12 +1756,27 @@ a:focus, a:hover {
   }
 }
 
+.h-unset {
+  height: unset !important;
+}
+
+@media (min-width: 576px) {
+  .h-sm-100 {
+    height: 100% !important;
+  }
+}
 @media (min-width: 1200px) {
+  .lh-xl-38 {
+    line-height: 38px !important;
+  }
   .gap-xl-64 {
     gap: 64px !important;
   }
   .gap-xl-40 {
     gap: 40px !important;
+  }
+  .h-xl-unset {
+    height: unset !important;
   }
 }
 @media (min-width: 1440px) {
@@ -1605,7 +1803,7 @@ a:focus, a:hover {
 /*------------ header ---------------- */
 /* ---------------------------------------------------------
     * Name: Ochaka - Multipurpose eCommerce HTML Template
-    * Version: 1.0.0
+    * Version: 1.0.1
     * Author: Themesflat
     * Author URI: http://themesflat.com 
 
@@ -1620,7 +1818,7 @@ a:focus, a:hover {
         * accordion
         * animation
         * blog
-        * box iocn
+        * box icon
         * button
         * carousel
         * avatar
@@ -1730,6 +1928,25 @@ header.header-sticky {
     padding-top: 12px;
     padding-bottom: 12px;
   }
+  .tf-topbar.type-space-3 {
+    padding-top: 16px;
+    padding-bottom: 16px;
+  }
+  .tf-topbar.type-space-3.sp-has_line_bt {
+    padding-bottom: 15px;
+  }
+}
+
+.topbar-top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.topbar-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
 }
 
 .topbar-left {
@@ -2062,6 +2279,12 @@ header.header-sticky {
   grid-template-columns: repeat(6, 1fr);
   gap: 24px;
   overflow: visible;
+  margin-bottom: 40px;
+}
+@media (min-width: 1440px) {
+  .row-demo {
+    margin-bottom: 48px;
+  }
 }
 
 .demo-item {
@@ -2078,6 +2301,9 @@ header.header-sticky {
   -ms-transition: all 0.3s ease;
   -o-transition: all 0.3s ease;
   transition: all 0.3s ease;
+}
+.demo-item .demo-img {
+  position: relative;
 }
 .demo-item .demo-img img {
   aspect-ratio: 0.8679245283;
@@ -2195,6 +2421,10 @@ header.header-sticky {
   padding-top: 13px;
   padding-bottom: 13px;
 }
+.tf-header.style-7 .item-link {
+  padding-top: 23px;
+  padding-bottom: 23px;
+}
 @media (min-width: 1200px) {
   .tf-header.style-2 {
     padding: 27px 0px;
@@ -2229,6 +2459,7 @@ header.header-sticky {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
 }
 .header-inner_wrap .col-left {
   display: flex;
@@ -2246,6 +2477,9 @@ header.header-sticky {
 }
 .header-inner_wrap > .br-line {
   height: 24px;
+}
+.header-inner_wrap.wrap-2 .col-left {
+  gap: 32px;
 }
 
 .nav-category-wrap {
@@ -2279,6 +2513,10 @@ header.header-sticky {
   .box-nav-category {
     left: -25px;
   }
+}
+.box-nav-category.type-2 {
+  left: 0;
+  top: 100%;
 }
 
 .nav-category_link {
@@ -2318,6 +2556,38 @@ header.header-sticky {
 }
 .btn-nav-drop:hover .name-category, .btn-nav-drop.active .name-category {
   color: var(--primary);
+}
+.btn-nav-drop.style-2 {
+  min-width: 272px;
+  color: var(--white);
+  background-color: var(--primary);
+  padding-top: 11px;
+  padding-bottom: 12px;
+  padding-left: 24px;
+  padding-right: 24px;
+  border-radius: 16px 16px 0px 0px;
+}
+.btn-nav-drop.style-2 .icon {
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+.btn-nav-drop.style-2 .name-category {
+  color: var(--white);
+  flex: 1;
+}
+.btn-nav-drop.style-2:hover, .btn-nav-drop.style-2.active {
+  color: var(--white);
+}
+.btn-nav-drop.style-2:hover .btn-mobile-menu::after, .btn-nav-drop.style-2:hover .btn-mobile-menu::before,
+.btn-nav-drop.style-2:hover .btn-mobile-menu > span, .btn-nav-drop.style-2.active .btn-mobile-menu::after, .btn-nav-drop.style-2.active .btn-mobile-menu::before,
+.btn-nav-drop.style-2.active .btn-mobile-menu > span {
+  background-color: var(--white);
+}
+.btn-nav-drop.style-2:hover .name-category, .btn-nav-drop.style-2.active .name-category {
+  color: var(--white);
 }
 
 /* Menu Mobile */
@@ -2524,10 +2794,29 @@ header.header-sticky {
   pointer-events: all;
 }
 
+.demo-label {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  gap: 5px;
+}
+.demo-label span {
+  font-size: 14px;
+  line-height: 20px;
+  padding: 0px 8px;
+  border-radius: 4px;
+  background-color: var(--primary);
+  color: var(--white);
+}
+.demo-label .demo-hot {
+  background-color: #62d15e;
+}
+
 /*------------ footer ---------------- */
 /* ---------------------------------------------------------
     * Name: Ochaka - Multipurpose eCommerce HTML Template
-    * Version: 1.0.0
+    * Version: 1.0.1
     * Author: Themesflat
     * Author URI: http://themesflat.com 
 
@@ -2542,7 +2831,7 @@ header.header-sticky {
         * accordion
         * animation
         * blog
-        * box iocn
+        * box icon
         * button
         * carousel
         * avatar
@@ -2676,7 +2965,7 @@ header.header-sticky {
 }
 
 .footer-body {
-  padding-top: 112px;
+  padding-top: 90px;
   padding-bottom: 56px;
   position: relative;
   z-index: 4;
@@ -2798,10 +3087,45 @@ header.header-sticky {
   }
 }
 
+.footer-2 {
+  background-color: var(--bg-8);
+}
+.footer-2 .footer-top {
+  padding-bottom: 32px;
+}
+.footer-2 .footer-body {
+  padding-top: 48px;
+  padding-bottom: 48px;
+}
+.footer-2 .footer-bottom {
+  padding-top: 32px;
+}
+@media (max-width: 1199px) {
+  .footer-2 .footer-body {
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+}
+
+.footer-body_inner {
+  display: flex;
+  gap: 40px;
+}
+.footer-body_inner > *:not(.br-lin) {
+  flex: 1;
+}
+.footer-body_inner .br-lin {
+  border-right: 1px solid var(--line);
+}
+
+.footer-title {
+  padding-bottom: 30px;
+}
+
 /*------------ slider banner ---------------- */
 /* ---------------------------------------------------------
     * Name: Ochaka - Multipurpose eCommerce HTML Template
-    * Version: 1.0.0
+    * Version: 1.0.1
     * Author: Themesflat
     * Author URI: http://themesflat.com 
 
@@ -2816,7 +3140,7 @@ header.header-sticky {
         * accordion
         * animation
         * blog
-        * box iocn
+        * box icon
         * button
         * carousel
         * avatar
@@ -2890,6 +3214,15 @@ header.header-sticky {
 .sw-dot-default.style-white .swiper-pagination-bullet::before {
   background-color: rgba(255, 255, 255, 0.6);
 }
+.sw-dot-default.style-primary .swiper-pagination-bullet.swiper-pagination-bullet-active {
+  border: 1px solid var(--primary);
+}
+.sw-dot-default.style-primary .swiper-pagination-bullet.swiper-pagination-bullet-active::before {
+  background-color: var(--primary);
+}
+.sw-dot-default.style-primary .swiper-pagination-bullet::before {
+  background-color: var(--text-2);
+}
 .sw-dot-default.type-small {
   gap: 5px;
 }
@@ -2911,6 +3244,9 @@ header.header-sticky {
 @media (min-width: 1200px) {
   .sw-dot-default {
     margin-top: 35px;
+  }
+  .sw-dot-default.type-space-2 {
+    margin-top: 40px;
   }
 }
 @media (min-width: 1440px) {
@@ -2942,6 +3278,9 @@ header.header-sticky {
 }
 .sw-dot-default-2.style-white .swiper-pagination-bullet {
   background-color: var(--white);
+}
+.sw-dot-default-2.style-primary .swiper-pagination-bullet {
+  background-color: var(--primary);
 }
 @media (min-width: 1200px) {
   .sw-dot-default-2 {
@@ -2979,6 +3318,15 @@ header.header-sticky {
   border-color: var(--black);
   color: var(--white);
 }
+.tf-sw-nav.style-2.hv-primary:hover {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: var(--white);
+}
+.tf-sw-nav.hover-primary:hover {
+  background-color: var(--primary);
+  color: var(--white);
+}
 .tf-sw-nav.swiper-button-disabled {
   pointer-events: none;
   opacity: 0.5;
@@ -2999,6 +3347,13 @@ header.header-sticky {
     height: 64px;
   }
   .tf-sw-nav.type-small-2 .icon {
+    font-size: 24px;
+  }
+  .tf-sw-nav.type-small-3 {
+    width: 56px;
+    height: 56px;
+  }
+  .tf-sw-nav.type-small-3 .icon {
     font-size: 24px;
   }
   .tf-sw-nav .icon {
@@ -3061,6 +3416,21 @@ header.header-sticky {
 }
 .tf-btn-swiper-main.pst-3 .tf-sw-nav.nav-prev-swiper {
   left: 15px;
+}
+.tf-btn-swiper-main.pst-5 .tf-sw-nav {
+  position: unset;
+  transform: unset;
+}
+.tf-btn-swiper-main.pst-5 .band-swiper {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  gap: 12px;
+}
+@media (min-width: 576px) {
+  .tf-btn-swiper-main.pst-5 .tf-sw-nav {
+    display: flex !important;
+  }
 }
 @media (min-width: 1440px) {
   .tf-btn-swiper-main.pst-2 .tf-sw-nav {
@@ -3258,6 +3628,17 @@ header.header-sticky {
   }
 }
 
+@media (max-width: 767px) {
+  .tf-slideshow-2 .slider-wrap {
+    height: 400px;
+  }
+}
+@media (max-width: 575px) {
+  .tf-slideshow-2 .slider-wrap {
+    height: 350px;
+  }
+}
+
 .hover-sw-nav .tf-sw-nav {
   visibility: hidden;
 }
@@ -3275,9 +3656,32 @@ header.header-sticky {
 .slider-wrap {
   position: relative;
 }
+.slider-wrap.has-overlay::after {
+  content: "";
+  inset: 0;
+  position: absolute;
+  z-index: 0;
+  background: linear-gradient(-90deg, rgba(41, 27, 27, 0) 32.95%, #291B1B 80.78%);
+}
 .slider-wrap.style-2 .sub-title_sld,
 .slider-wrap.style-2 .title_sld {
   margin-bottom: 15px;
+}
+.slider-wrap .type-radius {
+  border-radius: 16px;
+  overflow: hidden;
+}
+.slider-wrap.style-5 .sub-title_sld {
+  margin-bottom: 12px;
+}
+.slider-wrap.style-5 .title_sld {
+  margin-bottom: 24px;
+}
+.slider-wrap.style-7 .title_sld {
+  margin-bottom: 32px;
+}
+.slider-wrap.style-7 .sub-text_sld {
+  margin-bottom: 40px;
 }
 @media (min-width: 1200px) {
   .slider-wrap.style-2 .sub-title_sld,
@@ -3298,6 +3702,12 @@ header.header-sticky {
   .slider-wrap.style-3 .sub-text_sld {
     margin-bottom: 40px;
   }
+  .slider-wrap.style-6 .title_sld {
+    margin-bottom: 32px;
+  }
+  .slider-wrap.style-6 .sub-text_sld {
+    margin-bottom: 40px;
+  }
   .slider-wrap.has-nav {
     min-height: 639px;
   }
@@ -3305,6 +3715,43 @@ header.header-sticky {
 @media (max-width: 575px) {
   .slider-wrap.style-2 .title_sld {
     margin-bottom: 24px;
+  }
+}
+
+.slider-wrap_2 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.slider-wrap_2 > * {
+  width: 100%;
+  min-height: 400px;
+}
+.slider-wrap_2 .type-radius {
+  border-radius: 24px;
+  overflow: hidden;
+}
+.slider-wrap_2 .sld_content {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+@media (min-width: 768px) {
+  .slider-wrap_2 {
+    flex-wrap: nowrap;
+  }
+  .slider-wrap_2 > * {
+    width: 50%;
+  }
+}
+@media (max-width: 767px) {
+  .slider-wrap_2 {
+    height: auto !important;
+    display: grid;
+  }
+}
+@media (max-width: 575px) {
+  .slider-wrap_2 > * {
+    min-height: 350px;
   }
 }
 
@@ -3321,6 +3768,9 @@ header.header-sticky {
 }
 .sld_content .sub-title_sld,
 .sld_content .sub-text_sld {
+  margin-bottom: 30px;
+}
+.sld_content.only-title .title_sld {
   margin-bottom: 30px;
 }
 .sld_content.type-2 {
@@ -3346,6 +3796,13 @@ header.header-sticky {
   flex-direction: column;
   overflow: hidden;
 }
+.sld_content.type-3, .sld_content.type-4 {
+  top: unset;
+  transform: unset;
+  left: 16px;
+  bottom: 32px;
+  right: 16px;
+}
 .sld_content.pst-center {
   text-align: center;
 }
@@ -3357,7 +3814,30 @@ header.header-sticky {
   width: 100%;
   overflow: hidden;
 }
+.sld_content.type-space-x {
+  left: 16px;
+  right: 16px;
+}
+.sld_content.type-normal {
+  position: unset;
+  left: unset;
+  right: unset;
+  top: unset;
+  transform: unset;
+  display: flex;
+  justify-self: start;
+}
+.sld_content.type-normal .sub-title_sld,
+.sld_content.type-normal .title_sld {
+  margin-bottom: 24px;
+}
+.sld_content.type-normal .sub-text_sld {
+  margin-bottom: 40px;
+}
 @media (min-width: 1200px) {
+  .sld_content.only-title .title_sld {
+    margin-bottom: 56px;
+  }
   .sld_content .sub-title_sld {
     margin-bottom: 40px;
   }
@@ -3366,6 +3846,15 @@ header.header-sticky {
   }
   .sld_content.type-2 {
     bottom: 24px;
+  }
+  .sld_content.type-3 {
+    left: 32px;
+    right: 32px;
+  }
+  .sld_content.type-4 {
+    left: 40px;
+    bottom: 40px;
+    right: 40px;
   }
   .sld_content.type-center .content-sld_wrap {
     max-width: 607px;
@@ -3377,6 +3866,17 @@ header.header-sticky {
   .sld_content.pst-center .content-sld_wrap {
     padding: 48px 32px;
   }
+  .sld_content.type-space-x {
+    left: 32px;
+    right: 32px;
+  }
+  .sld_content.type-space-x.x2 {
+    left: 40px;
+    right: 40px;
+  }
+  .sld_content.type-normal .sub-text_sld {
+    margin-bottom: 56px;
+  }
 }
 @media (max-width: 575px) {
   .sld_content .title_sld {
@@ -3384,6 +3884,9 @@ header.header-sticky {
   }
   .sld_content .sub-text_sld {
     display: none;
+  }
+  .sld_content.type-normal .sub-text_sld {
+    display: block;
   }
 }
 
@@ -3447,9 +3950,23 @@ header.header-sticky {
   gap: 8px;
 }
 
+.swiper-grid.grid-colum-3 .swiper-wrapper {
+  gap: 12px;
+}
+.swiper-grid.grid-colum-3 .swiper-slide {
+  margin: 0 !important;
+}
+@media (min-width: 1200px) {
+  .swiper-grid.grid-colum-3 .swiper-wrapper {
+    gap: 48px;
+  }
+}
 @media (min-width: 1440px) {
   .swiper-grid .swiper-wrapper {
     gap: 40px 48px;
+  }
+  .swiper-grid .swiper-wrapper.type-normal {
+    gap: 48px;
   }
   .swiper-grid .swiper-slide {
     margin: 0 !important;
@@ -3461,6 +3978,17 @@ header.header-sticky {
   }
   .swiper-grid .swiper-slide {
     margin: 0 !important;
+  }
+}
+
+.grid-colum-3 .card-product .wishlist,
+.grid-colum-3 .card-product .compare {
+  display: block;
+}
+@media (min-width: 576px) and (max-width: 767px) {
+  .grid-colum-3 .card-product .wishlist,
+  .grid-colum-3 .card-product .compare {
+    display: none;
   }
 }
 
@@ -3516,10 +4044,83 @@ header.header-sticky {
   }
 }
 
+.swiper-medical {
+  margin-bottom: -76px;
+  padding-bottom: 76px;
+}
+.swiper-medical .swiper-slide:not(:last-child) .card-product {
+  border-right: 1px solid var(--line);
+}
+
+.slideshow-container {
+  display: flex;
+  gap: 12px;
+}
+.slideshow-container .sw-slide-show {
+  width: 100%;
+}
+.slideshow-container .col-right {
+  gap: 12px;
+}
+@media (min-width: 1600px) {
+  .slideshow-container .sw-slide-show {
+    width: 70.22%;
+  }
+  .slideshow-container .col-right {
+    width: calc(29.78% - 12px);
+  }
+  .slideshow-container.width-2 {
+    max-width: 1152px;
+    margin-left: auto;
+  }
+  .slideshow-container.width-3 {
+    max-width: 1168px;
+    margin-left: auto;
+  }
+  .slideshow-container.width-3 .sw-slide-show {
+    width: 100%;
+  }
+}
+@media (min-width: 768px) {
+  .slideshow-container.width-2 .sw-slide-show {
+    width: 65.97%;
+  }
+  .slideshow-container.width-2 .col-right {
+    width: calc(34.03% - 12px);
+  }
+}
+@media (max-width: 767px) {
+  .slideshow-container {
+    display: unset;
+  }
+  .slideshow-container:not(.width-3) .sw-slide-show {
+    margin-bottom: 12px;
+  }
+  .slideshow-container .col-right {
+    display: grid;
+  }
+  .slideshow-container .box-image_image img {
+    height: 242px;
+  }
+}
+
+.slider-book .swiper-slide {
+  opacity: 0 !important;
+}
+.slider-book .swiper-slide.swiper-slide-active {
+  opacity: 1 !important;
+}
+
+@media (max-width: 575px) {
+  .swiper-blog .entry_name {
+    -webkit-line-clamp: 1 !important;
+  }
+}
+
 /*------------ button ---------------- */
 /* ---------------------------------------------------------
     * Name: Ochaka - Multipurpose eCommerce HTML Template
-    * Version: 1.0.0
+    * Version: 1.0.1
     * Author: Themesflat
     * Author URI: http://themesflat.com 
 
@@ -3534,7 +4135,7 @@ header.header-sticky {
         * accordion
         * animation
         * blog
-        * box iocn
+        * box icon
         * button
         * carousel
         * avatar
@@ -3626,6 +4227,14 @@ header.header-sticky {
   color: var(--black);
   font-weight: 600;
 }
+.tf-btn.btn-blue {
+  background-color: rgba(67, 107, 228, 0.1019607843);
+  color: var(--black);
+}
+.tf-btn.btn-blue:hover {
+  background-color: #436BE4;
+  color: var(--white);
+}
 .tf-btn.w-100 {
   padding-left: 12px;
   padding-right: 12px;
@@ -3644,6 +4253,9 @@ header.header-sticky {
   background-color: var(--black);
   color: var(--white);
 }
+.tf-btn.type-small-5 {
+  padding: 8px 20px;
+}
 @media (min-width: 992px) {
   .tf-btn.type-small {
     padding: 12px 24px;
@@ -3655,6 +4267,10 @@ header.header-sticky {
   .tf-btn.type-small-3 {
     padding: 16px 25px;
   }
+  .tf-btn.type-small-4 {
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
   .tf-btn.style-line {
     padding-top: 15px;
     padding-bottom: 15px;
@@ -3663,6 +4279,10 @@ header.header-sticky {
 @media (min-width: 1200px) {
   .tf-btn.type-large {
     padding: 19px 74px;
+  }
+  .tf-btn.px-xxl-32 {
+    padding-left: 32px;
+    padding-right: 32px;
   }
 }
 @media (max-width: 991px) {
@@ -3776,6 +4396,21 @@ button.animate-btn::after,
 .tf-btn-line.style-white::after {
   background-color: var(--white);
 }
+.tf-btn-line.style-gray {
+  color: var(--text-2);
+  background: linear-gradient(to right, var(--black) 50%, var(--text-2) 50%);
+  background-size: 200% 100%;
+  background-position: right;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: background-position 0.3s linear;
+}
+.tf-btn-line.style-gray::after {
+  background-color: var(--text-2);
+}
+.tf-btn-line.style-gray::before {
+  background-color: var(--black);
+}
 .tf-btn-line.has-icon {
   gap: 8px;
 }
@@ -3796,6 +4431,15 @@ button.animate-btn::after,
 }
 .tf-btn-line.active::before {
   width: 100%;
+}
+@media (min-width: 1200px) {
+  .tf-btn-line.style-large::after, .tf-btn-line.style-large::before {
+    height: 3px;
+    bottom: 0;
+  }
+  .tf-btn-line.line-bot-0::after, .tf-btn-line.line-bot-0::before {
+    bottom: 0;
+  }
 }
 @media (max-width: 575px) {
   .tf-btn-line.sm-letter-1 {
@@ -4010,7 +4654,7 @@ button.animate-btn::after,
 /*------------ form ---------------- */
 /* ---------------------------------------------------------
     * Name: Ochaka - Multipurpose eCommerce HTML Template
-    * Version: 1.0.0
+    * Version: 1.0.1
     * Author: Themesflat
     * Author URI: http://themesflat.com 
 
@@ -4025,7 +4669,7 @@ button.animate-btn::after,
         * accordion
         * animation
         * blog
-        * box iocn
+        * box icon
         * button
         * carousel
         * avatar
@@ -4403,8 +5047,11 @@ input[type=number]::-webkit-outer-spin-button {
   font-size: 12px;
 }
 .tf-check.style-white {
-  background-color: var(--black);
+  background-color: var(--white);
   border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.tf-check.style-white::before {
+  color: var(--black);
 }
 
 .checkbox-wrap {
@@ -4566,7 +5213,11 @@ input[type=number]::-webkit-outer-spin-button {
   background-color: var(--white);
   max-width: 1099px;
 }
-.form_search-product.style-search-2 .btn-submit {
+.form_search-product.style-search-3 {
+  border: 1px solid var(--primary);
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.0784313725);
+}
+.form_search-product .btn-submit {
   position: absolute;
   top: -1px;
   right: -1px;
@@ -4580,8 +5231,21 @@ input[type=number]::-webkit-outer-spin-button {
   border-radius: 0px 999px 999px 0px;
   color: var(--white);
 }
-.form_search-product.style-search-2 .btn-submit .icon {
+.form_search-product .btn-submit .icon {
   font-size: 24px;
+}
+.form_search-product .btn-submit-2 {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  bottom: 4px;
+  background-color: var(--primary);
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  padding: 12px 39px;
 }
 
 .form-search.style-2 input {
@@ -5051,10 +5715,167 @@ input[type=number]::-webkit-outer-spin-button {
   }
 }
 
+.sib-form {
+  padding: 0;
+  font-family: "Afacad", sans-serif;
+}
+
+#sib-container {
+  background-color: unset;
+  padding: 0;
+}
+
+.sib-form .entry__field {
+  background-color: unset;
+  border: 0;
+  box-shadow: none !important;
+  margin: 0;
+}
+
+.sib-form .sib-form-container .input {
+  outline: 0;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  width: 100%;
+  padding: 15px 24px;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--black);
+  background-color: transparent;
+  height: unset !important;
+}
+.sib-form .sib-form-container .input.style-stroke-2 {
+  border-color: var(--line-2);
+  background-color: transparent;
+  color: var(--white);
+}
+.sib-form .sib-form-container .input.style-stroke-2:focus {
+  border-color: var(--white);
+}
+
+.sib-form .sib-form-container .input::placeholder {
+  color: #8A8C8A !important;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.sib-form .entry__specification,
+.sib-form .entry__error,
+.entry__specification,
+.entry__label {
+  margin: 0 !important;
+}
+
+.sib-form-container a {
+  text-decoration: none;
+}
+
+.sib-form .input_replaced {
+  position: relative;
+  opacity: 1;
+  z-index: 1;
+}
+
+.sib-form-block {
+  padding: 0;
+}
+
+#sib-form {
+  position: relative;
+}
+
+.sib-form .clickable__icon {
+  margin: 0 5px 0 0;
+  fill: #fff;
+}
+
+.sib-form-message-panel {
+  margin-bottom: 8px;
+  padding: 0;
+  border: 0;
+}
+.sib-form-message-panel#error-message .sib-form-message-panel__text {
+  color: var(--error);
+}
+.sib-form-message-panel#success-message .sib-form-message-panel__text {
+  color: var(--success);
+}
+
+.sib-form-message-panel__text .sib-notification__icon {
+  height: 18px;
+  width: 18px;
+  margin-right: 8px;
+}
+
+.sib-form-message-panel__text {
+  padding: 0;
+}
+
+.sib-form_newletter {
+  margin-bottom: 24px;
+}
+.sib-form_newletter .sib-input,
+.sib-form_newletter .form__label-row {
+  margin-bottom: 12px;
+}
+
+.sib-form_footer .form-get_email {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.sib-form_footer .fieldset-input_email {
+  width: 100%;
+}
+.sib-form_footer .sib-form-container .input {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+}
+.sib-form_footer .sib-form-container .input:focus {
+  border-color: var(--black);
+}
+.sib-form_footer .sib-form-container .input::placeholder {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+}
+.sib-form_footer .entry__choice {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-indent: unset;
+}
+.sib-form_footer .form__entry.entry_errored .entry__error {
+  margin-top: 10px !important;
+}
+@media (max-width: 1199px) {
+  .sib-form_footer .form-get_email {
+    display: flex;
+    flex-direction: column;
+  }
+  .sib-form_footer .fiedset-button_submit,
+  .sib-form_footer .sib-form-block__button {
+    width: 100%;
+  }
+}
+
 /*------------ nice select ---------------- */
 /* ---------------------------------------------------------
     * Name: Ochaka - Multipurpose eCommerce HTML Template
-    * Version: 1.0.0
+    * Version: 1.0.1
     * Author: Themesflat
     * Author URI: http://themesflat.com 
 
@@ -5069,7 +5890,7 @@ input[type=number]::-webkit-outer-spin-button {
         * accordion
         * animation
         * blog
-        * box iocn
+        * box icon
         * button
         * carousel
         * avatar
@@ -5424,6 +6245,12 @@ input[type=number]::-webkit-outer-spin-button {
 .tf-dropdown-select.color-white-2 > .dropdown-toggle::after {
   color: var(--text);
 }
+.tf-dropdown-select.color-white-3 > .dropdown-toggle {
+  color: var(--line-4);
+}
+.tf-dropdown-select.color-white-3 > .dropdown-toggle::after {
+  color: var(--line-4);
+}
 
 .tf-dropdown-wrap {
   display: flex;
@@ -5714,7 +6541,7 @@ input[type=number]::-webkit-outer-spin-button {
 /*------------ carousel ---------------- */
 /* ---------------------------------------------------------
     * Name: Ochaka - Multipurpose eCommerce HTML Template
-    * Version: 1.0.0
+    * Version: 1.0.1
     * Author: Themesflat
     * Author URI: http://themesflat.com 
 
@@ -5729,7 +6556,7 @@ input[type=number]::-webkit-outer-spin-button {
         * accordion
         * animation
         * blog
-        * box iocn
+        * box icon
         * button
         * carousel
         * avatar
@@ -5770,7 +6597,7 @@ input[type=number]::-webkit-outer-spin-button {
 /*------------ pop up ---------------- */
 /* ---------------------------------------------------------
     * Name: Ochaka - Multipurpose eCommerce HTML Template
-    * Version: 1.0.0
+    * Version: 1.0.1
     * Author: Themesflat
     * Author URI: http://themesflat.com 
 
@@ -5785,7 +6612,7 @@ input[type=number]::-webkit-outer-spin-button {
         * accordion
         * animation
         * blog
-        * box iocn
+        * box icon
         * button
         * carousel
         * avatar
@@ -7055,6 +7882,7 @@ input[type=number]::-webkit-outer-spin-button {
   align-items: center;
   justify-content: center;
   font-size: 16px;
+  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
 }
 .tf-compare-list .tf-compare-offcanvas .tf-compare-item img {
   width: 100%;
@@ -8168,10 +8996,64 @@ input[type=number]::-webkit-outer-spin-button {
   }
 }
 
+.modalDemo .demo-title {
+  margin-top: 50px;
+  margin-bottom: 44px;
+  text-align: center;
+}
+.modalDemo .modal-dialog {
+  max-width: 1540px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  height: calc(100vh - 16px);
+}
+.modalDemo .modal-content {
+  padding: 0 50px 40px;
+  background-color: var(--white);
+  width: 100%;
+  border-radius: 20px;
+  margin: 0 30px;
+  max-height: calc(100vh - 60px);
+  border: 0;
+  cursor: default;
+  overflow: hidden;
+}
+.modalDemo .mega-menu {
+  padding: 0 32px;
+  overscroll-behavior-y: contain;
+  overflow-y: auto;
+}
+.modalDemo .mega-menu::-webkit-scrollbar {
+  width: 6px;
+}
+.modalDemo .mega-menu::-webkit-scrollbar:hover {
+  width: 12px;
+  height: 12px;
+}
+.modalDemo .mega-menu::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  transition: all 0.3s ease;
+}
+.modalDemo .header {
+  position: relative;
+}
+.modalDemo .header .icon-close-popup {
+  position: absolute;
+  top: 18px;
+  right: 0;
+}
+.modalDemo .row-demo {
+  grid-template-columns: repeat(5, 1fr);
+  row-gap: 32px;
+}
+.modalDemo .row-demo .demo-img {
+  aspect-ratio: 0;
+}
+
 /*------------ box icon ---------------- */
 /* ---------------------------------------------------------
     * Name: Ochaka - Multipurpose eCommerce HTML Template
-    * Version: 1.0.0
+    * Version: 1.0.1
     * Author: Themesflat
     * Author URI: http://themesflat.com 
 
@@ -8186,7 +9068,7 @@ input[type=number]::-webkit-outer-spin-button {
         * accordion
         * animation
         * blog
-        * box iocn
+        * box icon
         * button
         * carousel
         * avatar
@@ -8363,7 +9245,7 @@ input[type=number]::-webkit-outer-spin-button {
 /*------------ hover ---------------- */
 /* ---------------------------------------------------------
     * Name: Ochaka - Multipurpose eCommerce HTML Template
-    * Version: 1.0.0
+    * Version: 1.0.1
     * Author: Themesflat
     * Author URI: http://themesflat.com 
 
@@ -8378,7 +9260,7 @@ input[type=number]::-webkit-outer-spin-button {
         * accordion
         * animation
         * blog
-        * box iocn
+        * box icon
         * button
         * carousel
         * avatar
@@ -8611,6 +9493,9 @@ input[type=number]::-webkit-outer-spin-button {
     display: block;
   }
 }
+.hover-tooltip .tooltip.bg-primary::before {
+  background: var(--primary);
+}
 .hover-tooltip:hover .tooltip {
   opacity: 1;
   visibility: visible;
@@ -8699,7 +9584,7 @@ input[type=number]::-webkit-outer-spin-button {
 /*------------ product ---------------- */
 /* ---------------------------------------------------------
     * Name: Ochaka - Multipurpose eCommerce HTML Template
-    * Version: 1.0.0
+    * Version: 1.0.1
     * Author: Themesflat
     * Author URI: http://themesflat.com 
 
@@ -8714,7 +9599,7 @@ input[type=number]::-webkit-outer-spin-button {
         * accordion
         * animation
         * blog
-        * box iocn
+        * box icon
         * button
         * carousel
         * avatar
@@ -8785,6 +9670,32 @@ input[type=number]::-webkit-outer-spin-button {
 }
 .card-product:hover .product-marquee_sale {
   transform: translateY(100%);
+}
+.card-product.hover-xl-btn_bot {
+  position: relative;
+}
+@media (min-width: 1200px) {
+  .card-product.hover-xl-btn_bot .card-product_action-bot {
+    background-color: var(--white);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    transform: translateY(-10px);
+    padding: 0px 24px 24px;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+  }
+  .card-product.hover-xl-btn_bot:hover .card-product_action-bot {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
 }
 @media (min-width: 576px) {
   .card-product.has-size .product-action_bot {
@@ -8863,10 +9774,68 @@ input[type=number]::-webkit-outer-spin-button {
 .card-product.style-5 .rate_wrap {
   margin-bottom: 16px;
 }
+.card-product.style-6 .card-product_info {
+  gap: 16px;
+}
+.card-product.style-6 .price-wrap,
+.card-product.style-6 .name-product {
+  margin: 0;
+}
 .card-product.style-padding {
   padding: 30px 20px;
   background-color: var(--white);
   gap: 16px;
+}
+.card-product.style-padding-2 {
+  padding: 20px 16px;
+}
+.card-product.style-padding-3 {
+  padding: 24px;
+  background-color: #FAFAFD;
+}
+.card-product.style-pading-4 {
+  padding: 16px 16px 24px;
+  background-color: #FAFAFA;
+}
+.card-product.out-of-stock .card-product_wrapper::before {
+  content: "Sold Out";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background-color: var(--white);
+  color: var(--primary);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 24px;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 10px;
+  z-index: 5;
+}
+@media (max-width: 575px) {
+  .card-product.out-of-stock .card-product_wrapper::before {
+    width: 60px;
+    height: 60px;
+    font-size: 16px;
+    line-height: 20px;
+  }
+}
+.card-product.out-of-stock .card-product_wrapper .product-img::after {
+  background: rgba(0, 0, 0, 0.2);
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
 }
 @media (min-width: 576px) {
   .card-product.style-3 .variant-box {
@@ -8926,46 +9895,9 @@ input[type=number]::-webkit-outer-spin-button {
   .card-product.style-padding {
     padding: 32px;
   }
-}
-.card-product.out-of-stock .card-product_wrapper::before {
-  content: "Sold Out";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 84px;
-  height: 84px;
-  border-radius: 50%;
-  background-color: var(--white);
-  color: var(--primary);
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 24px;
-  text-transform: uppercase;
-  text-align: center;
-  padding: 10px;
-  z-index: 5;
-}
-@media (max-width: 575px) {
-  .card-product.out-of-stock .card-product_wrapper::before {
-    width: 60px;
-    height: 60px;
-    font-size: 16px;
-    line-height: 20px;
+  .card-product.style-padding-2 {
+    padding: 24px;
   }
-}
-.card-product.out-of-stock .card-product_wrapper .product-img::after {
-  background: rgba(0, 0, 0, 0.2);
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 3;
 }
 @media (max-width: 575px) {
   .card-product {
@@ -9131,10 +10063,42 @@ input[type=number]::-webkit-outer-spin-button {
   opacity: 1;
   visibility: visible;
 }
-.product-style_list-mini.type-2:hover .price-wrap {
-  transform: translateY(-16px);
-  opacity: 0;
-  visibility: hidden;
+.product-style_list-mini.type-3 {
+  gap: 16px;
+  height: 100%;
+  flex-direction: row;
+  align-items: center;
+}
+.product-style_list-mini.type-3 .card-product_wrapper {
+  border-radius: 16px;
+}
+.product-style_list-mini.type-3 .card-product_info {
+  display: grid;
+  gap: 16px;
+}
+.product-style_list-mini.type-3 .name-product {
+  margin-bottom: 12px;
+}
+.product-style_list-mini.type-3 .rate_wrap {
+  margin-bottom: 3px;
+}
+.product-style_list-mini.type-3 .card-product_wrapper {
+  max-width: 194px;
+}
+.product-style_list-mini.style-border {
+  padding: 15px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+@media (min-width: 1200px) {
+  .product-style_list-mini.type-3 .name-product {
+    -webkit-line-clamp: 3;
+  }
+  .product-style_list-mini.type-2:hover .price-wrap {
+    transform: translateY(-16px);
+    opacity: 0;
+    visibility: hidden;
+  }
 }
 @media (min-width: 1025px) {
   .product-style_list-mini {
@@ -9143,6 +10107,17 @@ input[type=number]::-webkit-outer-spin-button {
   }
   .product-style_list-mini .card-product_wrapper {
     max-width: 122px;
+  }
+}
+@media (max-width: 575px) {
+  .product-style_list-mini.type-3 {
+    flex-direction: column;
+  }
+  .product-style_list-mini.type-3 .card-product_wrapper {
+    max-width: 100px;
+  }
+  .product-style_list-mini.type-3 .card-product_info {
+    width: 100%;
   }
 }
 
@@ -9162,6 +10137,14 @@ input[type=number]::-webkit-outer-spin-button {
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+}
+.card-product_wrapper.style-line-radius {
+  border-radius: 16px;
+  border: 1px solid var(--line);
+}
+.card-product_wrapper .product-img {
+  overflow: hidden;
+  position: relative;
 }
 .card-product_wrapper .remove {
   position: absolute;
@@ -9228,9 +10211,14 @@ input[type=number]::-webkit-outer-spin-button {
   height: 35px;
   border-radius: 50%;
   background-color: var(--white);
+  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
 }
 .product-action_list .box-icon:hover {
   background-color: var(--black);
+  color: var(--white);
+}
+.product-action_list .box-icon.hover-primary:hover {
+  background-color: var(--primary);
   color: var(--white);
 }
 .product-action_list .icon {
@@ -9311,6 +10299,18 @@ input[type=number]::-webkit-outer-spin-button {
 .card-product_info .price-wrap {
   margin-bottom: 16px;
 }
+.card-product_info .infor-head_wrap {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.card-product_info .infor-head_wrap .name-product {
+  -webkit-line-clamp: 3;
+}
+.card-product_info .infor-head_wrap .card-product_wrapper {
+  max-width: 113px;
+  aspect-ratio: 0.7483443709;
+}
 
 .price-wrap {
   display: inline-flex;
@@ -9338,6 +10338,12 @@ input[type=number]::-webkit-outer-spin-button {
   height: 1px;
   background-color: var(--text-3);
 }
+.price-wrap .price-old.non-cl {
+  text-decoration: line-through;
+}
+.price-wrap .price-old.non-cl::after {
+  content: none;
+}
 .price-wrap.style-white {
   color: var(--white);
 }
@@ -9354,7 +10360,12 @@ input[type=number]::-webkit-outer-spin-button {
 .price-wrap.price_sld .price-old::after {
   content: none;
 }
-
+.price-wrap.style-end {
+  align-items: end;
+}
+.price-wrap.style-end .price-old {
+  margin-bottom: 2px;
+}
 .product-color_list {
   display: flex;
   flex-wrap: wrap;
@@ -9459,6 +10470,13 @@ input[type=number]::-webkit-outer-spin-button {
 .product-color_list.style-2 .swatch-value {
   border: 2px solid #e7ecd2;
 }
+.product-color_list.style-large .product-color-item {
+  width: 40px;
+  height: 40px;
+}
+.product-color_list.style-large .product-color-item .swatch-value {
+  border-width: 4px;
+}
 @media (min-width: 1200px) {
   .product-color_list {
     gap: 8px;
@@ -9523,6 +10541,9 @@ input[type=number]::-webkit-outer-spin-button {
   background-color: var(--secondary);
   color: var(--bg-4);
   border-radius: 6px;
+}
+.product-badge_item.type-radius {
+  border-radius: 16px;
 }
 @media (max-width: 991px) {
   .product-badge_item {
@@ -9590,6 +10611,18 @@ input[type=number]::-webkit-outer-spin-button {
   font-weight: 500;
   font-size: clamp(20px, 3vw, 24px);
   line-height: clamp(26px, 4vw, 32px);
+}
+.product-countdown.type-2 {
+  left: 7px;
+  right: 7px;
+  bottom: 8px;
+  transform: unset;
+  padding: 12px 16px;
+}
+.product-countdown.type-2 .countdown__item {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 24px;
 }
 @media (max-width: 1199px) {
   .product-countdown {
@@ -9799,14 +10832,18 @@ input[type=number]::-webkit-outer-spin-button {
     padding-right: 12px;
   }
 }
-@media (max-width: 575px) {
+@media (max-width: 991px) {
   .product-action_bot {
-    bottom: 8px;
     left: 8px;
     right: 8px;
   }
+}
+@media (max-width: 575px) {
+  .product-action_bot {
+    bottom: 8px;
+  }
   .product-action_bot > * {
-    padding: 5px;
+    padding: 10px 5px;
     width: 100%;
   }
   .product-action_bot > *:not(:last-child) {
@@ -11612,6 +12649,7 @@ input[type=number]::-webkit-outer-spin-button {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .progress {
@@ -11737,10 +12775,35 @@ input[type=number]::-webkit-outer-spin-button {
   }
 }
 
+.count-customer {
+  display: flex;
+  align-items: center;
+  color: var(--primary);
+  gap: 12px;
+}
+.count-customer .icon {
+  font-size: 18px;
+}
+
+.action_quantity-product {
+  display: flex;
+  gap: 16px;
+}
+@media (min-width: 576px) {
+  .action_quantity-product .wg-quantity {
+    min-width: 140px;
+  }
+}
+@media (max-width: 575px) {
+  .action_quantity-product {
+    flex-direction: column;
+  }
+}
+
 /*------------ blog ---------------- */
 /* ---------------------------------------------------------
     * Name: Ochaka - Multipurpose eCommerce HTML Template
-    * Version: 1.0.0
+    * Version: 1.0.1
     * Author: Themesflat
     * Author URI: http://themesflat.com 
 
@@ -11755,7 +12818,7 @@ input[type=number]::-webkit-outer-spin-button {
         * accordion
         * animation
         * blog
-        * box iocn
+        * box icon
         * button
         * carousel
         * avatar
@@ -11796,6 +12859,10 @@ input[type=number]::-webkit-outer-spin-button {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+.article-blog .entry_tag.pst-2 {
+  top: 8px;
+  left: 8px;
 }
 .article-blog .name-tag {
   display: block;
@@ -11850,6 +12917,25 @@ input[type=number]::-webkit-outer-spin-button {
 .article-blog.type-space-2 .entry_tag {
   top: 0;
   left: 0;
+}
+.article-blog.style-radius {
+  gap: 28px;
+}
+.article-blog.style-radius .entry_image {
+  border-radius: 16px;
+}
+.article-blog.style-radius .name-tag {
+  border-radius: 999px;
+  background-color: var(--primary);
+}
+.article-blog.style-radius .entry_name {
+  margin-bottom: 12px;
+}
+.article-blog.style-radius .text {
+  margin-bottom: 24px;
+}
+.article-blog.style-radius .blog-content {
+  padding: 0;
 }
 @media (min-width: 768px) {
   .article-blog.style-row {
@@ -12260,7 +13346,7 @@ input[type=number]::-webkit-outer-spin-button {
 /*------------ testimonial ---------------- */
 /* ---------------------------------------------------------
     * Name: Ochaka - Multipurpose eCommerce HTML Template
-    * Version: 1.0.0
+    * Version: 1.0.1
     * Author: Themesflat
     * Author URI: http://themesflat.com 
 
@@ -12275,7 +13361,7 @@ input[type=number]::-webkit-outer-spin-button {
         * accordion
         * animation
         * blog
-        * box iocn
+        * box icon
         * button
         * carousel
         * avatar
@@ -12338,6 +13424,9 @@ input[type=number]::-webkit-outer-spin-button {
   .testimonial-V01 {
     padding: 31px;
   }
+  .testimonial-V01 .mb-md-32 {
+    margin-bottom: 32px !important;
+  }
 }
 
 .testimonial-V02 {
@@ -12387,6 +13476,18 @@ input[type=number]::-webkit-outer-spin-button {
   gap: 8px;
   margin-bottom: 4px;
 }
+.testimonial-V02.type-space-3 .tes_title {
+  margin-bottom: 4px;
+}
+.testimonial-V02.type-space-3 .prd_price {
+  margin-bottom: 24px;
+}
+.testimonial-V02.type-space-3 .tes_author {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
 @media (min-width: 1440px) {
   .testimonial-V02 {
     gap: 45px;
@@ -12401,6 +13502,13 @@ input[type=number]::-webkit-outer-spin-button {
   .testimonial-V02 .product-image img {
     aspect-ratio: 0.7788461538;
     object-fit: cover;
+  }
+  .testimonial-V02.type-space-3 .product-image {
+    width: 100%;
+    max-width: 200px;
+  }
+  .testimonial-V02.type-space-3 .product-image img {
+    aspect-ratio: 0.6622516556;
   }
 }
 @media (min-width: 1200px) {
@@ -12421,6 +13529,7 @@ input[type=number]::-webkit-outer-spin-button {
 @media (max-width: 1199px) {
   .testimonial-V02 {
     flex-wrap: wrap;
+    align-items: start;
   }
   .testimonial-V02 > * {
     width: 100%;
@@ -12430,10 +13539,8 @@ input[type=number]::-webkit-outer-spin-button {
     width: 100%;
     object-fit: cover;
   }
-}
-@media (max-width: 991px) {
-  .testimonial-V02 .product-image img {
-    max-height: 250px;
+  .testimonial-V02.type-space-3 .product-image img {
+    max-height: 450px;
   }
 }
 
@@ -12489,6 +13596,8 @@ input[type=number]::-webkit-outer-spin-button {
 
 .testimonial-V04 {
   border: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
 }
 .testimonial-V04 .author-image,
 .testimonial-V04 .tes_text {
@@ -12515,6 +13624,7 @@ input[type=number]::-webkit-outer-spin-button {
   text-align: center;
   flex-direction: column;
   padding: 30px 15px;
+  height: 100%;
 }
 .testimonial-V04 .tes_title {
   margin-bottom: 8px;
@@ -12589,7 +13699,7 @@ input[type=number]::-webkit-outer-spin-button {
 /*------------ accordion ---------------- */
 /* ---------------------------------------------------------
     * Name: Ochaka - Multipurpose eCommerce HTML Template
-    * Version: 1.0.0
+    * Version: 1.0.1
     * Author: Themesflat
     * Author URI: http://themesflat.com 
 
@@ -12604,7 +13714,7 @@ input[type=number]::-webkit-outer-spin-button {
         * accordion
         * animation
         * blog
-        * box iocn
+        * box icon
         * button
         * carousel
         * avatar
@@ -12804,7 +13914,7 @@ input[type=number]::-webkit-outer-spin-button {
 /*------------ zoom ---------------- */
 /* ---------------------------------------------------------
     * Name: Ochaka - Multipurpose eCommerce HTML Template
-    * Version: 1.0.0
+    * Version: 1.0.1
     * Author: Themesflat
     * Author URI: http://themesflat.com 
 
@@ -12819,7 +13929,7 @@ input[type=number]::-webkit-outer-spin-button {
         * accordion
         * animation
         * blog
-        * box iocn
+        * box icon
         * button
         * carousel
         * avatar
@@ -13011,7 +14121,7 @@ input[type=number]::-webkit-outer-spin-button {
 /*------------ shop ---------------- */
 /* ---------------------------------------------------------
     * Name: Ochaka - Multipurpose eCommerce HTML Template
-    * Version: 1.0.0
+    * Version: 1.0.1
     * Author: Themesflat
     * Author URI: http://themesflat.com 
 
@@ -13026,7 +14136,7 @@ input[type=number]::-webkit-outer-spin-button {
         * accordion
         * animation
         * blog
-        * box iocn
+        * box icon
         * button
         * carousel
         * avatar
@@ -13940,7 +15050,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
 /*------------ animation ---------------- */
 /* ---------------------------------------------------------
     * Name: Ochaka - Multipurpose eCommerce HTML Template
-    * Version: 1.0.0
+    * Version: 1.0.1
     * Author: Themesflat
     * Author URI: http://themesflat.com 
 
@@ -13955,7 +15065,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
         * accordion
         * animation
         * blog
-        * box iocn
+        * box icon
         * button
         * carousel
         * avatar
@@ -14063,10 +15173,63 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
     transform: translateY(-5px);
   }
 }
+@keyframes float1 {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(-5deg);
+  }
+}
+@keyframes float2 {
+  0%, 100% {
+    transform: translateX(0) rotate(0deg);
+  }
+  50% {
+    transform: translateX(5px) rotate(10deg);
+  }
+}
+@keyframes float3 {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.1) rotate(-8deg);
+  }
+}
+@keyframes float4 {
+  0%, 100% {
+    opacity: 0.6;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-8px);
+  }
+}
+@keyframes float5 {
+  0%, 100% {
+    transform: rotate(0deg) scale(1);
+  }
+  25% {
+    transform: rotate(5deg) scale(1.05);
+  }
+  75% {
+    transform: rotate(-5deg) scale(1.05);
+  }
+}
+@keyframes bgMove {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: 0% 0;
+  }
+}
 /*------------ tabs ---------------- */
 /* ---------------------------------------------------------
     * Name: Ochaka - Multipurpose eCommerce HTML Template
-    * Version: 1.0.0
+    * Version: 1.0.1
     * Author: Themesflat
     * Author URI: http://themesflat.com 
 
@@ -14081,7 +15244,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
         * accordion
         * animation
         * blog
-        * box iocn
+        * box icon
         * button
         * carousel
         * avatar
@@ -14669,6 +15832,11 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
   border-color: var(--bg-4);
   background-color: var(--bg-4);
 }
+.tf-btn-tab-2.style-primary:hover, .tf-btn-tab-2.style-primary.active {
+  color: var(--white);
+  border-color: var(--primary);
+  background-color: var(--primary);
+}
 .tf-btn-tab-2:hover, .tf-btn-tab-2.active {
   color: var(--primary);
   border-color: var(--primary);
@@ -14735,7 +15903,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
 /*------------ cart ---------------- */
 /* ---------------------------------------------------------
     * Name: Ochaka - Multipurpose eCommerce HTML Template
-    * Version: 1.0.0
+    * Version: 1.0.1
     * Author: Themesflat
     * Author URI: http://themesflat.com 
 
@@ -14750,7 +15918,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
         * accordion
         * animation
         * blog
-        * box iocn
+        * box icon
         * button
         * carousel
         * avatar
@@ -15525,7 +16693,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
 /*------------ Section ---------------- */
 /* ---------------------------------------------------------
     * Name: Ochaka - Multipurpose eCommerce HTML Template
-    * Version: 1.0.0
+    * Version: 1.0.1
     * Author: Themesflat
     * Author URI: http://themesflat.com 
 
@@ -15540,7 +16708,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
         * accordion
         * animation
         * blog
-        * box iocn
+        * box icon
         * button
         * carousel
         * avatar
@@ -15709,9 +16877,21 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
   background-color: var(--black);
   height: 24px;
 }
+.wg-cls.style-2 .cls-content {
+  background-color: transparent;
+  padding: 0;
+}
+@media (min-width: 992px) {
+  .wg-cls.style-2 .cls-content {
+    bottom: 32px;
+  }
+}
 @media (min-width: 1200px) {
   .wg-cls .cls-content {
     gap: 24px;
+  }
+  .wg-cls.style-2 .cls-content {
+    bottom: 49px;
   }
 }
 
@@ -15790,6 +16970,13 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
   padding-bottom: 32px;
   border-bottom: 1px solid var(--line);
 }
+.sect-title.type-4 {
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
 .sect-title .title {
   color: var(--black);
   font-weight: 500;
@@ -15841,6 +17028,66 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+.box-image_V01.type-2 {
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+.box-image_V01.type-2 .box-image_image img {
+  max-height: 400px;
+}
+.box-image_V01.type-2 .box-image_content {
+  top: 40%;
+  left: 16px;
+  right: 16px;
+  transform: unset;
+  text-align: center;
+  align-items: center;
+}
+.box-image_V01.type-2 .title {
+  margin-bottom: 0;
+}
+.box-image_V01.type-3 {
+  margin-bottom: 0;
+}
+.box-image_V01.type-3 .box-image_image img {
+  min-height: 400px;
+}
+.box-image_V01.type-3 .sub-title,
+.box-image_V01.type-3 .desc {
+  margin-bottom: 24px;
+}
+.box-image_V01.type-3 .title {
+  margin-bottom: 8px;
+}
+.box-image_V01.type-3 .box-image_content {
+  left: 16px;
+  transform: translateY(-50%);
+  align-items: start;
+}
+.box-image_V01.type-4 {
+  border-radius: 16px;
+  overflow: hidden;
+}
+.box-image_V01.type-4 .box-image_content {
+  left: 16px;
+  right: 16px;
+  transform: translateY(-50%);
+}
+@media (min-width: 1200px) {
+  .box-image_V01.type-3 .box-image_content {
+    left: 32px;
+  }
+}
+@media (min-width: 992px) {
+  .box-image_V01.type-2 {
+    height: 100%;
+  }
+  .box-image_V01.type-2 .box-image_image img {
+    max-height: unset;
+    height: 100%;
+  }
+}
 @media (max-width: 1199px) {
   .box-image_V01 {
     margin-bottom: 30px;
@@ -15850,6 +17097,16 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
   }
   .box-image_V01 .box-image_content {
     align-items: center;
+  }
+  .box-image_V01.type-3::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: linear-gradient(-90deg, rgba(255, 255, 255, 0) 24.38%, #FFFfff 69.3%);
+  }
+  .box-image_V01.type-3 .box-image_content {
+    z-index: 1;
   }
 }
 @media (max-width: 767px) {
@@ -15891,6 +17148,12 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
   bottom: 24px;
   left: 24px;
 }
+.box-image_V02.type-space-6 .title {
+  margin-bottom: 12px;
+}
+.box-image_V02.type-space-6 .desc {
+  margin-bottom: 30px;
+}
 @media (min-width: 1200px) {
   .box-image_V02.type-space-3 .box-image_content {
     bottom: 32px;
@@ -15903,6 +17166,9 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
   .box-image_V02.type-space-5 .box-image_content {
     bottom: 32px;
     left: 32px;
+  }
+  .box-image_V02.type-space-6 .desc {
+    margin-bottom: 40px;
   }
 }
 
@@ -15999,6 +17265,202 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
     bottom: 30px;
     left: 15px;
   }
+}
+
+.box-image_V06 {
+  position: relative;
+  display: flex;
+  border-radius: 16px;
+  overflow: hidden;
+}
+.box-image_V06 .box-image_content {
+  top: 49px;
+  left: 16px;
+  bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.box-image_V06 .sub-title {
+  margin-bottom: 4px;
+}
+.box-image_V06 .title {
+  margin-bottom: 8px;
+}
+.box-image_V06 .product-badge_list {
+  left: 16px;
+  top: 16px;
+}
+.box-image_V06 .product-badge_item {
+  border-radius: 99px;
+}
+.box-image_V06 .box-image_image img {
+  min-height: 242px;
+}
+.box-image_V06.has-overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(-90deg, rgba(241, 242, 244, 0) 38.38%, #F1F2F4 66.3%);
+}
+.box-image_V06.has-overlay .box-image_image {
+  z-index: 0;
+}
+.box-image_V06.has-overlay .box-image_content,
+.box-image_V06.has-overlay .product-badge_list {
+  z-index: 2;
+}
+.box-image_V06.has-overlay.overlay-2::after {
+  background: linear-gradient(-90deg, rgba(59, 29, 10, 0) 32.95%, #3B1D0A 80.78%);
+}
+.box-image_V06.has-overlay.overlay-3::after {
+  background: linear-gradient(270deg, rgba(6, 6, 11, 0) 37.83%, #06060B 80.14%);
+}
+.box-image_V06.has-overlay.overlay-4::after {
+  background: linear-gradient(270deg, rgba(14, 18, 38, 0) 37.83%, #0E1226 80.14%);
+}
+.box-image_V06.has-overlay.overlay-5::after {
+  background: linear-gradient(270deg, rgba(103, 107, 114, 0) 37.83%, #676B72 80.14%);
+}
+.box-image_V06.has-overlay.overlay-6::after {
+  background: linear-gradient(270deg, rgba(68, 82, 95, 0) 37.83%, #44525F 80.14%);
+}
+.box-image_V06.type-space-2 .box-image_content {
+  top: unset;
+}
+.box-image_V06.type-space-2 .title {
+  margin-bottom: 16px;
+}
+.box-image_V06.type-space-3 .box-image_content {
+  top: unset;
+}
+.box-image_V06.type-space-3 .sub-title {
+  margin-bottom: 8px;
+}
+.box-image_V06.type-space-3 .title {
+  margin-bottom: 20px;
+}
+.box-image_V06.type-space-3.pst-center-y .box-image_content {
+  top: 16px;
+  bottom: 16px;
+  justify-content: center;
+}
+.box-image_V06.type-space-4 .box-image_content {
+  top: unset;
+}
+.box-image_V06.type-space-4 .price-wrap {
+  margin-bottom: 22px;
+}
+@media (min-width: 1200px) {
+  .box-image_V06 .box-image_content {
+    left: 24px;
+    bottom: 24px;
+  }
+  .box-image_V06 .product-badge_list {
+    top: 24px;
+    left: 24px;
+  }
+}
+
+.box-image_v07 {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+}
+.box-image_v07 .box-image_image {
+  height: 100%;
+}
+.box-image_v07 .box-image_image img {
+  width: 100%;
+  height: 100%;
+  min-height: 700px;
+  object-fit: cover;
+}
+.box-image_v07 .box-image_content {
+  bottom: 20px;
+  right: 16px;
+  left: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+.box-image_v07 .promo,
+.box-image_v07 .desc {
+  margin-bottom: 24px;
+}
+.box-image_v07 .title {
+  margin-bottom: 8px;
+}
+@media (min-width: 992px) {
+  .box-image_v07 .box-image_content {
+    bottom: 32px;
+  }
+}
+@media (min-width: 1200px) {
+  .box-image_v07 .box-image_content {
+    bottom: 56px;
+  }
+}
+
+.box-image_V08 {
+  display: flex;
+  position: relative;
+}
+.box-image_V08 .box-image_content {
+  bottom: 32px;
+  right: 16px;
+  left: 16px;
+}
+.box-image_V08 .title {
+  margin-bottom: 9px;
+}
+.box-image_V08 .flat-off {
+  padding: 3px 31px;
+  position: relative;
+}
+.box-image_V08 .flat-off::before {
+  content: "";
+  inset: 0;
+  z-index: 0;
+  position: absolute;
+  border-left: 2px solid var(--white);
+  border-right: 2px solid var(--white);
+}
+.box-image_V08 .flat-off::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 55px;
+  z-index: 0;
+  border-top: 2px solid var(--white);
+  border-bottom: 2px solid var(--white);
+}
+.box-image_V08 .flat-off > .line-break::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 55px;
+  z-index: 0;
+  border-top: 2px solid var(--white);
+  border-bottom: 2px solid var(--white);
+}
+.box-image_V08 .text-off {
+  line-height: 100%;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+.box-image_V08 .text-off span {
+  font-size: clamp(36px, 6vw, 64px);
+  line-height: clamp(36px, 6vw, 64px);
 }
 
 .box-image_category {
@@ -16298,6 +17760,74 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
   }
 }
 
+.banner-V06 {
+  padding-top: 250px;
+  padding-bottom: 251px;
+}
+.banner-V06 .banner_content {
+  text-align: center;
+}
+.banner-V06 .title {
+  margin-bottom: 12px;
+}
+.banner-V06 .sub-title {
+  margin-bottom: 40px;
+}
+@media (max-width: 1199px) {
+  .banner-V06 {
+    padding-top: 150px;
+    padding-bottom: 150px;
+  }
+}
+@media (max-width: 767px) {
+  .banner-V06 {
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
+}
+
+.banner-V07 .sub-title {
+  margin-bottom: 32px;
+}
+.banner-V07 .title {
+  margin-bottom: 32px;
+}
+.banner-V07 .desc {
+  margin-bottom: 40px;
+}
+.banner-V07 .image-right {
+  position: relative;
+  padding-bottom: 126px;
+  padding-left: 126px;
+  margin-bottom: 30px;
+}
+.banner-V07 .image {
+  overflow: hidden;
+}
+.banner-V07 .image.img-1 {
+  max-width: 620px;
+  margin: 0 auto;
+}
+.banner-V07 .image.img-2 {
+  margin-top: 100px;
+  margin-right: 100px;
+  max-width: 448px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+@media (max-width: 1199px) {
+  .banner-V07 .sub-title {
+    margin-bottom: 24px;
+  }
+  .banner-V07 .title {
+    margin-bottom: 24px;
+  }
+  .banner-V07 .desc {
+    margin-bottom: 30px;
+  }
+}
+
 .wg-curve-text {
   display: flex;
   justify-content: center;
@@ -16380,6 +17910,10 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
 .banner-lookbook .position8 {
   top: 72%;
   left: 24%;
+}
+.banner-lookbook .position9 {
+  top: 83%;
+  left: 81%;
 }
 .banner-lookbook .dropdown-menu {
   border: 0;
@@ -16582,6 +18116,19 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
     line-height: 18px;
   }
 }
+.count-down_v02.style-3 .countdown__item {
+  border-radius: 50%;
+  background-color: #685BC7;
+  min-width: 56px;
+}
+.count-down_v02.style-3 .countdown__value {
+  font-size: 20px;
+  line-height: 27px;
+  margin-bottom: -7px;
+}
+.count-down_v02.rounded-0 .countdown__item {
+  border-radius: 0px !important;
+}
 @media (min-width: 1200px) {
   .count-down_v02 .countdown__value {
     margin-bottom: -4px;
@@ -16644,6 +18191,75 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
   z-index: 2;
   width: 100%;
 }
+.banner-cd_v01.style-3 {
+  background: transparent;
+  padding: 92px 0px;
+  position: relative;
+}
+.banner-cd_v01.style-3 .banner_content {
+  background-color: transparent;
+}
+.banner-cd_v01.style-3 .banner_img img {
+  animation: unset;
+}
+.banner-cd_v01.style-3 .img-item_bg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+}
+.banner-cd_v01.style-3 .img-item_bg img {
+  width: 100%;
+}
+.banner-cd_v01.style-3 .img-item_leaves {
+  position: absolute;
+}
+.banner-cd_v01.style-3 .img-item_leaves.item-1 {
+  top: -3%;
+  left: 26%;
+}
+.banner-cd_v01.style-3 .img-item_leaves.item-2 {
+  bottom: -2%;
+  left: 30%;
+}
+.banner-cd_v01.style-3 .img-item_leaves.item-3 {
+  bottom: -7%;
+  left: 55%;
+}
+.banner-cd_v01.style-3 .img-item_leaves.item-4 {
+  bottom: 4%;
+  right: 18%;
+}
+.banner-cd_v01.style-3 .img-item_leaves.item-5 {
+  top: -6%;
+  right: 11%;
+}
+.banner-cd_v01.style-3 .img-item_leaves {
+  position: relative;
+}
+.banner-cd_v01.style-3 .img-item_leaves.item-1, .banner-cd_v01.style-3 .img-item_leaves.item-2, .banner-cd_v01.style-3 .img-item_leaves.item-3, .banner-cd_v01.style-3 .img-item_leaves.item-4, .banner-cd_v01.style-3 .img-item_leaves.item-5 {
+  position: absolute;
+  animation-fill-mode: both;
+  animation-timing-function: ease-in-out;
+  transform-origin: center center;
+}
+.banner-cd_v01.style-3 .img-item_leaves.item-1 {
+  animation: float1 3s ease-in-out infinite;
+}
+.banner-cd_v01.style-3 .img-item_leaves.item-2 {
+  animation: float2 4s ease-in-out infinite;
+}
+.banner-cd_v01.style-3 .img-item_leaves.item-3 {
+  animation: float3 2.5s ease-in-out infinite;
+}
+.banner-cd_v01.style-3 .img-item_leaves.item-4 {
+  animation: float4 5s ease-in-out infinite;
+}
+.banner-cd_v01.style-3 .img-item_leaves.item-5 {
+  animation: float5 3.5s ease-in-out infinite;
+}
+.banner-cd_v01.style-3 > * {
+  width: 100%;
+}
 @media (min-width: 768px) {
   .banner-cd_v01 > * {
     width: 50%;
@@ -16663,18 +18279,6 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
   .banner-cd_v01 .count-down_v01,
   .banner-cd_v01 .sub-title {
     margin-bottom: 56px;
-  }
-}
-@media (max-width: 1024px) {
-  .banner-cd_v01.style-2 .banner_content {
-    padding-top: 80px;
-    padding-bottom: 80px;
-  }
-}
-@media (max-width: 767px) {
-  .banner-cd_v01.style-2 .banner_content {
-    padding-top: 60px;
-    padding-bottom: 60px;
   }
 }
 @media (max-width: 1599px) {
@@ -16703,10 +18307,26 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
     bottom: 8px;
     right: 8px;
   }
+  .banner-cd_v01.style-3 .img-item_leaves {
+    display: flex;
+  }
+  .banner-cd_v01.style-3 .img-item_leaves img {
+    width: 70%;
+  }
+}
+@media (max-width: 1024px) {
+  .banner-cd_v01.style-2 .banner_content {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
 }
 @media (max-width: 767px) {
   .banner-cd_v01 .img-item.item-1, .banner-cd_v01 .img-item.item-2 {
     max-width: 120px;
+  }
+  .banner-cd_v01.style-2 .banner_content {
+    padding-top: 60px;
+    padding-bottom: 60px;
   }
 }
 
@@ -16725,6 +18345,11 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+@media (max-width: 575px) {
+  .banner-cd_v02 {
+    padding: 20px 8px;
+  }
 }
 
 .gallery-item {
@@ -16809,6 +18434,31 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
 .widget-collection.type-space-2 {
   gap: 16px;
 }
+.widget-collection.style-2 {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px dashed #499F30;
+  padding: 27px 12px 23px;
+}
+.widget-collection.style-2 .collection_image {
+  max-width: 126px;
+  margin: 0 auto;
+}
+.widget-collection.style-2.type-line_color_2 {
+  border-color: #EE7F00;
+}
+.widget-collection.style-2.type-line_color_3 {
+  border-color: #95C532;
+}
+.widget-collection.style-2.type-line_color_4 {
+  border-color: #F44500;
+}
+.widget-collection.style-2.type-line_color_5 {
+  border-color: #FED049;
+}
+.widget-collection.style-2.type-line_color_6 {
+  border-color: #FED049;
+}
 
 .nav-shop-by {
   display: flex;
@@ -16847,6 +18497,9 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
 
 .s-collection {
   padding: 15px 15px 0px;
+}
+.s-collection.type-2 {
+  padding: 16px 16px 0px;
 }
 @media (min-width: 1200px) {
   .s-collection {
@@ -16896,6 +18549,15 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
 }
 .banner-product-set .set_title {
   margin-bottom: 8px;
+}
+.banner-product-set.style-2 {
+  border-radius: 21px;
+}
+.banner-product-set.style-2 .banner_content {
+  margin: 0 auto;
+}
+.banner-product-set.style-2 .product-badge_item {
+  border-radius: 6px;
 }
 @media (min-width: 1025px) {
   .banner-product-set {
@@ -16956,6 +18618,14 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
   transform: scale(1.1);
   transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
 }
+.box-icon_V01.style-2 {
+  padding-top: 32px;
+  padding-bottom: 32px;
+  background-color: #F9F7F5;
+}
+.box-icon_V01.style-2::after {
+  content: none;
+}
 @media (min-width: 992px) {
   .box-icon_V01 .icon {
     font-size: 56px;
@@ -17001,6 +18671,14 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
 .tf-marquee.style-3 {
   margin: 0;
   padding: 12px 0px;
+}
+.tf-marquee.style-4 {
+  margin: 0;
+  padding: 8px 0px;
+}
+.tf-marquee.style-5 {
+  margin: 0;
+  padding: 16px 0px;
 }
 @media (max-width: 1199px) {
   .tf-marquee .text-display {
@@ -18293,6 +19971,415 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
   position: absolute;
   top: 70%;
   left: 70%;
+}
+
+.wg-copy {
+  border-radius: 16px;
+  padding: 8px;
+  background-color: var(--primary);
+}
+.wg-copy .content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 16px;
+  border: 1px dashed var(--line-9);
+  padding: 20px 8px;
+  gap: 5px;
+}
+.wg-copy .btn-coppy-text {
+  cursor: pointer;
+}
+@media (min-width: 1200px) {
+  .wg-copy .content {
+    padding: 23px 31px;
+  }
+}
+@media (min-width: 992px) {
+  .wg-copy .btn-coppy-text {
+    padding: 16px 32px;
+  }
+}
+@media (max-width: 575px) {
+  .wg-copy .content {
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    gap: 16px;
+  }
+}
+
+.has-overlay-50 {
+  position: relative;
+}
+.has-overlay-50::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-color: rgba(0, 0, 0, 0.5019607843);
+}
+
+.has-overlay_left {
+  position: relative;
+}
+.has-overlay_left::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(-90deg, rgba(241, 242, 244, 0) 38.38%, #F1F2F4 66.3%);
+}
+
+.body-lv-2 {
+  padding-bottom: 40px;
+}
+.body-lv-2 > * {
+  padding: 32px;
+  border-radius: 16px;
+  background-color: var(--white);
+  max-width: 1504px;
+  width: 100%;
+  margin: 0 auto;
+}
+.body-lv-2 > * .container {
+  padding: 0;
+}
+.body-lv-2 > *:not(:last-child) {
+  margin-bottom: 40px;
+}
+@media (max-width: 1199px) {
+  .body-lv-2 > * {
+    padding: 32px 16px;
+  }
+}
+.body-lv-2 .footer-body {
+  margin-top: 56px;
+  border-top: 1px solid var(--line);
+  padding-top: 57px;
+}
+
+.grid-layout-product .item-grid-1 {
+  margin-bottom: 24px;
+}
+@media (min-width: 1200px) {
+  .grid-layout-product {
+    display: flex;
+    justify-content: space-between;
+  }
+  .grid-layout-product .tf-swiper {
+    width: 100%;
+  }
+  .grid-layout-product .tf-swiper .swiper-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    display: unset;
+    transition-property: unset;
+    transition-timing-function: unset;
+    box-sizing: unset;
+    display: grid;
+    gap: 24px;
+  }
+  .grid-layout-product .tf-swiper .swiper-slide {
+    width: 100% !important;
+    margin: 0 !important;
+  }
+  .grid-layout-product .item-grid-1 {
+    width: calc(66.388888% - 12px);
+    margin-bottom: 0;
+  }
+  .grid-layout-product .item-grid-2 {
+    width: calc(33.61111111% - 12px);
+  }
+}
+
+.grid-layout-product-2 .item-grid-1 {
+  margin-bottom: 4px;
+}
+@media (min-width: 1200px) {
+  .grid-layout-product-2 {
+    display: flex;
+    gap: 4px;
+  }
+  .grid-layout-product-2 .item-grid-1 {
+    width: calc(30.972222222% - 2px);
+    margin-bottom: 0;
+  }
+  .grid-layout-product-2 .item-grid-1 > * {
+    height: 100%;
+  }
+  .grid-layout-product-2 .item-grid-2 {
+    width: calc(69.02777777% - 2px);
+  }
+  .grid-layout-product-2 .item-grid-2 > * {
+    height: 100%;
+  }
+}
+
+.banner-card_product {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background-color: var(--white);
+  padding: 16px;
+  border-radius: 16px;
+  height: 100%;
+}
+.banner-card_product > * {
+  width: calc(50% - 24px);
+}
+.banner-card_product .product-image {
+  border-radius: 16px;
+  overflow: hidden;
+}
+.banner-card_product .product-image img {
+  aspect-ratio: 0.8212927757;
+}
+.banner-card_product.style-column {
+  flex-direction: column;
+  gap: 24px;
+}
+.banner-card_product.style-column > * {
+  width: 100%;
+}
+.banner-card_product.style-2 {
+  padding: 16px 16px 24px;
+  background-color: #FAFAFA;
+}
+@media (min-width: 1440px) {
+  .banner-card_product {
+    gap: 48px;
+  }
+  .banner-card_product .product-content {
+    padding-right: 24px;
+  }
+}
+@media (max-width: 767px) {
+  .banner-card_product {
+    flex-direction: column;
+    padding-right: 0;
+  }
+  .banner-card_product > * {
+    width: 100%;
+  }
+}
+
+.product-detail_info_mini {
+  display: grid;
+  gap: 24px;
+}
+.product-detail_info_mini .info-cate {
+  margin-bottom: 4px;
+  display: block;
+}
+.product-detail_info_mini .info-name {
+  margin-bottom: 8px;
+}
+.product-detail_info_mini .product_count_buy {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--primary);
+}
+.product-detail_info_mini .product_count_buy .icon {
+  font-size: 18px;
+}
+.product-detail_info_mini .prd-title {
+  margin-bottom: 16px;
+}
+.product-detail_info_mini .product_action {
+  display: flex;
+  gap: 16px;
+}
+@media (min-width: 1200px) {
+  .product-detail_info_mini .wg-quantity {
+    min-width: 140px;
+  }
+}
+@media (max-width: 767px) {
+  .product-detail_info_mini .wg-quantity {
+    min-width: 140px;
+  }
+}
+@media (max-width: 575px) {
+  .product-detail_info_mini .product_action {
+    flex-direction: column;
+  }
+}
+
+.wg-brand {
+  display: flex;
+  border: 1px solid var(--line);
+  position: relative;
+}
+.wg-brand img {
+  width: 100%;
+  object-fit: cover;
+  aspect-ratio: 1.8181818182;
+}
+.wg-brand::after {
+  position: absolute;
+  content: "";
+  width: 0%;
+  height: 1px;
+  top: 0;
+  left: 0;
+  background-color: var(--black);
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+.wg-brand::before {
+  position: absolute;
+  content: "";
+  height: 0%;
+  width: 1px;
+  bottom: 0;
+  left: 0;
+  background-color: var(--black);
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+.wg-brand .tf-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+.wg-brand .tf-overlay::after {
+  position: absolute;
+  content: "";
+  width: 0%;
+  height: 1px;
+  right: 0;
+  bottom: 0;
+  background-color: var(--black);
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+.wg-brand .tf-overlay::before {
+  position: absolute;
+  content: "";
+  height: 0%;
+  width: 1px;
+  right: 0;
+  top: 0;
+  background-color: var(--black);
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+.wg-brand:hover::after {
+  width: 100%;
+  transition-delay: 0.1s;
+}
+.wg-brand:hover::before {
+  height: 100%;
+  transition-delay: 0.4s;
+}
+.wg-brand:hover .tf-overlay::after {
+  width: 100%;
+  transition-delay: 0.1s;
+}
+.wg-brand:hover .tf-overlay::before {
+  height: 100%;
+  transition-delay: 0.4s;
+}
+
+.banner-parallax .card-product {
+  margin-left: auto;
+  max-width: 496px;
+  width: 100%;
+}
+@media (min-width: 992px) {
+  .banner-parallax .card-product {
+    padding: 48px;
+  }
+}
+
+.watch-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: auto auto;
+  gap: 12px;
+  grid-template-areas: "aa bb bb ee" "aa cc dd ee";
+}
+.watch-grid .aa {
+  grid-area: aa;
+}
+.watch-grid .bb {
+  grid-area: bb;
+}
+.watch-grid .cc {
+  grid-area: cc;
+}
+.watch-grid .dd {
+  grid-area: dd;
+}
+.watch-grid .ee {
+  grid-area: ee;
+}
+@media (min-width: 1600px) {
+  .watch-grid {
+    grid-template-columns: 391px 1fr 1fr 391px;
+    gap: 24px;
+  }
+}
+@media (max-width: 1199px) {
+  .watch-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: "aa ee" "aa ee" "bb bb" "cc dd";
+  }
+  .watch-grid .box-image_category img {
+    max-height: 500px;
+  }
+}
+@media (max-width: 575px) {
+  .watch-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas: "aa" "bb" "cc" "dd" "ee";
+  }
+  .watch-grid .box-image_category img {
+    height: 300px;
+  }
+}
+
+@media (max-width: 1199px) {
+  .watch-grid_2 img {
+    max-height: 500px;
+  }
+}
+@media (max-width: 575px) {
+  .watch-grid_2 img {
+    max-height: 300px;
+  }
+  .watch-grid_2 .box-image_V02 .box-image_content {
+    left: 16px;
+    right: 16px;
+  }
+}
+
+.text-linear {
+  background: linear-gradient(90deg, #fdb79e 0%, #fdd1b1 25%, #feeacd 50%, #fdd1b1 75%, #fdb79e 100%);
+  background-size: 200% 100%;
+  background-position: 200% 0;
+  animation: bgMove 3s linear infinite;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
 }
 
 /*-------------- RTL ----------------- */

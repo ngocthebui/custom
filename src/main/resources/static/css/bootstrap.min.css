@@ -825,7 +825,7 @@ progress {
     }
 }
 
-@media (min-width: 1400px) {
+@media (min-width: 1440px) {
     .container,
     .container-lg,
     .container-md,
@@ -842,7 +842,7 @@ progress {
     --bs-breakpoint-md: 768px;
     --bs-breakpoint-lg: 992px;
     --bs-breakpoint-xl: 1200px;
-    --bs-breakpoint-xxl: 1400px;
+    --bs-breakpoint-xxl: 1440px;
 }
 
 .row {
@@ -1928,7 +1928,7 @@ progress {
     }
 }
 
-@media (min-width: 1400px) {
+@media (min-width: 1440px) {
     .col-xxl {
         flex: 1 0 0%;
     }
@@ -4040,7 +4040,7 @@ fieldset:disabled .btn {
     }
 }
 
-@media (min-width: 1400px) {
+@media (min-width: 1440px) {
     .dropdown-menu-xxl-start {
         --bs-position: start;
     }
@@ -4861,7 +4861,7 @@ fieldset:disabled .btn {
     }
 }
 
-@media (min-width: 1400px) {
+@media (min-width: 1440px) {
     .navbar-expand-xxl {
         flex-wrap: nowrap;
         justify-content: flex-start;
@@ -5933,7 +5933,7 @@ fieldset:disabled .btn {
     }
 }
 
-@media (min-width: 1400px) {
+@media (min-width: 1440px) {
     .list-group-horizontal-xxl {
         flex-direction: row;
     }
@@ -7590,7 +7590,7 @@ fieldset:disabled .btn {
     }
 }
 
-@media (min-width: 1400px) {
+@media (min-width: 1440px) {
     .offcanvas-xxl {
         --bs-offcanvas-height: auto;
         --bs-offcanvas-border-width: 0;
@@ -8102,7 +8102,7 @@ fieldset:disabled .btn {
     }
 }
 
-@media (min-width: 1400px) {
+@media (min-width: 1440px) {
     .sticky-xxl-top {
         position: -webkit-sticky;
         position: sticky;
@@ -13111,7 +13111,7 @@ fieldset:disabled .btn {
     }
 }
 
-@media (min-width: 1400px) {
+@media (min-width: 1440px) {
     .float-xxl-start {
         float: left !important;
     }
