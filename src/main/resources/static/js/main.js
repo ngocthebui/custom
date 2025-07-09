@@ -443,13 +443,13 @@
             });
 
             productItem.find(".btn-increase").on("click", function () {
-                var currentQuantity = parseInt(quantityInput.val(),10);
+                var currentQuantity = parseInt(quantityInput.val(), 10);
                 quantityInput.val(currentQuantity + 1);
                 updateTotalPrice(null, productItem);
             });
 
             productItem.find(".btn-decrease").on("click", function () {
-                var currentQuantity = parseInt(quantityInput.val(),10);
+                var currentQuantity = parseInt(quantityInput.val(), 10);
                 if (currentQuantity > 1) {
                     quantityInput.val(currentQuantity - 1);
                     updateTotalPrice(null, productItem);
@@ -458,7 +458,7 @@
 
             function updateTotalPrice(price, scope) {
                 var currentPrice = price || parseFloat(scope.find(".price-on-sale").text().replace("$", "").replace(/,/g, ""));
-                var quantity = parseInt(scope.find(".quantity-product").val(),10);
+                var quantity = parseInt(scope.find(".quantity-product").val(), 10);
                 var totalPrice = currentPrice * quantity;
 
                 scope.find(".price-add").text(`$${totalPrice.toLocaleString("en-US", { minimumFractionDigits: 2 })}`);
@@ -874,28 +874,91 @@
     /* Click Active 
     -------------------------------------------------------------------------*/
     var clickActive = function () {
+        function isAllowed($container) {
+            return !$container.hasClass("active-1600") || window.innerWidth < 1600;
+        }
+
+        let previousWidth = window.innerWidth;
+
+        if (window.innerWidth < 1600) {
+            $(".main-action-active.active-1600").each(function () {
+                $(this).find(".btn-active, .active-item").removeClass("active");
+            });
+        }
+        $(window).on("resize", function () {
+            const currentWidth = window.innerWidth;
+
+            const crossedBreakpoint = (previousWidth < 1600 && currentWidth >= 1600) || (previousWidth >= 1600 && currentWidth < 1600);
+
+            if (crossedBreakpoint) {
+                $(".main-action-active").each(function () {
+                    $(this).find(".btn-active, .active-item").removeClass("active");
+                });
+
+                if (previousWidth < 1600 && currentWidth >= 1600) {
+                    $(".main-action-active.active-1600").each(function () {
+                        const $container = $(this);
+                        const $btn = $container.find(".btn-active");
+                        const $item = $container.find(".active-item");
+
+                        $btn.addClass("active");
+                        $item.addClass("active");
+                    });
+                }
+            }
+
+            previousWidth = currentWidth;
+        });
+
         $(".btn-active").on("click", function (event) {
+            const $container = $(this).closest(".main-action-active");
+
+            if (!isAllowed($container)) return;
+
             event.stopPropagation();
 
-            const $container = $(this).closest(".main-action-active");
             const $activeItem = $container.find(".active-item");
+            const isResponsive = $container.hasClass("active-1600") && window.innerWidth < 1600;
 
-            $(".btn-active").not(this).removeClass("active");
-            $(".active-item").not($activeItem).removeClass("active");
+            if (isResponsive) {
+                $(".main-action-active").each(function () {
+                    if (this !== $container[0]) {
+                        $(this).find(".btn-active, .active-item").removeClass("active");
+                    }
+                });
+            } else {
+                $(".main-action-active").each(function () {
+                    const $other = $(this);
+                    if (this !== $container[0] && (!$other.hasClass("active-1600") || window.innerWidth < 1600)) {
+                        $other.find(".btn-active, .active-item").removeClass("active");
+                    }
+                });
+            }
 
             $(this).toggleClass("active");
             $activeItem.toggleClass("active");
         });
 
         $(document).on("click", function (event) {
-            if (!$(event.target).closest(".main-action-active").length) {
-                $(".btn-active, .active-item").removeClass("active");
-            }
+            const isMobile = window.innerWidth < 1600;
+
+            $(".main-action-active").each(function () {
+                const $container = $(this);
+                const is1600 = $container.hasClass("active-1600");
+
+                if ((is1600 && isMobile) || !is1600) {
+                    if (!$(event.target).closest($container).length) {
+                        $container.find(".btn-active, .active-item").removeClass("active");
+                    }
+                }
+            });
         });
 
         $(".choose-option-item").on("click", function () {
-            $(this).closest(".choose-option-list").find(".select-option").removeClass("select-option");
+            const $container = $(this).closest(".main-action-active");
+            if (!isAllowed($container)) return;
 
+            $(this).closest(".choose-option-list").find(".select-option").removeClass("select-option");
             $(this).addClass("select-option");
         });
     };
@@ -925,19 +988,16 @@
                   </div>
               </li>
           `);
-
-                submenu.find(".demo-name").each(function () {
+                $(".modalDemo .demo-name").each(function () {
                     const $demoName = $(this);
                     const link = $demoName.attr("href") || "#";
                     const title = $demoName.text().trim();
                     const isActive = $demoName.hasClass("active");
-
                     if (title) {
                         const activeClass = isActive ? "active" : "";
                         $li.find(".sub-nav-menu").append(`<li><a href="${link}" class="sub-nav-link ${activeClass}">${title}</a></li>`);
                     }
                 });
-
                 $mobileMenu.append($li);
                 return;
             }
@@ -1013,15 +1073,15 @@
     /* Color Swatch Product
   -------------------------------------------------------------------------*/
     var swatchColor = function () {
-        if ($(".card-product").length > 0) {
+        if ($(".card-product, .banner-card_product").length > 0) {
             $(".color-swatch").on("click mouseover", function () {
                 var $swatch = $(this);
                 var swatchColor = $swatch.find("img:not(.swatch-img)").attr("src");
-                var imgProduct = $swatch.closest(".card-product").find(".img-product");
+                var imgProduct = $swatch.closest(".card-product, .banner-card_product").find(".img-product");
                 var colorLabel = $swatch.find(".color-label").text().trim();
                 imgProduct.attr("src", swatchColor);
-                $swatch.closest(".card-product").find(".quickadd-variant-color .variant-value").text(colorLabel);
-                $swatch.closest(".card-product").find(".color-swatch.active").removeClass("active");
+                $swatch.closest(".card-product, .banner-card_product").find(".quickadd-variant-color .variant-value").text(colorLabel);
+                $swatch.closest(".card-product, .banner-card_product").find(".color-swatch.active").removeClass("active");
                 $swatch.addClass("active");
             });
         }
