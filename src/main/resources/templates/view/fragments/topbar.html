@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]><html class="ie"
+                    xmlns="http://www.w3.org/1999/xhtml"
+                    xmlns:th="http://www.thymeleaf.org"
+                    xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <title>Ochaka - Multipurpose eCommerce HTML Template</title>
+  <meta name="author" content="themesflat.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description"
+        content="Themesflat Ochaka - A modern and elegant Multipurpose eCommerce HTML Template, perfect for online stores selling rings, necklaces, watches, and other accessories. SEO-optimized, fast-loading, and fully customizable.">
+</head>
+
+<body>
+<!-- Top Bar-->
+<div th:fragment="topbar" class="tf-topbar bg-black">
+  <div class="container-full">
+    <div class="row">
+      <div class="col-xl-7 col-lg-8">
+        <div class="topbar-left">
+          <h6 class="text-up text-white fw-normal text-line-clamp-1">
+            Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit
+          </h6>
+          <div class="group-btn">
+            <a href="shop-default.html" class="tf-btn-line style-white letter-space-0">Men</a>
+            <a href="shop-default.html" class="tf-btn-line style-white letter-space-0">Women</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-5 col-lg-4 d-none d-lg-block">
+        <ul class="topbar-right topbar-option-list">
+          <li class="h6">
+            <a href="/faq" class="text-white link">Help & FAQs</a>
+          </li>
+          <li class="br-line"></li>
+          <li class="h6">
+            <a href="#" class="text-white link">Factory</a>
+          </li>
+          <li class="br-line d-none d-xl-inline-flex"></li>
+          <li class="tf-currencies d-none d-xl-block">
+            <select class="tf-dropdown-select style-default color-white type-currencies">
+              <option selected data-thumbnail="images/country/us.png">USD</option>
+              <option data-thumbnail="images/country/vie.png">VND</option>
+            </select>
+          </li>
+          <li class="br-line d-none d-xl-inline-flex"></li>
+          <li class="tf-languages d-none d-xl-block">
+            <select class="tf-dropdown-select style-default color-white type-languages">
+              <option>English</option>
+              <option>العربية</option>
+              <option>简体中文</option>
+              <option>اردو</option>
+            </select>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Top Bar -->
+</body>
+</html>

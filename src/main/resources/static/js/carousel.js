@@ -1,6 +1,7 @@
 $(window).on("load", function () {
     $(".tf-swiper").each(function (index, element) {
         var $this = $(element);
+        var laptop = $this.data("laptop") || 1;
         var preview = $this.data("preview") || 1;
         var tablet = $this.data("tablet") || 1;
         var mobile = $this.data("mobile") || 1;
@@ -10,6 +11,8 @@ $(window).on("load", function () {
         var spacing = $this.data("space");
         var spacingMd = $this.data("space-md");
         var spacingLg = $this.data("space-lg");
+        var spacingXxl = $this.data("space-xxl");
+
         if (spacing !== undefined && spacingMd === undefined && spacingLg === undefined) {
             spacingMd = spacing;
             spacingLg = spacing;
@@ -20,6 +23,7 @@ $(window).on("load", function () {
         spacing = spacing || 0;
         spacingMd = spacingMd || 0;
         spacingLg = spacingLg || 0;
+        spacingXxl = spacingXxl || 1;
 
         var perGroup = $this.data("pagination") || 1;
         var perGroupSm = $this.data("pagination-sm") || 1;
@@ -94,15 +98,6 @@ $(window).on("load", function () {
                         fill: "row",
                     },
                 },
-                // 991: {
-                //     slidesPerView: tablet,
-                //     spaceBetween: spacingMd,
-                //     slidesPerGroup: perGroupMd,
-                //     grid: {
-                //         rows: gridRows,
-                //         fill: "row",
-                //     },
-                // },
                 1200: {
                     slidesPerView: preview,
                     spaceBetween: spacingLg,
@@ -112,12 +107,17 @@ $(window).on("load", function () {
                         fill: "row",
                     },
                 },
+                1600: {
+                    slidesPerView: laptop === 1 ? preview : laptop,
+                    spaceBetween: spacingXxl === 1 ? spacingLg : spacingXxl,
+                    slidesPerGroup: perGroupLg,
+                    grid: {
+                        rows: gridRows,
+                        fill: "row",
+                    },
+                },
             },
         });
-        // $(window).on("resize", function () {
-        //     swiperT.update();
-        //     swiperT.slideTo(swiperT.realIndex, 0, false);
-        // });
         $(".swiper-button")
             .on("mouseenter", function () {
                 var slideIndex = $(this).data("slide");

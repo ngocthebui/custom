@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]>
+<html class="ie"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en-US"
+      xml:lang="en-US"
+      xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <title>Ochaka - Multipurpose eCommerce HTML Template</title>
+  <meta content="themesflat.com" name="author">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+  <meta content="Themesflat Ochaka - A modern and elegant Multipurpose eCommerce HTML Template, perfect for online stores selling rings, necklaces, watches, and other accessories. SEO-optimized, fast-loading, and fully customizable."
+        name="description">
+</head>
+
+<body>
+<!-- Footer -->
+<footer th:fragment="footer" class="tf-footer style-4">
+  <div class="container d-flex">
+    <span class="br-line"></span>
+  </div>
+  <div class="footer-body">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-3 col-sm-6 mb_30 mb-xl-0">
+          <div class="footer-col-block">
+            <p class="footer-heading footer-heading-mobile">Contact us</p>
+            <div class="tf-collapse-content">
+              <ul class="footer-contact">
+                <li>
+                  <i class="icon icon-map-pin"></i>
+                  <span class="br-line"></span>
+                  <a href="https://www.google.com/maps?q=8500+Lorem+Street+Chicago,+IL+55030+Dolor+sit+amet" target="_blank"
+                     class="h6 link">
+                    8500 Lorem Street Chicago, IL 55030 <br class="d-none d-lg-block"> Dolor sit amet
+                  </a>
+                </li>
+                <li>
+                  <i class="icon icon-phone"></i>
+                  <span class="br-line"></span>
+                  <a href="tel:+88001234567" class="h6 link">+8(800) 123 4567</a>
+                </li>
+                <li>
+                  <i class="icon icon-envelope-simple"></i>
+                  <span class="br-line"></span>
+                  <a href="mailto:themesflat@support.com" class="h6 link">themesflat@support.com</a>
+                </li>
+              </ul>
+              <div class="social-wrap">
+                <ul class="tf-social-icon">
+                  <li>
+                    <a href="https://www.facebook.com/" target="_blank" class="social-facebook">
+                      <span class="icon"><i class="icon-fb"></i></span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.instagram.com/" target="_blank" class="social-instagram">
+                      <span class="icon"><i class="icon-instagram-logo"></i></span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://x.com/" target="_blank" class="social-x">
+                      <span class="icon"><i class="icon-x"></i></span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.tiktok.com/" target="_blank" class="social-tiktok">
+                      <span class="icon"><i class="icon-tiktok"></i></span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-2 col-sm-6 mb_30 mb-xl-0">
+          <div class="footer-col-block footer-wrap-1 ms-xl-auto">
+            <p class="footer-heading footer-heading-mobile">Shopping</p>
+            <div class="tf-collapse-content">
+              <ul class="footer-menu-list">
+                <li><a href="faq.html" class="link h6">Shipping</a></li>
+                <li><a href="shop-default.html" class="link h6">Shop by Brand</a></li>
+                <li><a href="track-order.html" class="link h6">Track order</a></li>
+                <li><a href="faq.html" class="link h6">Terms & Conditions</a></li>
+                <li><a href="#size-guide" data-bs-toggle="modal" class="link h6">Size Guide</a></li>
+                <li><a href="wishlist.html" class="link h6">My Wishlist</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-sm-6 mb_30 mb-sm-0">
+          <div class="footer-col-block footer-wrap-2 mx-xl-auto">
+            <p class="footer-heading footer-heading-mobile">Information</p>
+            <div class="tf-collapse-content">
+              <ul class="footer-menu-list">
+                <li><a href="about-us.html" class="link h6">About Us</a></li>
+                <li><a href="faq.html" class="link h6">Term & Policy</a></li>
+                <li><a href="faq.html" class="link h6">Help Center</a></li>
+                <li><a href="blog-grid.html" class="link h6">News & Blog</a></li>
+                <li><a href="faq.html" class="link h6">Refunds</a></li>
+                <li><a href="faq.html" class="link h6">Careers</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4 col-sm-6">
+          <div class="footer-col-block">
+            <p class="footer-heading footer-heading-mobile">Let’s keep in touch</p>
+            <div class="tf-collapse-content">
+              <div class="footer-newsletter">
+                <p class="h6 caption">
+                  Enter your email below to be the first to know about new collections and product launches.
+                </p>
+                <form class="form_sub has_check" id="subscribe-form">
+                  <div class="f-content" id="subscribe-content">
+                    <fieldset class="col">
+                      <input class="style-stroke" id="subscribe-email" type="email" name="email-form"
+                             placeholder="Enter your email" required>
+                    </fieldset>
+                    <button id="subscribe-button" type="button" class="tf-btn animate-btn type-small-2">
+                      Subscribe
+                      <i class="icon icon-arrow-right"></i>
+                    </button>
+                  </div>
+                  <div class="checkbox-wrap">
+                    <input id="remember" type="checkbox" class="tf-check style-3">
+                    <label for="remember" class="h6">
+                      By clicking subcribe, you agree to the  
+                      <a href="faq.html" class="text-decoration-underline link">Terms
+                        of Service</a> and <a href="faq.html" class="text-decoration-underline link">
+                      Privacy Policy</a>.
+                    </label>
+                  </div>
+                  <div id="subscribe-msg"></div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="inner-bottom">
+        <ul class="list-hor">
+          <li>
+            <a href="#" class="h6 link">Help & FAQs</a>
+          </li>
+          <li class="br-line type-vertical"></li>
+          <li>
+            <a href="#" class="h6 link">Factory</a>
+          </li>
+        </ul>
+        <div class="list-hor flex-wrap">
+          <span class="h6">Payment:</span>
+          <ul class="payment-method-list">
+            <li><img src="images/payment/visa.png" alt="Payment"></li>
+            <li><img src="images/payment/master-card.png" alt="Payment"></li>
+            <li><img src="images/payment/amex.png" alt="Payment"></li>
+            <li><img src="images/payment/discover.png" alt="Payment"></li>
+            <li><img src="images/payment/paypal.png" alt="Payment"></li>
+          </ul>
+        </div>
+        <div class="list-hor">
+          <div class="tf-currencies">
+            <select class="tf-dropdown-select style-default type-currencies">
+              <option selected data-thumbnail="images/country/us.png">USD</option>
+              <option data-thumbnail="images/country/vie.png">VND</option>
+            </select>
+          </div>
+          <span class="br-line type-vertical"></span>
+          <div class="tf-languages">
+            <select class="tf-dropdown-select style-default type-languages">
+              <option>English</option>
+              <option>العربية</option>
+              <option>简体中文</option>
+              <option>اردو</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- /Footer -->
+</body>
+</html>
