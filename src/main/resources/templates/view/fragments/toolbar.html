@@ -1,29 +1,5 @@
-<!DOCTYPE html>
-
-<!--[if IE 8]>
-<html class="ie"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xml:lang="en-US" lang="en-US">
-<![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!-->
-<html lang="en-US"
-      xml:lang="en-US"
-      xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<!--<![endif]-->
-
-<head>
-  <meta charset="utf-8">
-  <title>Ochaka - Multipurpose eCommerce HTML Template</title>
-  <meta content="themesflat.com" name="author">
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
-  <meta content="Themesflat Ochaka - A modern and elegant Multipurpose eCommerce HTML Template, perfect for online stores selling rings, necklaces, watches, and other accessories. SEO-optimized, fast-loading, and fully customizable."
-        name="description">
-</head>
-
-<body>
 <!-- Toolbar -->
-<div th:fragment="toolbar" class="tf-toolbar-bottom">
+<div class="tf-toolbar-bottom" th:fragment="toolbar">
   <div class="toolbar-item">
     <a href="shop-default.html">
                 <span class="toolbar-icon">
@@ -33,7 +9,7 @@
     </a>
   </div>
   <div class="toolbar-item">
-    <a href="#search" data-bs-toggle="modal">
+    <a data-bs-toggle="modal" href="#search">
                 <span class="toolbar-icon">
                     <i class="icon icon-magnifying-glass"></i>
                 </span>
@@ -68,5 +44,3 @@
   </div>
 </div>
 <!-- /Toolbar -->
-</body>
-</html>

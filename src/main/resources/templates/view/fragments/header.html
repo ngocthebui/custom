@@ -1,42 +1,4 @@
-<!DOCTYPE html>
-
-<!--[if IE 8]>
-<html class="ie"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xml:lang="en-US" lang="en-US">
-<![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!-->
-<html lang="en-US"
-      xml:lang="en-US"
-      xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<!--<![endif]-->
-
-<head>
-  <meta charset="utf-8">
-  <title>Ochaka - Multipurpose eCommerce HTML Template</title>
-  <meta content="themesflat.com" name="author">
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
-  <meta content="Themesflat Ochaka - A modern and elegant Multipurpose eCommerce HTML Template, perfect for online stores selling rings, necklaces, watches, and other accessories. SEO-optimized, fast-loading, and fully customizable."
-        name="description">
-</head>
-
-<body>
 <div th:fragment="header">
-  <!-- Scroll Top -->
-  <button id="goTop">
-    <span class="border-progress"></span>
-    <span class="icon icon-caret-up"></span>
-  </button>
-
-  <!-- preload -->
-  <div class="preload preload-container" id="preload">
-    <div class="preload-logo">
-      <div class="spinner"></div>
-    </div>
-  </div>
-  <!-- /preload -->
-
   <!-- Header -->
   <header class="tf-header header-fix header-abs-1">
     <div class="container-full">
@@ -47,7 +9,7 @@
           </a>
         </div>
         <div class="col-xl-3 col-md-4 col-6 d-flex justify-content-center justify-content-xl-start">
-          <a class="logo-site" href="">
+          <a class="logo-site" href="index.html">
             <img alt="Logo" src="images/logo/logo.svg">
           </a>
         </div>
@@ -60,77 +22,88 @@
                   <div class="container">
                     <div class="row-demo">
                       <div class="demo-item">
-                        <a class="demo-img" href="index.html"><img
-                            alt="Demo" src="images/demo/home-fashion-1.jpg"></a>
+                        <a class="demo-img" href="index.html">
+                          <img alt="Demo" src="images/demo/home-fashion-1.jpg">
+                        </a>
                         <a class="demo-name" href="index.html">Home Fashion 1</a>
                       </div>
                       <div class="demo-item">
-                        <a class="demo-img" href="home-fashion-2.html"><img
-                            alt="Demo"
-                            src="images/demo/home-fashion-2.jpg"></a>
+                        <a class="demo-img" href="home-fashion-2.html">
+                          <img alt="Demo" src="images/demo/home-fashion-2.jpg">
+                        </a>
                         <a class="demo-name" href="home-fashion-2.html">Home Fashion 2</a>
                       </div>
                       <div class="demo-item">
-                        <a class="demo-img" href="home-fashion-3.html"><img
-                            alt="Demo"
-                            src="images/demo/home-fashion-3.jpg"></a>
+                        <a class="demo-img" href="home-fashion-3.html">
+                          <img alt="Demo" src="images/demo/home-fashion-3.jpg">
+                        </a>
                         <a class="demo-name" href="home-fashion-3.html">Home Fashion 3</a>
                       </div>
                       <div class="demo-item">
-                        <a class="demo-img" href="home-fashion-4.html"><img
-                            alt="Demo"
-                            src="images/demo/home-fashion-4.jpg"></a>
+                        <a class="demo-img" href="home-fashion-4.html">
+                          <img alt="Demo" src="images/demo/home-fashion-4.jpg">
+                        </a>
                         <a class="demo-name" href="home-fashion-4.html">Home Fashion 4</a>
                       </div>
                       <div class="demo-item">
-                        <a class="demo-img" href="home-cosmetic.html"><img
-                            alt="Demo"
-                            src="images/demo/home-cosmetic.jpg"></a>
+                        <a class="demo-img" href="home-cosmetic.html">
+                          <img alt="Demo" src="images/demo/home-cosmetic.jpg">
+                        </a>
                         <a class="demo-name" href="home-cosmetic.html">Home Cosmetic</a>
                       </div>
                       <div class="demo-item">
-                        <a class="demo-img" href="home-skin-care.html"><img
-                            alt="Demo"
-                            src="images/demo/home-skin-care.jpg"></a>
+                        <a class="demo-img" href="home-skin-care.html">
+                          <img alt="Demo" src="images/demo/home-skin-care.jpg">
+                        </a>
                         <a class="demo-name" href="home-skin-care.html">Home Skincare</a>
                       </div>
                       <div class="demo-item">
-                        <a class="demo-img" href="home-decor.html"><img
-                            alt="Demo" src="images/demo/home-decor.jpg"></a>
+                        <a class="demo-img" href="home-decor.html">
+                          <img alt="Demo" src="images/demo/home-decor.jpg">
+                        </a>
                         <a class="demo-name" href="home-decor.html">Home Decor</a>
                       </div>
                       <div class="demo-item">
-                        <a class="demo-img" href="home-jewelry.html"><img
-                            alt="Demo"
-                            src="images/demo/home-jewelry.jpg"></a>
+                        <a class="demo-img" href="home-jewelry.html">
+                          <img alt="Demo" src="images/demo/home-jewelry.jpg">
+                        </a>
                         <a class="demo-name" href="home-jewelry.html">Home Jewelry</a>
                       </div>
                       <div class="demo-item">
-                        <a class="demo-img" href="home-electronic-market.html"><img
-                            alt="Demo" src="images/demo/home-electronic-market.jpg"></a>
-                        <a class="demo-name" href="home-electronic-market.html">Home Electric
-                          Market</a>
+                        <a class="demo-img" href="home-electronic-market.html">
+                          <img alt="Demo" src="images/demo/home-electronic-market.jpg">
+                        </a>
+                        <a class="demo-name" href="home-electronic-market.html">Home
+                          Electric Market</a>
                       </div>
                       <div class="demo-item">
-                        <a class="demo-img" href="home-pet-store.html"><img
-                            alt="Demo"
-                            src="images/demo/home-pet-store.jpg"></a>
+                        <a class="demo-img" href="home-pet-store.html">
+                          <img alt="Demo" src="images/demo/home-pet-store.jpg">
+                        </a>
                         <a class="demo-name" href="home-pet-store.html">Home Pet Store</a>
                       </div>
                       <div class="demo-item">
-                        <a class="demo-img" href="home-sneaker.html"><img
-                            alt="Demo"
-                            src="images/demo/home-sneaker.jpg"></a>
+                        <a class="demo-img" href="home-sneaker.html">
+                          <img alt="Demo" src="images/demo/home-sneaker.jpg">
+                        </a>
                         <a class="demo-name" href="home-sneaker.html">Home Sneaker</a>
                       </div>
-                      <div class="demo-coming">
-                        <div class="image">
-                          <img alt="Image" class="lazyload"
+                      <div class="demo-item">
+                        <a class="demo-img" href="home-book.html">
+                          <img alt="Demo" class="lazyload"
                                data-src="images/demo/home-book.jpg"
                                src="images/demo/home-book.jpg">
-                        </div>
-                        <h5 class="text text-white">Coming Soon!...</h5>
+                          <div class="demo-label">
+                            <span>New</span>
+                          </div>
+                        </a>
+                        <a class="demo-name" href="home-sneaker.html">Home Book</a>
                       </div>
+                    </div>
+                    <div class="text-center">
+                      <a class="tf-btn animate-btn" data-bs-toggle="modal" href="#modalDemo">
+                        View all demos (20)
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -244,8 +217,8 @@
                         <div class="mega-menu-item">
                           <h4 class="menu-heading">Product Layout</h4>
                           <ul class="sub-menu_list">
-                            <li><a class="sub-menu_link" href="/product-detail">Product Detail</a>
-                            </li>
+                            <li><a class="sub-menu_link" href="product-detail.html">Product
+                              Detail</a></li>
                             <li>
                               <a class="sub-menu_link" href="product-left-thumbnail.html">Product
                                 Left Thumbnail</a>
@@ -369,14 +342,14 @@
                           <h4 class="menu-heading">Recent Products</h4>
                           <ul class="list-ver">
                             <li class="prd-recent hover-img">
-                              <a class="image img-style" href="/product-detail">
+                              <a class="image img-style" href="product-detail.html">
                                 <img alt="Image"
                                      class="lazyload"
                                      data-src="images/section/recent-1.jpg" src="images/section/recent-1.jpg">
                               </a>
                               <div class="content">
                                 <span class="badge-tag">T-shirt</span>
-                                <a class="name-prd h6 fw-medium link" href="/product-detail">
+                                <a class="name-prd h6 fw-medium link" href="product-detail.html">
                                   Women's Short Sleeve V-Neck Activewear T-Shirt Dry-Fit Wicking
                                   Yoga Top
                                 </a>
@@ -385,14 +358,14 @@
                             </li>
                             <li class="br-line"></li>
                             <li class="prd-recent hover-img">
-                              <a class="image img-style" href="/product-detail">
+                              <a class="image img-style" href="product-detail.html">
                                 <img alt="Image"
                                      class="lazyload"
                                      data-src="images/section/recent-2.jpg" src="images/section/recent-2.jpg">
                               </a>
                               <div class="content">
                                 <span class="badge-tag">T-shirt</span>
-                                <a class="name-prd h6 fw-medium link" href="/product-detail">
+                                <a class="name-prd h6 fw-medium link" href="product-detail.html">
                                   Women's Short Sleeve V-Neck Activewear T-Shirt Dry-Fit Wicking
                                   Yoga Top
                                 </a>
@@ -437,7 +410,7 @@
         <div class="col-xl-3 col-md-4 col-3">
           <ul class="nav-icon-list">
             <li class="d-none d-lg-flex">
-              <a class="nav-icon-item link" href="/login"><i class="icon icon-user"></i></a>
+              <a class="nav-icon-item link" href="login.html"><i class="icon icon-user"></i></a>
             </li>
             <li class="d-none d-md-flex">
               <a class="nav-icon-item link" data-bs-toggle="modal" href="#search">
@@ -445,7 +418,7 @@
               </a>
             </li>
             <li class="d-none d-sm-flex">
-              <a class="nav-icon-item link" href="/wish-list"><i class="icon icon-heart"></i></a>
+              <a class="nav-icon-item link" href="wishlist.html"><i class="icon icon-heart"></i></a>
             </li>
             <li class="shop-cart" data-bs-target="#shoppingCart" data-bs-toggle="offcanvas">
               <a class="nav-icon-item link" data-bs-toggle="offcanvas" href="#shoppingCart">
@@ -560,46 +533,47 @@
             <button class="link" type="submit"><i class="icon icon-magnifying-glass"></i></button>
           </form>
           <ul class="quick-link-list">
-            <li><a class="link-item text-main h6 link" href="shop-collection-list.html">Graphic
-              tees</a></li>
-            <li><a class="link-item text-main h6 link" href="shop-collection-list.html">Plain
+            <li><a class="link-item text-main h6 link" href="shop-default-list.html">Graphic
+              tees</a>
+            </li>
+            <li><a class="link-item text-main h6 link" href="shop-default-list.html">Plain
               t-shirts</a></li>
-            <li><a class="link-item text-main h6 link" href="shop-collection-list.html">Vintage
+            <li><a class="link-item text-main h6 link" href="shop-default-list.html">Vintage
               t-shirts</a></li>
-            <li><a class="link-item text-main h6 link" href="shop-collection-list.html">Band
-              tees</a></li>
-            <li><a class="link-item text-main h6 link" href="shop-collection-list.html">Custom
+            <li><a class="link-item text-main h6 link" href="shop-default-list.html">Band tees</a>
+            </li>
+            <li><a class="link-item text-main h6 link" href="shop-default-list.html">Custom
               t-shirts</a></li>
-            <li><a class="link-item text-main h6 link" href="shop-collection-list.html">Oversized
+            <li><a class="link-item text-main h6 link" href="shop-default-list.html">Oversized
               t-shirts</a></li>
-            <li><a class="link-item text-main h6 link" href="shop-collection-list.html">Crew neck
+            <li><a class="link-item text-main h6 link" href="shop-default-list.html">Crew neck
               t-shirts</a></li>
           </ul>
         </div>
         <div class="view-history-wrap">
           <h4 class="title">History</h4>
           <div class="view-history-list">
-            <a class="item text-main link h6" href="shop-collection-list.html">
+            <a class="item text-main link h6" href="shop-default-list.html">
               <span>High Visibility T Shirt Short Sleeve Reflective</span>
               <i class="icon icon-arrow-top-right"></i>
             </a>
-            <a class="item text-main link h6" href="shop-collection-list.html">
+            <a class="item text-main link h6" href="shop-default-list.html">
               <span>Short sleeve round neck t-shirt</span>
               <i class="icon icon-arrow-top-right"></i>
             </a>
-            <a class="item text-main link h6" href="shop-collection-list.html">
+            <a class="item text-main link h6" href="shop-default-list.html">
               <span>Fashionable oversized hoodie for women</span>
               <i class="icon icon-arrow-top-right"></i>
             </a>
-            <a class="item text-main link h6" href="shop-collection-list.html">
+            <a class="item text-main link h6" href="shop-default-list.html">
               <span>Queen fashion long sleeve shirt, basic t-shirt</span>
               <i class="icon icon-arrow-top-right"></i>
             </a>
-            <a class="item text-main link h6" href="shop-collection-list.html">
+            <a class="item text-main link h6" href="shop-default-list.html">
               <span>Lee Women's Wrinkle Free Relaxed Fit Straight Leg Pant</span>
               <i class="icon icon-arrow-top-right"></i>
             </a>
-            <a class="item text-main link h6" href="shop-collection-list.html">
+            <a class="item text-main link h6" href="shop-default-list.html">
               <span>Women's Summer Oversized T-Shirt Casual Office Fashion</span>
               <i class="icon icon-arrow-top-right"></i>
             </a>
@@ -623,7 +597,8 @@
                 <div class="content">
                   <div class="text-small text-main-2 sub">T-shirt</div>
                   <h6 class="title">
-                    <a class="link" href="/product-detail">Queen fashion long sleeve shirt, basic
+                    <a class="link" href="product-detail.html">Queen fashion long sleeve shirt,
+                      basic
                       t-shirt</a>
                   </h6>
                   <div class="price-wrap">
@@ -640,7 +615,7 @@
                 <div class="content">
                   <div class="text-small text-main-2 sub">Hoodie</div>
                   <h6 class="title">
-                    <a class="link" href="/product-detail">Champion Reverse Weave Pullover</a>
+                    <a class="link" href="product-detail.html">Champion Reverse Weave Pullover</a>
                   </h6>
                   <div class="price-wrap">
                     <span class="price-old h6 fw-normal">$149.99</span>
@@ -658,7 +633,7 @@
                 <div class="content">
                   <div class="text-small text-main-2 sub">Shorts</div>
                   <h6 class="title">
-                    <a class="link" href="/product-detail">Columbia PFG Fishing Shirt</a>
+                    <a class="link" href="product-detail.html">Columbia PFG Fishing Shirt</a>
                   </h6>
                   <div class="price-wrap">
                     <span class="price-old h6 fw-normal">$109.99</span>
@@ -674,7 +649,7 @@
                 <div class="content">
                   <div class="text-small text-main-2 sub">Sweatshirt</div>
                   <h6 class="title">
-                    <a class="link" href="/product-detail">Puma Essentials Graphic Tee</a>
+                    <a class="link" href="product-detail.html">Puma Essentials Graphic Tee</a>
                   </h6>
                   <div class="price-wrap">
                     <span class="price-old h6 fw-normal">$69.99</span>
@@ -703,7 +678,7 @@
             </div>
             <div class="content">
               <h6 class="name">
-                <a class="link text-line-clamp-1" href="/product-detail">Nike Sportswear Tee
+                <a class="link text-line-clamp-1" href="product-detail.html">Nike Sportswear Tee
                   Shirts</a>
               </h6>
               <div class="cart-item-bot">
@@ -721,7 +696,7 @@
             </div>
             <div class="content">
               <h6 class="name">
-                <a class="link text-line-clamp-1" href="/product-detail">Puma Essentials Graphic
+                <a class="link text-line-clamp-1" href="product-detail.html">Puma Essentials Graphic
                   Tee</a>
               </h6>
               <div class="cart-item-bot">
@@ -739,7 +714,7 @@
             </div>
             <div class="content">
               <h6 class="name">
-                <a class="link text-line-clamp-1" href="/product-detail">Reebok Classic Crew
+                <a class="link text-line-clamp-1" href="product-detail.html">Reebok Classic Crew
                   Sweatshirt</a>
               </h6>
               <div class="cart-item-bot">
@@ -757,7 +732,7 @@
             </div>
             <div class="content">
               <h6 class="name">
-                <a class="link text-line-clamp-1" href="/product-detail">Columbia PFG Fishing
+                <a class="link text-line-clamp-1" href="product-detail.html">Columbia PFG Fishing
                   Shirt</a>
               </h6>
               <div class="cart-item-bot">
@@ -788,7 +763,8 @@
                                         </span>
                     <h3 class="text-emp fw-normal">Your cart is empty</h3>
                     <p class="h6 text-main">Your cart is currently empty. Let us assist you in
-                      finding the right product</p>
+                      finding
+                      the right product</p>
                   </div>
                   <div class="shop-empty_bot">
                     <a class="tf-btn animate-btn" href="shop-default.html"> Shopping </a>
@@ -804,7 +780,8 @@
                   <div class="tf-mini-cart-info">
                     <div class="text-small text-main-2 sub">T-shirt</div>
                     <h6 class="title">
-                      <a class="link text-line-clamp-1" href="/product-detail">Queen fashion long
+                      <a class="link text-line-clamp-1" href="product-detail.html">Queen fashion
+                        long
                         sleeve shirt, basic
                         t-shirt</a>
                     </h6>
@@ -831,7 +808,7 @@
                   <div class="tf-mini-cart-info">
                     <div class="text-small text-main-2 sub">T-shirt</div>
                     <h6 class="title">
-                      <a class="link text-line-clamp-1" href="/product-detail">Champion Reverse
+                      <a class="link text-line-clamp-1" href="product-detail.html">Champion Reverse
                         Weave Pullover</a>
                     </h6>
                     <div class="size">
@@ -857,7 +834,8 @@
                   <div class="tf-mini-cart-info">
                     <div class="text-small text-main-2 sub">Sweatshirt</div>
                     <h6 class="title">
-                      <a class="link text-line-clamp-1" href="/product-detail">ASICS Core Running
+                      <a class="link text-line-clamp-1" href="product-detail.html">ASICS Core
+                        Running
                         Tights</a>
                     </h6>
                     <div class="size">
@@ -883,8 +861,8 @@
                   <div class="tf-mini-cart-info">
                     <div class="text-small text-main-2 sub">Shorts</div>
                     <h6 class="title">
-                      <a class="link text-line-clamp-1" href="/product-detail">New Balance Athletics
-                        Shorts</a>
+                      <a class="link text-line-clamp-1" href="product-detail.html">New Balance
+                        Athletics Shorts</a>
                     </h6>
                     <div class="size">
                       <div class="text-small text-main-2 sub">Size: XS</div>
@@ -927,7 +905,8 @@
                 <div class="value" data-progress="25" style="width: 0%"></div>
               </div>
               <div class="desc text-main">Add <span class="text-primary fw-bold">$15.40</span> to
-                cart and get free shipping!
+                cart
+                and get free shipping!
               </div>
             </div>
             <div class="tf-mini-cart-bottom-wrap">
@@ -1063,5 +1042,3 @@
   </div>
   <!-- /Shopping Cart -->
 </div>
-</body>
-</html>
