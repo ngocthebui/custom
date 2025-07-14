@@ -1,15 +1,21 @@
 package com.custom.ngow.shop.page;
 
+import com.custom.ngow.shop.demoEntity.Collection;
+import java.util.Arrays;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
-public class HomeController {
+public class HomeController extends BaseController {
 
   @GetMapping
-  public String home() {
+  public String home(Model model) {
+    addHeaderDataToModel(model);
     return "view/pages/index";
   }
 
@@ -41,6 +47,11 @@ public class HomeController {
   @GetMapping("/product-detail")
   public String productDetail() {
     return "view/pages/product-detail";
+  }
+
+  @GetMapping("/search")
+  public String search(@RequestParam("q") String keyword, Model model) {
+    return "view/pages/shop-5-columns";
   }
 
 }
