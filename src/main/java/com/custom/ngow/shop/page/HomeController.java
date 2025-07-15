@@ -1,7 +1,7 @@
 package com.custom.ngow.shop.page;
 
-import com.custom.ngow.shop.demoEntity.Collection;
-import java.util.Arrays;
+import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -34,7 +34,7 @@ public class HomeController extends BaseController {
     return "view/pages/login";
   }
 
-  @GetMapping("/shop-5-columns")
+  @GetMapping("/all-products")
   public String shop5columns() {
     return "view/pages/shop-5-columns";
   }
@@ -50,7 +50,20 @@ public class HomeController extends BaseController {
   }
 
   @GetMapping("/search")
-  public String search(@RequestParam("q") String keyword, Model model) {
+  public String search(@RequestParam("q") String query, HttpSession session, Model model) {
+    List<String> history = (List<String>) session.getAttribute(SEARCH_HISTORY_KEY);
+    if (history == null) {
+      history = new ArrayList<>();
+    }
+
+    history.remove(query);
+    history.addFirst(query);
+
+    if (history.size() > 6) {
+      history = new ArrayList<>(history.subList(0, 6));
+    }
+    session.setAttribute(SEARCH_HISTORY_KEY, history);
+
     return "view/pages/shop-5-columns";
   }
 

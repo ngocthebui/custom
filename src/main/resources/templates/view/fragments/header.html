@@ -20,7 +20,7 @@
                 <a class="item-link" href="#">SẢN PHẨM<i class="icon icon-caret-down"></i></a>
                 <div class="sub-menu">
                   <ul class="sub-menu_list">
-                    <li><a class="sub-menu_link" href="/shop-5-columns">Tất Cả Sản Phẩm</a></li>
+                    <li><a class="sub-menu_link" href="/all-products">Tất Cả Sản Phẩm</a></li>
                     <li><a class="sub-menu_link" href="blog-grid.html">Túi Đeo Chéo</a></li>
                     <li><a class="sub-menu_link" href="blog-list-1.html">Túi Xách Tay</a></li>
                     <li><a class="sub-menu_link" href="blog-list-2.html">Balo</a></li>
@@ -496,31 +496,11 @@
               t-shirts</a></li>
           </ul>
         </div>
-        <div class="view-history-wrap">
+        <div class="view-history-wrap" th:if="${not #lists.isEmpty(searchHistory)}">
           <h4 class="title">History</h4>
-          <div class="view-history-list">
-            <a class="item text-main link h6" href="shop-default-list.html">
-              <span>High Visibility T Shirt Short Sleeve Reflective</span>
-              <i class="icon icon-arrow-top-right"></i>
-            </a>
-            <a class="item text-main link h6" href="shop-default-list.html">
-              <span>Short sleeve round neck t-shirt</span>
-              <i class="icon icon-arrow-top-right"></i>
-            </a>
-            <a class="item text-main link h6" href="shop-default-list.html">
-              <span>Fashionable oversized hoodie for women</span>
-              <i class="icon icon-arrow-top-right"></i>
-            </a>
-            <a class="item text-main link h6" href="shop-default-list.html">
-              <span>Queen fashion long sleeve shirt, basic t-shirt</span>
-              <i class="icon icon-arrow-top-right"></i>
-            </a>
-            <a class="item text-main link h6" href="shop-default-list.html">
-              <span>Lee Women's Wrinkle Free Relaxed Fit Straight Leg Pant</span>
-              <i class="icon icon-arrow-top-right"></i>
-            </a>
-            <a class="item text-main link h6" href="shop-default-list.html">
-              <span>Women's Summer Oversized T-Shirt Casual Office Fashion</span>
+          <div class="view-history-list" th:each="history : ${searchHistory}">
+            <a class="item text-main link h6" th:href="@{/search(q=${history})}">
+              <span th:text="${history}"></span>
               <i class="icon icon-arrow-top-right"></i>
             </a>
           </div>
@@ -528,78 +508,30 @@
         <div class="trend-product-wrap">
           <div class="heading">
             <h4 class="title flex-grow-1">Trending product</h4>
-            <a class="tf-btn-line has-icon none-line fw-medium fs-18 text-normal" href="#">
+            <a class="tf-btn-line has-icon none-line fw-medium fs-18 text-normal" href="/all-products">
               View All Product
               <i class="icon icon-caret-circle-right"></i>
             </a>
           </div>
           <div class="trend-product-inner">
-            <div class="trend-product-list">
-              <div class="trend-product-item">
+            <div class="trend-product-list" th:each="productGroup : ${partitionedList}">
+              <div class="trend-product-item" th:each="product : ${productGroup}">
                 <div class="image">
                   <img alt="Product" class="lazyload"
-                       data-src="images/products/product-1.jpg" src="images/products/product-1.jpg">
+                       th:data-src="@{${product.imageUrl}}"
+                       th:src="@{${product.imageUrl}}"
+                       th:alt="${product.name}">
                 </div>
                 <div class="content">
-                  <div class="text-small text-main-2 sub">T-shirt</div>
+                  <div class="text-small text-main-2 sub" th:text="${product.category}">Category</div>
                   <h6 class="title">
-                    <a class="link" href="product-detail.html">Queen fashion long sleeve shirt,
-                      basic
-                      t-shirt</a>
+                    <a class="link" href="/" th:text="${product.name}">
+                      Product Name
+                    </a>
                   </h6>
                   <div class="price-wrap">
-                    <span class="price-old h6 fw-normal">$99,99</span>
-                    <span class="price-new h6">$69,99</span>
-                  </div>
-                </div>
-              </div>
-              <div class="trend-product-item">
-                <div class="image">
-                  <img alt="Product" class="lazyload"
-                       data-src="images/products/product-7.jpg" src="images/products/product-7.jpg">
-                </div>
-                <div class="content">
-                  <div class="text-small text-main-2 sub">Hoodie</div>
-                  <h6 class="title">
-                    <a class="link" href="product-detail.html">Champion Reverse Weave Pullover</a>
-                  </h6>
-                  <div class="price-wrap">
-                    <span class="price-old h6 fw-normal">$149.99</span>
-                    <span class="price-new h6">$109.99</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="trend-product-list">
-              <div class="trend-product-item">
-                <div class="image">
-                  <img alt="Product" class="lazyload"
-                       data-src="images/products/product-5.jpg" src="images/products/product-5.jpg">
-                </div>
-                <div class="content">
-                  <div class="text-small text-main-2 sub">Shorts</div>
-                  <h6 class="title">
-                    <a class="link" href="product-detail.html">Columbia PFG Fishing Shirt</a>
-                  </h6>
-                  <div class="price-wrap">
-                    <span class="price-old h6 fw-normal">$109.99</span>
-                    <span class="price-new h6">$74.99</span>
-                  </div>
-                </div>
-              </div>
-              <div class="trend-product-item">
-                <div class="image">
-                  <img alt="Product" class="lazyload"
-                       data-src="images/products/product-9.jpg" src="images/products/product-9.jpg">
-                </div>
-                <div class="content">
-                  <div class="text-small text-main-2 sub">Sweatshirt</div>
-                  <h6 class="title">
-                    <a class="link" href="product-detail.html">Puma Essentials Graphic Tee</a>
-                  </h6>
-                  <div class="price-wrap">
-                    <span class="price-old h6 fw-normal">$69.99</span>
-                    <span class="price-new h6">$49.99</span>
+                    <span class="price-old h6 fw-normal" th:text="'$' + ${product.price}">$0</span>
+                    <span class="price-new h6" th:text="'$' + ${product.salePrice}">$0</span>
                   </div>
                 </div>
               </div>
