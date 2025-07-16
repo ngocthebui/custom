@@ -549,74 +549,24 @@
       <h4 class="title">You may also like</h4>
       <div class="wrap-recommendations">
         <div class="list-cart">
-          <div class="list-cart-item">
+          <div class="list-cart-item" th:each="product : ${productSuggestion}">
             <div class="image">
               <img alt="Image" class="lazyload"
-                   data-src="images/products/product-11.jpg" src="images/products/product-11.jpg">
+                   th:data-src="@{${product.imageUrl}}"
+                   th:src="@{${product.imageUrl}}"
+                   th:alt="${product.name}">
             </div>
             <div class="content">
               <h6 class="name">
-                <a class="link text-line-clamp-1" href="product-detail.html">Nike Sportswear Tee
-                  Shirts</a>
+                <a class="link text-line-clamp-1" href="/product-detail"
+                   th:text="${product.name}">
+                  Product Name
+                </a>
               </h6>
               <div class="cart-item-bot">
                 <div class="price-wrap price">
-                  <span class="price-old h6 fw-normal">$99,99</span>
-                  <span class="price-new h6">$69,99</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="list-cart-item">
-            <div class="image">
-              <img alt="Image" class="lazyload"
-                   data-src="images/products/product-13.jpg" src="images/products/product-13.jpg">
-            </div>
-            <div class="content">
-              <h6 class="name">
-                <a class="link text-line-clamp-1" href="product-detail.html">Puma Essentials Graphic
-                  Tee</a>
-              </h6>
-              <div class="cart-item-bot">
-                <div class="price-wrap price">
-                  <span class="price-old h6 fw-normal">$89,99</span>
-                  <span class="price-new h6">$59,99</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="list-cart-item">
-            <div class="image">
-              <img alt="Image" class="lazyload"
-                   data-src="images/products/product-15.jpg" src="images/products/product-15.jpg">
-            </div>
-            <div class="content">
-              <h6 class="name">
-                <a class="link text-line-clamp-1" href="product-detail.html">Reebok Classic Crew
-                  Sweatshirt</a>
-              </h6>
-              <div class="cart-item-bot">
-                <div class="price-wrap price">
-                  <span class="price-old h6 fw-normal">$149.99</span>
-                  <span class="price-new h6">$109.99</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="list-cart-item">
-            <div class="image">
-              <img alt="Image" class="lazyload"
-                   data-src="images/products/product-17.jpg" src="images/products/product-17.jpg">
-            </div>
-            <div class="content">
-              <h6 class="name">
-                <a class="link text-line-clamp-1" href="product-detail.html">Columbia PFG Fishing
-                  Shirt</a>
-              </h6>
-              <div class="cart-item-bot">
-                <div class="price-wrap price">
-                  <span class="price-old h6 fw-normal">$59.99</span>
-                  <span class="price-new h6">$39.99</span>
+                  <span class="price-old h6 fw-normal" th:text="'$' + ${product.price}">$0</span>
+                  <span class="price-new h6" th:text="'$' + ${product.salePrice}">$0</span>
                 </div>
               </div>
             </div>
@@ -636,9 +586,9 @@
               <div class="tf-mini-cart-items list-empty">
                 <div class="box-text_empty type-shop_cart">
                   <div class="shop-empty_top">
-                                        <span class="icon">
-                                            <i class="icon-shopping-cart-simple"></i>
-                                        </span>
+                    <span class="icon">
+                        <i class="icon-shopping-cart-simple"></i>
+                    </span>
                     <h3 class="text-emp fw-normal">Your cart is empty</h3>
                     <p class="h6 text-main">Your cart is currently empty. Let us assist you in
                       finding
@@ -649,108 +599,30 @@
                     <a class="tf-btn style-line" href="index.html"> Back to home </a>
                   </div>
                 </div>
-                <div class="tf-mini-cart-item file-delete">
+                <div class="tf-mini-cart-item file-delete" th:each="item : ${cartItems}">
                   <div class="tf-mini-cart-image">
                     <img alt="img-product" class="lazyload"
-                         data-src="images/products/product-1.jpg"
-                         src="images/products/product-1.jpg">
+                         th:data-src="@{${item.product.imageUrl}}"
+                         th:src="@{${item.product.imageUrl}}"
+                         th:alt="${item.product.name}">
                   </div>
                   <div class="tf-mini-cart-info">
-                    <div class="text-small text-main-2 sub">T-shirt</div>
+                    <div class="text-small text-main-2 sub" th:text="${item.product.category}">Category</div>
                     <h6 class="title">
-                      <a class="link text-line-clamp-1" href="product-detail.html">Queen fashion
-                        long
-                        sleeve shirt, basic
-                        t-shirt</a>
+                      <a class="link text-line-clamp-1" href="product-detail.html" th:text="${item.product.name}">Queen fashion
+                        Product Name
+                      </a>
                     </h6>
                     <div class="size">
-                      <div class="text-small text-main-2 sub">Size: XS</div>
+                      <div class="text-small text-main-2 sub" th:text="'Size: ' + ${item.size}">Size: XS</div>
                       <div class="text-small text-main-2 sub">Color:</div>
-                      <div class="dot-color bg-caramel"></div>
+                      <div class="dot-color" th:classappend="${item.colorClass}"></div>
                     </div>
                     <div class="d-flex justify-content-between align-items-center">
                       <div class="h6 fw-semibold">
-                        <span class="number">1x</span>
-                        <span class="price text-primary tf-mini-card-price">$20.00</span>
-                      </div>
-                      <i class="icon link icon-close remove"></i>
-                    </div>
-                  </div>
-                </div>
-                <div class="tf-mini-cart-item file-delete">
-                  <div class="tf-mini-cart-image">
-                    <img alt="img-product" class="lazyload"
-                         data-src="images/products/product-2.jpg"
-                         src="images/products/product-2.jpg">
-                  </div>
-                  <div class="tf-mini-cart-info">
-                    <div class="text-small text-main-2 sub">T-shirt</div>
-                    <h6 class="title">
-                      <a class="link text-line-clamp-1" href="product-detail.html">Champion Reverse
-                        Weave Pullover</a>
-                    </h6>
-                    <div class="size">
-                      <div class="text-small text-main-2 sub">Size: L</div>
-                      <div class="text-small text-main-2 sub">Color:</div>
-                      <div class="dot-color bg-sage-green"></div>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center">
-                      <div class="h6 fw-semibold">
-                        <span class="number">1x</span>
-                        <span class="price text-primary tf-mini-card-price">$24.99</span>
-                      </div>
-                      <i class="icon link icon-close remove"></i>
-                    </div>
-                  </div>
-                </div>
-                <div class="tf-mini-cart-item file-delete">
-                  <div class="tf-mini-cart-image">
-                    <img alt="img-product" class="lazyload"
-                         data-src="images/products/product-3.jpg"
-                         src="images/products/product-3.jpg">
-                  </div>
-                  <div class="tf-mini-cart-info">
-                    <div class="text-small text-main-2 sub">Sweatshirt</div>
-                    <h6 class="title">
-                      <a class="link text-line-clamp-1" href="product-detail.html">ASICS Core
-                        Running
-                        Tights</a>
-                    </h6>
-                    <div class="size">
-                      <div class="text-small text-main-2 sub">Size: XS</div>
-                      <div class="text-small text-main-2 sub">Color:</div>
-                      <div class="dot-color bg-light-beige"></div>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center">
-                      <div class="h6 fw-semibold">
-                        <span class="number">1x</span>
-                        <span class="price text-primary tf-mini-card-price">$18.99</span>
-                      </div>
-                      <i class="icon link icon-close remove"></i>
-                    </div>
-                  </div>
-                </div>
-                <div class="tf-mini-cart-item file-delete">
-                  <div class="tf-mini-cart-image">
-                    <img alt="img-product" class="lazyload"
-                         data-src="images/products/product-4.jpg"
-                         src="images/products/product-4.jpg">
-                  </div>
-                  <div class="tf-mini-cart-info">
-                    <div class="text-small text-main-2 sub">Shorts</div>
-                    <h6 class="title">
-                      <a class="link text-line-clamp-1" href="product-detail.html">New Balance
-                        Athletics Shorts</a>
-                    </h6>
-                    <div class="size">
-                      <div class="text-small text-main-2 sub">Size: XS</div>
-                      <div class="text-small text-main-2 sub">Color:</div>
-                      <div class="dot-color bg-baby-blue"></div>
-                    </div>
-                    <div class="d-flex justify-content-between align-items-center">
-                      <div class="h6 fw-semibold">
-                        <span class="number">1x</span>
-                        <span class="price text-primary tf-mini-card-price">$22.50</span>
+                        <span class="number" th:text="${item.quantity} + 'x'">1x</span>
+                        <span class="price text-primary tf-mini-card-price"
+                              th:text="'$' + ${item.product.salePrice}">$0.00</span>
                       </div>
                       <i class="icon link icon-close remove"></i>
                     </div>
@@ -776,8 +648,8 @@
             </div>
             <div class="tf-mini-cart-threshold">
               <div class="text">
-                <h6 class="subtotal">Subtotal (<span class="prd-count">3</span> item)</h6>
-                <h4 class="text-primary total-price tf-totals-total-value">$60.00</h4>
+                <h6 class="subtotal">Subtotal (<span class="prd-count"></span> item)</h6>
+                <h4 class="text-primary total-price tf-totals-total-value">$00.00</h4>
               </div>
               <div class="tf-progress-bar tf-progress-ship">
                 <div class="value" data-progress="25" style="width: 0%"></div>

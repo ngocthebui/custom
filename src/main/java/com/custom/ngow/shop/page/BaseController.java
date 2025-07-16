@@ -1,5 +1,6 @@
 package com.custom.ngow.shop.page;
 
+import com.custom.ngow.shop.demoEntity.CartItem;
 import com.custom.ngow.shop.demoEntity.Collection;
 import com.custom.ngow.shop.demoEntity.TrendingProduct;
 import jakarta.servlet.http.HttpSession;
@@ -64,6 +65,22 @@ public class BaseController {
     List<List<TrendingProduct>> partitionedList = partition(trendingProducts, 2);
 
     model.addAttribute("partitionedList", partitionedList);
+
+    // Shopping Cart: productSuggestion
+    model.addAttribute("productSuggestion", trendingProducts);
+
+    // Shopping Cart: cart items
+    List<CartItem> cartItems = new ArrayList<>();
+    for (TrendingProduct trendingProduct : trendingProducts) {
+      CartItem cartItem = new CartItem();
+      cartItem.setSize("L");
+      cartItem.setQuantity(1);
+      cartItem.setProduct(trendingProduct);
+      cartItem.setColorClass("bg-sage-green");
+      cartItems.add(cartItem);
+    }
+
+    model.addAttribute("cartItems", cartItems);
   }
 
   public static <T> List<List<T>> partition(List<T> list, int size) {
