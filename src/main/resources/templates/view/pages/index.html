@@ -28,6 +28,7 @@
   <link href="css/swiper-bundle.min.css" rel="stylesheet">
   <link href="css/animate.css" rel="stylesheet">
   <link href="css/styles.css" rel="stylesheet" type="text/css">
+  <link href="css/fragments/header.css" rel="stylesheet" type="text/css">
 
   <!-- Favicon and Touch Icons  -->
   <link href="images/logo/favicon.svg" rel="shortcut icon">
@@ -54,74 +55,23 @@
          dir="ltr">
       <div class="swiper-wrapper">
         <!-- item 1 -->
-        <div class="swiper-slide">
-          <div class="slider-wrap">
+        <div th:each="banner : ${bannerSlides}" class="swiper-slide">
+        <div class="slider-wrap">
             <div class="sld_image">
               <img alt="Image" class="lazyload"
-                   data-src="images/slider/slider-1.jpg" src="images/slider/slider-1.jpg">
+                   th:data-src="${banner.imageUrl}"
+                   th:src="${banner.imageUrl}">>
             </div>
             <div class="sld_content">
               <div class="container">
                 <div class="content-sld_wrap">
-                  <h1 class="title_sld text-display fade-item fade-item-1">Fall Winter <br
-                      class="d-sm-none">Collection</h1>
-                  <p class="sub-text_sld h5 text-black fade-item fade-item-2">
-                    Vivamus lacinia odio vitae vestibulum vestibulum
+                  <h1 class="title_sld text-display fade-item fade-item-1 split_line" th:text="${banner.title}">
+                    Slider title</h1>
+                  <p class="sub-text_sld h5 text-black fade-item fade-item-2" th:text="${banner.subtitle}">
+                    Slider sub title
                   </p>
                   <div class="fade-item fade-item-3">
-                    <a class="tf-btn animate-btn fw-semibold" href="shop-default-list.html">
-                      Shop now
-                      <i class="icon icon-arrow-right"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- item 2 -->
-        <div class="swiper-slide">
-          <div class="slider-wrap">
-            <div class="sld_image">
-              <img alt="Image" class="lazyload"
-                   data-src="images/slider/slider-2.jpg" src="images/slider/slider-2.jpg">
-            </div>
-            <div class="sld_content">
-              <div class="container">
-                <div class="content-sld_wrap">
-                  <h1 class="title_sld text-display fade-item fade-item-1">Spring Summer <br
-                      class="d-sm-none">Collection</h1>
-                  <p class="sub-text_sld h5 text-black fade-item fade-item-2">
-                    Discover the elegance of renewal with soft tones and flowing textures.
-                  </p>
-                  <div class="fade-item fade-item-3">
-                    <a class="tf-btn animate-btn fw-semibold" href="shop-default-list.html">
-                      Shop now
-                      <i class="icon icon-arrow-right"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- item 3 -->
-        <div class="swiper-slide">
-          <div class="slider-wrap">
-            <div class="sld_image">
-              <img alt="Image" class="lazyload"
-                   data-src="images/slider/slider-3.jpg" src="images/slider/slider-3.jpg">
-            </div>
-            <div class="sld_content">
-              <div class="container">
-                <div class="content-sld_wrap">
-                  <h1 class="title_sld text-display fade-item fade-item-1">Urban Edge <br
-                      class="d-sm-none">Series</h1>
-                  <p class="sub-text_sld h5 text-black fade-item fade-item-2">
-                    Bold cuts and minimalist design for the modern city lifestyle.
-                  </p>
-                  <div class="fade-item fade-item-3">
-                    <a class="tf-btn animate-btn fw-semibold" href="shop-default-list.html">
+                    <a class="tf-btn animate-btn fw-semibold" th:href="${banner.link}">
                       Shop now
                       <i class="icon icon-arrow-right"></i>
                     </a>
@@ -5104,6 +5054,19 @@
 <script src="js/parallaxie.js"></script>
 <script src="js/count-down.js"></script>
 <script src="js/main.js"></script>
+<!--<script>-->
+<!--  document.addEventListener("DOMContentLoaded", function () {-->
+<!--      const elements = document.querySelectorAll(".split-line");-->
+
+<!--      elements.forEach(el => {-->
+<!--        const words = el.textContent.trim().split(" ");-->
+
+<!--        if (words.length >= 3) {-->
+<!--          el.innerHTML = `${words[0]} ${words[1]}<br class="d-sm-none">${words.slice(2).join(" ")}`;-->
+<!--        }-->
+<!--      });-->
+<!--  });-->
+<!--</script>-->
 </body>
 
 </html>
