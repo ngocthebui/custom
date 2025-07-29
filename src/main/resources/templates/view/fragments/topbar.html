@@ -1,44 +1,38 @@
 <!-- Top Bar -->
-<div class="tf-topbar bg-black" th:fragment="topbar">
-  <div class="container-full">
-    <div class="row">
-      <div class="col-xl-7 col-lg-8">
-        <div class="topbar-left">
-          <h6 class="text-up text-white fw-normal text-line-clamp-1">
-            Up to 50% off Lorem ipsum dolor sit amet, consectetur adipiscing elit
-          </h6>
-          <div class="group-btn">
-            <a class="tf-btn-line style-white letter-space-0" href="shop-default.html">Men</a>
-            <a class="tf-btn-line style-white letter-space-0" href="shop-default.html">Women</a>
+<div class="tf-topbar_slide bg-black" th:fragment="topbar">
+  <div class="topbar-top tf-btn-swiper-main">
+    <div class="container">
+      <div class="row justify-content-center align-items-center">
+        <div class="col-sm-1 d-none d-sm-block">
+          <div class="text-white link d-flex justify-content-end nav-prev-swiper">
+            <i class="icon icon-caret-left"></i>
           </div>
         </div>
-      </div>
-      <div class="col-xl-5 col-lg-4 d-none d-lg-block">
-        <ul class="topbar-right topbar-option-list">
-          <li class="h6">
-            <a class="text-white link" href="faq.html">Help & FAQs</a>
-          </li>
-          <li class="br-line"></li>
-          <li class="h6">
-            <a class="text-white link" href="faq.html">Factory</a>
-          </li>
-          <li class="br-line d-none d-xl-inline-flex"></li>
-          <li class="tf-currencies d-none d-xl-block">
-            <select class="tf-dropdown-select style-default color-white type-currencies">
-              <option data-thumbnail="images/country/us.png" selected>USD</option>
-              <option data-thumbnail="images/country/vie.png">VND</option>
-            </select>
-          </li>
-          <li class="br-line d-none d-xl-inline-flex"></li>
-          <li class="tf-languages d-none d-xl-block">
-            <select class="tf-dropdown-select style-default color-white type-languages">
-              <option>English</option>
-              <option>العربية</option>
-              <option>简体中文</option>
-              <option>اردو</option>
-            </select>
-          </li>
-        </ul>
+        <div class="col-lg-4 col-sm-7 col-12">
+          <div dir="ltr" class="swiper tf-swiper" data-auto="true" data-loop="true"
+               data-delay="3000">
+            <div class="swiper-wrapper">
+              <!-- item 1 -->
+              <div class="swiper-slide">
+                <h6 class="text-white fw-normal text-center">Shopping day, 15% off all products</h6>
+              </div>
+              <!-- item 2 -->
+              <div class="swiper-slide">
+                <h6 class="text-white fw-normal text-center">Free shipping on orders of $50 or
+                  more</h6>
+              </div>
+              <!-- item 3 -->
+              <div class="swiper-slide">
+                <h6 class="text-white fw-normal text-center">Pick up in store: Ready in an hour</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-1 d-none d-sm-block">
+          <div class="text-white link d-flex nav-next-swiper">
+            <i class="icon icon-caret-right"></i>
+          </div>
+        </div>
       </div>
     </div>
   </div>
