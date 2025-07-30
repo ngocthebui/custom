@@ -38,6 +38,7 @@
 <body>
 <!-- Scroll Top and preload -->
 <div th:replace="~{view/fragments/goTop :: goTop}"></div>
+<div th:replace="~{view/fragments/goTop :: preload}"></div>
 <!-- /Scroll Top and preload -->
 
 <main id="wrapper">
@@ -245,7 +246,7 @@
                       </li>
                       <li class="product-color-item color-swatch hover-tooltip tooltip-bot">
                         <span class="tooltip color-filter">Blue</span>
-                        <span class="swatch-value bg-baby-blue"></span>
+                        <span class="swatch-value" th:style="'background-color: #B2CBEA'"></span>
                         <img alt="Image"
                              data-src="images/products/product-4.jpg" src="images/products/product-4.jpg">
                       </li>
@@ -4988,7 +4989,9 @@
 <!-- /Toolbar -->
 
 <!-- Product actions -->
-<div th:replace="~{view/fragments/product-actions :: product-actions}"></div>
+<div th:replace="~{view/fragments/product-actions :: size-guide}"></div>
+<div th:replace="~{view/fragments/product-actions :: compare}"></div>
+<div th:replace="~{view/fragments/product-actions :: quick-view}"></div>
 <!-- /Product actions -->
 
 <!-- New Letter -->
