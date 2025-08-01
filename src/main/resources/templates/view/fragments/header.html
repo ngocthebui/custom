@@ -377,7 +377,7 @@
 <!-- /Header -->
 
 <!-- Mobile Menu -->
-<div class="offcanvas offcanvas-start canvas-mb" id="mobileMenu">
+<div class="offcanvas offcanvas-start canvas-mb" id="mobileMenu" th:fragment="mobileMenu">
       <span class="icon-close-popup" data-bs-dismiss="offcanvas">
           <i class="icon-close"></i>
       </span>
@@ -464,7 +464,7 @@
 <!-- /Mobile Menu -->
 
 <!-- Search -->
-<div class="modal modalCentered fade modal-search" id="search">
+<div class="modal modalCentered fade modal-search" id="search" th:fragment="search">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <span class="icon-close icon-close-popup" data-bs-dismiss="modal"></span>
@@ -543,7 +543,7 @@
 <!-- /Search -->
 
 <!-- Shopping Cart -->
-<div class="offcanvas offcanvas-end popup-shopping-cart" id="shoppingCart">
+<div class="offcanvas offcanvas-end popup-shopping-cart" id="shoppingCart" th:fragment="shoppingCart">
   <div class="tf-minicart-recommendations">
     <h4 class="title">You may also like</h4>
     <div class="wrap-recommendations">
