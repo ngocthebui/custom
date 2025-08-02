@@ -54,7 +54,10 @@ public class Product {
   private BigDecimal salePrice;
   private Integer stockQuantity;
   private String material; // Chất liệu túi
-  private String color;
+
+  @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private List<ProductColor> colors;
+
   private String size;
   private Double weight;
   private String dimensions; // Kích thước
