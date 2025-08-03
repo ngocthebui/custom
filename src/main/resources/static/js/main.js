@@ -1269,7 +1269,7 @@
             });
 
             if (isValid) {
-                window.location.href = "account-page.html";
+                form.submit();
             } else {
                 alert("Please fill in all required fields!");
                 firstEmptyInput.focus();

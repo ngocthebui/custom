@@ -14,7 +14,7 @@
         content="Themesflat Ochaka - A modern and elegant Multipurpose eCommerce HTML Template, perfect for online stores selling rings, necklaces, watches, and other accessories. SEO-optimized, fast-loading, and fully customizable.">
 
     <!-- font -->
-    <link rel="stylesheet" th:href="@{/fonts/fonts.css}">
+    <link rel="stylesheet" href="fonts/fonts.css">
     <link rel="stylesheet" href="icon/icomoon/style.css">
     <!-- css -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -460,35 +460,126 @@
             </div>
         </header>
         <!-- /Header -->
-        <!-- 404 -->
-        <section class="s-404 flat-spacing">
+        <!-- Page Title -->
+        <section class="s-page-title">
+            <div class="container">
+                <div class="content">
+                    <h1 class="title-page">My Account</h1>
+                    <ul class="breadcrumbs-page">
+                        <li><a href="index.html" class="h6 link">Home</a></li>
+                        <li class="d-flex"><i class="icon icon-caret-right"></i></li>
+                        <li>
+                            <h6 class="current-page fw-normal">My account</h6>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <!-- /Page Title -->
+        <!-- Account -->
+        <section class="flat-spacing">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-8 offset-md-2 col-sm-10 offset-sm-1">
-                        <div class="image">
-                            <img class="lazyload" src="images/section/404.svg" data-src="images/section/404.svg" alt="">
+                    <div class="col-xl-3 d-none d-xl-block">
+                        <div class="sidebar-account sidebar-content-wrap sticky-top">
+                            <div class="account-author">
+                                <div class="author_avatar">
+                                    <div class="image">
+                                        <img id="imgDash" class="lazyload" src="images/avatar/avatar-4.jpg" data-src="images/avatar/avatar-4.jpg"
+                                            alt="Avatar">
+                                    </div>
+                                    <input type="file" id="fileInputDash" accept="image/*" style="display: none;">
+                                    <div class="btn-change_img box-icon" id="changeImgDash">
+                                        <i class="icon icon-camera"></i>
+                                    </div>
+                                </div>
+                                <h4 class="author_name">Themesflat</h4>
+                                <p class="author_email h6">support@ochaka.com</p>
+                            </div>
+                            <ul class="my-account-nav">
+                                <li>
+                                    <a href="account-page.html" class="my-account-nav_item h5">
+                                        <i class="icon icon-circle-four"></i>
+                                        Dashboard
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="account-orders.html" class="my-account-nav_item h5">
+                                        <i class="icon icon-box-arrow-down"></i>
+                                        Oders
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="account-addresses.html" class="my-account-nav_item h5">
+                                        <i class="icon icon-address-book"></i>
+                                        My address
+                                    </a>
+                                </li>
+                                <li>
+                                    <p class="my-account-nav_item h5 active">
+                                        <i class="icon icon-setting"></i>
+                                        Setting
+                                    </p>
+                                </li>
+                                <li>
+                                    <form action="/logout" method="post" style="display: inline;">
+                                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                                        <button type="submit" class="my-account-nav_item h5">
+                                            <i class="icon icon-sign-out"></i>
+                                            Log out
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="col-12">
-                        <div class="wrap">
-                            <div class="content">
-                                <h1 class="title">Something’s Missing</h1>
-                                <p class="sub-title h6">This page is missing or you assembled the link incorrectly</p>
-                            </div>
-                            <div class="group-btn">
-                                <a href="index.html" class="tf-btn animate-btn">
-                                    Back to home page
-                                </a>
-                                <a href="shop-default-list.html" class="tf-btn style-line">
-                                    Product list
-                                </a>
-                            </div>
+                    <div class="col-xl-9">
+                        <div class="my-account-content">
+                            <form class="form-change_pass">
+                                <div class="">
+                                    <h2 class="account-title type-semibold">Account Setting</h2>
+                                    <div class="form_content">
+                                        <div class="cols tf-grid-layout sm-col-2">
+                                            <fieldset>
+                                                <input type="text" placeholder="First name *" required>
+                                            </fieldset>
+                                            <fieldset>
+                                                <input type="text" placeholder="Last name *" required>
+                                            </fieldset>
+                                        </div>
+                                        <fieldset>
+                                            <input type="email" placeholder="Email *" required>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <h2 class="account-title type-semibold">Change Password</h2>
+                                    <div class="form_content site-change">
+                                        <fieldset class="password-wrapper">
+                                            <input class="password-field" type="password" placeholder="Current password *" required>
+                                            <span class="toggle-pass icon-show-password"></span>
+                                        </fieldset>
+                                        <fieldset class="password-wrapper">
+                                            <input class="password-field" type="password" placeholder="New password *" required>
+                                            <span class="toggle-pass icon-show-password"></span>
+                                        </fieldset>
+                                        <fieldset class="password-wrapper">
+                                            <input class="password-field" type="password" placeholder="Confirm password *" required>
+                                            <span class="toggle-pass icon-show-password"></span>
+                                        </fieldset>
+                                    </div>
+                                    <button type="submit" class="btn-submit_form tf-btn animate-btn w-100 fw-bold">
+                                        Save change
+                                    </button>
+                                </div>
+
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <!-- /404 -->
+        <!-- /Account -->
         <!-- Footer -->
         <footer class="tf-footer">
             <div class="container d-flex">
@@ -745,7 +836,6 @@
         </div>
     </div>
     <!-- /Mobile Menu -->
-
     <!-- Toolbar -->
     <div class="tf-toolbar-bottom">
         <div class="toolbar-item">
@@ -792,6 +882,24 @@
         </div>
     </div>
     <!-- /Toolbar -->
+    <!-- Button Sidebar -->
+    <div class="btn-sidebar-mb d-lg-none left">
+        <button data-bs-toggle="offcanvas" data-bs-target="#mbSidebar">
+            <i class="icon icon-sidebar"></i>
+        </button>
+    </div>
+    <!-- /Button Sidebar -->
+    <!-- Sidebar -->
+    <div class="offcanvas offcanvas-start canvas-sidebar" id="mbSidebar">
+        <div class="canvas-wrapper">
+            <div class="canvas-header">
+                <span class="title h5 fw-bold">My Acount</span>
+                <span class="icon-close link icon-close-popup" data-bs-dismiss="offcanvas"></span>
+            </div>
+            <div class="canvas-body sidebar-mobile-append sidebar-account"></div>
+        </div>
+    </div>
+    <!-- /Sidebar -->
 
     <!-- Size Guide -->
     <div class="modal modalCentered fade modal-size-guide" id="size-guide">
@@ -1824,6 +1932,7 @@
     <script src="js/bootstrap-select.min.js"></script>
     <script src="js/lazysize.min.js"></script>
     <script src="js/wow.min.js"></script>
+    <script src="js/count-down.js"></script>
     <script src="js/main.js"></script>
 </body>
 

@@ -42,7 +42,7 @@ public class BaseController {
 
     // account
     if (isUserLoggedIn()) {
-      model.addAttribute("userAccountLink", "/account");
+      model.addAttribute("userAccountLink", "/my-account");
       model.addAttribute("userLoginStatus", true);
     } else {
       model.addAttribute("userAccountLink", "/login");

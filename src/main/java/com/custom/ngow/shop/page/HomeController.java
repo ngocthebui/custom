@@ -2,6 +2,7 @@ package com.custom.ngow.shop.page;
 
 import com.custom.ngow.shop.constant.ProductBadge;
 import com.custom.ngow.shop.dto.ProductDto;
+import com.custom.ngow.shop.dto.RegisterRequest;
 import com.custom.ngow.shop.entity.ProductColor;
 import com.custom.ngow.shop.entity.ProductImage;
 import jakarta.servlet.http.HttpSession;
@@ -18,12 +19,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequiredArgsConstructor
 public class HomeController extends BaseController {
 
-  @GetMapping
+  @GetMapping("/")
   public String home(Model model) {
     addHeaderDataToModel(model);
 
     setPromotionalProductsToModel(model);
     return "view/pages/index";
+  }
+
+  @GetMapping("/my-account")
+  public String myAccount(Model model) {
+    addHeaderDataToModel(model);
+
+    return "view/pages/account-setting";
   }
 
   @GetMapping("/faq")
@@ -37,8 +45,29 @@ public class HomeController extends BaseController {
   }
 
   @GetMapping("/login")
-  public String login() {
+  public String login(@RequestParam(value = "error", required = false) String error,
+          @RequestParam(value = "logout", required = false) String logout,
+          @RequestParam(value = "expired", required = false) String expired,
+          Model model) {
+    if (error != null) {
+      model.addAttribute("errorMessage", "Tên đăng nhập hoặc mật khẩu không đúng!");
+    }
+    if (logout != null) {
+      model.addAttribute("logoutMessage", "Đăng xuất thành công!");
+    }
+    if (expired != null) {
+      model.addAttribute("expiredMessage", "Phiên đăng nhập đã hết hạn!");
+    }
+
+    addHeaderDataToModel(model);
     return "view/pages/login";
+  }
+
+  @GetMapping("/register")
+  public String register(Model model) {
+    addHeaderDataToModel(model);
+    model.addAttribute("registerRequest", new RegisterRequest());
+    return "view/pages/register";
   }
 
   @GetMapping("/all-products")
