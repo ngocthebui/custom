@@ -2,7 +2,7 @@ server:
   port: 6820
   servlet:
     session:
-      timeout: 24h
+      timeout: 2h
 
 spring:
   #postgresql
@@ -53,7 +53,7 @@ spring:
   session:
     redis:
       namespace: custom:session
-    timeout: 24h
+    timeout: 2h
 
 logging:
   config: classpath:logs/logback-spring.xml

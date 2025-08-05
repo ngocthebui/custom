@@ -1,17 +1,19 @@
 package com.custom.ngow.shop.entity;
 
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "addresses")
@@ -46,13 +48,11 @@ public class Address {
   private String postalCode;
   private Boolean isDefault = false;
 
-//  @ManyToOne(fetch = FetchType.LAZY)
-//  @JoinColumn(name = "user_id", nullable = false)
-//  private User user;
+  //  @ManyToOne(fetch = FetchType.LAZY)
+  //  @JoinColumn(name = "user_id", nullable = false)
+  //  private User user;
 
-  @CreationTimestamp
-  private LocalDateTime createdAt;
+  @CreationTimestamp private LocalDateTime createdAt;
 
-  @UpdateTimestamp
-  private LocalDateTime updatedAt;
+  @UpdateTimestamp private LocalDateTime updatedAt;
 }

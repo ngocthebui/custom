@@ -1,40 +1,39 @@
 package com.custom.ngow.shop.entity;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import jakarta.persistence.CascadeType;
+import com.custom.ngow.shop.constant.UserRole;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "carts")
+@Table(name = "users")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Cart {
+public class User {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  //  @OneToOne(fetch = FetchType.LAZY)
-  //  @JoinColumn(name = "user_id", nullable = false)
-  //  private User user;
+  @Column(unique = true, nullable = false)
+  private String email;
 
-  @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-  private List<CartItem> items = new ArrayList<>();
+  @Column(nullable = false)
+  private String password;
+
+  private UserRole role;
 
   @CreationTimestamp private LocalDateTime createdAt;
 
