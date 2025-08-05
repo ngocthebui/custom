@@ -7,11 +7,12 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.custom.ngow.shop.constant.ProductBadge;
 import com.custom.ngow.shop.dto.ProductDto;
-import com.custom.ngow.shop.dto.RegisterRequest;
+import com.custom.ngow.shop.dto.UserRegistrationDto;
 import com.custom.ngow.shop.entity.ProductColor;
 import com.custom.ngow.shop.entity.ProductImage;
 
@@ -68,9 +69,9 @@ public class HomeController extends BaseController {
   }
 
   @GetMapping("/register")
-  public String register(Model model) {
+  public String register(
+      @ModelAttribute("userRegistration") UserRegistrationDto userRegistration, Model model) {
     addHeaderDataToModel(model);
-    model.addAttribute("registerRequest", new RegisterRequest());
     return "view/pages/register";
   }
 

@@ -72,7 +72,7 @@
                 <div class="s-log">
                     <div class="col-left">
                         <h1 class="heading">Register</h1>
-                        <form class="form-login" th:action="@{/user/register}" method="post" th:object="${registerRequest}">
+                        <form class="form-login" th:action="@{/user/register}" method="post" th:object="${userRegistration}">
                             <div class="list-ver">
                                 <!-- General error message -->
                                 <div th:if="${errorMessage}" class="error-message">

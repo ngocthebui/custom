@@ -40,9 +40,11 @@ public class SecurityConfig {
     http.authorizeHttpRequests(
             authz ->
                 authz
+                    .requestMatchers("/user/register")
+                    .permitAll()
                     .requestMatchers("/admin/**")
                     .hasRole("ADMIN")
-                    .requestMatchers("/user/setting")
+                    .requestMatchers("/user/**")
                     .authenticated()
                     .anyRequest()
                     .permitAll())
