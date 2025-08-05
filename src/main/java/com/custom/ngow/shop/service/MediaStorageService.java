@@ -3,13 +3,15 @@ package com.custom.ngow.shop.service;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.UUID;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
@@ -36,16 +38,12 @@ public class MediaStorageService {
   @Value("${aws.s3.public-url}")
   private String publicUrl;
 
-  /**
-   * Lưu trữ ảnh lên S3
-   */
+  /** Lưu trữ ảnh lên S3 */
   public String storeImage(MultipartFile file) {
     return storeFileToS3(file, imageFolder, true);
   }
 
-  /**
-   * Lưu trữ video lên S3
-   */
+  /** Lưu trữ video lên S3 */
   public String storeVideo(MultipartFile file) {
     return storeFileToS3(file, videoFolder, false);
   }
@@ -57,8 +55,8 @@ public class MediaStorageService {
     }
 
     // Lấy tên file gốc và làm sạch
-    String originalFilename = StringUtils.cleanPath(
-        Objects.requireNonNull(file.getOriginalFilename()));
+    String originalFilename =
+        StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
 
     // Kiểm tra định dạng file
     if (isImage) {
@@ -76,24 +74,23 @@ public class MediaStorageService {
       String s3Key = folder + newFilename;
 
       // Xác định content type
-      String contentType = isImage ?
-          getImageContentType(originalFilename) :
-          getVideoContentType(originalFilename);
+      String contentType =
+          isImage ? getImageContentType(originalFilename) : getVideoContentType(originalFilename);
 
       // Tạo request để upload lên S3
-      PutObjectRequest putObjectRequest = PutObjectRequest.builder()
-          .bucket(bucketName)
-          .key(s3Key)
-          .contentType(contentType)
-          .contentLength(file.getSize())
-          .build();
+      PutObjectRequest putObjectRequest =
+          PutObjectRequest.builder()
+              .bucket(bucketName)
+              .key(s3Key)
+              .contentType(contentType)
+              .contentLength(file.getSize())
+              .build();
 
       // Upload file lên S3
-      s3Client.putObject(putObjectRequest,
-          RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
+      s3Client.putObject(
+          putObjectRequest, RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
 
-      log.info("Đã upload {} thành công lên S3 với key: {}",
-          isImage ? "ảnh" : "video", s3Key);
+      log.info("Đã upload {} thành công lên S3 với key: {}", isImage ? "ảnh" : "video", s3Key);
 
       return newFilename;
 
@@ -104,24 +101,23 @@ public class MediaStorageService {
 
   private void validateImageFileType(String filename) {
     // Kiểm tra định dạng ảnh hợp lệ
-    if (!filename.toLowerCase().endsWith(".jpg") &&
-        !filename.toLowerCase().endsWith(".jpeg") &&
-        !filename.toLowerCase().endsWith(".png") &&
-        !filename.toLowerCase().endsWith(".gif") &&
-        !filename.toLowerCase().endsWith(".webp")) {
-      throw new RuntimeException(
-          "Chỉ hỗ trợ tệp ảnh có định dạng JPG, JPEG, PNG, GIF hoặc WEBP");
+    if (!filename.toLowerCase().endsWith(".jpg")
+        && !filename.toLowerCase().endsWith(".jpeg")
+        && !filename.toLowerCase().endsWith(".png")
+        && !filename.toLowerCase().endsWith(".gif")
+        && !filename.toLowerCase().endsWith(".webp")) {
+      throw new RuntimeException("Chỉ hỗ trợ tệp ảnh có định dạng JPG, JPEG, PNG, GIF hoặc WEBP");
     }
   }
 
   private void validateVideoFileType(String filename) {
     // Kiểm tra định dạng video hợp lệ
-    if (!filename.toLowerCase().endsWith(".mp4") &&
-        !filename.toLowerCase().endsWith(".avi") &&
-        !filename.toLowerCase().endsWith(".mov") &&
-        !filename.toLowerCase().endsWith(".wmv") &&
-        !filename.toLowerCase().endsWith(".mkv") &&
-        !filename.toLowerCase().endsWith(".webm")) {
+    if (!filename.toLowerCase().endsWith(".mp4")
+        && !filename.toLowerCase().endsWith(".avi")
+        && !filename.toLowerCase().endsWith(".mov")
+        && !filename.toLowerCase().endsWith(".wmv")
+        && !filename.toLowerCase().endsWith(".mkv")
+        && !filename.toLowerCase().endsWith(".webm")) {
       throw new RuntimeException(
           "Chỉ hỗ trợ tệp video có định dạng MP4, AVI, MOV, WMV, MKV hoặc WEBM");
     }
@@ -135,16 +131,12 @@ public class MediaStorageService {
     return "";
   }
 
-  /**
-   * Lấy URL đầy đủ của ảnh từ S3
-   */
+  /** Lấy URL đầy đủ của ảnh từ S3 */
   public String getImageUrl(String filename) {
     return getFileUrl(imageFolder, filename);
   }
 
-  /**
-   * Lấy URL đầy đủ của video từ S3
-   */
+  /** Lấy URL đầy đủ của video từ S3 */
   public String getVideoUrl(String filename) {
     return getFileUrl(videoFolder, filename);
   }
@@ -153,9 +145,7 @@ public class MediaStorageService {
     return publicUrl + "/" + bucketName + "/" + folder + filename;
   }
 
-  /**
-   * Xác định content type cho file ảnh
-   */
+  /** Xác định content type cho file ảnh */
   private String getImageContentType(String filename) {
     String lowercaseFilename = filename.toLowerCase();
     if (lowercaseFilename.endsWith(".jpg") || lowercaseFilename.endsWith(".jpeg")) {
@@ -171,9 +161,7 @@ public class MediaStorageService {
     }
   }
 
-  /**
-   * Xác định content type cho file video
-   */
+  /** Xác định content type cho file video */
   private String getVideoContentType(String filename) {
     String lowercaseFilename = filename.toLowerCase();
     if (lowercaseFilename.endsWith(".mp4")) {
@@ -193,9 +181,7 @@ public class MediaStorageService {
     }
   }
 
-  /**
-   * Xác định MediaType cho file ảnh (giữ lại để backward compatibility)
-   */
+  /** Xác định MediaType cho file ảnh (giữ lại để backward compatibility) */
   public MediaType getImageMediaType(String filename) {
     String lowercaseFilename = filename.toLowerCase();
     if (lowercaseFilename.endsWith(".jpg") || lowercaseFilename.endsWith(".jpeg")) {
@@ -211,9 +197,7 @@ public class MediaStorageService {
     }
   }
 
-  /**
-   * Xác định MediaType cho file video (giữ lại để backward compatibility)
-   */
+  /** Xác định MediaType cho file video (giữ lại để backward compatibility) */
   public MediaType getVideoMediaType(String filename) {
     String lowercaseFilename = filename.toLowerCase();
     if (lowercaseFilename.endsWith(".mp4")) {

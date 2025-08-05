@@ -35,5 +35,4 @@ public class Banner {
   private Boolean isActive = true;
 
   private Integer sortOrder = 0;
-
 }

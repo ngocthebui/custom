@@ -30,7 +30,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      # 4. Install dependencies and run tests
+      # 4. Install dependencies and check format, run tests
+      - name: Check code formatting
+        run: mvn spotless:check
+
       - name: Build and Test
         run: |
           mvn clean install -Ptestcontainers -Dspring.profiles.active=test

@@ -35,5 +35,4 @@ public class HomeVideo {
   Boolean isActive = false;
 
   String description;
-
 }

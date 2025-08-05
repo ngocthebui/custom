@@ -9,5 +9,4 @@ public class NgowApplication {
   public static void main(String[] args) {
     SpringApplication.run(NgowApplication.class, args);
   }
-
 }
