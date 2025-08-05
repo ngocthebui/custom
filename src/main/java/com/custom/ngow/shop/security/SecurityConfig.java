@@ -42,10 +42,8 @@ public class SecurityConfig {
                 authz
                     .requestMatchers("/admin/**")
                     .hasRole("ADMIN")
-                    .requestMatchers("/")
+                    .requestMatchers("/user/setting")
                     .authenticated()
-                    //                        .requestMatchers("/user/**").hasAnyRole("USER",
-                    // "ADMIN")
                     .anyRequest()
                     .permitAll())
         .formLogin(

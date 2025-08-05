@@ -82,6 +82,11 @@
             <span th:text="${logoutMessage}"></span>
           </div>
 
+          <!-- Thông báo đăng ký thành công -->
+          <div th:if="${successMessage}" class="alert alert-success" role="alert">
+            <span th:text="${successMessage}"></span>
+          </div>
+
           <!-- Thông báo session hết hạn -->
           <div th:if="${expiredMessage}" class="alert alert-warning" role="alert">
             <span th:text="${expiredMessage}"></span>
