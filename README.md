@@ -37,8 +37,17 @@ Please complete the JDK set-up first.
    ```shell
    docker start ngow-postgres-container
    ```
+3. Run Redis container
 
-3. Run application container
+   ```shell
+   docker create --name ngow-redis -p 6379:6379 redis redis-server --requirepass root
+   ```
+
+   ```shell
+   docker start ngow-redis
+   ```
+
+4. Run application container
 
    ```shell
    docker run -d \

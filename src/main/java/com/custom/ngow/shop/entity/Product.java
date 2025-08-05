@@ -1,54 +1,91 @@
 package com.custom.ngow.shop.entity;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import com.custom.ngow.shop.constant.ProductStatus;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import java.math.BigDecimal;
-import java.sql.Timestamp;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.experimental.FieldDefaults;
 
 @Entity
-@Data
 @Table(name = "products")
-@Builder
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@AllArgsConstructor
 public class Product {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  Long id;
+  private Long id;
 
   @Column(nullable = false)
-  String name;
-  String sku;
-  String description;
+  private String name;
+
+  @Column(length = 1000)
+  private String description;
 
   @Column(nullable = false)
-  BigDecimal price;
-
-  BigDecimal salePrice;
+  private String sku; // Mã sản phẩm
 
   @Column(nullable = false)
-  Integer stock = 0;
+  private BigDecimal price;
 
-  String material;
-  String color;
-  String dimensions;
+  private BigDecimal salePrice;
+  private Integer stockQuantity;
+  private String material; // Chất liệu túi
 
-  Boolean isFeatured = false;
-  Boolean isNewArrival = false;
-  Boolean isActive = true;
-  Timestamp createdAt;
-  Timestamp updatedAt;
+  @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private List<ProductColor> colors;
 
+  private String size;
+  private Double weight;
+  private String dimensions; // Kích thước
+
+  @Enumerated(EnumType.STRING)
+  private ProductStatus status = ProductStatus.ACTIVE;
+
+  private Boolean isFeatured = false;
+  private Integer viewCount = 0;
+  private Double rating = 0.0;
+  private Integer reviewCount = 0;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "category_id", nullable = false)
+  private Category category;
+
+  @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private List<ProductImage> images = new ArrayList<>();
+
+  @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private List<Review> reviews = new ArrayList<>();
+
+  @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private List<CartItem> cartItems = new ArrayList<>();
+
+  @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private List<OrderItem> orderItems = new ArrayList<>();
+
+  @CreationTimestamp private LocalDateTime createdAt;
+
+  @UpdateTimestamp private LocalDateTime updatedAt;
 }
