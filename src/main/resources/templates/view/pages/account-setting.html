@@ -84,7 +84,7 @@
                                 </div>
                             </div>
                             <h4 class="author_name">Themesflat</h4>
-                            <p class="author_email h6">support@ochaka.com</p>
+                            <p class="author_email h6" th:text="${userUpdateDto.email}">Example@gmail.com</p>
                         </div>
                         <ul class="my-account-nav">
                             <li>
@@ -125,20 +125,23 @@
                 </div>
                 <div class="col-xl-9">
                     <div class="my-account-content">
-                        <form class="form-change_pass" th:action="@{/user/update/{id}(id=${userUpdateDto.id})}" method="post" th:object="${userUpdateDto}">
+                        <form class="form-change_pass" th:action="@{/user/update}" method="post" th:object="${userUpdateDto}">
                             <div class="">
                                 <h2 class="account-title type-semibold">Account Setting</h2>
                                 <div class="form_content">
                                     <div class="cols tf-grid-layout sm-col-2">
                                         <fieldset>
-                                            <input type="text" placeholder="First name *" required>
+                                            <input type="text" th:field="*{firstName}" placeholder="First name *" required>
+                                            <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="error"></span>
                                         </fieldset>
                                         <fieldset>
-                                            <input type="text" placeholder="Last name *" required>
+                                            <input type="text" th:field="*{lastName}" placeholder="Last name *" required>
+                                            <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="error"></span>
                                         </fieldset>
                                     </div>
                                     <fieldset>
-                                        <input type="email" placeholder="Email *" required>
+                                        <input type="email" th:field="*{email}" placeholder="Email *" required>
+                                        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"></span>
                                     </fieldset>
                                 </div>
                             </div>
@@ -146,16 +149,19 @@
                                 <h2 class="account-title type-semibold">Change Password</h2>
                                 <div class="form_content site-change">
                                     <fieldset class="password-wrapper">
-                                        <input class="password-field" type="password" placeholder="Current password *" required>
+                                        <input class="password-field" type="password" th:field="*{currentPassword}" placeholder="Current password *" required>
                                         <span class="toggle-pass icon-show-password"></span>
+                                        <span th:if="${#fields.hasErrors('currentPassword')}" th:errors="*{currentPassword}" class="error"></span>
                                     </fieldset>
                                     <fieldset class="password-wrapper">
-                                        <input class="password-field" type="password" placeholder="New password *" required>
+                                        <input class="password-field" type="password" th:field="*{password}" placeholder="New password *" required>
                                         <span class="toggle-pass icon-show-password"></span>
+                                        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></span>
                                     </fieldset>
                                     <fieldset class="password-wrapper">
-                                        <input class="password-field" type="password" placeholder="Confirm password *" required>
+                                        <input class="password-field" type="password" th:field="*{confirmPassword}" placeholder="Confirm password *" required>
                                         <span class="toggle-pass icon-show-password"></span>
+                                        <span th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="error"></span>
                                     </fieldset>
                                 </div>
                                 <button type="submit" class="btn-submit_form tf-btn animate-btn w-100 fw-bold">

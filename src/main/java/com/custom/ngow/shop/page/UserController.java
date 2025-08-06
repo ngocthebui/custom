@@ -5,13 +5,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.custom.ngow.shop.dto.UserRegistrationDto;
-import com.custom.ngow.shop.dto.UserUpdateDto;
+import com.custom.ngow.shop.dto.UserDto;
 import com.custom.ngow.shop.service.UserService;
 
 import jakarta.validation.Valid;
@@ -26,18 +24,18 @@ public class UserController extends BaseController {
 
   @PostMapping("/register")
   public String processRegister(
-      @Valid @ModelAttribute("userRegistration") UserRegistrationDto userRegistration,
+      @Valid @ModelAttribute("userRegistration") UserDto userDto,
       BindingResult bindingResult,
       Model model,
       RedirectAttributes redirectAttributes) {
-    validateUser(userRegistration, bindingResult);
+    validateUser(userDto, bindingResult);
     if (bindingResult.hasErrors()) {
       addHeaderDataToModel(model);
       return "view/pages/register";
     }
 
     try {
-      userService.registerUser(userRegistration);
+      userService.registerUser(userDto);
       redirectAttributes.addFlashAttribute(
           "successMessage", "Đăng ký thành công! Vui lòng đăng nhập.");
       return "redirect:/login";
@@ -48,7 +46,7 @@ public class UserController extends BaseController {
     }
   }
 
-  private void validateUser(UserRegistrationDto userRegistration, BindingResult bindingResult) {
+  private void validateUser(UserDto userRegistration, BindingResult bindingResult) {
     if (!userRegistration.isPasswordMatching()) {
       bindingResult.rejectValue("confirmPassword", "", "Mật khẩu xác nhận không khớp");
     }
@@ -60,14 +58,16 @@ public class UserController extends BaseController {
 
   @GetMapping("/setting")
   public String setting(Model model) {
+    UserDto userUpdateDto = userService.getCurrentUserForUpdate();
+
+    model.addAttribute("userUpdateDto", userUpdateDto);
     addHeaderDataToModel(model);
     return "view/pages/account-setting";
   }
 
-  @PostMapping("/update/{id}")
+  @PostMapping("/update")
   public String updateUser(
-      @PathVariable("id") Long id,
-      @ModelAttribute("userUpdateDto") UserUpdateDto userUpdateDto,
+      @ModelAttribute("userUpdateDto") UserDto userUpdateDto,
       BindingResult bindingResult,
       Model model) {
 

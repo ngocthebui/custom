@@ -78,6 +78,16 @@
                                 <div th:if="${errorMessage}" class="error-message">
                                     <span th:text="${errorMessage}"></span>
                                 </div>
+                                <div class="cols tf-grid-layout sm-col-2">
+                                    <fieldset>
+                                        <input type="text" th:field="*{firstName}" placeholder="First name *" required>
+                                        <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="error"></span>
+                                    </fieldset>
+                                    <fieldset>
+                                        <input type="text" th:field="*{lastName}" placeholder="Last name *" required>
+                                        <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="error"></span>
+                                    </fieldset>
+                                </div>
                                 <fieldset>
                                     <input type="email"
                                            th:field="*{email}"

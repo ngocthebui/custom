@@ -1,10 +1,14 @@
 package com.custom.ngow.shop.service;
 
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.custom.ngow.shop.constant.UserRole;
-import com.custom.ngow.shop.dto.UserRegistrationDto;
+import com.custom.ngow.shop.dto.UserDto;
 import com.custom.ngow.shop.entity.User;
 import com.custom.ngow.shop.repository.UserRepository;
 
@@ -17,7 +21,7 @@ public class UserService {
   private final UserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
 
-  public User registerUser(UserRegistrationDto userRegistration) {
+  public void registerUser(UserDto userRegistration) {
     if (userRepository.existsByEmail(userRegistration.getEmail())) {
       throw new RuntimeException("Email is existing");
     }
@@ -27,11 +31,13 @@ public class UserService {
     }
 
     User user = new User();
+    user.setFirstName(userRegistration.getFirstName());
+    user.setLastName(userRegistration.getLastName());
     user.setEmail(userRegistration.getEmail());
     user.setPassword(passwordEncoder.encode(userRegistration.getPassword()));
     user.setRole(UserRole.USER);
 
-    return userRepository.save(user);
+    userRepository.save(user);
   }
 
   public User findByEmail(String email) {
@@ -40,5 +46,30 @@ public class UserService {
 
   public boolean existsByEmail(String email) {
     return userRepository.existsByEmail(email);
+  }
+
+  public User getCurrentUser() {
+    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+    if (authentication == null
+        || !authentication.isAuthenticated()
+        || authentication instanceof AnonymousAuthenticationToken) {
+      return null;
+    }
+
+    String email = authentication.getName();
+    return userRepository
+        .findByEmail(email)
+        .orElseThrow(() -> new UsernameNotFoundException("User not found: " + email));
+  }
+
+  public UserDto getCurrentUserForUpdate() {
+    User user = getCurrentUser();
+
+    UserDto userDto = new UserDto();
+    userDto.setEmail(user.getEmail());
+    userDto.setFirstName(user.getFirstName());
+    userDto.setLastName(user.getLastName());
+    return userDto;
   }
 }
