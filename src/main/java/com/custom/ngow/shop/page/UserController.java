@@ -1,5 +1,6 @@
 package com.custom.ngow.shop.page;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -10,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.custom.ngow.shop.dto.UserDto;
+import com.custom.ngow.shop.dto.UserInfoRequest;
+import com.custom.ngow.shop.dto.UserPasswordRequest;
+import com.custom.ngow.shop.entity.User;
 import com.custom.ngow.shop.service.UserService;
 
 import jakarta.validation.Valid;
@@ -58,20 +62,54 @@ public class UserController extends BaseController {
 
   @GetMapping("/setting")
   public String setting(Model model) {
-    UserDto userUpdateDto = userService.getCurrentUserForUpdate();
+    UserInfoRequest userInfoRequest = userService.getCurrentUserForUpdate();
 
-    model.addAttribute("userUpdateDto", userUpdateDto);
+    model.addAttribute("userInfoRequest", userInfoRequest);
+    model.addAttribute("userPasswordRequest", new UserPasswordRequest());
     addHeaderDataToModel(model);
     return "view/pages/account-setting";
   }
 
-  @PostMapping("/update")
+  @PostMapping("/update-info")
   public String updateUser(
-      @ModelAttribute("userUpdateDto") UserDto userUpdateDto,
+      @Valid @ModelAttribute("userInfoRequest") UserInfoRequest userInfoRequest,
+      BindingResult bindingResult,
+      Model model,
+      RedirectAttributes redirectAttributes) {
+    validateEmail(userInfoRequest, bindingResult);
+    if (bindingResult.hasErrors()) {
+      model.addAttribute("userInfoRequest", userInfoRequest);
+      model.addAttribute("userPasswordRequest", new UserPasswordRequest());
+      addHeaderDataToModel(model);
+      return "view/pages/account-setting";
+    }
+
+    userService.updateUserInfo(userInfoRequest);
+
+    redirectAttributes.addFlashAttribute("successMessage", "Thay đổi thông tin thành công");
+    return "redirect:/user/setting";
+  }
+
+  private void validateEmail(UserInfoRequest userInfoRequest, BindingResult bindingResult) {
+    User user = userService.getCurrentUser();
+    if (!StringUtils.equals(userInfoRequest.getEmail(), user.getEmail())) {
+      if (userService.existsByEmail(userInfoRequest.getEmail())) {
+        bindingResult.rejectValue("email", "", "Email đã tồn tại");
+      }
+    }
+  }
+
+  @PostMapping("/change-password")
+  public String changePassword(
+      @Valid @ModelAttribute("userPasswordRequest") UserPasswordRequest userPasswordRequest,
       BindingResult bindingResult,
       Model model) {
 
     addHeaderDataToModel(model);
-    return "view/pages/account-setting";
+    return "redirect:/user/setting";
+  }
+
+  private void validationUpdateUser(UserDto userUpdateDto, BindingResult bindingResult) {
+    if (StringUtils.isEmpty(userUpdateDto.getEmail())) {}
   }
 }

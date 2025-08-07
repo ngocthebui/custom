@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.custom.ngow.shop.constant.UserRole;
 import com.custom.ngow.shop.dto.UserDto;
+import com.custom.ngow.shop.dto.UserInfoRequest;
 import com.custom.ngow.shop.entity.User;
 import com.custom.ngow.shop.repository.UserRepository;
 
@@ -63,13 +64,22 @@ public class UserService {
         .orElseThrow(() -> new UsernameNotFoundException("User not found: " + email));
   }
 
-  public UserDto getCurrentUserForUpdate() {
+  public UserInfoRequest getCurrentUserForUpdate() {
     User user = getCurrentUser();
 
-    UserDto userDto = new UserDto();
+    UserInfoRequest userDto = new UserInfoRequest();
     userDto.setEmail(user.getEmail());
     userDto.setFirstName(user.getFirstName());
     userDto.setLastName(user.getLastName());
     return userDto;
+  }
+
+  public void updateUserInfo(UserInfoRequest userDto) {
+    User user = getCurrentUser();
+    user.setFirstName(userDto.getFirstName());
+    user.setLastName(userDto.getLastName());
+    user.setEmail(userDto.getEmail());
+
+    userRepository.save(user);
   }
 }

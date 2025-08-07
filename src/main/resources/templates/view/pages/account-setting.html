@@ -83,8 +83,8 @@
                                     <i class="icon icon-camera"></i>
                                 </div>
                             </div>
-                            <h4 class="author_name">Themesflat</h4>
-                            <p class="author_email h6" th:text="${userUpdateDto.email}">Example@gmail.com</p>
+                            <h4 class="author_name" th:text="${userInfoRequest.firstName}">Firstname</h4>
+                            <p class="author_email h6" th:text="${userInfoRequest.email}">Email</p>
                         </div>
                         <ul class="my-account-nav">
                             <li>
@@ -125,47 +125,55 @@
                 </div>
                 <div class="col-xl-9">
                     <div class="my-account-content">
-                        <form class="form-change_pass" th:action="@{/user/update}" method="post" th:object="${userUpdateDto}">
-                            <div class="">
+                        <div th:if="${successMessage}" class="alert alert-success" role="alert">
+                            <span th:text="${successMessage}"></span>
+                        </div>
+                        <form class="form-change_pass" th:action="@{/user/update-info}" method="post" th:object="${userInfoRequest}">
+                            <div class="" style="padding-bottom: 20px">
                                 <h2 class="account-title type-semibold">Account Setting</h2>
-                                <div class="form_content">
+                                <div class="form_content site-change">
                                     <div class="cols tf-grid-layout sm-col-2">
                                         <fieldset>
                                             <input type="text" th:field="*{firstName}" placeholder="First name *" required>
-                                            <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="error"></span>
+                                            <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="error-message"></span>
                                         </fieldset>
                                         <fieldset>
                                             <input type="text" th:field="*{lastName}" placeholder="Last name *" required>
-                                            <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="error"></span>
+                                            <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="error-message"></span>
                                         </fieldset>
                                     </div>
                                     <fieldset>
                                         <input type="email" th:field="*{email}" placeholder="Email *" required>
-                                        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"></span>
+                                        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-message"></span>
                                     </fieldset>
                                 </div>
+                                <button type="submit" class="btn-submit_form tf-btn animate-btn w-100 fw-bold">
+                                    Save change
+                                </button>
                             </div>
+                        </form>
+                        <form class="form-change_pass" th:action="@{/user/change-password}" method="post" th:object="${userPasswordRequest}">
                             <div class="">
                                 <h2 class="account-title type-semibold">Change Password</h2>
                                 <div class="form_content site-change">
                                     <fieldset class="password-wrapper">
                                         <input class="password-field" type="password" th:field="*{currentPassword}" placeholder="Current password *" required>
                                         <span class="toggle-pass icon-show-password"></span>
-                                        <span th:if="${#fields.hasErrors('currentPassword')}" th:errors="*{currentPassword}" class="error"></span>
+                                        <span th:if="${#fields.hasErrors('currentPassword')}" th:errors="*{currentPassword}" class="error-message"></span>
                                     </fieldset>
                                     <fieldset class="password-wrapper">
                                         <input class="password-field" type="password" th:field="*{password}" placeholder="New password *" required>
                                         <span class="toggle-pass icon-show-password"></span>
-                                        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></span>
+                                        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-message"></span>
                                     </fieldset>
                                     <fieldset class="password-wrapper">
                                         <input class="password-field" type="password" th:field="*{confirmPassword}" placeholder="Confirm password *" required>
                                         <span class="toggle-pass icon-show-password"></span>
-                                        <span th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="error"></span>
+                                        <span th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="error-message"></span>
                                     </fieldset>
                                 </div>
                                 <button type="submit" class="btn-submit_form tf-btn animate-btn w-100 fw-bold">
-                                    Save change
+                                    Change password
                                 </button>
                             </div>
                         </form>
@@ -222,6 +230,30 @@
 <script th:src="@{/js/parallaxie.js}"></script>
 <script th:src="@{/js/count-down.js}"></script>
 <script th:src="@{/js/main.js}"></script>
+<!-- CSS cho styling -->
+<style>
+    .error-message {
+        color: #dc3545;
+        font-size: 0.875em;
+        margin-top: 0.25rem;
+        display: block;
+    }
+
+    .error-message span {
+        display: block;
+    }
+
+    input.error {
+        border-color: #dc3545 !important;
+        box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+    }
+
+    .success-message {
+        color: #198754;
+        font-size: 0.875em;
+        margin-top: 0.25rem;
+    }
+</style>
 </body>
 
 </html>
