@@ -32,7 +32,7 @@ public class UserController extends BaseController {
       BindingResult bindingResult,
       Model model,
       RedirectAttributes redirectAttributes) {
-    validateUser(userDto, bindingResult);
+    validateRegisterUser(userDto, bindingResult);
     if (bindingResult.hasErrors()) {
       addHeaderDataToModel(model);
       return "view/pages/register";
@@ -50,7 +50,7 @@ public class UserController extends BaseController {
     }
   }
 
-  private void validateUser(UserDto userRegistration, BindingResult bindingResult) {
+  private void validateRegisterUser(UserDto userRegistration, BindingResult bindingResult) {
     if (!userRegistration.isPasswordMatching()) {
       bindingResult.rejectValue("confirmPassword", "", "Mật khẩu xác nhận không khớp");
     }
@@ -92,10 +92,9 @@ public class UserController extends BaseController {
 
   private void validateEmail(UserInfoRequest userInfoRequest, BindingResult bindingResult) {
     User user = userService.getCurrentUser();
-    if (!StringUtils.equals(userInfoRequest.getEmail(), user.getEmail())) {
-      if (userService.existsByEmail(userInfoRequest.getEmail())) {
-        bindingResult.rejectValue("email", "", "Email đã tồn tại");
-      }
+    if (!StringUtils.equals(userInfoRequest.getEmail(), user.getEmail())
+        && userService.existsByEmail(userInfoRequest.getEmail())) {
+      bindingResult.rejectValue("email", "", "Email đã tồn tại");
     }
   }
 
@@ -103,13 +102,33 @@ public class UserController extends BaseController {
   public String changePassword(
       @Valid @ModelAttribute("userPasswordRequest") UserPasswordRequest userPasswordRequest,
       BindingResult bindingResult,
-      Model model) {
+      Model model,
+      RedirectAttributes redirectAttributes) {
+    validationUpdateUser(userPasswordRequest, bindingResult);
+    if (bindingResult.hasErrors()) {
+      UserInfoRequest userInfoRequest = userService.getCurrentUserForUpdate();
+      model.addAttribute("userInfoRequest", userInfoRequest);
+      model.addAttribute("userPasswordRequest", userPasswordRequest);
+      addHeaderDataToModel(model);
+      return "view/pages/account-setting";
+    }
 
-    addHeaderDataToModel(model);
+    userService.changeUserPassword(userPasswordRequest);
+    redirectAttributes.addFlashAttribute("successMessage", "Thay đổi mật khẩu thành công");
     return "redirect:/user/setting";
   }
 
-  private void validationUpdateUser(UserDto userUpdateDto, BindingResult bindingResult) {
-    if (StringUtils.isEmpty(userUpdateDto.getEmail())) {}
+  private void validationUpdateUser(
+      UserPasswordRequest userPasswordRequest, BindingResult bindingResult) {
+    User user = userService.getCurrentUser();
+    if (!userService.isPasswordMatching(
+        userPasswordRequest.getCurrentPassword(), user.getPassword())) {
+      bindingResult.rejectValue("currentPassword", "", "Mật khẩu không chính xác");
+      return;
+    }
+
+    if (!userPasswordRequest.isPasswordMatching()) {
+      bindingResult.rejectValue("confirmPassword", "", "Mật khẩu xác nhận không khớp");
+    }
   }
 }

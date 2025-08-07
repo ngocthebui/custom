@@ -10,12 +10,15 @@ import org.springframework.stereotype.Service;
 import com.custom.ngow.shop.constant.UserRole;
 import com.custom.ngow.shop.dto.UserDto;
 import com.custom.ngow.shop.dto.UserInfoRequest;
+import com.custom.ngow.shop.dto.UserPasswordRequest;
 import com.custom.ngow.shop.entity.User;
 import com.custom.ngow.shop.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class UserService {
 
@@ -39,6 +42,8 @@ public class UserService {
     user.setRole(UserRole.USER);
 
     userRepository.save(user);
+
+    log.info("User {} registered successfully", userRegistration.getEmail());
   }
 
   public User findByEmail(String email) {
@@ -81,5 +86,27 @@ public class UserService {
     user.setEmail(userDto.getEmail());
 
     userRepository.save(user);
+
+    log.info("User {} updated successfully", user.getEmail());
+  }
+
+  public boolean isPasswordMatching(String oldPassword, String newPassword) {
+    return passwordEncoder.matches(oldPassword, newPassword);
+  }
+
+  public void changeUserPassword(UserPasswordRequest userPasswordRequest) {
+    User user = getCurrentUser();
+    if (!isPasswordMatching(userPasswordRequest.getCurrentPassword(), user.getPassword())) {
+      throw new RuntimeException("Password is not matching");
+    }
+
+    if (!userPasswordRequest.isPasswordMatching()) {
+      throw new RuntimeException("Confirm password is not matching");
+    }
+
+    user.setPassword(passwordEncoder.encode(userPasswordRequest.getPassword()));
+    userRepository.save(user);
+
+    log.info("User {} changed password successfully", user.getEmail());
   }
 }
