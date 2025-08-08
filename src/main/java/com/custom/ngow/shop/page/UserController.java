@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.custom.ngow.shop.dto.UserDto;
 import com.custom.ngow.shop.dto.UserInfoRequest;
 import com.custom.ngow.shop.dto.UserPasswordRequest;
+import com.custom.ngow.shop.dto.UserResetPasswordRequest;
 import com.custom.ngow.shop.entity.User;
 import com.custom.ngow.shop.service.UserService;
 
@@ -130,5 +132,56 @@ public class UserController extends BaseController {
     if (!userPasswordRequest.isPasswordMatching()) {
       bindingResult.rejectValue("confirmPassword", "", "Mật khẩu xác nhận không khớp");
     }
+  }
+
+  @GetMapping("/forgot-password")
+  public String forgotPassword(
+      @ModelAttribute("resetPasswordRequest") UserResetPasswordRequest resetPasswordRequest,
+      Model model) {
+    addHeaderDataToModel(model);
+    return "view/pages/forgot-password";
+  }
+
+  @PostMapping("/reset-password")
+  public String resetPassword(
+      @ModelAttribute("resetPasswordRequest") UserResetPasswordRequest resetPasswordRequest,
+      BindingResult bindingResult,
+      Model model,
+      RedirectAttributes redirectAttributes) {
+    validateEmailResetPassword(resetPasswordRequest, bindingResult);
+    if (bindingResult.hasErrors()) {
+      addHeaderDataToModel(model);
+      return "view/pages/forgot-password";
+    }
+
+    userService.sendMailResetPassword(resetPasswordRequest);
+
+    redirectAttributes.addFlashAttribute(
+        "successMessage",
+        "Email sent successfully! Please check your inbox and spam folder. If you don't receive the email within 5 minutes, try again.");
+    return "redirect:/user/forgot-password";
+  }
+
+  private void validateEmailResetPassword(
+      UserResetPasswordRequest userPasswordRequest, BindingResult bindingResult) {
+    if (!userService.existsByEmail(userPasswordRequest.getEmail())) {
+      bindingResult.rejectValue("email", "", "Email chưa đăng ký");
+    }
+  }
+
+  @GetMapping("/reset-password")
+  public String resetPassword(
+      @RequestParam("email") String email,
+      @RequestParam("otp") String otp,
+      RedirectAttributes redirectAttributes) {
+    try {
+      userService.resetPassword(email, otp);
+    } catch (Exception e) {
+      redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+      return "redirect:/login";
+    }
+
+    redirectAttributes.addFlashAttribute("successMessage", "Reset Password Successfully");
+    return "redirect:/login";
   }
 }

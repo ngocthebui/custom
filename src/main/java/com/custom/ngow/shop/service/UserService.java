@@ -1,5 +1,8 @@
 package com.custom.ngow.shop.service;
 
+import java.util.concurrent.CompletableFuture;
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -7,10 +10,12 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.custom.ngow.shop.common.SecurePasswordGenerator;
 import com.custom.ngow.shop.constant.UserRole;
 import com.custom.ngow.shop.dto.UserDto;
 import com.custom.ngow.shop.dto.UserInfoRequest;
 import com.custom.ngow.shop.dto.UserPasswordRequest;
+import com.custom.ngow.shop.dto.UserResetPasswordRequest;
 import com.custom.ngow.shop.entity.User;
 import com.custom.ngow.shop.repository.UserRepository;
 
@@ -22,8 +27,15 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class UserService {
 
+  private static final int TIME_OTP_EXPIRED = 5;
+
   private final UserRepository userRepository;
   private final PasswordEncoder passwordEncoder;
+  private final MailService mailService;
+  private final OtpService otpService;
+
+  @Value("${homepage.url}")
+  private String homePageUrl;
 
   public void registerUser(UserDto userRegistration) {
     if (userRepository.existsByEmail(userRegistration.getEmail())) {
@@ -108,5 +120,81 @@ public class UserService {
     userRepository.save(user);
 
     log.info("User {} changed password successfully", user.getEmail());
+  }
+
+  public void sendMailResetPassword(UserResetPasswordRequest resetPasswordRequest) {
+    String email = resetPasswordRequest.getEmail();
+    if (existsByEmail(email)) {
+      CompletableFuture.runAsync(
+          () -> {
+            try {
+              String username = extractNameFromEmail(email);
+
+              // otp
+              String otp = otpService.createOTPWithEmail(email, TIME_OTP_EXPIRED);
+
+              // reset link
+              String linkResetPassword =
+                  homePageUrl + "/user/reset-password" + "?email=" + email + "&otp=" + otp;
+
+              // email template
+              String template =
+                  mailService.getTemplateByClassPathResource("templates/email/reset_password.html");
+              template = template.replace("{{user_name}}", username);
+              template = template.replace("{{reset_link}}", linkResetPassword);
+              template = template.replace("{{time}}", String.valueOf(TIME_OTP_EXPIRED));
+
+              // send mail
+              String subject = "Reset Password";
+              mailService.sendMail(email, subject, template);
+
+              log.info("Send OTP to {}", email);
+            } catch (Exception e) {
+              log.error("Failed to send email to: {}", email, e);
+            }
+          });
+    }
+  }
+
+  private String extractNameFromEmail(String email) {
+    if (email != null && email.contains("@")) {
+      return email.split("@")[0];
+    }
+    return email;
+  }
+
+  public void resetPassword(String email, String otp) {
+    User user =
+        userRepository
+            .findByEmail(email)
+            .orElseThrow(() -> new UsernameNotFoundException("User not found: " + email));
+    otpService.validOTP(email, otp);
+
+    String password = SecurePasswordGenerator.generateStrongPassword();
+    user.setPassword(passwordEncoder.encode(password));
+    userRepository.save(user);
+    log.info("User {} changed password successfully", email);
+
+    // send mail
+    CompletableFuture.runAsync(
+        () -> {
+          try {
+            String username = extractNameFromEmail(email);
+
+            // email template
+            String template =
+                mailService.getTemplateByClassPathResource("templates/email/new_password.html");
+            template = template.replace("{{user_name}}", username);
+            template = template.replace("{{new_password}}", password);
+
+            // send mail
+            String subject = "New Password";
+            mailService.sendMail(email, subject, template);
+
+            log.info("Send OTP to {}", email);
+          } catch (Exception e) {
+            log.error("Failed to send email to: {}", email, e);
+          }
+        });
   }
 }

@@ -40,7 +40,8 @@ public class SecurityConfig {
     http.authorizeHttpRequests(
             authz ->
                 authz
-                    .requestMatchers("/user/register")
+                    .requestMatchers(
+                        "/user/register", "/user/forgot-password", "/user/reset-password")
                     .permitAll()
                     .requestMatchers("/admin/**")
                     .hasRole("ADMIN")
