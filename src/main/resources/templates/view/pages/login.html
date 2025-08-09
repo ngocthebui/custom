@@ -82,6 +82,11 @@
             <span th:text="${logoutMessage}"></span>
           </div>
 
+          <!-- Thông báo đăng ký thành công -->
+          <div th:if="${successMessage}" class="alert alert-success" role="alert">
+            <span th:text="${successMessage}"></span>
+          </div>
+
           <!-- Thông báo session hết hạn -->
           <div th:if="${expiredMessage}" class="alert alert-warning" role="alert">
             <span th:text="${expiredMessage}"></span>
@@ -112,7 +117,7 @@
                   <label class="h6" for="remember">Keep me signed in</label>
                 </div>
                 <h6>
-                  <a class="link" href="#">
+                  <a class="link" href="/user/forgot-password">
                     Forgot your password?
                   </a>
                 </h6>

@@ -27,25 +27,25 @@ public class BaseController {
     // collection
     List<Collection> collections =
         Arrays.asList(
-            new Collection("Home Fashion 1", "/", "images/demo/home-fashion-1.jpg", false),
-            new Collection("Home Fashion 2", "/", "images/demo/home-fashion-2.jpg", false),
-            new Collection("Home Fashion 3", "/", "images/demo/home-fashion-3.jpg", false),
-            new Collection("Home Fashion 4", "/", "images/demo/home-fashion-4.jpg", false),
-            new Collection("Home Cosmetic", "/", "images/demo/home-cosmetic.jpg", false),
-            new Collection("Home Skincare", "/", "images/demo/home-skin-care.jpg", false),
-            new Collection("Home Decor", "/", "images/demo/home-decor.jpg", false),
-            new Collection("Home Jewelry", "/", "images/demo/home-jewelry.jpg", false),
+            new Collection("Home Fashion 1", "/", "/images/demo/home-fashion-1.jpg", false),
+            new Collection("Home Fashion 2", "/", "/images/demo/home-fashion-2.jpg", false),
+            new Collection("Home Fashion 3", "/", "/images/demo/home-fashion-3.jpg", false),
+            new Collection("Home Fashion 4", "/", "/images/demo/home-fashion-4.jpg", false),
+            new Collection("Home Cosmetic", "/", "/images/demo/home-cosmetic.jpg", false),
+            new Collection("Home Skincare", "/", "/images/demo/home-skin-care.jpg", false),
+            new Collection("Home Decor", "/", "/images/demo/home-decor.jpg", false),
+            new Collection("Home Jewelry", "/", "/images/demo/home-jewelry.jpg", false),
             new Collection(
-                "Home Electric Market", "/", "images/demo/home-electronic-market.jpg", false),
-            new Collection("Home Pet Store", "/", "images/demo/home-pet-store.jpg", false),
-            new Collection("Home Sneaker", "/", "images/demo/home-sneaker.jpg", false),
-            new Collection("Home Book", "/", "images/demo/home-book.jpg", true));
+                "Home Electric Market", "/", "/images/demo/home-electronic-market.jpg", false),
+            new Collection("Home Pet Store", "/", "/images/demo/home-pet-store.jpg", false),
+            new Collection("Home Sneaker", "/", "/images/demo/home-sneaker.jpg", false),
+            new Collection("Home Book", "/", "/images/demo/home-book.jpg", true));
 
     model.addAttribute("collectionList", collections);
 
     // account
     if (isUserLoggedIn()) {
-      model.addAttribute("userAccountLink", "/my-account");
+      model.addAttribute("userAccountLink", "/user/setting");
       model.addAttribute("userLoginStatus", true);
     } else {
       model.addAttribute("userAccountLink", "/login");
@@ -64,25 +64,25 @@ public class BaseController {
         Arrays.asList(
             new TrendingProduct(
                 "Queen fashion long sleeve shirt, basic t-shirt",
-                "images/products/product-1.jpg",
+                "/images/products/product-1.jpg",
                 "T-shirt",
                 99.99,
                 69.99),
             new TrendingProduct(
                 "Champion Reverse Weave Pullover",
-                "images/products/product-7.jpg",
+                "/images/products/product-7.jpg",
                 "Hoodie",
                 149.99,
                 109.99),
             new TrendingProduct(
                 "Columbia PFG Fishing Shirt",
-                "images/products/product-5.jpg",
+                "/images/products/product-5.jpg",
                 "Shorts",
                 109.99,
                 74.99),
             new TrendingProduct(
                 "Puma Essentials Graphic Tee",
-                "images/products/product-9.jpg",
+                "/images/products/product-9.jpg",
                 "Sweatshirt",
                 69.99,
                 49.99));
@@ -112,7 +112,7 @@ public class BaseController {
                 1L,
                 "Fall Winter Collection",
                 "Vivamus lacinia odio vitae vestibulum vestibulum.",
-                "images/slider/slider-1.jpg",
+                "/images/slider/slider-1.jpg",
                 "shop-default-list.html",
                 true,
                 0),
@@ -120,7 +120,7 @@ public class BaseController {
                 2L,
                 "Spring Summer Collection",
                 "Discover the elegance of renewal with soft tones and flowing textures.",
-                "images/slider/slider-2.jpg",
+                "/images/slider/slider-2.jpg",
                 "shop-default-list.html",
                 true,
                 1),
@@ -128,7 +128,7 @@ public class BaseController {
                 3L,
                 "Urban Edge Series",
                 "Bold cuts and minimalist design for the modern city lifestyle.",
-                "images/slider/slider-3.jpg",
+                "/images/slider/slider-3.jpg",
                 "shop-default-list.html",
                 true,
                 2));

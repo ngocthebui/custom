@@ -56,7 +56,7 @@
                 <div class="content">
                     <h1 class="title-page">Register</h1>
                     <ul class="breadcrumbs-page">
-                        <li><a th:href="@{/index.html}" class="h6 link">Home</a></li>
+                        <li><a th:href="@{/}" class="h6 link">Home</a></li>
                         <li class="d-flex"><i class="icon icon-caret-right"></i></li>
                         <li>
                             <h6 class="current-page fw-normal">Register</h6>
@@ -72,11 +72,21 @@
                 <div class="s-log">
                     <div class="col-left">
                         <h1 class="heading">Register</h1>
-                        <form class="form-login" th:action="@{/user/register}" method="post" th:object="${registerRequest}">
+                        <form class="form-login" th:action="@{/user/register}" method="post" th:object="${userRegistration}">
                             <div class="list-ver">
                                 <!-- General error message -->
                                 <div th:if="${errorMessage}" class="error-message">
                                     <span th:text="${errorMessage}"></span>
+                                </div>
+                                <div class="cols tf-grid-layout sm-col-2">
+                                    <fieldset>
+                                        <input type="text" th:field="*{firstName}" placeholder="First name *" required>
+                                        <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="error-message"></span>
+                                    </fieldset>
+                                    <fieldset>
+                                        <input type="text" th:field="*{lastName}" placeholder="Last name *" required>
+                                        <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="error-message"></span>
+                                    </fieldset>
                                 </div>
                                 <fieldset>
                                     <input type="email"
