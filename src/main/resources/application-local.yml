@@ -3,6 +3,10 @@ server:
   servlet:
     session:
       timeout: 72h
+  error:
+    whitelabel:
+      enabled: false
+    path: /error
 
 spring:
   #postgresql
