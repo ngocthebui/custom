@@ -16,7 +16,10 @@
         <nav class="box-navigation">
           <ul class="box-nav-menu">
             <li class="menu-item position-relative">
-              <a class="item-link" href="#">SẢN PHẨM<i class="icon icon-caret-down"></i></a>
+              <a class="item-link" href="#">
+                <span th:text="#{navbar.products}">PRODUCTS</span>
+                <i class="icon icon-caret-down"></i>
+              </a>
               <div class="sub-menu">
                 <ul class="sub-menu_list">
                   <li><a class="sub-menu_link" href="/all-products">Tất Cả Sản Phẩm</a></li>
@@ -28,7 +31,10 @@
               </div>
             </li>
             <li class="menu-item">
-              <a class="item-link" href="#">BỘ SƯU TẬP<i class="icon icon-caret-down"></i></a>
+              <a class="item-link" href="#">
+                <span th:text="#{navbar.collections}">COLLECTIONS</span>
+                <i class="icon icon-caret-down"></i>
+              </a>
               <div class="sub-menu mega-menu mega-home">
                 <div class="container">
                   <div class="row-demo">
@@ -50,7 +56,10 @@
               </div>
             </li>
             <li class="menu-item">
-              <a class="item-link" href="#">SHOP<i class="icon icon-caret-down"></i></a>
+              <a class="item-link" href="#">
+                <span th:text="#{navbar.shop}">SHOP</span>
+                <i class="icon icon-caret-down"></i>
+              </a>
               <div class="sub-menu mega-menu">
                 <div class="container">
                   <div class="row">
@@ -150,7 +159,10 @@
               </div>
             </li>
             <li class="menu-item">
-              <a class="item-link" href="#">PRODUCT<i class="icon icon-caret-down"></i></a>
+              <a class="item-link" href="#">
+                <span th:text="#{navbar.product}">PRODUCT</span>
+                <i class="icon icon-caret-down"></i>
+              </a>
               <div class="sub-menu mega-menu">
                 <div class="container">
                   <div class="row">
@@ -321,7 +333,10 @@
               </div>
             </li>
             <li class="menu-item position-relative">
-              <a class="item-link" href="#">PAGE<i class="icon icon-caret-down"></i></a>
+              <a class="item-link" href="#">
+                <span th:text="#{navbar.pages}">PAGE</span>
+                <i class="icon icon-caret-down"></i>
+              </a>
               <div class="sub-menu">
                 <ul class="sub-menu_list">
                   <li><a class="sub-menu_link" href="about-us.html">About us</a></li>
@@ -335,7 +350,10 @@
               </div>
             </li>
             <li class="menu-item position-relative">
-              <a class="item-link" href="#">BLOG<i class="icon icon-caret-down"></i></a>
+              <a class="item-link" href="#">
+                <span th:text="#{navbar.blog}">BLOG</span>
+                <i class="icon icon-caret-down"></i>
+              </a>
               <div class="sub-menu">
                 <ul class="sub-menu_list">
                   <li><a class="sub-menu_link" href="blog-grid.html">Blog Grid</a></li>
@@ -351,7 +369,7 @@
       <div class="col-xl-3 col-md-4 col-3">
         <ul class="nav-icon-list">
           <li class="d-none d-lg-flex">
-            <a class="nav-icon-item link" th:href="${userAccountLink}">
+            <a class="nav-icon-item link" href="/user/setting">
               <i class="icon icon-user"></i>
             </a>
           </li>
@@ -384,9 +402,8 @@
   <div class="canvas-header">
     <p class="text-logo-mb">Ochaka.</p>
     <a class="tf-btn type-small style-2"
-       th:href="${userAccountLink}"
-       th:text="${userLoginStatus} ? 'My Account' : 'Login'">
-      Login
+       href="/user/setting">
+      My Account
       <i class="icon icon-user"></i>
     </a>
     <span class="br-line"></span>
@@ -452,11 +469,10 @@
     </div>
     <span class="br-line"></span>
     <div class="tf-languages">
-      <select class="tf-dropdown-select style-default type-languages">
-        <option>English</option>
-        <option>العربية</option>
-        <option>简体中文</option>
-        <option>اردو</option>
+      <select class="tf-dropdown-select style-default type-languages"
+              onchange="changeLanguage(this.value)">
+        <option value="vi" th:selected="${#locale.language == 'vi'}">Tiếng Việt</option>
+        <option value="en" th:selected="${#locale.language == 'en'}">English</option>
       </select>
     </div>
   </div>

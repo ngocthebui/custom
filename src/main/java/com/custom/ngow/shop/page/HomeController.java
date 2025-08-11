@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.custom.ngow.shop.constant.ProductBadge;
 import com.custom.ngow.shop.dto.ProductDto;
 import com.custom.ngow.shop.dto.UserDto;
+import com.custom.ngow.shop.entity.Banner;
 import com.custom.ngow.shop.entity.ProductColor;
 import com.custom.ngow.shop.entity.ProductImage;
 
@@ -27,6 +28,7 @@ public class HomeController extends BaseController {
   public String home(Model model) {
     addDefaultToModel(model);
 
+    setBannersToModel(model);
     setPromotionalProductsToModel(model);
     return "view/pages/index";
   }
@@ -55,10 +57,10 @@ public class HomeController extends BaseController {
       @RequestParam(value = "expired", required = false) String expired,
       Model model) {
     if (error != null) {
-      model.addAttribute("errorMessage", "Tên đăng nhập hoặc mật khẩu không đúng!");
+      model.addAttribute("errorMessage", "error.login");
     }
     if (logout != null) {
-      model.addAttribute("logoutMessage", "Đăng xuất thành công!");
+      model.addAttribute("successMessage", "success.logout");
     }
     if (expired != null) {
       model.addAttribute("expiredMessage", "Phiên đăng nhập đã hết hạn!");
@@ -106,6 +108,37 @@ public class HomeController extends BaseController {
     session.setAttribute(SEARCH_HISTORY_KEY, history);
 
     return "view/pages/shop-5-columns";
+  }
+
+  private void setBannersToModel(Model model) {
+    // sliders
+    List<Banner> bannerSlides =
+        Arrays.asList(
+            new Banner(
+                1L,
+                "Fall Winter Collection",
+                "Vivamus lacinia odio vitae vestibulum vestibulum.",
+                "/images/slider/slider-1.jpg",
+                "shop-default-list.html",
+                true,
+                0),
+            new Banner(
+                2L,
+                "Spring Summer Collection",
+                "Discover the elegance of renewal with soft tones and flowing textures.",
+                "/images/slider/slider-2.jpg",
+                "shop-default-list.html",
+                true,
+                1),
+            new Banner(
+                3L,
+                "Urban Edge Series",
+                "Bold cuts and minimalist design for the modern city lifestyle.",
+                "/images/slider/slider-3.jpg",
+                "shop-default-list.html",
+                true,
+                2));
+    model.addAttribute("bannerSlides", bannerSlides);
   }
 
   private void setPromotionalProductsToModel(Model model) {

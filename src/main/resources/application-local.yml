@@ -57,6 +57,7 @@ spring:
   session:
     redis:
       namespace: custom:session
+      flush-mode: immediate
     timeout: 72h
 
   #messages

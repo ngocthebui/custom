@@ -75,17 +75,12 @@
           <h1 class="heading">Login</h1>
           <!-- Thông báo lỗi -->
           <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
-            <span th:text="${errorMessage}"></span>
-          </div>
-
-          <!-- Thông báo đăng xuất thành công -->
-          <div th:if="${logoutMessage}" class="alert alert-success" role="alert">
-            <span th:text="${logoutMessage}"></span>
+            <span th:text="#{${errorMessage}}"></span>
           </div>
 
           <!-- Thông báo đăng ký thành công -->
           <div th:if="${successMessage}" class="alert alert-success" role="alert">
-            <span th:text="${successMessage}"></span>
+            <span th:text="#{${successMessage}}"></span>
           </div>
 
           <!-- Thông báo session hết hạn -->
