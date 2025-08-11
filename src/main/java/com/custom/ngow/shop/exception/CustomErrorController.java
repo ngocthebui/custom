@@ -22,7 +22,7 @@ public class CustomErrorController extends BaseController implements ErrorContro
       int statusCode = Integer.parseInt(status.toString());
 
       if (statusCode == HttpStatus.NOT_FOUND.value()) {
-        addHeaderDataToModel(model);
+        addDefaultToModel(model);
         return "view/pages/404";
       }
     }

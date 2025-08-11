@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 
+import com.custom.ngow.shop.common.MessageUtil;
 import com.custom.ngow.shop.demoEntity.CartItem;
 import com.custom.ngow.shop.demoEntity.Collection;
 import com.custom.ngow.shop.demoEntity.TrendingProduct;
@@ -22,6 +23,18 @@ public class BaseController {
   public static final String SEARCH_HISTORY_KEY = "searchHistory";
 
   @Autowired private HttpSession session;
+  @Autowired private MessageUtil messageUtil;
+
+  public void addDefaultToModel(Model model) {
+    addTopbarDataToModel(model);
+    addHeaderDataToModel(model);
+  }
+
+  public void addTopbarDataToModel(Model model) {
+    List<String> topbarKeys =
+        Arrays.asList("topbar.shopping.day", "topbar.free.shipping", "topbar.pickup.store");
+    model.addAttribute("topbarKeys", topbarKeys);
+  }
 
   public void addHeaderDataToModel(Model model) {
     // collection

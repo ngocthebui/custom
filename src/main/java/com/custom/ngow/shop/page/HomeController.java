@@ -23,9 +23,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class HomeController extends BaseController {
 
-  @GetMapping("/")
+  @GetMapping
   public String home(Model model) {
-    addHeaderDataToModel(model);
+    addDefaultToModel(model);
 
     setPromotionalProductsToModel(model);
     return "view/pages/index";
@@ -33,7 +33,7 @@ public class HomeController extends BaseController {
 
   @GetMapping("/my-account")
   public String myAccount(Model model) {
-    addHeaderDataToModel(model);
+    addDefaultToModel(model);
 
     return "view/pages/account-setting";
   }
@@ -64,14 +64,14 @@ public class HomeController extends BaseController {
       model.addAttribute("expiredMessage", "Phiên đăng nhập đã hết hạn!");
     }
 
-    addHeaderDataToModel(model);
+    addDefaultToModel(model);
     return "view/pages/login";
   }
 
   @GetMapping("/register")
   public String register(
       @ModelAttribute("userRegistration") UserDto userRegistration, Model model) {
-    addHeaderDataToModel(model);
+    addDefaultToModel(model);
     return "view/pages/register";
   }
 

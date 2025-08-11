@@ -163,11 +163,10 @@
           </div>
           <span class="br-line type-vertical"></span>
           <div class="tf-languages">
-            <select class="tf-dropdown-select style-default type-languages">
-              <option>English</option>
-              <option>العربية</option>
-              <option>简体中文</option>
-              <option>اردو</option>
+            <select class="tf-dropdown-select style-default type-languages"
+                    onchange="changeLanguage(this.value)">
+              <option value="vi" th:selected="${#locale.language == 'vi'}">Tiếng Việt</option>
+              <option value="en" th:selected="${#locale.language == 'en'}">English</option>
             </select>
           </div>
         </div>

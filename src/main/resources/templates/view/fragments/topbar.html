@@ -12,18 +12,8 @@
           <div dir="ltr" class="swiper tf-swiper" data-auto="true" data-loop="true"
                data-delay="3000">
             <div class="swiper-wrapper">
-              <!-- item 1 -->
-              <div class="swiper-slide">
-                <h6 class="text-white fw-normal text-center">Shopping day, 15% off all products</h6>
-              </div>
-              <!-- item 2 -->
-              <div class="swiper-slide">
-                <h6 class="text-white fw-normal text-center">Free shipping on orders of $50 or
-                  more</h6>
-              </div>
-              <!-- item 3 -->
-              <div class="swiper-slide">
-                <h6 class="text-white fw-normal text-center">Pick up in store: Ready in an hour</h6>
+              <div class="swiper-slide" th:each="messageKey : ${topbarKeys}">
+                <h6 class="text-white fw-normal text-center" th:text="#{__${messageKey}__}">Default message</h6>
               </div>
             </div>
           </div>

@@ -36,7 +36,7 @@ public class UserController extends BaseController {
       RedirectAttributes redirectAttributes) {
     validateRegisterUser(userDto, bindingResult);
     if (bindingResult.hasErrors()) {
-      addHeaderDataToModel(model);
+      addDefaultToModel(model);
       return "view/pages/register";
     }
 
@@ -47,7 +47,7 @@ public class UserController extends BaseController {
       return "redirect:/login";
     } catch (Exception e) {
       model.addAttribute("errorMessage", e.getMessage());
-      addHeaderDataToModel(model);
+      addDefaultToModel(model);
       return "view/pages/register";
     }
   }
@@ -68,7 +68,7 @@ public class UserController extends BaseController {
 
     model.addAttribute("userInfoRequest", userInfoRequest);
     model.addAttribute("userPasswordRequest", new UserPasswordRequest());
-    addHeaderDataToModel(model);
+    addDefaultToModel(model);
     return "view/pages/account-setting";
   }
 
@@ -82,7 +82,7 @@ public class UserController extends BaseController {
     if (bindingResult.hasErrors()) {
       model.addAttribute("userInfoRequest", userInfoRequest);
       model.addAttribute("userPasswordRequest", new UserPasswordRequest());
-      addHeaderDataToModel(model);
+      addDefaultToModel(model);
       return "view/pages/account-setting";
     }
 
@@ -111,7 +111,7 @@ public class UserController extends BaseController {
       UserInfoRequest userInfoRequest = userService.getCurrentUserForUpdate();
       model.addAttribute("userInfoRequest", userInfoRequest);
       model.addAttribute("userPasswordRequest", userPasswordRequest);
-      addHeaderDataToModel(model);
+      addDefaultToModel(model);
       return "view/pages/account-setting";
     }
 
@@ -138,7 +138,7 @@ public class UserController extends BaseController {
   public String forgotPassword(
       @ModelAttribute("resetPasswordRequest") UserResetPasswordRequest resetPasswordRequest,
       Model model) {
-    addHeaderDataToModel(model);
+    addDefaultToModel(model);
     return "view/pages/forgot-password";
   }
 
@@ -150,7 +150,7 @@ public class UserController extends BaseController {
       RedirectAttributes redirectAttributes) {
     validateEmailResetPassword(resetPasswordRequest, bindingResult);
     if (bindingResult.hasErrors()) {
-      addHeaderDataToModel(model);
+      addDefaultToModel(model);
       return "view/pages/forgot-password";
     }
 
