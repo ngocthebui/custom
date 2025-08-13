@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.custom.ngow.shop.dto.UserDto;
@@ -181,5 +182,13 @@ public class UserController extends BaseController {
 
     redirectAttributes.addFlashAttribute("successMessage", "success.resetPassword");
     return "redirect:/login";
+  }
+
+  @PostMapping("/upload-image")
+  public String uploadAvatar(
+      @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
+
+    redirectAttributes.addFlashAttribute("successMessage", "ok111111");
+    return "redirect:/user/setting";
   }
 }

@@ -19,6 +19,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="description"
         content="Themesflat Ochaka - A modern and elegant Multipurpose eCommerce HTML Template, perfect for online stores selling rings, necklaces, watches, and other accessories. SEO-optimized, fast-loading, and fully customizable.">
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
 
     <!-- font -->
     <link rel="stylesheet" th:href="@{/fonts/fonts.css}">
@@ -69,6 +71,7 @@
     <!-- /Page Title -->
     <!-- Account -->
     <section class="flat-spacing">
+        <input type="file" class="fileInputDash" accept="image/*" style="display: none;">
         <div class="container">
             <div class="row">
                 <div class="col-xl-3 d-none d-xl-block">
@@ -76,11 +79,10 @@
                         <div class="account-author">
                             <div class="author_avatar">
                                 <div class="image">
-                                    <img id="imgDash" class="lazyload" src="/images/avatar/avatar-4.jpg" data-src="/images/avatar/avatar-4.jpg"
+                                    <img class="lazyload imgDash" src="/images/avatar/avatar-4.jpg" data-src="/images/avatar/avatar-4.jpg"
                                         alt="Avatar">
                                 </div>
-                                <input type="file" id="fileInputDash" accept="image/*" style="display: none;">
-                                <div class="btn-change_img box-icon" id="changeImgDash">
+                                <div class="btn-change_img box-icon changeImgDash">
                                     <i class="icon icon-camera"></i>
                                 </div>
                             </div>
