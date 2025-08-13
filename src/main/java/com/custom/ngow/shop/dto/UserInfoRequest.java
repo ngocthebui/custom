@@ -19,4 +19,6 @@ public class UserInfoRequest {
   @NotBlank(message = "Email không được để trống")
   @Email(message = "Email không hợp lệ")
   private String email;
+
+  private String imageUrl;
 }

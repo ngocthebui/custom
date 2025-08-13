@@ -21,6 +21,7 @@ import com.custom.ngow.shop.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @Slf4j
@@ -33,6 +34,7 @@ public class UserService {
   private final PasswordEncoder passwordEncoder;
   private final MailService mailService;
   private final OtpService otpService;
+  private final MediaStorageService  mediaStorageService;
 
   @Value("${homepage.url}")
   private String homePageUrl;
@@ -88,6 +90,7 @@ public class UserService {
     userDto.setEmail(user.getEmail());
     userDto.setFirstName(user.getFirstName());
     userDto.setLastName(user.getLastName());
+    userDto.setImageUrl(user.getImageUrl());
     return userDto;
   }
 
@@ -196,5 +199,27 @@ public class UserService {
             log.error("Failed to send email to: {}", email, e);
           }
         });
+  }
+
+  public void uploadAvatar(User user, MultipartFile file) {
+    // create folder for user: users/avatars/{userId}/
+    String folderPath = "users/avatars/" + user.getId() + "/";
+
+    // delete old image
+    if (user.getImageUrl() != null && !user.getImageUrl().isEmpty()) {
+      // Có thể thêm logic xóa ảnh cũ ở đây
+      log.info("User {} đang thay thế ảnh cũ", user.getId());
+    }
+
+    // save image
+    String filename = mediaStorageService.storeImage(file, folderPath);
+
+    // Get the full URL of the image
+    String imageUrl = mediaStorageService.getFileUrl(folderPath, filename);
+
+    user.setImageUrl(imageUrl);
+    userRepository.save(user);
+
+    log.info("User {} updated successful avatar: {}", user.getId(), filename);
   }
 }

@@ -79,7 +79,9 @@
                         <div class="account-author">
                             <div class="author_avatar">
                                 <div class="image">
-                                    <img class="lazyload imgDash" src="/images/avatar/avatar-4.jpg" data-src="/images/avatar/avatar-4.jpg"
+                                    <img class="lazyload imgDash"
+                                         th:src="${userInfoRequest.imageUrl}"
+                                         th:data-src="${userInfoRequest.imageUrl}"
                                         alt="Avatar">
                                 </div>
                                 <div class="btn-change_img box-icon changeImgDash">

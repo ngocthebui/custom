@@ -1,5 +1,6 @@
 package com.custom.ngow.shop.page;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +25,7 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequestMapping("/user")
+@Slf4j
 @RequiredArgsConstructor
 public class UserController extends BaseController {
 
@@ -187,7 +189,18 @@ public class UserController extends BaseController {
   @PostMapping("/upload-image")
   public String uploadAvatar(
       @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
+    User user = userService.getCurrentUser();
+    try {
+      userService.uploadAvatar(user, file);
+    } catch (RuntimeException e) {
+      log.error("Lỗi validation khi upload ảnh đại diện cho user: ", e);
+      redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
 
+    } catch (Exception e) {
+      // Xử lý các lỗi khác
+      log.error("Lỗi không xác định khi upload ảnh đại diện: ", e);
+      redirectAttributes.addFlashAttribute("errorMessage", "Có lỗi xảy ra khi tải lên ảnh. Vui lòng thử lại!");
+    }
     redirectAttributes.addFlashAttribute("successMessage", "ok111111");
     return "redirect:/user/setting";
   }
