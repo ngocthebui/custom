@@ -36,29 +36,28 @@ public class UserController extends BaseController {
       RedirectAttributes redirectAttributes) {
     validateRegisterUser(userDto, bindingResult);
     if (bindingResult.hasErrors()) {
-      addHeaderDataToModel(model);
+      addDefaultToModel(model);
       return "view/pages/register";
     }
 
     try {
       userService.registerUser(userDto);
-      redirectAttributes.addFlashAttribute(
-          "successMessage", "Đăng ký thành công! Vui lòng đăng nhập.");
+      redirectAttributes.addFlashAttribute("successMessage", "success.register");
       return "redirect:/login";
     } catch (Exception e) {
       model.addAttribute("errorMessage", e.getMessage());
-      addHeaderDataToModel(model);
+      addDefaultToModel(model);
       return "view/pages/register";
     }
   }
 
   private void validateRegisterUser(UserDto userRegistration, BindingResult bindingResult) {
     if (!userRegistration.isPasswordMatching()) {
-      bindingResult.rejectValue("confirmPassword", "", "Mật khẩu xác nhận không khớp");
+      bindingResult.rejectValue("confirmPassword", "error.confirmPassword");
     }
 
     if (userService.existsByEmail(userRegistration.getEmail())) {
-      bindingResult.rejectValue("email", "", "Email đã tồn tại");
+      bindingResult.rejectValue("email", "error.exist", new String[] {"Email"}, "");
     }
   }
 
@@ -68,7 +67,7 @@ public class UserController extends BaseController {
 
     model.addAttribute("userInfoRequest", userInfoRequest);
     model.addAttribute("userPasswordRequest", new UserPasswordRequest());
-    addHeaderDataToModel(model);
+    addDefaultToModel(model);
     return "view/pages/account-setting";
   }
 
@@ -82,13 +81,13 @@ public class UserController extends BaseController {
     if (bindingResult.hasErrors()) {
       model.addAttribute("userInfoRequest", userInfoRequest);
       model.addAttribute("userPasswordRequest", new UserPasswordRequest());
-      addHeaderDataToModel(model);
+      addDefaultToModel(model);
       return "view/pages/account-setting";
     }
 
     userService.updateUserInfo(userInfoRequest);
 
-    redirectAttributes.addFlashAttribute("successMessage", "Thay đổi thông tin thành công");
+    redirectAttributes.addFlashAttribute("successMessage", "success.changeInfo");
     return "redirect:/user/setting";
   }
 
@@ -96,7 +95,7 @@ public class UserController extends BaseController {
     User user = userService.getCurrentUser();
     if (!StringUtils.equals(userInfoRequest.getEmail(), user.getEmail())
         && userService.existsByEmail(userInfoRequest.getEmail())) {
-      bindingResult.rejectValue("email", "", "Email đã tồn tại");
+      bindingResult.rejectValue("email", "error.exist", new String[] {"Email"}, "");
     }
   }
 
@@ -111,12 +110,12 @@ public class UserController extends BaseController {
       UserInfoRequest userInfoRequest = userService.getCurrentUserForUpdate();
       model.addAttribute("userInfoRequest", userInfoRequest);
       model.addAttribute("userPasswordRequest", userPasswordRequest);
-      addHeaderDataToModel(model);
+      addDefaultToModel(model);
       return "view/pages/account-setting";
     }
 
     userService.changeUserPassword(userPasswordRequest);
-    redirectAttributes.addFlashAttribute("successMessage", "Thay đổi mật khẩu thành công");
+    redirectAttributes.addFlashAttribute("successMessage", "success.changePassword");
     return "redirect:/user/setting";
   }
 
@@ -125,12 +124,13 @@ public class UserController extends BaseController {
     User user = userService.getCurrentUser();
     if (!userService.isPasswordMatching(
         userPasswordRequest.getCurrentPassword(), user.getPassword())) {
-      bindingResult.rejectValue("currentPassword", "", "Mật khẩu không chính xác");
+      bindingResult.rejectValue(
+          "currentPassword", "error.inCorrect", new String[] {"Password"}, "");
       return;
     }
 
     if (!userPasswordRequest.isPasswordMatching()) {
-      bindingResult.rejectValue("confirmPassword", "", "Mật khẩu xác nhận không khớp");
+      bindingResult.rejectValue("confirmPassword", "error.confirmPassword");
     }
   }
 
@@ -138,7 +138,7 @@ public class UserController extends BaseController {
   public String forgotPassword(
       @ModelAttribute("resetPasswordRequest") UserResetPasswordRequest resetPasswordRequest,
       Model model) {
-    addHeaderDataToModel(model);
+    addDefaultToModel(model);
     return "view/pages/forgot-password";
   }
 
@@ -150,22 +150,20 @@ public class UserController extends BaseController {
       RedirectAttributes redirectAttributes) {
     validateEmailResetPassword(resetPasswordRequest, bindingResult);
     if (bindingResult.hasErrors()) {
-      addHeaderDataToModel(model);
+      addDefaultToModel(model);
       return "view/pages/forgot-password";
     }
 
     userService.sendMailResetPassword(resetPasswordRequest);
 
-    redirectAttributes.addFlashAttribute(
-        "successMessage",
-        "Email sent successfully! Please check your inbox and spam folder. If you don't receive the email within 5 minutes, try again.");
+    redirectAttributes.addFlashAttribute("successMessage", "success.sendMailResetPassword");
     return "redirect:/user/forgot-password";
   }
 
   private void validateEmailResetPassword(
       UserResetPasswordRequest userPasswordRequest, BindingResult bindingResult) {
     if (!userService.existsByEmail(userPasswordRequest.getEmail())) {
-      bindingResult.rejectValue("email", "", "Email chưa đăng ký");
+      bindingResult.rejectValue("email", "error.notExist", new String[] {"Email"}, "");
     }
   }
 
@@ -181,7 +179,7 @@ public class UserController extends BaseController {
       return "redirect:/login";
     }
 
-    redirectAttributes.addFlashAttribute("successMessage", "Reset Password Successfully");
+    redirectAttributes.addFlashAttribute("successMessage", "success.resetPassword");
     return "redirect:/login";
   }
 }

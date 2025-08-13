@@ -10,10 +10,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 
+import com.custom.ngow.shop.common.MessageUtil;
 import com.custom.ngow.shop.demoEntity.CartItem;
 import com.custom.ngow.shop.demoEntity.Collection;
 import com.custom.ngow.shop.demoEntity.TrendingProduct;
-import com.custom.ngow.shop.entity.Banner;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -22,6 +22,18 @@ public class BaseController {
   public static final String SEARCH_HISTORY_KEY = "searchHistory";
 
   @Autowired private HttpSession session;
+  @Autowired private MessageUtil messageUtil;
+
+  public void addDefaultToModel(Model model) {
+    addTopbarDataToModel(model);
+    addHeaderDataToModel(model);
+  }
+
+  public void addTopbarDataToModel(Model model) {
+    List<String> topbarKeys =
+        Arrays.asList("topbar.shopping.day", "topbar.free.shipping", "topbar.pickup.store");
+    model.addAttribute("topbarKeys", topbarKeys);
+  }
 
   public void addHeaderDataToModel(Model model) {
     // collection
@@ -42,15 +54,6 @@ public class BaseController {
             new Collection("Home Book", "/", "/images/demo/home-book.jpg", true));
 
     model.addAttribute("collectionList", collections);
-
-    // account
-    if (isUserLoggedIn()) {
-      model.addAttribute("userAccountLink", "/user/setting");
-      model.addAttribute("userLoginStatus", true);
-    } else {
-      model.addAttribute("userAccountLink", "/login");
-      model.addAttribute("userLoginStatus", false);
-    }
 
     // search history
     List<String> history = (List<String>) session.getAttribute(SEARCH_HISTORY_KEY);
@@ -104,35 +107,6 @@ public class BaseController {
       cartItems.add(cartItem);
     }
     model.addAttribute("cartItems", cartItems);
-
-    // sliders
-    List<Banner> bannerSlides =
-        Arrays.asList(
-            new Banner(
-                1L,
-                "Fall Winter Collection",
-                "Vivamus lacinia odio vitae vestibulum vestibulum.",
-                "/images/slider/slider-1.jpg",
-                "shop-default-list.html",
-                true,
-                0),
-            new Banner(
-                2L,
-                "Spring Summer Collection",
-                "Discover the elegance of renewal with soft tones and flowing textures.",
-                "/images/slider/slider-2.jpg",
-                "shop-default-list.html",
-                true,
-                1),
-            new Banner(
-                3L,
-                "Urban Edge Series",
-                "Bold cuts and minimalist design for the modern city lifestyle.",
-                "/images/slider/slider-3.jpg",
-                "shop-default-list.html",
-                true,
-                2));
-    model.addAttribute("bannerSlides", bannerSlides);
   }
 
   public static <T> List<List<T>> partition(List<T> list, int size) {

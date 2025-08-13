@@ -28,6 +28,7 @@
     <link rel="stylesheet" th:href="@{/css/swiper-bundle.min.css}">
     <link rel="stylesheet" th:href="@{/css/animate.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
+    <link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
 
     <!-- Favicon and Touch Icons  -->
     <link rel="shortcut icon" th:href="@{/images/logo/favicon.svg}">
@@ -126,7 +127,7 @@
                 <div class="col-xl-9">
                     <div class="my-account-content">
                         <div th:if="${successMessage}" class="alert alert-success" role="alert">
-                            <span th:text="${successMessage}"></span>
+                            <span th:text="#{${successMessage}}"></span>
                         </div>
                         <form class="form-change_pass" th:action="@{/user/update-info}" method="post" th:object="${userInfoRequest}">
                             <div class="" style="padding-bottom: 20px">
@@ -230,30 +231,7 @@
 <script th:src="@{/js/parallaxie.js}"></script>
 <script th:src="@{/js/count-down.js}"></script>
 <script th:src="@{/js/main.js}"></script>
-<!-- CSS cho styling -->
-<style>
-    .error-message {
-        color: #dc3545;
-        font-size: 0.875em;
-        margin-top: 0.25rem;
-        display: block;
-    }
-
-    .error-message span {
-        display: block;
-    }
-
-    input.error {
-        border-color: #dc3545 !important;
-        box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
-    }
-
-    .success-message {
-        color: #198754;
-        font-size: 0.875em;
-        margin-top: 0.25rem;
-    }
-</style>
+<script th:src="@{/js/language-switcher.js}"></script>
 </body>
 
 </html>

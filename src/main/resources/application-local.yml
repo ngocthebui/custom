@@ -57,7 +57,20 @@ spring:
   session:
     redis:
       namespace: custom:session
+      flush-mode: immediate
     timeout: 72h
+
+  #messages
+  messages:
+    basename: i18n/messages
+    encoding: UTF-8
+    cache-duration: 3600
+
+  #thymeleaf
+  thymeleaf:
+    encoding: UTF-8
+    mode: HTML
+    cache: false
 
 logging:
   config: classpath:logs/logback-spring.xml
