@@ -1227,20 +1227,38 @@
     /* Change Image Dashboard 
     -------------------------------------------------------------------------*/
     var changeImageDash = function () {
-        $(".changeImgDash").on("click", function () {
-            $(".fileInputDash").click();
-        });
+      $(".changeImgDash").on("click", function () {
+        $(".fileInputDash").click();
+      });
 
-        $(".fileInputDash").on("change", function (e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    $(".imgDash").attr("src", e.target.result);
-                };
-                reader.readAsDataURL(file);
-            }
-        });
+      $(".fileInputDash").on("change", function (e) {
+        const file = e.target.files[0];
+        if (file) {
+          // Preview ảnh trước
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            $(".imgDash").attr("src", e.target.result);
+          };
+          reader.readAsDataURL(file);
+
+          // Upload lên server
+          const formData = new FormData();
+          formData.append("file", file);
+
+          // Lấy CSRF token từ Thymeleaf
+          const token = $("meta[name='_csrf']").attr("content");
+          const header = $("meta[name='_csrf_header']").attr("content");
+
+          fetch("/user/upload-image", {
+            method: "POST",
+            headers: {
+              [header]: token
+            },
+            body: formData
+          })
+          .catch(err => console.error(err));
+        }
+      });
     };
 
     /* No Action Link

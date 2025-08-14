@@ -90,17 +90,11 @@ mail:
 homepage:
   url: ${HOMEPAGE_URL:http://localhost:6820}
 
-media:
-  image-upload-dir: ./uploads/images
-  video-upload-dir: ./uploads/videos
-
 aws:
   s3:
     bucket-name: ngow-shop
     region: ap-southeast-1
-    access-key: ${AWS_ACCESS_KEY_ID:ae16473c03f2e04cad79f381d62490f6}
-    secret-key: ${AWS_SECRET_ACCESS_KEY:24065966c774f591ba3d63c5b6cd85dc7f83622e2e7bcddc1ee6a17ef52b503b}
-    image-folder: uploads/images/
-    video-folder: uploads/videos/
-    cdn-url: https://cpmbiildtwwdramvyeaf.supabase.co/storage/v1/s3
+    access-key: ${AWS_ACCESS_KEY_ID:889d22f5ec8f9ae71379d69eb2a8eb88}
+    secret-key: ${AWS_SECRET_ACCESS_KEY:7dd348498a4722f126bf6b8e6c7c00f0253ea9ffcf6099fe01b290883a0fb7f7}
+    cdn-url: https://cpmbiildtwwdramvyeaf.storage.supabase.co/storage/v1/s3
     public-url: https://cpmbiildtwwdramvyeaf.supabase.co/storage/v1/object/public

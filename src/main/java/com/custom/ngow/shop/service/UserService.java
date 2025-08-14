@@ -2,6 +2,7 @@ package com.custom.ngow.shop.service;
 
 import java.util.concurrent.CompletableFuture;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -9,12 +10,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.custom.ngow.shop.common.SecurePasswordGenerator;
 import com.custom.ngow.shop.constant.UserRole;
 import com.custom.ngow.shop.dto.UserDto;
-import com.custom.ngow.shop.dto.UserInfoRequest;
 import com.custom.ngow.shop.dto.UserPasswordRequest;
+import com.custom.ngow.shop.dto.UserRegistration;
 import com.custom.ngow.shop.dto.UserResetPasswordRequest;
 import com.custom.ngow.shop.entity.User;
 import com.custom.ngow.shop.repository.UserRepository;
@@ -30,14 +32,16 @@ public class UserService {
   private static final int TIME_OTP_EXPIRED = 5;
 
   private final UserRepository userRepository;
+  private final ModelMapper modelMapper;
   private final PasswordEncoder passwordEncoder;
   private final MailService mailService;
   private final OtpService otpService;
+  private final MediaStorageService mediaStorageService;
 
   @Value("${homepage.url}")
   private String homePageUrl;
 
-  public void registerUser(UserDto userRegistration) {
+  public void registerUser(UserRegistration userRegistration) {
     if (userRepository.existsByEmail(userRegistration.getEmail())) {
       throw new RuntimeException("Email is existing");
     }
@@ -81,17 +85,12 @@ public class UserService {
         .orElseThrow(() -> new UsernameNotFoundException("User not found: " + email));
   }
 
-  public UserInfoRequest getCurrentUserForUpdate() {
+  public UserDto getCurrentUserDto() {
     User user = getCurrentUser();
-
-    UserInfoRequest userDto = new UserInfoRequest();
-    userDto.setEmail(user.getEmail());
-    userDto.setFirstName(user.getFirstName());
-    userDto.setLastName(user.getLastName());
-    return userDto;
+    return modelMapper.map(user, UserDto.class);
   }
 
-  public void updateUserInfo(UserInfoRequest userDto) {
+  public void updateUserInfo(UserDto userDto) {
     User user = getCurrentUser();
     user.setFirstName(userDto.getFirstName());
     user.setLastName(userDto.getLastName());
@@ -147,8 +146,6 @@ public class UserService {
               // send mail
               String subject = "Reset Password";
               mailService.sendMail(email, subject, template);
-
-              log.info("Send OTP to {}", email);
             } catch (Exception e) {
               log.error("Failed to send email to: {}", email, e);
             }
@@ -173,7 +170,7 @@ public class UserService {
     String password = SecurePasswordGenerator.generateStrongPassword();
     user.setPassword(passwordEncoder.encode(password));
     userRepository.save(user);
-    log.info("User {} changed password successfully", email);
+    log.info("User {} reset password successfully", email);
 
     // send mail
     CompletableFuture.runAsync(
@@ -190,11 +187,31 @@ public class UserService {
             // send mail
             String subject = "New Password";
             mailService.sendMail(email, subject, template);
-
-            log.info("Send OTP to {}", email);
           } catch (Exception e) {
             log.error("Failed to send email to: {}", email, e);
           }
         });
+  }
+
+  public void uploadAvatar(User user, MultipartFile file) {
+    // create folder for user: users/avatars/{userId}/
+    String folderPath = "users/avatars/" + user.getId() + "/";
+
+    // save image
+    String filename = mediaStorageService.storeImage(file, folderPath);
+
+    // Get the full URL of the image
+    String imageUrl = mediaStorageService.getFileUrl(folderPath, filename);
+
+    // delete old image
+    if (user.getImageUrl() != null && !user.getImageUrl().isEmpty()) {
+      mediaStorageService.deleteFileByUrl(user.getImageUrl());
+      log.info("User {} replacing old photos", user.getId());
+    }
+
+    user.setImageUrl(imageUrl);
+    userRepository.save(user);
+
+    log.info("User {} updated successful avatar: {}", user.getId(), filename);
   }
 }

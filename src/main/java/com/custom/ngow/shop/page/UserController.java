@@ -1,6 +1,7 @@
 package com.custom.ngow.shop.page;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,20 +10,24 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.custom.ngow.shop.dto.UserDto;
-import com.custom.ngow.shop.dto.UserInfoRequest;
 import com.custom.ngow.shop.dto.UserPasswordRequest;
+import com.custom.ngow.shop.dto.UserRegistration;
 import com.custom.ngow.shop.dto.UserResetPasswordRequest;
 import com.custom.ngow.shop.entity.User;
 import com.custom.ngow.shop.service.UserService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/user")
+@Slf4j
 @RequiredArgsConstructor
 public class UserController extends BaseController {
 
@@ -30,18 +35,18 @@ public class UserController extends BaseController {
 
   @PostMapping("/register")
   public String processRegister(
-      @Valid @ModelAttribute("userRegistration") UserDto userDto,
+      @Valid @ModelAttribute("userRegistration") UserRegistration userRegistration,
       BindingResult bindingResult,
       Model model,
       RedirectAttributes redirectAttributes) {
-    validateRegisterUser(userDto, bindingResult);
+    validateRegisterUser(userRegistration, bindingResult);
     if (bindingResult.hasErrors()) {
       addDefaultToModel(model);
       return "view/pages/register";
     }
 
     try {
-      userService.registerUser(userDto);
+      userService.registerUser(userRegistration);
       redirectAttributes.addFlashAttribute("successMessage", "success.register");
       return "redirect:/login";
     } catch (Exception e) {
@@ -51,21 +56,19 @@ public class UserController extends BaseController {
     }
   }
 
-  private void validateRegisterUser(UserDto userRegistration, BindingResult bindingResult) {
-    if (!userRegistration.isPasswordMatching()) {
-      bindingResult.rejectValue("confirmPassword", "error.confirmPassword");
-    }
-
+  private void validateRegisterUser(
+      UserRegistration userRegistration, BindingResult bindingResult) {
     if (userService.existsByEmail(userRegistration.getEmail())) {
       bindingResult.rejectValue("email", "error.exist", new String[] {"Email"}, "");
+    }
+    if (!userRegistration.isPasswordMatching()) {
+      bindingResult.rejectValue("confirmPassword", "error.confirmPassword");
     }
   }
 
   @GetMapping("/setting")
   public String setting(Model model) {
-    UserInfoRequest userInfoRequest = userService.getCurrentUserForUpdate();
-
-    model.addAttribute("userInfoRequest", userInfoRequest);
+    model.addAttribute("userDto", userService.getCurrentUserDto());
     model.addAttribute("userPasswordRequest", new UserPasswordRequest());
     addDefaultToModel(model);
     return "view/pages/account-setting";
@@ -73,29 +76,32 @@ public class UserController extends BaseController {
 
   @PostMapping("/update-info")
   public String updateUser(
-      @Valid @ModelAttribute("userInfoRequest") UserInfoRequest userInfoRequest,
+      @Valid @ModelAttribute("userDto") UserDto userDto,
       BindingResult bindingResult,
       Model model,
       RedirectAttributes redirectAttributes) {
-    validateEmail(userInfoRequest, bindingResult);
+    validateEmail(userDto, bindingResult);
     if (bindingResult.hasErrors()) {
-      model.addAttribute("userInfoRequest", userInfoRequest);
+      model.addAttribute("userDto", userDto);
       model.addAttribute("userPasswordRequest", new UserPasswordRequest());
       addDefaultToModel(model);
       return "view/pages/account-setting";
     }
 
-    userService.updateUserInfo(userInfoRequest);
+    userService.updateUserInfo(userDto);
 
     redirectAttributes.addFlashAttribute("successMessage", "success.changeInfo");
     return "redirect:/user/setting";
   }
 
-  private void validateEmail(UserInfoRequest userInfoRequest, BindingResult bindingResult) {
-    User user = userService.getCurrentUser();
-    if (!StringUtils.equals(userInfoRequest.getEmail(), user.getEmail())
-        && userService.existsByEmail(userInfoRequest.getEmail())) {
-      bindingResult.rejectValue("email", "error.exist", new String[] {"Email"}, "");
+  private void validateEmail(UserDto userDto, BindingResult bindingResult) {
+    UserDto user = userService.getCurrentUserDto();
+    if (!StringUtils.equals(userDto.getEmail(), user.getEmail())
+        && userService.existsByEmail(userDto.getEmail())) {
+      bindingResult.rejectValue("email", "error.exist", new String[] {userDto.getEmail()}, "");
+
+      // set correct email
+      userDto.setEmail(user.getEmail());
     }
   }
 
@@ -107,8 +113,7 @@ public class UserController extends BaseController {
       RedirectAttributes redirectAttributes) {
     validationUpdateUser(userPasswordRequest, bindingResult);
     if (bindingResult.hasErrors()) {
-      UserInfoRequest userInfoRequest = userService.getCurrentUserForUpdate();
-      model.addAttribute("userInfoRequest", userInfoRequest);
+      model.addAttribute("userDto", userService.getCurrentUserDto());
       model.addAttribute("userPasswordRequest", userPasswordRequest);
       addDefaultToModel(model);
       return "view/pages/account-setting";
@@ -181,5 +186,19 @@ public class UserController extends BaseController {
 
     redirectAttributes.addFlashAttribute("successMessage", "success.resetPassword");
     return "redirect:/login";
+  }
+
+  @PostMapping("/upload-image")
+  @ResponseBody
+  public ResponseEntity<?> uploadAvatar(
+      @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
+    User user = userService.getCurrentUser();
+    try {
+      userService.uploadAvatar(user, file);
+    } catch (RuntimeException e) {
+      log.error("Validation error when uploading a photo to user: ", e);
+      redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+    }
+    return ResponseEntity.ok().build();
   }
 }
