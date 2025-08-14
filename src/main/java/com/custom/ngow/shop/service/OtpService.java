@@ -5,12 +5,16 @@ import java.security.SecureRandom;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import com.custom.ngow.shop.common.MessageUtil;
 import com.custom.ngow.shop.entity.Otp;
+import com.custom.ngow.shop.exception.CustomException;
 import com.custom.ngow.shop.repository.OtpRepository;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class OtpService {
 
@@ -19,6 +23,7 @@ public class OtpService {
   private static final int OTP_LENGTH = 6;
 
   private final OtpRepository otpRepository;
+  private final MessageUtil messageUtil;
 
   public String createOTPWithEmail(String email, int time) {
     Otp otp =
@@ -30,6 +35,7 @@ public class OtpService {
             .build();
 
     otpRepository.save(otp);
+    log.info("{} Otp has been created", email);
 
     return otp.getOtp();
   }
@@ -38,15 +44,15 @@ public class OtpService {
     Otp oldOTP = getOTPByEmail(email);
 
     if (!StringUtils.equals(otp, oldOTP.getOtp())) {
-      throw new RuntimeException("OTP is not correct");
+      throw new CustomException(messageUtil, "", new String[] {"OTP"}, "error.inCorrect");
     }
 
     if (System.currentTimeMillis() > oldOTP.getExpiredTime()) {
-      throw new RuntimeException("OTP is expired");
+      throw new CustomException(messageUtil, "", new String[] {"OTP"}, "error.expired");
     }
 
     if (!oldOTP.isActive()) {
-      throw new RuntimeException("OTP is inactive");
+      throw new CustomException(messageUtil, "", new String[] {"OTP"}, "error.inCorrect");
     }
 
     oldOTP.setActive(false);
@@ -56,7 +62,8 @@ public class OtpService {
   public Otp getOTPByEmail(String email) {
     return otpRepository
         .findByEmail(email)
-        .orElseThrow(() -> new RuntimeException("Can not find OTP"));
+        .orElseThrow(
+            () -> new CustomException(messageUtil, "", new String[] {"OTP"}, "error.notFound"));
   }
 
   private String generateOtp() {

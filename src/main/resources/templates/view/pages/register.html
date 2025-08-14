@@ -75,10 +75,6 @@
                         <h1 class="heading">Register</h1>
                         <form class="form-login" th:action="@{/user/register}" method="post" th:object="${userRegistration}">
                             <div class="list-ver">
-                                <!-- General error message -->
-                                <div th:if="${errorMessage}" class="error-message">
-                                    <span th:text="${errorMessage}"></span>
-                                </div>
                                 <div class="cols tf-grid-layout sm-col-2">
                                     <fieldset>
                                         <input type="text" th:field="*{firstName}" placeholder="First name *" required>

@@ -15,7 +15,7 @@ public class SecurePasswordGenerator {
   public static String generateStrongPassword() {
     StringBuilder password = new StringBuilder(8);
 
-    // Đảm bảo có ít nhất 1 ký tự từ mỗi loại
+    // Make sure there are at least 1 character from each type
     password.append(UPPERCASE.charAt(random.nextInt(UPPERCASE.length())));
     password.append(LOWERCASE.charAt(random.nextInt(LOWERCASE.length())));
     password.append(DIGITS.charAt(random.nextInt(DIGITS.length())));

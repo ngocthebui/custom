@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.custom.ngow.shop.common.MessageUtil;
 import com.custom.ngow.shop.constant.ProductBadge;
 import com.custom.ngow.shop.dto.ProductDto;
 import com.custom.ngow.shop.dto.UserRegistration;
@@ -23,6 +24,8 @@ import lombok.RequiredArgsConstructor;
 @Controller
 @RequiredArgsConstructor
 public class HomeController extends BaseController {
+
+  private final MessageUtil messageUtil;
 
   @GetMapping
   public String home(Model model) {
@@ -57,10 +60,10 @@ public class HomeController extends BaseController {
       @RequestParam(value = "expired", required = false) String expired,
       Model model) {
     if (error != null) {
-      model.addAttribute("errorMessage", "error.login");
+      model.addAttribute("errorMessage", messageUtil.getMessage("error.login"));
     }
     if (logout != null) {
-      model.addAttribute("successMessage", "success.logout");
+      model.addAttribute("successMessage", messageUtil.getMessage("success.logout"));
     }
     if (expired != null) {
       model.addAttribute("expiredMessage", "Phiên đăng nhập đã hết hạn!");
