@@ -1,6 +1,5 @@
 package com.custom.ngow.shop.page;
 
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,15 +12,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.custom.ngow.shop.dto.UserRegistration;
-import com.custom.ngow.shop.dto.UserInfoRequest;
+import com.custom.ngow.shop.dto.UserDto;
 import com.custom.ngow.shop.dto.UserPasswordRequest;
+import com.custom.ngow.shop.dto.UserRegistration;
 import com.custom.ngow.shop.dto.UserResetPasswordRequest;
 import com.custom.ngow.shop.entity.User;
 import com.custom.ngow.shop.service.UserService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/user")
@@ -54,7 +54,8 @@ public class UserController extends BaseController {
     }
   }
 
-  private void validateRegisterUser(UserRegistration userRegistration, BindingResult bindingResult) {
+  private void validateRegisterUser(
+      UserRegistration userRegistration, BindingResult bindingResult) {
     if (!userRegistration.isPasswordMatching()) {
       bindingResult.rejectValue("confirmPassword", "error.confirmPassword");
     }
@@ -66,9 +67,7 @@ public class UserController extends BaseController {
 
   @GetMapping("/setting")
   public String setting(Model model) {
-    UserInfoRequest userInfoRequest = userService.getCurrentUserForUpdate();
-
-    model.addAttribute("userInfoRequest", userInfoRequest);
+    model.addAttribute("userDto", userService.getCurrentUserDto());
     model.addAttribute("userPasswordRequest", new UserPasswordRequest());
     addDefaultToModel(model);
     return "view/pages/account-setting";
@@ -76,28 +75,28 @@ public class UserController extends BaseController {
 
   @PostMapping("/update-info")
   public String updateUser(
-      @Valid @ModelAttribute("userInfoRequest") UserInfoRequest userInfoRequest,
+      @Valid @ModelAttribute("userDto") UserDto userDto,
       BindingResult bindingResult,
       Model model,
       RedirectAttributes redirectAttributes) {
-    validateEmail(userInfoRequest, bindingResult);
+    validateEmail(userDto, bindingResult);
     if (bindingResult.hasErrors()) {
-      model.addAttribute("userInfoRequest", userInfoRequest);
+      model.addAttribute("userDto", userDto);
       model.addAttribute("userPasswordRequest", new UserPasswordRequest());
       addDefaultToModel(model);
       return "view/pages/account-setting";
     }
 
-    userService.updateUserInfo(userInfoRequest);
+    userService.updateUserInfo(userDto);
 
     redirectAttributes.addFlashAttribute("successMessage", "success.changeInfo");
     return "redirect:/user/setting";
   }
 
-  private void validateEmail(UserInfoRequest userInfoRequest, BindingResult bindingResult) {
+  private void validateEmail(UserDto userDto, BindingResult bindingResult) {
     User user = userService.getCurrentUser();
-    if (!StringUtils.equals(userInfoRequest.getEmail(), user.getEmail())
-        && userService.existsByEmail(userInfoRequest.getEmail())) {
+    if (!StringUtils.equals(userDto.getEmail(), user.getEmail())
+        && userService.existsByEmail(userDto.getEmail())) {
       bindingResult.rejectValue("email", "error.exist", new String[] {"Email"}, "");
     }
   }
@@ -110,8 +109,8 @@ public class UserController extends BaseController {
       RedirectAttributes redirectAttributes) {
     validationUpdateUser(userPasswordRequest, bindingResult);
     if (bindingResult.hasErrors()) {
-      UserInfoRequest userInfoRequest = userService.getCurrentUserForUpdate();
-      model.addAttribute("userInfoRequest", userInfoRequest);
+      UserDto userDto = userService.getCurrentUserDto();
+      model.addAttribute("userDto", userDto);
       model.addAttribute("userPasswordRequest", userPasswordRequest);
       addDefaultToModel(model);
       return "view/pages/account-setting";
@@ -199,7 +198,8 @@ public class UserController extends BaseController {
     } catch (Exception e) {
       // Xử lý các lỗi khác
       log.error("Lỗi không xác định khi upload ảnh đại diện: ", e);
-      redirectAttributes.addFlashAttribute("errorMessage", "Có lỗi xảy ra khi tải lên ảnh. Vui lòng thử lại!");
+      redirectAttributes.addFlashAttribute(
+          "errorMessage", "Có lỗi xảy ra khi tải lên ảnh. Vui lòng thử lại!");
     }
     redirectAttributes.addFlashAttribute("successMessage", "ok111111");
     return "redirect:/user/setting";

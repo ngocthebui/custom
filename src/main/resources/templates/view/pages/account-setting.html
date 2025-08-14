@@ -80,16 +80,16 @@
                             <div class="author_avatar">
                                 <div class="image">
                                     <img class="lazyload imgDash"
-                                         th:src="${userInfoRequest.imageUrl}"
-                                         th:data-src="${userInfoRequest.imageUrl}"
+                                         th:src="${userDto.imageUrl}"
+                                         th:data-src="${userDto.imageUrl}"
                                         alt="Avatar">
                                 </div>
                                 <div class="btn-change_img box-icon changeImgDash">
                                     <i class="icon icon-camera"></i>
                                 </div>
                             </div>
-                            <h4 class="author_name" th:text="${userInfoRequest.firstName}">Firstname</h4>
-                            <p class="author_email h6" th:text="${userInfoRequest.email}">Email</p>
+                            <h4 class="author_name" th:text="${userDto.firstName}">Firstname</h4>
+                            <p class="author_email h6" th:text="${userDto.email}">Email</p>
                         </div>
                         <ul class="my-account-nav">
                             <li>
@@ -133,7 +133,11 @@
                         <div th:if="${successMessage}" class="alert alert-success" role="alert">
                             <span th:text="#{${successMessage}}"></span>
                         </div>
-                        <form class="form-change_pass" th:action="@{/user/update-info}" method="post" th:object="${userInfoRequest}">
+                        <form class="form-change_pass" th:action="@{/user/update-info}" method="post" th:object="${userDto}">
+                            <input type="hidden" th:field="*{id}"/>
+                            <input type="hidden" th:field="*{imageUrl}"/>
+                            <input type="hidden" th:field="*{createdAt}"/>
+                            <input type="hidden" th:field="*{updatedAt}"/>
                             <div class="" style="padding-bottom: 20px">
                                 <h2 class="account-title type-semibold">Account Setting</h2>
                                 <div class="form_content site-change">

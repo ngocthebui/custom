@@ -30,6 +30,7 @@ public class MailService {
       helper.setSubject(subject);
       helper.setText(content, true);
       mailSender.send(message);
+      log.info("Send OTP to {}", toEmail);
     } catch (MessagingException e) {
       throw new RuntimeException("Can not send mail");
     }

@@ -5,13 +5,12 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.UUID;
 
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import software.amazon.awssdk.core.sync.RequestBody;
@@ -59,7 +58,7 @@ public class MediaStorageService {
 
     // Lấy tên file gốc và làm sạch
     String originalFilename =
-            StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+        StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
 
     // Kiểm tra định dạng file
     validateFileType(originalFilename, fileType);
@@ -83,19 +82,18 @@ public class MediaStorageService {
 
       // Tạo request để upload lên S3
       PutObjectRequest putObjectRequest =
-              PutObjectRequest.builder()
-                      .bucket(bucketName)
-                      .key(s3Key)
-                      .contentType(contentType)
-                      .contentLength(file.getSize())
-                      .build();
+          PutObjectRequest.builder()
+              .bucket(bucketName)
+              .key(s3Key)
+              .contentType(contentType)
+              .contentLength(file.getSize())
+              .build();
 
       // Upload file lên S3
       s3Client.putObject(
-              putObjectRequest, RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
+          putObjectRequest, RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
 
-      log.info("Đã upload {} thành công lên S3 với key: {}",
-              fileType.getDisplayName(), s3Key);
+      log.info("Đã upload {} thành công lên S3 với key: {}", fileType.getDisplayName(), s3Key);
 
       return newFilename;
 
@@ -134,21 +132,15 @@ public class MediaStorageService {
 
     try {
       // Kiểm tra xem folder đã tồn tại chưa bằng cách list objects
-      ListObjectsV2Request listRequest = ListObjectsV2Request.builder()
-              .bucket(bucketName)
-              .prefix(folderPath)
-              .maxKeys(1)
-              .build();
+      ListObjectsV2Request listRequest =
+          ListObjectsV2Request.builder().bucket(bucketName).prefix(folderPath).maxKeys(1).build();
 
       ListObjectsV2Response listResponse = s3Client.listObjectsV2(listRequest);
 
       // Nếu chưa có object nào trong folder, tạo folder marker
       if (listResponse.contents().isEmpty()) {
-        PutObjectRequest putObjectRequest = PutObjectRequest.builder()
-                .bucket(bucketName)
-                .key(folderPath)
-                .contentLength(0L)
-                .build();
+        PutObjectRequest putObjectRequest =
+            PutObjectRequest.builder().bucket(bucketName).key(folderPath).contentLength(0L).build();
 
         s3Client.putObject(putObjectRequest, RequestBody.empty());
         log.info("Đã tạo folder mới: {}", folderPath);
@@ -184,14 +176,13 @@ public class MediaStorageService {
     String[] allowedExtensions = {".mp4", ".avi", ".mov", ".wmv", ".mkv", ".webm"};
     if (!hasValidExtension(filename, allowedExtensions)) {
       throw new RuntimeException(
-              "Chỉ hỗ trợ tệp video có định dạng MP4, AVI, MOV, WMV, MKV hoặc WEBM");
+          "Chỉ hỗ trợ tệp video có định dạng MP4, AVI, MOV, WMV, MKV hoặc WEBM");
     }
   }
 
   private boolean hasValidExtension(String filename, String[] allowedExtensions) {
     String lowercaseFilename = filename.toLowerCase();
-    return Arrays.stream(allowedExtensions)
-            .anyMatch(lowercaseFilename::endsWith);
+    return Arrays.stream(allowedExtensions).anyMatch(lowercaseFilename::endsWith);
   }
 
   private String getFileExtension(String filename) {
@@ -267,6 +258,5 @@ public class MediaStorageService {
     FileType(String displayName) {
       this.displayName = displayName;
     }
-
   }
 }
