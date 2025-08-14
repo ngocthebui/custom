@@ -11,21 +11,21 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserRegistration {
-  @NotBlank(message = "Firstname không được để trống")
+  @NotBlank(message = "{error.required}")
   private String firstName;
 
-  @NotBlank(message = "Lastname không được để trống")
+  @NotBlank(message = "{error.required}")
   private String lastName;
 
-  @NotBlank(message = "Email không được để trống")
-  @Email(message = "Email không hợp lệ")
+  @NotBlank(message = "{error.required}")
+  @Email(message = "{error.invalid}")
   private String email;
 
-  @NotBlank(message = "Mật khẩu không được để trống")
-  @Size(min = 8, message = "Mật khẩu phải có ít nhất 8 ký tự")
+  @NotBlank(message = "{error.required}")
+  @Size(min = 8, message = "{error.minlength}")
   private String password;
 
-  @NotBlank(message = "Xác nhận mật khẩu không được để trống")
+  @NotBlank(message = "{error.required}")
   private String confirmPassword;
 
   public boolean isPasswordMatching() {

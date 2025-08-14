@@ -47,7 +47,7 @@ public class UserController extends BaseController {
 
     try {
       userService.registerUser(userRegistration);
-      redirectAttributes.addFlashAttribute("successMessage", "success.register");
+      redirectAttributes.addFlashAttribute("successMessage", "success.user.register");
       return "redirect:/login";
     } catch (Exception e) {
       model.addAttribute("errorMessage", e.getMessage());
@@ -90,7 +90,7 @@ public class UserController extends BaseController {
 
     userService.updateUserInfo(userDto);
 
-    redirectAttributes.addFlashAttribute("successMessage", "success.changeInfo");
+    redirectAttributes.addFlashAttribute("successMessage", "success.user.changeInfo");
     return "redirect:/user/setting";
   }
 
@@ -120,7 +120,7 @@ public class UserController extends BaseController {
     }
 
     userService.changeUserPassword(userPasswordRequest);
-    redirectAttributes.addFlashAttribute("successMessage", "success.changePassword");
+    redirectAttributes.addFlashAttribute("successMessage", "success.user.changePassword");
     return "redirect:/user/setting";
   }
 
@@ -161,7 +161,7 @@ public class UserController extends BaseController {
 
     userService.sendMailResetPassword(resetPasswordRequest);
 
-    redirectAttributes.addFlashAttribute("successMessage", "success.sendMailResetPassword");
+    redirectAttributes.addFlashAttribute("successMessage", "success.user.sendMailResetPassword");
     return "redirect:/user/forgot-password";
   }
 
@@ -184,7 +184,7 @@ public class UserController extends BaseController {
       return "redirect:/login";
     }
 
-    redirectAttributes.addFlashAttribute("successMessage", "success.resetPassword");
+    redirectAttributes.addFlashAttribute("successMessage", "success.user.resetPassword");
     return "redirect:/login";
   }
 

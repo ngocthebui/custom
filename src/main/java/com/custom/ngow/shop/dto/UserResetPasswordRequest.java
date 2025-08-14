@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserResetPasswordRequest {
-  @NotBlank(message = "Email không được để trống")
-  @Email(message = "Email không hợp lệ")
+  @NotBlank(message = "{error.required}")
+  @Email(message = "{error.invalid}")
   private String email;
 }
