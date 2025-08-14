@@ -1,6 +1,7 @@
 package com.custom.ngow.shop.page;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -56,12 +58,11 @@ public class UserController extends BaseController {
 
   private void validateRegisterUser(
       UserRegistration userRegistration, BindingResult bindingResult) {
-    if (!userRegistration.isPasswordMatching()) {
-      bindingResult.rejectValue("confirmPassword", "error.confirmPassword");
-    }
-
     if (userService.existsByEmail(userRegistration.getEmail())) {
       bindingResult.rejectValue("email", "error.exist", new String[] {"Email"}, "");
+    }
+    if (!userRegistration.isPasswordMatching()) {
+      bindingResult.rejectValue("confirmPassword", "error.confirmPassword");
     }
   }
 
@@ -94,10 +95,13 @@ public class UserController extends BaseController {
   }
 
   private void validateEmail(UserDto userDto, BindingResult bindingResult) {
-    User user = userService.getCurrentUser();
+    UserDto user = userService.getCurrentUserDto();
     if (!StringUtils.equals(userDto.getEmail(), user.getEmail())
         && userService.existsByEmail(userDto.getEmail())) {
-      bindingResult.rejectValue("email", "error.exist", new String[] {"Email"}, "");
+      bindingResult.rejectValue("email", "error.exist", new String[] {userDto.getEmail()}, "");
+
+      // set correct email
+      userDto.setEmail(user.getEmail());
     }
   }
 
@@ -109,8 +113,7 @@ public class UserController extends BaseController {
       RedirectAttributes redirectAttributes) {
     validationUpdateUser(userPasswordRequest, bindingResult);
     if (bindingResult.hasErrors()) {
-      UserDto userDto = userService.getCurrentUserDto();
-      model.addAttribute("userDto", userDto);
+      model.addAttribute("userDto", userService.getCurrentUserDto());
       model.addAttribute("userPasswordRequest", userPasswordRequest);
       addDefaultToModel(model);
       return "view/pages/account-setting";
@@ -186,22 +189,16 @@ public class UserController extends BaseController {
   }
 
   @PostMapping("/upload-image")
-  public String uploadAvatar(
+  @ResponseBody
+  public ResponseEntity<?> uploadAvatar(
       @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
     User user = userService.getCurrentUser();
     try {
       userService.uploadAvatar(user, file);
     } catch (RuntimeException e) {
-      log.error("Lỗi validation khi upload ảnh đại diện cho user: ", e);
+      log.error("Validation error when uploading a photo to user: ", e);
       redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
-
-    } catch (Exception e) {
-      // Xử lý các lỗi khác
-      log.error("Lỗi không xác định khi upload ảnh đại diện: ", e);
-      redirectAttributes.addFlashAttribute(
-          "errorMessage", "Có lỗi xảy ra khi tải lên ảnh. Vui lòng thử lại!");
     }
-    redirectAttributes.addFlashAttribute("successMessage", "ok111111");
-    return "redirect:/user/setting";
+    return ResponseEntity.ok().build();
   }
 }

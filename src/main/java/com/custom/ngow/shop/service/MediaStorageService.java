@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.ListObjectsV2Request;
 import software.amazon.awssdk.services.s3.model.ListObjectsV2Response;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
@@ -197,6 +198,69 @@ public class MediaStorageService {
   public String getFileUrl(String folderPath, String filename) {
     String normalizedFolderPath = normalizeFolderPath(folderPath);
     return publicUrl + "/" + bucketName + "/" + normalizedFolderPath + filename;
+  }
+
+  /** Xóa file khỏi S3 */
+  public boolean deleteFile(String folderPath, String filename) {
+    try {
+      String normalizedFolderPath = normalizeFolderPath(folderPath);
+      String s3Key = normalizedFolderPath + filename;
+
+      DeleteObjectRequest deleteObjectRequest =
+          DeleteObjectRequest.builder().bucket(bucketName).key(s3Key).build();
+
+      s3Client.deleteObject(deleteObjectRequest);
+      log.info("Delete the file successfully: {}", s3Key);
+      return true;
+
+    } catch (Exception ex) {
+      log.error("Error when deleting the file {}/{}: {}", folderPath, filename, ex.getMessage());
+      return false;
+    }
+  }
+
+  /** Xóa file bằng URL đầy đủ */
+  public void deleteFileByUrl(String fileUrl) {
+    try {
+      // Extract key từ URL
+      String s3Key = extractS3KeyFromUrl(fileUrl);
+      if (s3Key == null) {
+        log.warn("Can not extract s3 key from URL: {}", fileUrl);
+        return;
+      }
+
+      DeleteObjectRequest deleteObjectRequest =
+          DeleteObjectRequest.builder().bucket(bucketName).key(s3Key).build();
+
+      s3Client.deleteObject(deleteObjectRequest);
+      log.info("Has deleted the file successfully with the URL: {}", fileUrl);
+
+    } catch (Exception ex) {
+      log.error("Error when deleting the file with the URL {}: {}", fileUrl, ex.getMessage());
+    }
+  }
+
+  /** Extract S3 key từ URL */
+  private String extractS3KeyFromUrl(String fileUrl) {
+    try {
+      // URL format: {publicUrl}/{bucketName}/{s3Key}
+      String baseUrl = publicUrl + "/" + bucketName + "/";
+
+      if (fileUrl.startsWith(baseUrl)) {
+        return fileUrl.substring(baseUrl.length());
+      }
+
+      // CDN URL
+      if (cdnUrl != null && !cdnUrl.isEmpty() && fileUrl.startsWith(cdnUrl)) {
+        return fileUrl.substring(cdnUrl.length() + 1); // +1 để bỏ dấu "/"
+      }
+
+      return null;
+
+    } catch (Exception ex) {
+      log.error("Error when Extract S3 Key from URL: {}", ex.getMessage());
+      return null;
+    }
   }
 
   /** Xác định content type cho file */

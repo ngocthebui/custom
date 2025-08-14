@@ -90,10 +90,6 @@ mail:
 homepage:
   url: ${HOMEPAGE_URL:http://localhost:6820}
 
-media:
-  image-upload-dir: ./uploads/images
-  video-upload-dir: ./uploads/videos
-
 aws:
   s3:
     bucket-name: ngow-shop

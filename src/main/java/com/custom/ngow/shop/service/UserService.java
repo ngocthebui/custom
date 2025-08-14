@@ -197,17 +197,17 @@ public class UserService {
     // create folder for user: users/avatars/{userId}/
     String folderPath = "users/avatars/" + user.getId() + "/";
 
-    // delete old image
-    if (user.getImageUrl() != null && !user.getImageUrl().isEmpty()) {
-      // Có thể thêm logic xóa ảnh cũ ở đây
-      log.info("User {} đang thay thế ảnh cũ", user.getId());
-    }
-
     // save image
     String filename = mediaStorageService.storeImage(file, folderPath);
 
     // Get the full URL of the image
     String imageUrl = mediaStorageService.getFileUrl(folderPath, filename);
+
+    // delete old image
+    if (user.getImageUrl() != null && !user.getImageUrl().isEmpty()) {
+      mediaStorageService.deleteFileByUrl(user.getImageUrl());
+      log.info("User {} replacing old photos", user.getId());
+    }
 
     user.setImageUrl(imageUrl);
     userRepository.save(user);
