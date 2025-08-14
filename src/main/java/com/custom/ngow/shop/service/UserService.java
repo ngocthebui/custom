@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.custom.ngow.shop.common.SecurePasswordGenerator;
 import com.custom.ngow.shop.constant.UserRole;
-import com.custom.ngow.shop.dto.UserDto;
+import com.custom.ngow.shop.dto.UserRegistration;
 import com.custom.ngow.shop.dto.UserInfoRequest;
 import com.custom.ngow.shop.dto.UserPasswordRequest;
 import com.custom.ngow.shop.dto.UserResetPasswordRequest;
@@ -39,7 +39,7 @@ public class UserService {
   @Value("${homepage.url}")
   private String homePageUrl;
 
-  public void registerUser(UserDto userRegistration) {
+  public void registerUser(UserRegistration userRegistration) {
     if (userRepository.existsByEmail(userRegistration.getEmail())) {
       throw new RuntimeException("Email is existing");
     }

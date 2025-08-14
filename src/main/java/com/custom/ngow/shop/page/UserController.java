@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.custom.ngow.shop.dto.UserDto;
+import com.custom.ngow.shop.dto.UserRegistration;
 import com.custom.ngow.shop.dto.UserInfoRequest;
 import com.custom.ngow.shop.dto.UserPasswordRequest;
 import com.custom.ngow.shop.dto.UserResetPasswordRequest;
@@ -33,18 +33,18 @@ public class UserController extends BaseController {
 
   @PostMapping("/register")
   public String processRegister(
-      @Valid @ModelAttribute("userRegistration") UserDto userDto,
+      @Valid @ModelAttribute("userRegistration") UserRegistration userRegistration,
       BindingResult bindingResult,
       Model model,
       RedirectAttributes redirectAttributes) {
-    validateRegisterUser(userDto, bindingResult);
+    validateRegisterUser(userRegistration, bindingResult);
     if (bindingResult.hasErrors()) {
       addDefaultToModel(model);
       return "view/pages/register";
     }
 
     try {
-      userService.registerUser(userDto);
+      userService.registerUser(userRegistration);
       redirectAttributes.addFlashAttribute("successMessage", "success.register");
       return "redirect:/login";
     } catch (Exception e) {
@@ -54,7 +54,7 @@ public class UserController extends BaseController {
     }
   }
 
-  private void validateRegisterUser(UserDto userRegistration, BindingResult bindingResult) {
+  private void validateRegisterUser(UserRegistration userRegistration, BindingResult bindingResult) {
     if (!userRegistration.isPasswordMatching()) {
       bindingResult.rejectValue("confirmPassword", "error.confirmPassword");
     }

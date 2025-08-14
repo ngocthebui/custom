@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.custom.ngow.shop.constant.ProductBadge;
 import com.custom.ngow.shop.dto.ProductDto;
-import com.custom.ngow.shop.dto.UserDto;
+import com.custom.ngow.shop.dto.UserRegistration;
 import com.custom.ngow.shop.entity.Banner;
 import com.custom.ngow.shop.entity.ProductColor;
 import com.custom.ngow.shop.entity.ProductImage;
@@ -72,7 +72,7 @@ public class HomeController extends BaseController {
 
   @GetMapping("/register")
   public String register(
-      @ModelAttribute("userRegistration") UserDto userRegistration, Model model) {
+      @ModelAttribute("userRegistration") UserRegistration userRegistration, Model model) {
     addDefaultToModel(model);
     return "view/pages/register";
   }
