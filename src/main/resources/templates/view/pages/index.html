@@ -17,22 +17,23 @@
   <title>Ochaka - Multipurpose eCommerce HTML Template</title>
   <meta content="themesflat.com" name="author">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
-  <meta content="Themesflat Ochaka - A modern and elegant Multipurpose eCommerce HTML Template, perfect for online stores selling rings, necklaces, watches, and other accessories. SEO-optimized, fast-loading, and fully customizable."
-        name="description">
+  <meta
+      content="Themesflat Ochaka - A modern and elegant Multipurpose eCommerce HTML Template, perfect for online stores selling rings, necklaces, watches, and other accessories. SEO-optimized, fast-loading, and fully customizable."
+      name="description">
 
   <!-- font -->
-  <link th:href="@{/fonts/fonts.css}" rel="stylesheet">
-  <link th:href="@{/icon/icomoon/style.css}" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/fonts/fonts.css}">
+  <link rel="stylesheet" th:href="@{/icon/icomoon/style.css}">
   <!-- css -->
-  <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
-  <link th:href="@{/css/swiper-bundle.min.css}" rel="stylesheet">
-  <link th:href="@{/css/animate.css}" rel="stylesheet">
-  <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css">
-  <link th:href="@{/css/fragments/home.css}" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/css/swiper-bundle.min.css}">
+  <link rel="stylesheet" th:href="@{/css/animate.css}">
+  <link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css">
+  <link rel="stylesheet" th:href="@{/css/fragments/home.css}" type="text/css">
 
   <!-- Favicon and Touch Icons  -->
-  <link th:href="@{/images/logo/favicon.svg}" rel="shortcut icon">
-  <link th:href="@{/images/logo/favicon.svg}" rel="apple-touch-icon-precomposed">
+  <link rel="shortcut icon" th:href="@{/images/logo/favicon.svg}">
+  <link rel="apple-touch-icon-precomposed" th:href="@{/images/logo/favicon.svg}">
 </head>
 
 <body>
@@ -47,17 +48,22 @@
   <!-- /Top Bar -->
 
   <!-- Header -->
-  <div th:replace="~{view/fragments/header :: header}"></div>
+  <header class="tf-header header-fix header-abs-1">
+    <div class="container-full">
+      <div th:replace="~{view/fragments/header :: header}"></div>
+    </div>
+  </header>
   <!-- /Header -->
   <!-- Banner Slider -->
   <div class="tf-slideshow type-abs tf-btn-swiper-main hover-sw-nav">
-    <div class="swiper tf-swiper sw-slide-show slider_effect_fade" data-auto="true" data-delay="3000"
+    <div class="swiper tf-swiper sw-slide-show slider_effect_fade" data-auto="true"
+         data-delay="3000"
          data-effect="fade" data-loop="true"
          dir="ltr">
       <div class="swiper-wrapper">
         <!-- item 1 -->
-        <div th:each="banner : ${bannerSlides}" class="swiper-slide">
-        <div class="slider-wrap">
+        <div class="swiper-slide" th:each="banner : ${bannerSlides}">
+          <div class="slider-wrap">
             <div class="sld_image">
               <img alt="Image" class="lazyload"
                    th:data-src="${banner.imageUrl}"
@@ -66,9 +72,11 @@
             <div class="sld_content">
               <div class="container">
                 <div class="content-sld_wrap">
-                  <h1 class="title_sld text-display fade-item fade-item-1 split_line" th:text="${banner.title}">
+                  <h1 class="title_sld text-display fade-item fade-item-1 split_line"
+                      th:text="${banner.title}">
                     Slider title</h1>
-                  <p class="sub-text_sld h5 text-black fade-item fade-item-2" th:text="${banner.subtitle}">
+                  <p class="sub-text_sld h5 text-black fade-item fade-item-2"
+                     th:text="${banner.subtitle}">
                     Slider sub title
                   </p>
                   <div class="fade-item fade-item-3">
@@ -95,7 +103,8 @@
   <!-- /Banner Slider -->
   <!-- Collection -->
   <div class="s-collection">
-    <div class="swiper tf-swiper" data-mobile="1" data-mobile-sm="2" data-pagination="1" data-pagination-lg="3"
+    <div class="swiper tf-swiper" data-mobile="1" data-mobile-sm="2" data-pagination="1"
+         data-pagination-lg="3"
          data-pagination-md="2" data-pagination-sm="1"
          data-preview="3" data-space="10" data-space-lg="24" data-space-md="15"
          data-tablet="2" dir="ltr">
@@ -160,24 +169,27 @@
         <div class="h1 title text-center mb-24">New Arrivals</div>
         <ul class="tab-product_list" role="tablist">
           <li class="nav-tab-item" role="presentation">
-            <a class="tf-btn-line tf-btn-tab active" data-bs-toggle="tab" href="#promotionalProducts0">
+            <a class="tf-btn-line tf-btn-tab active" data-bs-toggle="tab"
+               href="#promotionalProducts0">
               TRENDING </a>
           </li>
           <li class="nav-tab-item" role="presentation">
-            <a class="tf-btn-line tf-btn-tab" data-bs-toggle="tab" href="#promotionalProducts1"> Best
+            <a class="tf-btn-line tf-btn-tab" data-bs-toggle="tab" href="#promotionalProducts1">
+              Best
               seller </a>
           </li>
           <li class="nav-tab-item" role="presentation">
-            <a class="tf-btn-line tf-btn-tab" data-bs-toggle="tab" href="#promotionalProducts2"> On sale </a>
+            <a class="tf-btn-line tf-btn-tab" data-bs-toggle="tab" href="#promotionalProducts2"> On
+              sale </a>
           </li>
         </ul>
       </div>
       <div class="tab-content">
-        <div th:each="productList, iterStat : ${promotionalProducts}"
-             class="tab-pane"
+        <div class="tab-pane"
+             role="tabpanel"
              th:classappend="${iterStat.first} ? 'active show' : ''"
-             th:id="'promotionalProducts' + ${iterStat.index}"
-             role="tabpanel">
+             th:each="productList, iterStat : ${promotionalProducts}"
+             th:id="'promotionalProducts' + ${iterStat.index}">
           <div class="swiper tf-swiper wrap-sw-over wow fadeInUp" data-grid="2" data-mobile="2"
                data-mobile-sm="2" data-pagination="2"
                data-pagination-lg="4" data-pagination-md="3" data-pagination-sm="2" data-preview="4"
@@ -197,7 +209,8 @@
                     </a>
                     <div class="variant-box">
                       <ul class="product-size_list" th:if="${!product.sizes.isEmpty()}">
-                        <li class="size-item h6" th:each="size : ${product.sizes}" th:text="${size}"></li>
+                        <li class="size-item h6" th:each="size : ${product.sizes}"
+                            th:text="${size}"></li>
                       </ul>
                     </div>
                     <ul class="product-action_list">
@@ -230,26 +243,33 @@
                       </li>
                     </ul>
                     <ul class="product-badge_list">
-                      <li th:each="badge : ${product.badges}"
+                      <li class="product-badge_item h6"
                           th:classappend="${badge.className}"
-                          class="product-badge_item h6">
-                        <i th:if="${badge.className == 'flash-sale'}"
-                           class="icon icon-thunder"></i>
+                          th:each="badge : ${product.badges}">
+                        <i class="icon icon-thunder"
+                           th:if="${badge.className == 'flash-sale'}"></i>
                         <span th:text="${badge.value}"></span>
                       </li>
                     </ul>
-                    <div th:if="${product.isTopSale != null and product.isTopSale}"
-                        class="product-marquee_sale">
+                    <div class="product-marquee_sale"
+                         th:if="${product.isTopSale != null and product.isTopSale}">
                       <div class="marquee-wrapper">
                         <div class="initial-child-container">
                           <!-- Lặp 10 lần cặp icon + text -->
                           <th:block th:each="i : ${#numbers.sequence(1, 10)}">
                             <div class="marquee-child-item">
                               <span class="icon">
-                                <svg fill="none" height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg">
-                                  <path d="M9.67975 15.75C10.318 15.7593 10.9507 15.6314 11.5352 15.375C12.1992 15.0979 12.765 14.6284 13.1598 14.0269C13.5545 13.4253 13.7601 12.7194 13.75 12C13.75 9.75 13.25 9.25 12.5 7.75C11.75 6.25 12.5 4.75 12.5 4.75C11.9004 4.90199 11.3709 5.25494 11 5.75C11 0.5 7.5 0.25 7.5 0.25C7.70889 0.829856 7.77253 1.45206 7.68537 2.0622C7.5982 2.67233 7.36289 3.25183 7 3.75C5.75 5.5 4.5 6.5 4 8.5C4 8.5 3 8 3.25 7C3.25 7 2.25 8.75 2.25 11.5C2.25 14.5155 4.6655 15.4 5.8545 15.6525C6.17072 15.7184 6.49298 15.7511 6.816 15.75H9.67975Z" fill="#FEBD55"/>
-                                  <path d="M6.21059 15.75C6.21059 15.75 3.63159 14.783 3.63159 11.8815C3.63159 8.658 5.86859 7.5 5.86859 7.5C5.86859 7.5 5.24359 8.658 5.88834 8.98025C5.88834 8.98025 6.96709 5.467 9.86859 4.5C9.86859 4.5 8.85534 5.56575 9.50009 7.5C10.1448 9.43425 12.3291 9.8685 12.3686 12V12.25C12.3939 12.9739 12.2024 13.6889 11.8186 14.3033C11.3216 15.0775 10.7478 15.75 9.43434 15.75H6.21059Z" fill="#FC9E20"/>
-                                  <path d="M6.5 15.75C5.90819 15.5026 5.40266 15.0858 5.04684 14.5521C4.69103 14.0184 4.50079 13.3915 4.5 12.75C4.5 10.25 5.75 9.25 5.75 9.25C5.75 9.25 5.75 10.25 6.25 10.5C6.25 10.5 6.75 7 9 6.25C9 6.25 8.25 6.75 8.75 8.25C9.25 9.75 11.5 10.25 11.5 12.75V12.9677C11.5089 13.5535 11.35 14.1296 11.0422 14.628C10.8312 14.9786 10.531 15.2671 10.1723 15.4642C9.81362 15.6613 9.40915 15.7599 9 15.75H6.5Z" fill="#E03E3E"/>
+                                <svg fill="none" height="16" viewBox="0 0 16 16" width="16"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                  <path
+                                      d="M9.67975 15.75C10.318 15.7593 10.9507 15.6314 11.5352 15.375C12.1992 15.0979 12.765 14.6284 13.1598 14.0269C13.5545 13.4253 13.7601 12.7194 13.75 12C13.75 9.75 13.25 9.25 12.5 7.75C11.75 6.25 12.5 4.75 12.5 4.75C11.9004 4.90199 11.3709 5.25494 11 5.75C11 0.5 7.5 0.25 7.5 0.25C7.70889 0.829856 7.77253 1.45206 7.68537 2.0622C7.5982 2.67233 7.36289 3.25183 7 3.75C5.75 5.5 4.5 6.5 4 8.5C4 8.5 3 8 3.25 7C3.25 7 2.25 8.75 2.25 11.5C2.25 14.5155 4.6655 15.4 5.8545 15.6525C6.17072 15.7184 6.49298 15.7511 6.816 15.75H9.67975Z"
+                                      fill="#FEBD55"/>
+                                  <path
+                                      d="M6.21059 15.75C6.21059 15.75 3.63159 14.783 3.63159 11.8815C3.63159 8.658 5.86859 7.5 5.86859 7.5C5.86859 7.5 5.24359 8.658 5.88834 8.98025C5.88834 8.98025 6.96709 5.467 9.86859 4.5C9.86859 4.5 8.85534 5.56575 9.50009 7.5C10.1448 9.43425 12.3291 9.8685 12.3686 12V12.25C12.3939 12.9739 12.2024 13.6889 11.8186 14.3033C11.3216 15.0775 10.7478 15.75 9.43434 15.75H6.21059Z"
+                                      fill="#FC9E20"/>
+                                  <path
+                                      d="M6.5 15.75C5.90819 15.5026 5.40266 15.0858 5.04684 14.5521C4.69103 14.0184 4.50079 13.3915 4.5 12.75C4.5 10.25 5.75 9.25 5.75 9.25C5.75 9.25 5.75 10.25 6.25 10.5C6.25 10.5 6.75 7 9 6.25C9 6.25 8.25 6.75 8.75 8.25C9.25 9.75 11.5 10.25 11.5 12.75V12.9677C11.5089 13.5535 11.35 14.1296 11.0422 14.628C10.8312 14.9786 10.531 15.2671 10.1723 15.4642C9.81362 15.6613 9.40915 15.7599 9 15.75H6.5Z"
+                                      fill="#E03E3E"/>
                                 </svg>
                               </span>
                             </div>
@@ -260,8 +280,8 @@
                         </div>
                       </div>
                     </div>
-                    <div th:if="${product.countdownTimer != null and product.countdownTimer > 0}"
-                         class="product-countdown">
+                    <div class="product-countdown"
+                         th:if="${product.countdownTimer != null and product.countdownTimer > 0}">
                       <div class="js-countdown cd-has-zero" data-labels="d : ,h : ,m : ,s"
                            th:attr="data-timer=${product.countdownTimer}"></div>
                     </div>
@@ -273,15 +293,17 @@
                       Product Name
                     </a>
                     <div class="price-wrap">
-                      <span class="price-old h6 fw-normal" th:text="'$' + ${product.price}">$0</span>
+                      <span class="price-old h6 fw-normal"
+                            th:text="'$' + ${product.price}">$0</span>
                       <span class="price-new h6" th:text="'$' + ${product.salePrice}">$0</span>
                     </div>
                     <ul class="product-color_list">
                       <li class="product-color-item color-swatch hover-tooltip tooltip-bot"
-                          th:each="color, iterStat : ${product.colors}"
-                          th:classappend="${iterStat.first} ? 'active' : ''">
+                          th:classappend="${iterStat.first} ? 'active' : ''"
+                          th:each="color, iterStat : ${product.colors}">
                         <span class="tooltip color-filter" th:text="${color.name}">Brown</span>
-                        <span class="swatch-value" th:style="'background-color: ' + ${color.code}"></span>
+                        <span class="swatch-value"
+                              th:style="'background-color: ' + ${color.code}"></span>
                         <img alt="Image"
                              th:data-src="${color.imageUrl}"
                              th:src="${color.imageUrl}">
@@ -329,9 +351,11 @@
                   <div class="card-product_wrapper">
                     <a class="product-img" href="product-detail.html">
                       <img alt="Product" class="lazyload img-product"
-                           data-src="/images/products/product-23.jpg" src="/images/products/product-23.jpg">
+                           data-src="/images/products/product-23.jpg"
+                           src="/images/products/product-23.jpg">
                       <img alt="Product" class="lazyload img-hover"
-                           data-src="/images/products/product-24.jpg" src="/images/products/product-24.jpg">
+                           data-src="/images/products/product-24.jpg"
+                           src="/images/products/product-24.jpg">
                     </a>
                     <ul class="product-action_list">
                       <li>
@@ -378,19 +402,22 @@
                         <span class="tooltip color-filter">Beige</span>
                         <span class="swatch-value bg-light-beige"></span>
                         <img alt="Product" class="lazyload"
-                             data-src="/images/products/product-23.jpg" src="/images/products/product-23.jpg">
+                             data-src="/images/products/product-23.jpg"
+                             src="/images/products/product-23.jpg">
                       </li>
                       <li class="product-color-item color-swatch hover-tooltip tooltip-bot">
                         <span class="tooltip color-filter">Dark</span>
                         <span class="swatch-value bg-dark-charcoal"></span>
                         <img alt="Product" class="lazyload"
-                             data-src="/images/products/product-25.jpg" src="/images/products/product-25.jpg">
+                             data-src="/images/products/product-25.jpg"
+                             src="/images/products/product-25.jpg">
                       </li>
                       <li class="product-color-item color-swatch hover-tooltip tooltip-bot">
                         <span class="tooltip color-filter">Sage Green</span>
                         <span class="swatch-value bg-sage-green"></span>
                         <img alt="Product" class="lazyload"
-                             data-src="/images/products/product-26.jpg" src="/images/products/product-26.jpg">
+                             data-src="/images/products/product-26.jpg"
+                             src="/images/products/product-26.jpg">
                       </li>
                     </ul>
                   </div>
@@ -402,9 +429,11 @@
                   <div class="card-product_wrapper">
                     <a class="product-img" href="product-detail.html">
                       <img alt="Product" class="lazyload img-product"
-                           data-src="/images/products/product-27.jpg" src="/images/products/product-27.jpg">
+                           data-src="/images/products/product-27.jpg"
+                           src="/images/products/product-27.jpg">
                       <img alt="Product" class="lazyload img-hover"
-                           data-src="/images/products/product-28.jpg" src="/images/products/product-28.jpg">
+                           data-src="/images/products/product-28.jpg"
+                           src="/images/products/product-28.jpg">
                     </a>
                     <ul class="product-action_list">
                       <li>
@@ -453,13 +482,15 @@
                         <span class="tooltip color-filter">Beige</span>
                         <span class="swatch-value bg-light-beige"></span>
                         <img alt="Product" class="lazyload"
-                             data-src="/images/products/product-27.jpg" src="/images/products/product-27.jpg">
+                             data-src="/images/products/product-27.jpg"
+                             src="/images/products/product-27.jpg">
                       </li>
                       <li class="product-color-item color-swatch hover-tooltip tooltip-bot">
                         <span class="tooltip color-filter">Violet</span>
                         <span class="swatch-value bg-muted-violet"></span>
                         <img alt="Product" class="lazyload"
-                             data-src="/images/products/product-29.jpg" src="/images/products/product-29.jpg">
+                             data-src="/images/products/product-29.jpg"
+                             src="/images/products/product-29.jpg">
                       </li>
                     </ul>
                   </div>
@@ -471,9 +502,11 @@
                   <div class="card-product_wrapper">
                     <a class="product-img" href="product-detail.html">
                       <img alt="Product" class="lazyload img-product"
-                           data-src="/images/products/product-30.jpg" src="/images/products/product-30.jpg">
+                           data-src="/images/products/product-30.jpg"
+                           src="/images/products/product-30.jpg">
                       <img alt="Product" class="lazyload img-hover"
-                           data-src="/images/products/product-31.jpg" src="/images/products/product-31.jpg">
+                           data-src="/images/products/product-31.jpg"
+                           src="/images/products/product-31.jpg">
                     </a>
                     <div class="variant-box">
                       <ul class="product-size_list">
@@ -768,13 +801,15 @@
                         <span class="tooltip color-filter">Beige</span>
                         <span class="swatch-value bg-light-beige"></span>
                         <img alt="Product" class="lazyload"
-                             data-src="/images/products/product-30.jpg" src="/images/products/product-30.jpg">
+                             data-src="/images/products/product-30.jpg"
+                             src="/images/products/product-30.jpg">
                       </li>
                       <li class="product-color-item color-swatch hover-tooltip tooltip-bot">
                         <span class="tooltip color-filter">Dark</span>
                         <span class="swatch-value bg-dark-charcoal"></span>
                         <img alt="Product" class="lazyload"
-                             data-src="/images/products/product-32.jpg" src="/images/products/product-32.jpg">
+                             data-src="/images/products/product-32.jpg"
+                             src="/images/products/product-32.jpg">
 
                       </li>
                     </ul>
@@ -794,7 +829,8 @@
     <div class="container">
       <div class="h1 sect-title text-black fw-medium text-center wow fadeInUp">Customer Reviews
       </div>
-      <div class="swiper tf-swiper" data-mobile="1" data-mobile-sm="1" data-pagination="1" data-pagination-lg="3"
+      <div class="swiper tf-swiper" data-mobile="1" data-mobile-sm="1" data-pagination="1"
+           data-pagination-lg="3"
            data-pagination-md="2" data-pagination-sm="1"
            data-preview="3" data-space="12" data-space-lg="48" data-space-md="24"
            data-tablet="2" dir="ltr">
@@ -922,7 +958,8 @@
   <div class="flat-spacing">
     <div class="container">
       <div class="h1 sect-title text-black fw-medium text-center wow fadeInUp">Read Our Blog</div>
-      <div class="swiper tf-swiper" data-mobile="1" data-mobile-sm="2" data-pagination="1" data-pagination-lg="4"
+      <div class="swiper tf-swiper" data-mobile="1" data-mobile-sm="2" data-pagination="1"
+           data-pagination-lg="4"
            data-pagination-md="3" data-pagination-sm="2"
            data-preview="4" data-space="12" data-space-lg="48" data-space-md="24"
            data-tablet="3" dir="ltr">
@@ -1033,7 +1070,8 @@
         <h6>@ochaka: <span class="text-main fw-normal">Follow us and get</span> 20% off coupon</h6>
       </div>
     </div>
-    <div class="swiper tf-swiper wow fadeInUp" data-mobile="2" data-mobile-sm="3" data-pagination="2"
+    <div class="swiper tf-swiper wow fadeInUp" data-mobile="2" data-mobile-sm="3"
+         data-pagination="2"
          data-pagination-lg="6" data-pagination-md="4" data-pagination-sm="3"
          data-preview="6" data-space="0" data-tablet="4" dir="ltr">
       <div class="swiper-wrapper">

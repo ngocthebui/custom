@@ -2,6 +2,7 @@ package com.custom.ngow.shop.service;
 
 import java.util.concurrent.CompletableFuture;
 
+import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.custom.ngow.shop.common.MessageUtil;
 import com.custom.ngow.shop.common.SecurePasswordGenerator;
 import com.custom.ngow.shop.constant.UserRole;
 import com.custom.ngow.shop.dto.UserDto;
@@ -19,6 +21,7 @@ import com.custom.ngow.shop.dto.UserPasswordRequest;
 import com.custom.ngow.shop.dto.UserRegistration;
 import com.custom.ngow.shop.dto.UserResetPasswordRequest;
 import com.custom.ngow.shop.entity.User;
+import com.custom.ngow.shop.exception.CustomException;
 import com.custom.ngow.shop.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -37,17 +40,25 @@ public class UserService {
   private final MailService mailService;
   private final OtpService otpService;
   private final MediaStorageService mediaStorageService;
+  private final MessageUtil messageUtil;
 
   @Value("${homepage.url}")
   private String homePageUrl;
 
   public void registerUser(UserRegistration userRegistration) {
+    log.info("Registering user {}", userRegistration.getEmail());
     if (userRepository.existsByEmail(userRegistration.getEmail())) {
-      throw new RuntimeException("Email is existing");
+      log.error("User with email {} already exists", userRegistration.getEmail());
+      throw new CustomException(messageUtil, "email", new String[] {"Email"}, "error.exist");
     }
 
     if (!userRegistration.isPasswordMatching()) {
-      throw new RuntimeException("Password is not matching");
+      log.error("Password check failed for user {}", userRegistration.getEmail());
+      throw new CustomException(
+          messageUtil,
+          "confirmPassword",
+          new String[] {"confirmPassword"},
+          "error.confirmPassword");
     }
 
     User user = new User();
@@ -92,6 +103,16 @@ public class UserService {
 
   public void updateUserInfo(UserDto userDto) {
     User user = getCurrentUser();
+    String email = userDto.getEmail();
+    log.info("Updating user {}", email);
+
+    if (!StringUtils.equals(email, user.getEmail()) && existsByEmail(email)) {
+      log.error("User: {} can not update email: {}", user.getEmail(), email);
+      // set correct email
+      userDto.setEmail(user.getEmail());
+      throw new CustomException(messageUtil, "email", new String[] {email}, "error.exist");
+    }
+
     user.setFirstName(userDto.getFirstName());
     user.setLastName(userDto.getLastName());
     user.setEmail(userDto.getEmail());
@@ -107,12 +128,16 @@ public class UserService {
 
   public void changeUserPassword(UserPasswordRequest userPasswordRequest) {
     User user = getCurrentUser();
+    log.info("User: {} is changing password", user.getEmail());
     if (!isPasswordMatching(userPasswordRequest.getCurrentPassword(), user.getPassword())) {
-      throw new RuntimeException("Password is not matching");
+      log.error("User:{} Password is incorrect", user.getEmail());
+      throw new CustomException(
+          messageUtil, "currentPassword", new String[] {"Password"}, "error.inCorrect");
     }
 
     if (!userPasswordRequest.isPasswordMatching()) {
-      throw new RuntimeException("Confirm password is not matching");
+      log.error("User:{} Password mismatch", user.getEmail());
+      throw new CustomException(messageUtil, "confirmPassword", "error.confirmPassword");
     }
 
     user.setPassword(passwordEncoder.encode(userPasswordRequest.getPassword()));
@@ -123,6 +148,12 @@ public class UserService {
 
   public void sendMailResetPassword(UserResetPasswordRequest resetPasswordRequest) {
     String email = resetPasswordRequest.getEmail();
+    log.info("User: {} is requesting reset password", email);
+    if (!existsByEmail(email)) {
+      log.error("User:{} email does not exist", email);
+      throw new CustomException(messageUtil, "email", new String[] {email}, "error.notExist");
+    }
+
     if (existsByEmail(email)) {
       CompletableFuture.runAsync(
           () -> {
@@ -161,10 +192,14 @@ public class UserService {
   }
 
   public void resetPassword(String email, String otp) {
+    log.info("User: {} is starting reset password", email);
     User user =
         userRepository
             .findByEmail(email)
-            .orElseThrow(() -> new UsernameNotFoundException("User not found: " + email));
+            .orElseThrow(
+                () ->
+                    new CustomException(
+                        messageUtil, "email", new String[] {"Email"}, "error.notExist"));
     otpService.validOTP(email, otp);
 
     String password = SecurePasswordGenerator.generateStrongPassword();
@@ -194,6 +229,7 @@ public class UserService {
   }
 
   public void uploadAvatar(User user, MultipartFile file) {
+    log.info("User: {} is uploading avatar", user.getEmail());
     // create folder for user: users/avatars/{userId}/
     String folderPath = "users/avatars/" + user.getId() + "/";
 
@@ -206,12 +242,12 @@ public class UserService {
     // delete old image
     if (user.getImageUrl() != null && !user.getImageUrl().isEmpty()) {
       mediaStorageService.deleteFileByUrl(user.getImageUrl());
-      log.info("User {} replacing old photos", user.getId());
+      log.info("User: {} is deleting old photos", user.getEmail());
     }
 
     user.setImageUrl(imageUrl);
     userRepository.save(user);
 
-    log.info("User {} updated successful avatar: {}", user.getId(), filename);
+    log.info("User: {} updated successful avatar: {}", user.getEmail(), filename);
   }
 }

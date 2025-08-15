@@ -9,6 +9,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import com.custom.ngow.shop.exception.CustomException;
+
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +34,7 @@ public class MailService {
       mailSender.send(message);
       log.info("Send OTP to {}", toEmail);
     } catch (MessagingException e) {
-      throw new RuntimeException("Can not send mail");
+      throw new CustomException("Can not send mail");
     }
   }
 

@@ -15,23 +15,23 @@
 <head>
   <meta charset="utf-8">
   <title>Ochaka - Multipurpose eCommerce HTML Template</title>
-  <meta name="author" content="themesflat.com">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description"
-        content="Themesflat Ochaka - A modern and elegant Multipurpose eCommerce HTML Template, perfect for online stores selling rings, necklaces, watches, and other accessories. SEO-optimized, fast-loading, and fully customizable.">
+  <meta content="themesflat.com" name="author">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+  <meta content="Themesflat Ochaka - A modern and elegant Multipurpose eCommerce HTML Template, perfect for online stores selling rings, necklaces, watches, and other accessories. SEO-optimized, fast-loading, and fully customizable."
+        name="description">
 
   <!-- font -->
-  <link th:href="@{/fonts/fonts.css}" rel="stylesheet">
-  <link th:href="@{/icon/icomoon/style.css}" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/fonts/fonts.css}">
+  <link rel="stylesheet" th:href="@{/icon/icomoon/style.css}">
   <!-- css -->
-  <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
-  <link th:href="@{/css/swiper-bundle.min.css}" rel="stylesheet">
-  <link th:href="@{/css/animate.css}" rel="stylesheet">
-  <link th:href="@{/css/styles.css}" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/css/swiper-bundle.min.css}">
+  <link rel="stylesheet" th:href="@{/css/animate.css}">
+  <link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css">
 
   <!-- Favicon and Touch Icons  -->
-  <link th:href="@{/images/logo/favicon.svg}" rel="shortcut icon">
-  <link th:href="@{/images/logo/favicon.svg}" rel="apple-touch-icon-precomposed">
+  <link rel="shortcut icon" th:href="@{/images/logo/favicon.svg}">
+  <link rel="apple-touch-icon-precomposed" th:href="@{/images/logo/favicon.svg}">
 
 </head>
 
@@ -47,7 +47,11 @@
   <!-- /Top Bar -->
 
   <!-- Header -->
-  <div th:replace="~{view/fragments/header :: header}"></div>
+  <header class="tf-header header-fix">
+    <div class="container">
+      <div th:replace="~{view/fragments/header :: header}"></div>
+    </div>
+  </header>
   <!-- /Header -->
 
   <!-- 404 -->
@@ -56,8 +60,8 @@
       <div class="row">
         <div class="col-md-8 offset-md-2 col-sm-10 offset-sm-1">
           <div class="image">
-            <img class="lazyload" src="/images/section/404.svg" data-src="/images/section/404.svg"
-                 alt="">
+            <img alt="" class="lazyload" data-src="/images/section/404.svg"
+                 src="/images/section/404.svg">
           </div>
         </div>
         <div class="col-12">
@@ -67,10 +71,10 @@
               <p class="sub-title h6">This page is missing or you assembled the link incorrectly</p>
             </div>
             <div class="group-btn">
-              <a href="/" class="tf-btn animate-btn">
+              <a class="tf-btn animate-btn" href="/">
                 Back to home page
               </a>
-              <a href="/all-products" class="tf-btn style-line">
+              <a class="tf-btn style-line" href="/all-products">
                 Product list
               </a>
             </div>

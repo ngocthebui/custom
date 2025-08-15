@@ -16,14 +16,14 @@ import lombok.NoArgsConstructor;
 public class UserDto {
   private Long id;
 
-  @NotBlank(message = "Email không được để trống")
-  @Email(message = "Email không hợp lệ")
+  @NotBlank(message = "{error.required}")
+  @Email(message = "{error.invalid}")
   private String email;
 
-  @NotBlank(message = "Firstname không được để trống")
+  @NotBlank(message = "{error.required}")
   private String firstName;
 
-  @NotBlank(message = "Lastname không được để trống")
+  @NotBlank(message = "{error.required}")
   private String lastName;
 
   private String imageUrl;

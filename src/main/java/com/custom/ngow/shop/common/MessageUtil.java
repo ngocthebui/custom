@@ -12,7 +12,6 @@ public class MessageUtil {
   private final MessageSource messageSource;
 
   public String getMessage(String key) {
-    System.out.printf("Local: " + LocaleContextHolder.getLocale());
     return messageSource.getMessage(key, null, LocaleContextHolder.getLocale());
   }
 

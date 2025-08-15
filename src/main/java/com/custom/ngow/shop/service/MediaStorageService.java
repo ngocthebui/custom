@@ -10,7 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import lombok.Getter;
+import com.custom.ngow.shop.constant.FileType;
+import com.custom.ngow.shop.exception.CustomException;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import software.amazon.awssdk.core.sync.RequestBody;
@@ -36,52 +38,52 @@ public class MediaStorageService {
   @Value("${aws.s3.public-url}")
   private String publicUrl;
 
-  /** Lưu trữ file lên S3 với đường dẫn folder tùy chỉnh */
+  /** Store the file to S3 with custom folder path */
   public String storeFile(MultipartFile file, String folderPath, FileType fileType) {
     return storeFileToS3(file, folderPath, fileType);
   }
 
-  /** Lưu trữ ảnh lên S3 với folder mặc định */
+  /** Store photos on S3 with default folder */
   public String storeImage(MultipartFile file, String folderPath) {
     return storeFileToS3(file, folderPath, FileType.IMAGE);
   }
 
-  /** Lưu trữ video lên S3 với folder mặc định */
+  /** Store video to S3 with default folder */
   public String storeVideo(MultipartFile file, String folderPath) {
     return storeFileToS3(file, folderPath, FileType.VIDEO);
   }
 
   private String storeFileToS3(MultipartFile file, String folderPath, FileType fileType) {
-    // Kiểm tra file không rỗng
+    // Check the file is not empty
     if (file.isEmpty()) {
-      throw new RuntimeException("Không thể lưu trữ tệp rỗng");
+      throw new CustomException("Can not store empty files");
     }
 
-    // Lấy tên file gốc và làm sạch
+    // Take the name of the original file and clean
     String originalFilename =
         StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
 
-    // Kiểm tra định dạng file
+    // Check file format
     validateFileType(originalFilename, fileType);
 
     try {
-      // Chuẩn hóa đường dẫn folder
+      // Standardize the folder path
       String normalizedFolderPath = normalizeFolderPath(folderPath);
 
-      // Kiểm tra và tạo folder nếu chưa tồn tại
+      // Check and create folders if not existed
       ensureFolderExists(normalizedFolderPath);
 
-      // Tạo tên file duy nhất để tránh xung đột
+      // Create a single file name to avoid conflict
       String fileExtension = getFileExtension(originalFilename);
       String newFilename = UUID.randomUUID() + fileExtension;
 
-      // Tạo key cho S3 (bao gồm folder)
+      // Create key for S3 (including folder)
       String s3Key = normalizedFolderPath + newFilename;
 
-      // Xác định content type
+      // Determine Content Type
       String contentType = getContentType(originalFilename, fileType);
 
-      // Tạo request để upload lên S3
+      // Create a request to upload to S3
       PutObjectRequest putObjectRequest =
           PutObjectRequest.builder()
               .bucket(bucketName)
@@ -90,34 +92,35 @@ public class MediaStorageService {
               .contentLength(file.getSize())
               .build();
 
-      // Upload file lên S3
+      // Upload files to S3
       s3Client.putObject(
           putObjectRequest, RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
 
-      log.info("Đã upload {} thành công lên S3 với key: {}", fileType.getDisplayName(), s3Key);
+      log.info("Uploaded {} Success to S3 with key: {}", fileType.getDisplayName(), s3Key);
 
       return newFilename;
 
     } catch (IOException ex) {
-      throw new RuntimeException("Không thể upload tệp " + originalFilename + " lên S3", ex);
+      log.error("Error while storing file {}", originalFilename, ex);
+      throw new RuntimeException("Unable to upload the file " + originalFilename + " to S3", ex);
     }
   }
 
-  /** Chuẩn hóa đường dẫn folder */
+  /** Standardize the folder path */
   private String normalizeFolderPath(String folderPath) {
     if (folderPath == null || folderPath.trim().isEmpty()) {
       return "";
     }
 
-    // Loại bỏ ký tự đầu và cuối không cần thiết
+    // Eliminate the first and last characters
     String normalized = folderPath.trim();
 
-    // Thêm dấu "/" ở cuối nếu chưa có
+    // Add the "" at the end if not
     if (!normalized.endsWith("/")) {
       normalized += "/";
     }
 
-    // Loại bỏ dấu "/" ở đầu nếu có
+    // Eliminate "" at the top if any
     if (normalized.startsWith("/")) {
       normalized = normalized.substring(1);
     }
@@ -125,31 +128,31 @@ public class MediaStorageService {
     return normalized;
   }
 
-  /** Kiểm tra và tạo folder nếu chưa tồn tại */
+  /** Check and create folders if not existed */
   private void ensureFolderExists(String folderPath) {
     if (folderPath == null || folderPath.isEmpty()) {
       return;
     }
 
     try {
-      // Kiểm tra xem folder đã tồn tại chưa bằng cách list objects
+      // Check that the folder has existed by isolation of objects
       ListObjectsV2Request listRequest =
           ListObjectsV2Request.builder().bucket(bucketName).prefix(folderPath).maxKeys(1).build();
 
       ListObjectsV2Response listResponse = s3Client.listObjectsV2(listRequest);
 
-      // Nếu chưa có object nào trong folder, tạo folder marker
+      // If there is no object in the folder, create folder markers
       if (listResponse.contents().isEmpty()) {
         PutObjectRequest putObjectRequest =
             PutObjectRequest.builder().bucket(bucketName).key(folderPath).contentLength(0L).build();
 
         s3Client.putObject(putObjectRequest, RequestBody.empty());
-        log.info("Đã tạo folder mới: {}", folderPath);
+        log.info("Created a new folder: {}", folderPath);
       }
 
     } catch (Exception ex) {
-      log.warn("Không thể kiểm tra/tạo folder {}: {}", folderPath, ex.getMessage());
-      // Không throw exception vì folder có thể được tạo tự động khi upload file
+      log.warn("Unable to check the folder {}: {}", folderPath, ex.getMessage());
+      // No throw exception because folders can be automatically created when uploading files
     }
   }
 
@@ -162,22 +165,23 @@ public class MediaStorageService {
         validateVideoFileType(filename);
         break;
       default:
-        throw new RuntimeException("Loại file không được hỗ trợ");
+        throw new CustomException("File type is not supported");
     }
   }
 
   private void validateImageFileType(String filename) {
     String[] allowedExtensions = {".jpg", ".jpeg", ".png", ".gif", ".webp"};
     if (!hasValidExtension(filename, allowedExtensions)) {
-      throw new RuntimeException("Chỉ hỗ trợ tệp ảnh có định dạng JPG, JPEG, PNG, GIF hoặc WEBP");
+      throw new CustomException(
+          "Only support image files with JPG, JPEG, PNG, GIF or Webp formats");
     }
   }
 
   private void validateVideoFileType(String filename) {
     String[] allowedExtensions = {".mp4", ".avi", ".mov", ".wmv", ".mkv", ".webm"};
     if (!hasValidExtension(filename, allowedExtensions)) {
-      throw new RuntimeException(
-          "Chỉ hỗ trợ tệp video có định dạng MP4, AVI, MOV, WMV, MKV hoặc WEBM");
+      throw new CustomException(
+          "Only support video files with format MP4, AVI, MOV, WMV, MKV or Webm");
     }
   }
 
@@ -194,13 +198,13 @@ public class MediaStorageService {
     return "";
   }
 
-  /** Lấy URL đầy đủ của file từ S3 */
+  /** Get the full URL of the file from S3 */
   public String getFileUrl(String folderPath, String filename) {
     String normalizedFolderPath = normalizeFolderPath(folderPath);
     return publicUrl + "/" + bucketName + "/" + normalizedFolderPath + filename;
   }
 
-  /** Xóa file khỏi S3 */
+  /** Delete files from S3 */
   public boolean deleteFile(String folderPath, String filename) {
     try {
       String normalizedFolderPath = normalizeFolderPath(folderPath);
@@ -219,10 +223,10 @@ public class MediaStorageService {
     }
   }
 
-  /** Xóa file bằng URL đầy đủ */
+  /** Delete the file with full URL */
   public void deleteFileByUrl(String fileUrl) {
     try {
-      // Extract key từ URL
+      // Extract key from URL
       String s3Key = extractS3KeyFromUrl(fileUrl);
       if (s3Key == null) {
         log.warn("Can not extract s3 key from URL: {}", fileUrl);
@@ -240,7 +244,7 @@ public class MediaStorageService {
     }
   }
 
-  /** Extract S3 key từ URL */
+  /** Extract S3 Key from URL */
   private String extractS3KeyFromUrl(String fileUrl) {
     try {
       // URL format: {publicUrl}/{bucketName}/{s3Key}
@@ -252,7 +256,7 @@ public class MediaStorageService {
 
       // CDN URL
       if (cdnUrl != null && !cdnUrl.isEmpty() && fileUrl.startsWith(cdnUrl)) {
-        return fileUrl.substring(cdnUrl.length() + 1); // +1 để bỏ dấu "/"
+        return fileUrl.substring(cdnUrl.length() + 1); // +1 to remove the "/"
       }
 
       return null;
@@ -263,19 +267,16 @@ public class MediaStorageService {
     }
   }
 
-  /** Xác định content type cho file */
+  /** Determine the content type for the file */
   private String getContentType(String filename, FileType fileType) {
-    switch (fileType) {
-      case IMAGE:
-        return getImageContentType(filename);
-      case VIDEO:
-        return getVideoContentType(filename);
-      default:
-        return "application/octet-stream";
-    }
+    return switch (fileType) {
+      case IMAGE -> getImageContentType(filename);
+      case VIDEO -> getVideoContentType(filename);
+      default -> "application/octet-stream";
+    };
   }
 
-  /** Xác định content type cho file ảnh */
+  /** Determine the content type for the image file */
   private String getImageContentType(String filename) {
     String lowercaseFilename = filename.toLowerCase();
     if (lowercaseFilename.endsWith(".jpg") || lowercaseFilename.endsWith(".jpeg")) {
@@ -291,7 +292,7 @@ public class MediaStorageService {
     }
   }
 
-  /** Xác định content type cho file video */
+  /** Determine content type for video files */
   private String getVideoContentType(String filename) {
     String lowercaseFilename = filename.toLowerCase();
     if (lowercaseFilename.endsWith(".mp4")) {
@@ -308,19 +309,6 @@ public class MediaStorageService {
       return "video/x-matroska";
     } else {
       return "application/octet-stream";
-    }
-  }
-
-  /** Enum để định nghĩa loại file */
-  @Getter
-  public enum FileType {
-    IMAGE("ảnh"),
-    VIDEO("video");
-
-    private final String displayName;
-
-    FileType(String displayName) {
-      this.displayName = displayName;
     }
   }
 }

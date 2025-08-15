@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.custom.ngow.shop.entity.User;
+import com.custom.ngow.shop.exception.CustomException;
 import com.custom.ngow.shop.repository.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -22,8 +23,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     User user =
         userRepository
             .findByEmail(email)
-            .orElseThrow(
-                () -> new UsernameNotFoundException("User not found with email: " + email));
+            .orElseThrow(() -> new CustomException("User not found with email: " + email));
 
     return org.springframework.security.core.userdetails.User.builder()
         .username(user.getEmail())

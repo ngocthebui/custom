@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserPasswordRequest {
-  @NotBlank(message = "Mật khẩu không được để trống")
+  @NotBlank(message = "{error.required}")
   private String currentPassword;
 
   @NotBlank(message = "Mật khẩu không được để trống")

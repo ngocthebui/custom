@@ -13,28 +13,28 @@
 <!--<![endif]-->
 
 <head>
-    <meta charset="utf-8">
-    <title>Ochaka - Multipurpose eCommerce HTML Template</title>
-    <meta name="author" content="themesflat.com">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description"
-        content="Themesflat Ochaka - A modern and elegant Multipurpose eCommerce HTML Template, perfect for online stores selling rings, necklaces, watches, and other accessories. SEO-optimized, fast-loading, and fully customizable.">
-    <meta name="_csrf" th:content="${_csrf.token}" />
-    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+  <meta charset="utf-8">
+  <title>Ochaka - Multipurpose eCommerce HTML Template</title>
+  <meta content="themesflat.com" name="author">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+  <meta content="Themesflat Ochaka - A modern and elegant Multipurpose eCommerce HTML Template, perfect for online stores selling rings, necklaces, watches, and other accessories. SEO-optimized, fast-loading, and fully customizable."
+        name="description">
+  <meta name="_csrf" th:content="${_csrf.token}"/>
+  <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 
-    <!-- font -->
-    <link rel="stylesheet" th:href="@{/fonts/fonts.css}">
-    <link rel="stylesheet" th:href="@{/icon/icomoon/style.css}">
-    <!-- css -->
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/css/swiper-bundle.min.css}">
-    <link rel="stylesheet" th:href="@{/css/animate.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}">
-    <link th:href="@{/css/common.css}" rel="stylesheet" type="text/css">
+  <!-- font -->
+  <link rel="stylesheet" th:href="@{/fonts/fonts.css}">
+  <link rel="stylesheet" th:href="@{/icon/icomoon/style.css}">
+  <!-- css -->
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/css/swiper-bundle.min.css}">
+  <link rel="stylesheet" th:href="@{/css/animate.css}">
+  <link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css">
+  <link rel="stylesheet" th:href="@{/css/common.css}" type="text/css">
 
-    <!-- Favicon and Touch Icons  -->
-    <link rel="shortcut icon" th:href="@{/images/logo/favicon.svg}">
-    <link rel="apple-touch-icon-precomposed" th:href="@{/images/logo/favicon.svg}">
+  <!-- Favicon and Touch Icons  -->
+  <link rel="shortcut icon" th:href="@{/images/logo/favicon.svg}">
+  <link rel="apple-touch-icon-precomposed" th:href="@{/images/logo/favicon.svg}">
 </head>
 
 <body>
@@ -45,160 +45,177 @@
 <!-- /Scroll Top and preload -->
 
 <div id="wrapper">
-    <!-- Top Bar-->
-    <div th:replace="~{view/fragments/topbar :: topbar}"></div>
-    <!-- /Top Bar -->
+  <!-- Top Bar-->
+  <div th:replace="~{view/fragments/topbar :: topbar}"></div>
+  <!-- /Top Bar -->
 
-    <!-- Header -->
-    <div th:replace="~{view/fragments/header :: header}"></div>
-    <!-- /Header -->
+  <!-- Header -->
+  <header class="tf-header header-fix">
+    <div class="container">
+      <div th:replace="~{view/fragments/header :: header}"></div>
+    </div>
+  </header>
+  <!-- /Header -->
 
-    <!-- Page Title -->
-    <section class="s-page-title">
-        <div class="container">
-            <div class="content">
-                <h1 class="title-page">My Account</h1>
-                <ul class="breadcrumbs-page">
-                    <li><a th:href="@{/}" class="h6 link">Home</a></li>
-                    <li class="d-flex"><i class="icon icon-caret-right"></i></li>
-                    <li>
-                        <h6 class="current-page fw-normal">My account</h6>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </section>
-    <!-- /Page Title -->
-    <!-- Account -->
-    <section class="flat-spacing">
-        <input type="file" class="fileInputDash" accept="image/*" style="display: none;">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-3 d-none d-xl-block">
-                    <div class="sidebar-account sidebar-content-wrap sticky-top">
-                        <div class="account-author">
-                            <div class="author_avatar">
-                                <div class="image">
-                                    <img class="lazyload imgDash"
-                                         th:src="${userDto.imageUrl}"
-                                         th:data-src="${userDto.imageUrl}"
-                                        alt="Avatar">
-                                </div>
-                                <div class="btn-change_img box-icon changeImgDash">
-                                    <i class="icon icon-camera"></i>
-                                </div>
-                            </div>
-                            <h4 class="author_name" th:text="${userDto.firstName}">Firstname</h4>
-                            <p class="author_email h6" th:text="${userDto.email}">Email</p>
-                        </div>
-                        <ul class="my-account-nav">
-                            <li>
-                                <a href="account-page.html" class="my-account-nav_item h5">
-                                    <i class="icon icon-circle-four"></i>
-                                    Dashboard
-                                </a>
-                            </li>
-                            <li>
-                                <a href="account-orders.html" class="my-account-nav_item h5">
-                                    <i class="icon icon-box-arrow-down"></i>
-                                    Oders
-                                </a>
-                            </li>
-                            <li>
-                                <a href="account-addresses.html" class="my-account-nav_item h5">
-                                    <i class="icon icon-address-book"></i>
-                                    My address
-                                </a>
-                            </li>
-                            <li>
-                                <p class="my-account-nav_item h5 active">
-                                    <i class="icon icon-setting"></i>
-                                    Setting
-                                </p>
-                            </li>
-                            <li>
-                                <form action="/logout" method="post">
-                                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-                                    <button type="submit" class="my-account-nav_item h5" style="width: 100%">
-                                        <i class="icon icon-sign-out"></i>
-                                        Log out
-                                    </button>
-                                </form>
-                            </li>
-                        </ul>
-                    </div>
+  <!-- Page Title -->
+  <section class="s-page-title">
+    <div class="container">
+      <div class="content">
+        <h1 class="title-page">My Account</h1>
+        <ul class="breadcrumbs-page">
+          <li><a class="h6 link" th:href="@{/}">Home</a></li>
+          <li class="d-flex"><i class="icon icon-caret-right"></i></li>
+          <li>
+            <h6 class="current-page fw-normal">My account</h6>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <!-- /Page Title -->
+  <!-- Account -->
+  <section class="flat-spacing">
+    <input accept="image/*" class="fileInputDash" style="display: none;" type="file">
+    <div class="container">
+      <div class="row">
+        <div class="col-xl-3 d-none d-xl-block">
+          <div class="sidebar-account sidebar-content-wrap sticky-top">
+            <div class="account-author">
+              <div class="author_avatar">
+                <div class="image">
+                  <img alt="Avatar"
+                       class="lazyload imgDash"
+                       th:data-src="${imgUrl}"
+                       th:src="${imgUrl}"
+                       th:with="imgUrl=${#strings.isEmpty(userDto.imageUrl) ? '/images/avatar/avatar-default.jpg' : userDto.imageUrl}">
                 </div>
-                <div class="col-xl-9">
-                    <div class="my-account-content">
-                        <div th:if="${successMessage}" class="alert alert-success" role="alert">
-                            <span th:text="#{${successMessage}}"></span>
-                        </div>
-                        <div th:if="${errorMessage}" class="alert alert-success" role="alert">
-                          <span th:text="#{${errorMessage}}"></span>
-                        </div>
-                        <form class="form-change_pass" th:action="@{/user/update-info}" method="post" th:object="${userDto}">
-                            <input type="hidden" th:field="*{id}"/>
-                            <input type="hidden" th:field="*{imageUrl}"/>
-                            <input type="hidden" th:field="*{createdAt}"/>
-                            <input type="hidden" th:field="*{updatedAt}"/>
-                            <div class="" style="padding-bottom: 20px">
-                                <h2 class="account-title type-semibold">Account Setting</h2>
-                                <div class="form_content site-change">
-                                    <div class="cols tf-grid-layout sm-col-2">
-                                        <fieldset>
-                                            <input type="text" th:field="*{firstName}" placeholder="First name *" required>
-                                            <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="error-message"></span>
-                                        </fieldset>
-                                        <fieldset>
-                                            <input type="text" th:field="*{lastName}" placeholder="Last name *" required>
-                                            <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="error-message"></span>
-                                        </fieldset>
-                                    </div>
-                                    <fieldset>
-                                        <input type="email" th:field="*{email}" placeholder="Email *" required>
-                                        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-message"></span>
-                                    </fieldset>
-                                </div>
-                                <button type="submit" class="btn-submit_form tf-btn animate-btn w-100 fw-bold">
-                                    Save change
-                                </button>
-                            </div>
-                        </form>
-                        <form class="form-change_pass" th:action="@{/user/change-password}" method="post" th:object="${userPasswordRequest}">
-                            <div class="">
-                                <h2 class="account-title type-semibold">Change Password</h2>
-                                <div class="form_content site-change">
-                                    <fieldset class="password-wrapper">
-                                        <input class="password-field" type="password" th:field="*{currentPassword}" placeholder="Current password *" required>
-                                        <span class="toggle-pass icon-show-password"></span>
-                                        <span th:if="${#fields.hasErrors('currentPassword')}" th:errors="*{currentPassword}" class="error-message"></span>
-                                    </fieldset>
-                                    <fieldset class="password-wrapper">
-                                        <input class="password-field" type="password" th:field="*{password}" placeholder="New password *" required>
-                                        <span class="toggle-pass icon-show-password"></span>
-                                        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-message"></span>
-                                    </fieldset>
-                                    <fieldset class="password-wrapper">
-                                        <input class="password-field" type="password" th:field="*{confirmPassword}" placeholder="Confirm password *" required>
-                                        <span class="toggle-pass icon-show-password"></span>
-                                        <span th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="error-message"></span>
-                                    </fieldset>
-                                </div>
-                                <button type="submit" class="btn-submit_form tf-btn animate-btn w-100 fw-bold">
-                                    Change password
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+                <div class="btn-change_img box-icon changeImgDash">
+                  <i class="icon icon-camera"></i>
                 </div>
+              </div>
+              <h4 class="author_name" th:text="${userDto.firstName}">Firstname</h4>
+              <p class="author_email h6" th:text="${userDto.email}">Email</p>
             </div>
+            <ul class="my-account-nav">
+              <li>
+                <a class="my-account-nav_item h5" href="account-page.html">
+                  <i class="icon icon-circle-four"></i>
+                  Dashboard
+                </a>
+              </li>
+              <li>
+                <a class="my-account-nav_item h5" href="account-orders.html">
+                  <i class="icon icon-box-arrow-down"></i>
+                  Oders
+                </a>
+              </li>
+              <li>
+                <a class="my-account-nav_item h5" href="account-addresses.html">
+                  <i class="icon icon-address-book"></i>
+                  My address
+                </a>
+              </li>
+              <li>
+                <p class="my-account-nav_item h5 active">
+                  <i class="icon icon-setting"></i>
+                  Setting
+                </p>
+              </li>
+              <li>
+                <form action="/logout" method="post">
+                  <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
+                  <button class="my-account-nav_item h5" style="width: 100%" type="submit">
+                    <i class="icon icon-sign-out"></i>
+                    Log out
+                  </button>
+                </form>
+              </li>
+            </ul>
+          </div>
         </div>
-    </section>
-    <!-- /Account -->
+        <div class="col-xl-9">
+          <div class="my-account-content">
+            <div class="alert alert-success" role="alert" th:if="${successMessage}">
+              <span th:text="${successMessage}"></span>
+            </div>
+            <div class="alert alert-success" role="alert" th:if="${errorMessage}">
+              <span th:text="${errorMessage}"></span>
+            </div>
+            <form class="form-change_pass" method="post" th:action="@{/user/update-info}"
+                  th:object="${userDto}">
+              <input th:field="*{id}" type="hidden"/>
+              <input th:field="*{imageUrl}" type="hidden"/>
+              <input th:field="*{createdAt}" type="hidden"/>
+              <input th:field="*{updatedAt}" type="hidden"/>
+              <div class="" style="padding-bottom: 20px">
+                <h2 class="account-title type-semibold">Account Setting</h2>
+                <div class="form_content site-change">
+                  <div class="cols tf-grid-layout sm-col-2">
+                    <fieldset>
+                      <input placeholder="First name *" required th:field="*{firstName}"
+                             type="text">
+                      <span class="error-message" th:errors="*{firstName}"
+                            th:if="${#fields.hasErrors('firstName')}"></span>
+                    </fieldset>
+                    <fieldset>
+                      <input placeholder="Last name *" required th:field="*{lastName}" type="text">
+                      <span class="error-message" th:errors="*{lastName}"
+                            th:if="${#fields.hasErrors('lastName')}"></span>
+                    </fieldset>
+                  </div>
+                  <fieldset>
+                    <input placeholder="Email *" required th:field="*{email}" type="email">
+                    <span class="error-message" th:errors="*{email}"
+                          th:if="${#fields.hasErrors('email')}"></span>
+                  </fieldset>
+                </div>
+                <button class="btn-submit_form tf-btn animate-btn w-100 fw-bold" type="submit">
+                  Save change
+                </button>
+              </div>
+            </form>
+            <form class="form-change_pass" method="post" th:action="@{/user/change-password}"
+                  th:object="${userPasswordRequest}">
+              <div class="">
+                <h2 class="account-title type-semibold">Change Password</h2>
+                <div class="form_content site-change">
+                  <fieldset class="password-wrapper">
+                    <input class="password-field" placeholder="Current password *" required
+                           th:field="*{currentPassword}" type="password">
+                    <span class="toggle-pass icon-show-password"></span>
+                    <span class="error-message"
+                          th:errors="*{currentPassword}" th:if="${#fields.hasErrors('currentPassword')}"></span>
+                  </fieldset>
+                  <fieldset class="password-wrapper">
+                    <input class="password-field" placeholder="New password *" required
+                           th:field="*{password}" type="password">
+                    <span class="toggle-pass icon-show-password"></span>
+                    <span class="error-message" th:errors="*{password}"
+                          th:if="${#fields.hasErrors('password')}"></span>
+                  </fieldset>
+                  <fieldset class="password-wrapper">
+                    <input class="password-field" placeholder="Confirm password *" required
+                           th:field="*{confirmPassword}" type="password">
+                    <span class="toggle-pass icon-show-password"></span>
+                    <span class="error-message"
+                          th:errors="*{confirmPassword}" th:if="${#fields.hasErrors('confirmPassword')}"></span>
+                  </fieldset>
+                </div>
+                <button class="btn-submit_form tf-btn animate-btn w-100 fw-bold" type="submit">
+                  Change password
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /Account -->
 
-    <!-- Footer -->
-    <div th:replace="~{view/fragments/footer :: footer}"></div>
-    <!-- /Footer -->
+  <!-- Footer -->
+  <div th:replace="~{view/fragments/footer :: footer}"></div>
+  <!-- /Footer -->
 </div>
 
 <!-- Mobile Menu -->
