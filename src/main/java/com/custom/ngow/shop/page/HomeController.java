@@ -159,9 +159,25 @@ public class HomeController extends BaseController {
     List<ProductImage> images1 =
         List.of(
             new ProductImage(
-                1L, "/images/products/underwear/product-1.jpg", "Product", null, null, null, null),
+                1L,
+                "/images/products/underwear/product-1.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null),
             new ProductImage(
-                1L, "/images/products/underwear/product-2.jpg", "Product", null, null, null, null));
+                1L,
+                "/images/products/underwear/product-2.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null));
     // sizes
     List<String> sizes1 = new ArrayList<>();
     // badges
@@ -189,9 +205,25 @@ public class HomeController extends BaseController {
     List<ProductImage> images2 =
         List.of(
             new ProductImage(
-                1L, "/images/products/underwear/product-4.jpg", "Product", null, null, null, null),
+                1L,
+                "/images/products/underwear/product-4.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null),
             new ProductImage(
-                1L, "/images/products/underwear/product-5.jpg", "Product", null, null, null, null));
+                1L,
+                "/images/products/underwear/product-5.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null));
     // sizes
     List<String> sizes2 = new ArrayList<>();
     // badges
@@ -211,9 +243,25 @@ public class HomeController extends BaseController {
     List<ProductImage> images3 =
         List.of(
             new ProductImage(
-                1L, "/images/products/underwear/product-8.jpg", "Product", null, null, null, null),
+                1L,
+                "/images/products/underwear/product-8.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null),
             new ProductImage(
-                1L, "/images/products/underwear/product-9.jpg", "Product", null, null, null, null));
+                1L,
+                "/images/products/underwear/product-9.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null));
     // sizes
     List<String> sizes3 = Arrays.asList("XS", "S", "M");
     // badges
@@ -243,11 +291,21 @@ public class HomeController extends BaseController {
     List<ProductImage> images4 =
         List.of(
             new ProductImage(
-                1L, "/images/products/underwear/product-12.jpg", "Product", null, null, null, null),
+                1L,
+                "/images/products/underwear/product-12.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null),
             new ProductImage(
                 1L,
                 "/images/products/underwear/product-13.jpg",
                 "Product",
+                null,
+                null,
                 null,
                 null,
                 null,
@@ -274,11 +332,21 @@ public class HomeController extends BaseController {
     List<ProductImage> images5 =
         List.of(
             new ProductImage(
-                1L, "/images/products/underwear/product-15.jpg", "Product", null, null, null, null),
+                1L,
+                "/images/products/underwear/product-15.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null),
             new ProductImage(
                 1L,
                 "/images/products/underwear/product-16.jpg",
                 "Product",
+                null,
+                null,
                 null,
                 null,
                 null,
@@ -312,11 +380,21 @@ public class HomeController extends BaseController {
     List<ProductImage> images6 =
         List.of(
             new ProductImage(
-                1L, "/images/products/underwear/product-19.jpg", "Product", null, null, null, null),
+                1L,
+                "/images/products/underwear/product-19.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null),
             new ProductImage(
                 1L,
                 "/images/products/underwear/product-20.jpg",
                 "Product",
+                null,
+                null,
                 null,
                 null,
                 null,
@@ -336,11 +414,21 @@ public class HomeController extends BaseController {
     List<ProductImage> images7 =
         List.of(
             new ProductImage(
-                1L, "/images/products/underwear/product-21.jpg", "Product", null, null, null, null),
+                1L,
+                "/images/products/underwear/product-21.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null),
             new ProductImage(
                 1L,
                 "/images/products/underwear/product-22.jpg",
                 "Product",
+                null,
+                null,
                 null,
                 null,
                 null,
@@ -381,11 +469,21 @@ public class HomeController extends BaseController {
     List<ProductImage> images8 =
         List.of(
             new ProductImage(
-                1L, "/images/products/underwear/product-26.jpg", "Product", null, null, null, null),
+                1L,
+                "/images/products/underwear/product-26.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null),
             new ProductImage(
                 1L,
                 "/images/products/underwear/product-27.jpg",
                 "Product",
+                null,
+                null,
                 null,
                 null,
                 null,
@@ -496,9 +594,25 @@ public class HomeController extends BaseController {
     List<ProductImage> images1 =
         List.of(
             new ProductImage(
-                1L, "/images/products/product-1.jpg", "Product", null, null, null, null),
+                1L,
+                "/images/products/product-1.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null),
             new ProductImage(
-                1L, "/images/products/product-2.jpg", "Product", null, null, null, null));
+                1L,
+                "/images/products/product-2.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null));
     // sizes
     List<String> sizes1 = Arrays.asList("XS", "S", "M");
     // badges
@@ -516,9 +630,25 @@ public class HomeController extends BaseController {
     List<ProductImage> images2 =
         List.of(
             new ProductImage(
-                1L, "/images/products/product-7.jpg", "Product", null, null, null, null),
+                1L,
+                "/images/products/product-7.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null),
             new ProductImage(
-                1L, "/images/products/product-8.jpg", "Product", null, null, null, null));
+                1L,
+                "/images/products/product-8.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null));
     // sizes
     List<String> sizes2 = new ArrayList<>();
     // badges
@@ -536,9 +666,25 @@ public class HomeController extends BaseController {
     List<ProductImage> images3 =
         List.of(
             new ProductImage(
-                1L, "/images/products/product-13.jpg", "Product", null, null, null, null),
+                1L,
+                "/images/products/product-13.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null),
             new ProductImage(
-                1L, "/images/products/product-14.jpg", "Product", null, null, null, null));
+                1L,
+                "/images/products/product-14.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null));
     // sizes
     List<String> sizes3 = new ArrayList<>();
     // badges
@@ -551,9 +697,25 @@ public class HomeController extends BaseController {
     List<ProductImage> images4 =
         List.of(
             new ProductImage(
-                1L, "/images/products/product-23.jpg", "Product", null, null, null, null),
+                1L,
+                "/images/products/product-23.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null),
             new ProductImage(
-                1L, "/images/products/product-24.jpg", "Product", null, null, null, null));
+                1L,
+                "/images/products/product-24.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null));
     // sizes
     List<String> sizes4 = Arrays.asList("XS", "S", "M");
     // badges
@@ -571,9 +733,25 @@ public class HomeController extends BaseController {
     List<ProductImage> images5 =
         List.of(
             new ProductImage(
-                1L, "/images/products/product-21.jpg", "Product", null, null, null, null),
+                1L,
+                "/images/products/product-21.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null),
             new ProductImage(
-                1L, "/images/products/product-22.jpg", "Product", null, null, null, null));
+                1L,
+                "/images/products/product-22.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null));
     // sizes
     List<String> sizes5 = Arrays.asList("XS", "M");
     // badges
@@ -591,9 +769,25 @@ public class HomeController extends BaseController {
     List<ProductImage> images6 =
         List.of(
             new ProductImage(
-                1L, "/images/products/product-33.jpg", "Product", null, null, null, null),
+                1L,
+                "/images/products/product-33.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null),
             new ProductImage(
-                1L, "/images/products/product-34.jpg", "Product", null, null, null, null));
+                1L,
+                "/images/products/product-34.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null));
     // sizes
     List<String> sizes6 = new ArrayList<>();
     // badges
@@ -610,9 +804,25 @@ public class HomeController extends BaseController {
     List<ProductImage> images7 =
         List.of(
             new ProductImage(
-                1L, "/images/products/product-37.jpg", "Product", null, null, null, null),
+                1L,
+                "/images/products/product-37.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null),
             new ProductImage(
-                1L, "/images/products/product-38.jpg", "Product", null, null, null, null));
+                1L,
+                "/images/products/product-38.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null));
     // sizes
     List<String> sizes7 = Arrays.asList("XS", "S", "M");
     // badges
@@ -636,9 +846,25 @@ public class HomeController extends BaseController {
     List<ProductImage> images8 =
         List.of(
             new ProductImage(
-                1L, "/images/products/product-41.jpg", "Product", null, null, null, null),
+                1L,
+                "/images/products/product-41.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null),
             new ProductImage(
-                1L, "/images/products/product-42.jpg", "Product", null, null, null, null));
+                1L,
+                "/images/products/product-42.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null,
+                null));
     // sizes
     List<String> sizes8 = Arrays.asList("XS", "S", "M", "L");
     // badges

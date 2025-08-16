@@ -58,7 +58,7 @@
 
   <!-- Header -->
   <header class="tf-header header-fix bg-off-white">
-    <div class="container">
+    <div class="container-full">
       <div th:replace="~{view/fragments/header :: header}"></div>
     </div>
   </header>
@@ -74,7 +74,7 @@
           <li><a class="h6 link" href="shop-default.html">Shop</a></li>
           <li class="d-flex"><i class="icon icon-caret-right"></i></li>
           <li>
-            <h6 class="current-page fw-normal">Casual Round Neck T-Shirt</h6>
+            <h6 class="current-page fw-normal" th:text="${productDetail.name}">Product Name</h6>
           </li>
         </ul>
       </div>

@@ -35,6 +35,14 @@ public class ProductImage {
   private Integer sortOrder = 0;
 
   @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "color_id")
+  private ProductColor color;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "product_size_id")
+  private ProductSize size;
+
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "product_id", nullable = false)
   private Product product;
 

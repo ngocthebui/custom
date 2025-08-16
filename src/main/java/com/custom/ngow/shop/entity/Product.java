@@ -57,7 +57,9 @@ public class Product {
   @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<ProductColor> colors;
 
-  private String size;
+  @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  private List<ProductSize> sizes;
+
   private Double weight;
   private String dimensions; // Kích thước
 
