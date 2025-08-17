@@ -1,4 +1,4 @@
-package com.custom.ngow.shop.page;
+package com.custom.ngow.shop.page.shop;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

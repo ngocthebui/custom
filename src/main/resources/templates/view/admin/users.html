@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 
-<!--[if IE 8 ]>
-<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"> <![endif]-->
+<!--[if IE 8]>
+<html class="ie"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xml:lang="en-US" lang="en-US">
+<![endif]-->
 <!--[if (gte IE 9)|!(IE)]><!-->
-<html lang="en-US" xml:lang="en-US" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en-US"
+      xml:lang="en-US"
+      xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <!--<![endif]-->
 
 <head>
@@ -11,8 +17,9 @@
   <title>Ochaka - Multipurpose eCommerce HTML Template</title>
   <meta content="themesflat.com" name="author">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
-  <meta content="Themesflat Ochaka - A modern and elegant Multipurpose eCommerce HTML Template, perfect for online stores selling rings, necklaces, watches, and other accessories. SEO-optimized, fast-loading, and fully customizable."
-        name="description">
+  <meta
+      content="Themesflat Ochaka - A modern and elegant Multipurpose eCommerce HTML Template, perfect for online stores selling rings, necklaces, watches, and other accessories. SEO-optimized, fast-loading, and fully customizable."
+      name="description">
   <meta name="_csrf" th:content="${_csrf.token}"/>
   <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
   <!-- font -->
@@ -72,10 +79,10 @@
             </div>
             <ul class="my-account-nav">
               <li>
-                <p class="my-account-nav_item h5 active">
+                <a class="my-account-nav_item h5 active" href="/admin/users">
                   <i class="icon icon-user"></i>
                   Users
-                </p>
+                </a>
               </li>
               <li>
                 <a class="my-account-nav_item h5" href="account-orders.html">
@@ -120,11 +127,11 @@
                   <div class="swiper-slide">
                     <div class="order-box">
                       <div class="order_icon">
-                        <i class="icon icon-package-thin"></i>
+                        <i class="icon icon-check-fat"></i>
                       </div>
                       <div class="order_info">
-                        <p class="info_label h6">Wait for confirmation</p>
-                        <h2 class="info_count type-semibold">29</h2>
+                        <p class="info_label h6">Active users</p>
+                        <h2 class="info_count type-semibold" th:text="${countActiveUsers}">0</h2>
                       </div>
                     </div>
                   </div>
@@ -132,11 +139,11 @@
                   <div class="swiper-slide">
                     <div class="order-box">
                       <div class="order_icon">
-                        <i class="icon icon-check-fat"></i>
+                        <i class="icon icon-x"></i>
                       </div>
                       <div class="order_info">
-                        <p class="info_label h6">Successful order</p>
-                        <h2 class="info_count type-semibold">35</h2>
+                        <p class="info_label h6">Inactive users</p>
+                        <h2 class="info_count type-semibold" th:text="${countInactiveUsers}">0</h2>
                       </div>
                     </div>
                   </div>
@@ -144,11 +151,11 @@
                   <div class="swiper-slide">
                     <div class="order-box">
                       <div class="order_icon">
-                        <i class="icon icon-box-arrow-up"></i>
+                        <i class="icon icon-user"></i>
                       </div>
                       <div class="order_info">
-                        <p class="info_label h6">Total order</p>
-                        <h2 class="info_count type-semibold">108</h2>
+                        <p class="info_label h6">Total users</p>
+                        <h2 class="info_count type-semibold" th:text="${countTotalUsers}">0</h2>
                       </div>
                     </div>
                   </div>
@@ -168,8 +175,10 @@
                     <th>Last name</th>
                     <th>Image</th>
                     <th>Role</th>
+                    <th>Status</th>
                     <th>Created At</th>
                     <th>Updated At</th>
+                    <th>Update</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -187,11 +196,24 @@
                       </div>
                     </td>
                     <td th:text="${user.role.name()}">Role</td>
+                    <td>
+                      <div class="tb-order_status stt-complete"
+                           th:classappend="${user.status.name() == 'ACTIVE'} ? 'stt-complete' : 'stt-cancel'"
+                           th:text="${user.status.name()}">
+                        ACTIVE
+                      </div>
+                    </td>
                     <td th:text="${#temporals.format(user.createdAt, 'yyyy-MM-dd HH:mm')}">Created
                       At
                     </td>
                     <td th:text="${#temporals.format(user.updatedAt, 'yyyy-MM-dd HH:mm')}">Updated
                       At
+                    </td>
+                    <td>
+                      <a class="my-account-nav_item h5"
+                         th:href="@{'/admin/users/update/' + ${user.id}}">
+                        <i class="icon icon-setting"></i>
+                      </a>
                     </td>
                   </tr>
                   </tbody>
@@ -200,23 +222,25 @@
               <div class="wd-full wg-pagination">
                 <!-- Previous -->
                 <a class="pagination-item h6 direct"
-                   th:href="@{/admin/users(page=${userPage.number - 1}, size=${userPage.size})}"
+                   th:href="@{/admin/users(page=${userPage.number - 1})}"
                    th:if="${userPage.hasPrevious()}">
                   <i class="icon icon-caret-left"></i>
                 </a>
                 <!-- Page numbers -->
                 <span th:each="i : ${#numbers.sequence(0, userPage.totalPages - 1)}">
                   <a class="pagination-item h6"
-                     th:href="@{/admin/users(page=${i}, size=${userPage.size})}"
+                     th:href="@{/admin/users(page=${i})}"
                      th:if="${i != userPage.number}"
-                     th:text="${i + 1}"></a>
-                <span class="pagination-item h6 active"
-                      th:if="${i == userPage.number}"
-                      th:text="${i + 1}"></span>
+                     th:text="${i + 1}">
+                  </a>
+                  <span class="pagination-item h6 active"
+                        th:if="${i == userPage.number}"
+                        th:text="${i + 1}">
+                  </span>
                 </span>
                 <!-- Next -->
                 <a class="pagination-item h6 direct"
-                   th:href="@{/admin/users(page=${userPage.number + 1}, size=${userPage.size})}"
+                   th:href="@{/admin/users(page=${userPage.number + 1})}"
                    th:if="${userPage.hasNext()}">
                   <i class="icon icon-caret-right"></i>
                 </a>

@@ -1,4 +1,4 @@
-package com.custom.ngow.shop.page;
+package com.custom.ngow.shop.page.shop;
 
 import java.util.ArrayList;
 import java.util.Arrays;

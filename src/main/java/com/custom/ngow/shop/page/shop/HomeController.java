@@ -1,4 +1,4 @@
-package com.custom.ngow.shop.page;
+package com.custom.ngow.shop.page.shop;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -60,7 +60,7 @@ public class HomeController extends BaseController {
       @RequestParam(value = "expired", required = false) String expired,
       Model model) {
     if (error != null) {
-      model.addAttribute("errorMessage", messageUtil.getMessage("error.login"));
+      model.addAttribute("errorMessage", messageUtil.getMessage(error, new String[] {"Account"}));
     }
     if (logout != null) {
       model.addAttribute("successMessage", messageUtil.getMessage("success.logout"));

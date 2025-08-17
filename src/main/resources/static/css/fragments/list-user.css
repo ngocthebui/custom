@@ -44,18 +44,30 @@
 
 .user-table td:nth-child(6),
 .user-table th:nth-child(6) {
-  max-width: 70px;
+  max-width: 50px;
   overflow: hidden;
   text-align: center;
 }
 
 .user-table td:nth-child(7),
-.user-table th:nth-child(7),
-.user-table td:nth-child(8),
-.user-table th:nth-child(8) {
-  max-width: 100px;
+.user-table th:nth-child(7) {
+  max-width: 75px;
   overflow: hidden;
   text-align: center;
+}
+
+.user-table td:nth-child(8),
+.user-table th:nth-child(8),
+.user-table td:nth-child(9),
+.user-table th:nth-child(9) {
+  max-width: 85px;
+  overflow: hidden;
+  text-align: center;
+}
+
+.user-table td:nth-child(10),
+.user-table th:nth-child(10) {
+  max-width: 55px;
 }
 
 /* Avatar */

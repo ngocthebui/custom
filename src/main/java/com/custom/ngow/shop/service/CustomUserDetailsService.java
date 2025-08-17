@@ -6,6 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.custom.ngow.shop.constant.UserStatus;
 import com.custom.ngow.shop.entity.User;
 import com.custom.ngow.shop.exception.CustomException;
 import com.custom.ngow.shop.repository.UserRepository;
@@ -32,7 +33,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         //                .accountExpired(!user.isAccountNonExpired())
         //                .accountLocked(!user.isAccountNonLocked())
         //                .credentialsExpired(!user.isCredentialsNonExpired())
-        //                .disabled(!user.isEnabled())
+        .disabled(user.getStatus() == UserStatus.INACTIVE)
         .build();
   }
 }

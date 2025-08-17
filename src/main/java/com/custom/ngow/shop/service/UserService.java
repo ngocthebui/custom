@@ -12,7 +12,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.custom.ngow.shop.common.MessageUtil;
 import com.custom.ngow.shop.common.SecurePasswordGenerator;
 import com.custom.ngow.shop.constant.UserRole;
+import com.custom.ngow.shop.constant.UserStatus;
 import com.custom.ngow.shop.dto.UserDto;
 import com.custom.ngow.shop.dto.UserPasswordRequest;
 import com.custom.ngow.shop.dto.UserRegistration;
@@ -71,6 +71,7 @@ public class UserService {
     user.setEmail(userRegistration.getEmail());
     user.setPassword(passwordEncoder.encode(userRegistration.getPassword()));
     user.setRole(UserRole.USER);
+    user.setStatus(UserStatus.ACTIVE);
 
     userRepository.save(user);
 
@@ -78,7 +79,17 @@ public class UserService {
   }
 
   public User findByEmail(String email) {
-    return userRepository.findByEmail(email).orElse(null);
+    return userRepository
+        .findByEmail(email)
+        .orElseThrow(
+            () -> new CustomException(messageUtil, "", new String[] {"Email"}, "error.notExist"));
+  }
+
+  public User findById(Long id) {
+    return userRepository
+        .findById(id)
+        .orElseThrow(
+            () -> new CustomException(messageUtil, "", new String[] {"Id"}, "error.notExist"));
   }
 
   public boolean existsByEmail(String email) {
@@ -97,7 +108,8 @@ public class UserService {
     String email = authentication.getName();
     return userRepository
         .findByEmail(email)
-        .orElseThrow(() -> new UsernameNotFoundException("User not found: " + email));
+        .orElseThrow(
+            () -> new CustomException(messageUtil, "", new String[] {"Email"}, "error.notExist"));
   }
 
   public UserDto getCurrentUserDto() {
@@ -202,8 +214,11 @@ public class UserService {
             .findByEmail(email)
             .orElseThrow(
                 () ->
-                    new CustomException(
-                        messageUtil, "email", new String[] {"Email"}, "error.notExist"));
+                    new CustomException(messageUtil, "", new String[] {"Email"}, "error.notExist"));
+    if (user.getStatus().equals(UserStatus.INACTIVE)) {
+      throw new CustomException(messageUtil, "", new String[] {"Account"}, "error.disable");
+    }
+
     otpService.validOTP(email, otp);
 
     String password = SecurePasswordGenerator.generateStrongPassword();
@@ -269,7 +284,44 @@ public class UserService {
                 user.getLastName(),
                 user.getImageUrl(),
                 user.getRole(),
+                user.getStatus(),
                 user.getCreatedAt(),
                 user.getUpdatedAt()));
+  }
+
+  public long countUsersByStatus(UserStatus status) {
+    return userRepository.countByStatus(status);
+  }
+
+  public long countAllUser() {
+    return userRepository.count();
+  }
+
+  public UserDto getUserDtoById(Long id) {
+    User user =
+        userRepository
+            .findById(id)
+            .orElseThrow(
+                () ->
+                    new CustomException(messageUtil, "", new String[] {"Email"}, "error.notExist"));
+    return modelMapper.map(user, UserDto.class);
+  }
+
+  public void updateRoleAndStatus(UserDto userDto) {
+    log.info("Admin is updating user {}", userDto.getEmail());
+
+    UserRole role = userDto.getRole();
+    UserStatus status = userDto.getStatus();
+    if (role == null || status == null) {
+      log.error("Role or status is null for user {}", userDto.getEmail());
+      throw new CustomException(messageUtil, "", new String[] {"ROLE, STATUS"}, "error.notNull");
+    }
+
+    User user = findById(userDto.getId());
+    user.setRole(role);
+    user.setStatus(status);
+    userRepository.save(user);
+
+    log.info("User {} updated successfully role and status", user.getEmail());
   }
 }
