@@ -57,9 +57,9 @@
   <!-- Account -->
   <section class="flat-spacing">
     <input accept="image/*" class="fileInputDash" style="display: none;" type="file">
-    <div class="container">
+    <div class="container-full">
       <div class="row">
-        <div class="col-xl-3 d-none d-xl-block">
+        <div class="col-xl-2 d-none d-xl-block">
           <div class="sidebar-account sidebar-content-wrap sticky-top">
             <div class="account-author">
               <div class="author_avatar">
@@ -114,7 +114,7 @@
             </ul>
           </div>
         </div>
-        <div class="col-xl-9">
+        <div class="col-xl-10">
           <div class="my-account-content">
             <div class="acount-order_stats">
               <div class="swiper tf-swiper" data-mobile="1" data-mobile-sm="2" data-pagination="1"
@@ -164,20 +164,89 @@
               </div>
             </div>
             <div class="account-my_order">
-              <h2 class="account-title type-semibold">User</h2>
+              <h2 class="account-title type-semibold">All users
+                <div class="search-email">
+                  <form action="/admin/users/search" class="form-search style-2" method="GET">
+                    <fieldset>
+                      <input aria-required="true" class="style-stroke" name="q"
+                             placeholder="Search email"
+                             required="" tabindex="0" type="text"
+                             value="">
+                    </fieldset>
+                    <button class="link" type="submit"><i class="icon icon-magnifying-glass"></i>
+                    </button>
+                  </form>
+                </div>
+              </h2>
               <div class="overflow-auto">
                 <table class="table-my_order order_recent user-table">
                   <thead>
                   <tr>
-                    <th>ID</th>
-                    <th>Email</th>
-                    <th>First name</th>
-                    <th>Last name</th>
+                    <th>
+                      <a th:href="@{${pagingUrl}(page=0, sort='id', dir=${reverseDir})}">
+                        ID
+                        <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
+                           th:if="${sort == 'id'}">
+                        </i>
+                      </a>
+                    </th>
+                    <th>
+                      <a th:href="@{${pagingUrl}(page=0, sort='email', dir=${reverseDir})}">
+                        Email
+                        <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
+                           th:if="${sort == 'email'}">
+                        </i>
+                      </a>
+                    </th>
+                    <th>
+                      <a th:href="@{${pagingUrl}(page=0, sort='firstName', dir=${reverseDir})}">
+                        First name
+                        <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
+                           th:if="${sort == 'firstName'}">
+                        </i>
+                      </a>
+                    </th>
+                    <th>
+                      <a th:href="@{${pagingUrl}(page=0, sort='lastName', dir=${reverseDir})}">
+                        Last name
+                        <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
+                           th:if="${sort == 'lastName'}">
+                        </i>
+                      </a>
+                    </th>
                     <th>Image</th>
-                    <th>Role</th>
-                    <th>Status</th>
-                    <th>Created At</th>
-                    <th>Updated At</th>
+                    <th>
+                      <a th:href="@{${pagingUrl}(page=0, sort='role', dir=${reverseDir})}">
+                        Role
+                        <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
+                           th:if="${sort == 'role'}">
+                        </i>
+                      </a>
+                    </th>
+                    <th>
+                      <a th:href="@{${pagingUrl}(page=0, sort='status', dir=${reverseDir})}">
+                        Status
+                        <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
+                           th:if="${sort == 'status'}">
+                        </i>
+                      </a>
+                    </th>
+                    <th>
+                      <a th:href="@{${pagingUrl}(page=0, sort='createdAt', dir=${reverseDir})}">
+                        Created At
+                        <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
+                           th:if="${sort == 'createdAt'}">
+                        </i>
+                      </a>
+                    </th>
+                    <th>
+                      <a th:href="@{${pagingUrl}(page=0, sort='updatedAt', dir=${reverseDir})}">
+                        Updated At
+                        <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
+                           th:if="${sort == 'updatedAt'}">
+                        </i>
+                      </a>
+                    </th>
                     <th>Update</th>
                   </tr>
                   </thead>
@@ -219,17 +288,17 @@
                   </tbody>
                 </table>
               </div>
-              <div class="wd-full wg-pagination">
+              <div class="wd-full wg-pagination" th:if="${!userPage.content.isEmpty()}">
                 <!-- Previous -->
                 <a class="pagination-item h6 direct"
-                   th:href="@{/admin/users(page=${userPage.number - 1})}"
+                   th:href="@{${pagingUrl}(page=${userPage.number - 1}, sort=${sort}, dir=${dir})}"
                    th:if="${userPage.hasPrevious()}">
                   <i class="icon icon-caret-left"></i>
                 </a>
                 <!-- Page numbers -->
                 <span th:each="i : ${#numbers.sequence(0, userPage.totalPages - 1)}">
                   <a class="pagination-item h6"
-                     th:href="@{/admin/users(page=${i})}"
+                     th:href="@{${pagingUrl}(page=${i}, sort=${sort}, dir=${dir})}"
                      th:if="${i != userPage.number}"
                      th:text="${i + 1}">
                   </a>
@@ -240,7 +309,7 @@
                 </span>
                 <!-- Next -->
                 <a class="pagination-item h6 direct"
-                   th:href="@{/admin/users(page=${userPage.number + 1})}"
+                   th:href="@{${pagingUrl}(page=${userPage.number + 1}, sort=${sort}, dir=${dir})}"
                    th:if="${userPage.hasNext()}">
                   <i class="icon icon-caret-right"></i>
                 </a>

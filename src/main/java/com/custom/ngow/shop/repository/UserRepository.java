@@ -19,4 +19,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
   Page<User> findAll(Pageable pageable);
 
   long countByStatus(UserStatus status);
+
+  Page<User> findAllByEmailContainsIgnoreCase(String email, Pageable pageable);
 }

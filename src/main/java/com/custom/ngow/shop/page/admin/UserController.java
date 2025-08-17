@@ -32,13 +32,43 @@ public class UserController {
   private final MessageUtil messageUtil;
 
   @GetMapping
-  public String users(@RequestParam(defaultValue = "0") int page, Model model) {
+  public String getUsers(
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "id") String sort,
+      @RequestParam(defaultValue = "asc") String dir,
+      Model model) {
     model.addAttribute("countActiveUsers", userService.countUsersByStatus(UserStatus.ACTIVE));
     model.addAttribute("countInactiveUsers", userService.countUsersByStatus(UserStatus.INACTIVE));
     model.addAttribute("countTotalUsers", userService.countAllUser());
 
-    model.addAttribute("userPage", userService.getUsers(page, PAGE_SIZE));
+    model.addAttribute("userPage", userService.getUsers(page, PAGE_SIZE, sort, dir));
     model.addAttribute("adminDto", userService.getCurrentUserDto());
+
+    model.addAttribute("pagingUrl", "/admin/users");
+    model.addAttribute("sort", sort);
+    model.addAttribute("dir", dir);
+    model.addAttribute("reverseDir", dir.equals("asc") ? "desc" : "asc");
+    return "view/admin/users";
+  }
+
+  @GetMapping("/search")
+  public String getUsersByEmail(
+      @RequestParam String q,
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "id") String sort,
+      @RequestParam(defaultValue = "asc") String dir,
+      Model model) {
+    model.addAttribute("countActiveUsers", userService.countUsersByStatus(UserStatus.ACTIVE));
+    model.addAttribute("countInactiveUsers", userService.countUsersByStatus(UserStatus.INACTIVE));
+    model.addAttribute("countTotalUsers", userService.countAllUser());
+
+    model.addAttribute("userPage", userService.searchByEmailContain(q, page, PAGE_SIZE, sort, dir));
+    model.addAttribute("adminDto", userService.getCurrentUserDto());
+
+    model.addAttribute("pagingUrl", "/admin/users/search?q=" + q);
+    model.addAttribute("sort", sort);
+    model.addAttribute("dir", dir);
+    model.addAttribute("reverseDir", dir.equals("asc") ? "desc" : "asc");
     return "view/admin/users";
   }
 

@@ -29,7 +29,7 @@
 
 .user-table td:nth-child(1),
 .user-table th:nth-child(1) {
-  max-width: 70px;
+  max-width: 80px;
   white-space: nowrap;
   overflow: hidden;
   text-align: center;
@@ -37,7 +37,7 @@
 
 .user-table td:nth-child(2),
 .user-table th:nth-child(2) {
-  max-width: 220px;
+  max-width: 250px;
   overflow: hidden;
   text-align: left;
 }
@@ -51,7 +51,7 @@
 
 .user-table td:nth-child(7),
 .user-table th:nth-child(7) {
-  max-width: 85px;
+  max-width: 90px;
   overflow: hidden;
   text-align: center;
 }
@@ -68,12 +68,13 @@
 .user-table td:nth-child(10),
 .user-table th:nth-child(10) {
   max-width: 60px;
+  text-align: left;
 }
 
 /* Avatar */
 .user-avatar {
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   object-fit: cover;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -84,4 +85,26 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/* Search Email Component Styles */
+
+.account-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+@media (max-width: 576px) {
+  .account-title {
+    font-size: 20px;
+  }
+
+  .form-search {
+    width: 200px; /* Nhỏ hơn trên mobile */
+    max-width: 200px;
+  }
 }

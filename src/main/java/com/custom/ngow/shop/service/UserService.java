@@ -85,6 +85,29 @@ public class UserService {
             () -> new CustomException(messageUtil, "", new String[] {"Email"}, "error.notExist"));
   }
 
+  public Page<UserDto> searchByEmailContain(
+      String email, int page, int size, String sortBy, String dir) {
+    Sort.Direction direction =
+        dir.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+    Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortBy));
+
+    Page<User> users = userRepository.findAllByEmailContainsIgnoreCase(email, pageable);
+
+    // convert Page<User> -> Page<UserDto>
+    return users.map(
+        user ->
+            new UserDto(
+                user.getId(),
+                user.getEmail(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getImageUrl(),
+                user.getRole(),
+                user.getStatus(),
+                user.getCreatedAt(),
+                user.getUpdatedAt()));
+  }
+
   public User findById(Long id) {
     return userRepository
         .findById(id)
@@ -270,8 +293,11 @@ public class UserService {
     log.info("User: {} updated successful avatar: {}", user.getEmail(), filename);
   }
 
-  public Page<UserDto> getUsers(int page, int size) {
-    Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
+  public Page<UserDto> getUsers(int page, int size, String sortBy, String dir) {
+    Sort.Direction direction =
+        dir.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+    Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortBy));
+
     Page<User> users = userRepository.findAll(pageable);
 
     // convert Page<User> -> Page<UserDto>
