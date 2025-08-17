@@ -5,6 +5,10 @@ import java.util.concurrent.CompletableFuture;
 import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -249,5 +253,23 @@ public class UserService {
     userRepository.save(user);
 
     log.info("User: {} updated successful avatar: {}", user.getEmail(), filename);
+  }
+
+  public Page<UserDto> getUsers(int page, int size) {
+    Pageable pageable = PageRequest.of(page, size, Sort.by("id").descending());
+    Page<User> users = userRepository.findAll(pageable);
+
+    // convert Page<User> -> Page<UserDto>
+    return users.map(
+        user ->
+            new UserDto(
+                user.getId(),
+                user.getEmail(),
+                user.getFirstName(),
+                user.getLastName(),
+                user.getImageUrl(),
+                user.getRole(),
+                user.getCreatedAt(),
+                user.getUpdatedAt()));
   }
 }

@@ -44,7 +44,7 @@ public class SecurityConfig {
                         "/user/register", "/user/forgot-password", "/user/reset-password")
                     .permitAll()
                     .requestMatchers("/admin/**")
-                    .hasRole("ADMIN")
+                    .hasAuthority("ADMIN")
                     .requestMatchers("/user/**")
                     .authenticated()
                     .anyRequest()
