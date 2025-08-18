@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]>
+<html class="ie"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en-US"
+      xml:lang="en-US"
+      xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <title>Ochaka - Multipurpose eCommerce HTML Template</title>
+  <meta content="themesflat.com" name="author">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+  <meta
+      content="Themesflat Ochaka - A modern and elegant Multipurpose eCommerce HTML Template, perfect for online stores selling rings, necklaces, watches, and other accessories. SEO-optimized, fast-loading, and fully customizable."
+      name="description">
+  <meta name="_csrf" th:content="${_csrf.token}"/>
+  <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+  <!-- font -->
+  <link href="/fonts/fonts.css" rel="stylesheet">
+  <link href="/icon/icomoon/style.css" rel="stylesheet">
+  <!-- css -->
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/swiper-bundle.min.css" rel="stylesheet">
+  <link href="/css/animate.css" rel="stylesheet">
+  <link href="/css/styles.css" rel="stylesheet" type="text/css">
+  <link href="/css/fragments/list-user.css" rel="stylesheet">
+
+  <!-- Favicon and Touch Icons  -->
+  <link href="/images/logo/favicon.svg" rel="shortcut icon">
+  <link href="/images/logo/favicon.svg" rel="apple-touch-icon-precomposed">
+
+</head>
+
+<body>
+
+<!-- Scroll Top -->
+<button id="goTop">
+  <span class="border-progress"></span>
+  <span class="icon icon-caret-up"></span>
+</button>
+
+<div id="wrapper">
+  <!-- Page Title -->
+  <section class="s-page-title">
+    <div class="content">
+      <h1 class="title-page">Admin</h1>
+    </div>
+  </section>
+  <!-- /Page Title -->
+  <!-- Account -->
+  <section class="flat-spacing">
+    <input accept="image/*" class="fileInputDash" style="display: none;" type="file">
+    <div class="container-full">
+      <div class="row">
+        <div class="col-xl-2 d-none d-xl-block">
+          <div class="sidebar-account sidebar-content-wrap sticky-top">
+            <div class="account-author">
+              <div class="author_avatar">
+                <div class="image">
+                  <img alt="Avatar"
+                       class="lazyload imgDash"
+                       th:data-src="${imgUrl}"
+                       th:src="${imgUrl}"
+                       th:with="imgUrl=${#strings.isEmpty(adminDto.imageUrl) ? '/images/avatar/avatar-default.jpg' : adminDto.imageUrl}">
+                </div>
+                <div class="btn-change_img box-icon changeImgDash">
+                  <i class="icon icon-camera"></i>
+                </div>
+              </div>
+              <h4 class="author_name" th:text="${adminDto.firstName}">Firstname</h4>
+              <p class="author_email h6" th:text="${adminDto.email}">Email</p>
+            </div>
+            <ul class="my-account-nav">
+              <li>
+                <a class="my-account-nav_item h5 active" href="/admin/users">
+                  <i class="icon icon-user"></i>
+                  Users
+                </a>
+              </li>
+              <li>
+                <a class="my-account-nav_item h5" href="account-orders.html">
+                  <i class="icon icon-box-arrow-down"></i>
+                  Oders
+                </a>
+              </li>
+              <li>
+                <a class="my-account-nav_item h5" href="account-addresses.html">
+                  <i class="icon icon-address-book"></i>
+                  My address
+                </a>
+              </li>
+              <li>
+                <a class="my-account-nav_item h5" href="account-setting.html">
+                  <i class="icon icon-setting"></i>
+                  Setting
+                </a>
+              </li>
+              <li>
+                <form action="/logout" method="post">
+                  <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
+                  <button class="my-account-nav_item h5" style="width: 100%" type="submit">
+                    <i class="icon icon-sign-out"></i>
+                    Log out
+                  </button>
+                </form>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-xl-10">
+          <div class="my-account-content">
+            <div class="acount-order_stats">
+              <div class="swiper tf-swiper" data-mobile="1" data-mobile-sm="2" data-pagination="1"
+                   data-pagination-lg="3" data-pagination-md="3"
+                   data-pagination-sm="2" data-preview="3" data-space="12" data-space-lg="48"
+                   data-space-md="16"
+                   data-tablet="3" dir="ltr">
+                <div class="swiper-wrapper">
+                  <!-- item 1 -->
+                  <div class="swiper-slide">
+                    <div class="order-box">
+                      <div class="order_icon">
+                        <i class="icon icon-check-fat"></i>
+                      </div>
+                      <div class="order_info">
+                        <p class="info_label h6">Active users</p>
+                        <h2 class="info_count type-semibold" th:text="${countActiveUsers}">0</h2>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- item 2 -->
+                  <div class="swiper-slide">
+                    <div class="order-box">
+                      <div class="order_icon">
+                        <i class="icon icon-x"></i>
+                      </div>
+                      <div class="order_info">
+                        <p class="info_label h6">Inactive users</p>
+                        <h2 class="info_count type-semibold" th:text="${countInactiveUsers}">0</h2>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- item 3 -->
+                  <div class="swiper-slide">
+                    <div class="order-box">
+                      <div class="order_icon">
+                        <i class="icon icon-user"></i>
+                      </div>
+                      <div class="order_info">
+                        <p class="info_label h6">Total users</p>
+                        <h2 class="info_count type-semibold" th:text="${countTotalUsers}">0</h2>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="sw-dot-default tf-sw-pagination"></div>
+              </div>
+            </div>
+            <div class="account-my_order">
+              <h2 class="account-title type-semibold">All users
+                <div class="search-email">
+                  <form action="/admin/users/search" class="form-search style-2" method="GET">
+                    <fieldset>
+                      <input aria-required="true" class="style-stroke" name="q"
+                             placeholder="Search email"
+                             required="" tabindex="0" type="text"
+                             value="">
+                    </fieldset>
+                    <button class="link" type="submit"><i class="icon icon-magnifying-glass"></i>
+                    </button>
+                  </form>
+                </div>
+              </h2>
+              <div class="overflow-auto">
+                <table class="table-my_order order_recent user-table">
+                  <thead>
+                  <tr>
+                    <th>
+                      <a th:href="@{${pagingUrl}(page=0, sort='id', dir=${reverseDir})}">
+                        ID
+                        <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
+                           th:if="${sort == 'id'}">
+                        </i>
+                      </a>
+                    </th>
+                    <th>
+                      <a th:href="@{${pagingUrl}(page=0, sort='email', dir=${reverseDir})}">
+                        Email
+                        <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
+                           th:if="${sort == 'email'}">
+                        </i>
+                      </a>
+                    </th>
+                    <th>
+                      <a th:href="@{${pagingUrl}(page=0, sort='firstName', dir=${reverseDir})}">
+                        First name
+                        <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
+                           th:if="${sort == 'firstName'}">
+                        </i>
+                      </a>
+                    </th>
+                    <th>
+                      <a th:href="@{${pagingUrl}(page=0, sort='lastName', dir=${reverseDir})}">
+                        Last name
+                        <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
+                           th:if="${sort == 'lastName'}">
+                        </i>
+                      </a>
+                    </th>
+                    <th>Image</th>
+                    <th>
+                      <a th:href="@{${pagingUrl}(page=0, sort='role', dir=${reverseDir})}">
+                        Role
+                        <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
+                           th:if="${sort == 'role'}">
+                        </i>
+                      </a>
+                    </th>
+                    <th>
+                      <a th:href="@{${pagingUrl}(page=0, sort='status', dir=${reverseDir})}">
+                        Status
+                        <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
+                           th:if="${sort == 'status'}">
+                        </i>
+                      </a>
+                    </th>
+                    <th>
+                      <a th:href="@{${pagingUrl}(page=0, sort='createdAt', dir=${reverseDir})}">
+                        Created At
+                        <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
+                           th:if="${sort == 'createdAt'}">
+                        </i>
+                      </a>
+                    </th>
+                    <th>
+                      <a th:href="@{${pagingUrl}(page=0, sort='updatedAt', dir=${reverseDir})}">
+                        Updated At
+                        <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
+                           th:if="${sort == 'updatedAt'}">
+                        </i>
+                      </a>
+                    </th>
+                    <th>Update</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr class="tb-order-item" th:each="user : ${userPage.content}">
+                    <td th:text="${user.id}">ID</td>
+                    <td th:text="${user.email}">Email</td>
+                    <td th:text="${user.firstName}">First Name</td>
+                    <td th:text="${user.lastName}">Last Name</td>
+                    <td>
+                      <div class="tb-order_product">
+                        <img alt="Image"
+                             class="lazyload user-avatar"
+                             th:data-src="${user.imageUrl}"
+                             th:src="${user.imageUrl}">
+                      </div>
+                    </td>
+                    <td th:text="${user.role.name()}">Role</td>
+                    <td>
+                      <div class="tb-order_status stt-complete"
+                           th:classappend="${user.status.name() == 'ACTIVE'} ? 'stt-complete' : 'stt-cancel'"
+                           th:text="${user.status.name()}">
+                        ACTIVE
+                      </div>
+                    </td>
+                    <td th:text="${#temporals.format(user.createdAt, 'yyyy-MM-dd HH:mm')}">Created
+                      At
+                    </td>
+                    <td th:text="${#temporals.format(user.updatedAt, 'yyyy-MM-dd HH:mm')}">Updated
+                      At
+                    </td>
+                    <td>
+                      <a class="my-account-nav_item h5"
+                         th:href="@{'/admin/users/update/' + ${user.id}}">
+                        <i class="icon icon-setting"></i>
+                      </a>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="wd-full wg-pagination" th:if="${!userPage.content.isEmpty()}">
+                <!-- Previous -->
+                <a class="pagination-item h6 direct"
+                   th:href="@{${pagingUrl}(page=${userPage.number - 1}, sort=${sort}, dir=${dir})}"
+                   th:if="${userPage.hasPrevious()}">
+                  <i class="icon icon-caret-left"></i>
+                </a>
+                <!-- Page numbers -->
+                <span th:each="i : ${#numbers.sequence(0, userPage.totalPages - 1)}">
+                  <a class="pagination-item h6"
+                     th:href="@{${pagingUrl}(page=${i}, sort=${sort}, dir=${dir})}"
+                     th:if="${i != userPage.number}"
+                     th:text="${i + 1}">
+                  </a>
+                  <span class="pagination-item h6 active"
+                        th:if="${i == userPage.number}"
+                        th:text="${i + 1}">
+                  </span>
+                </span>
+                <!-- Next -->
+                <a class="pagination-item h6 direct"
+                   th:href="@{${pagingUrl}(page=${userPage.number + 1}, sort=${sort}, dir=${dir})}"
+                   th:if="${userPage.hasNext()}">
+                  <i class="icon icon-caret-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /Account -->
+</div>
+
+<!-- Button Sidebar -->
+<div class="btn-sidebar-mb d-lg-none left">
+  <button data-bs-target="#mbSidebar" data-bs-toggle="offcanvas">
+    <i class="icon icon-sidebar"></i>
+  </button>
+</div>
+<!-- /Button Sidebar -->
+<!-- Sidebar -->
+<div class="offcanvas offcanvas-start canvas-sidebar" id="mbSidebar">
+  <div class="canvas-wrapper">
+    <div class="canvas-header">
+      <span class="title h4 fw-bold">Admin</span>
+      <span class="icon-close link icon-close-popup" data-bs-dismiss="offcanvas"></span>
+    </div>
+    <div class="canvas-body sidebar-mobile-append sidebar-account"></div>
+  </div>
+</div>
+<!-- /Sidebar -->
+
+<!-- Javascript -->
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/swiper-bundle.min.js"></script>
+<script src="/js/carousel.js"></script>
+<script src="/js/bootstrap-select.min.js"></script>
+<script src="/js/lazysize.min.js"></script>
+<script src="/js/wow.min.js"></script>
+<script src="/js/main.js"></script>
+</body>
+
+</html>

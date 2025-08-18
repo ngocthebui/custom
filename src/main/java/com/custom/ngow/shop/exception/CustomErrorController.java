@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.custom.ngow.shop.page.BaseController;
+import com.custom.ngow.shop.page.shop.BaseController;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,11 +18,11 @@ public class CustomErrorController extends BaseController implements ErrorContro
   public String handleError(HttpServletRequest request, Model model) {
     Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 
+    addDefaultToModel(model);
     if (status != null) {
       int statusCode = Integer.parseInt(status.toString());
 
       if (statusCode == HttpStatus.NOT_FOUND.value()) {
-        addDefaultToModel(model);
         return "view/pages/404";
       }
     }

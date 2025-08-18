@@ -42,35 +42,13 @@
 
 <!-- Scroll Top and preload -->
 <div th:replace="~{view/fragments/goTop :: goTop}"></div>
-<div th:replace="~{view/fragments/goTop :: preload}"></div>
 <!-- /Scroll Top and preload -->
 
 <div id="wrapper">
-  <!-- Top Bar-->
-  <div th:replace="~{view/fragments/topbar :: topbar}"></div>
-  <!-- /Top Bar -->
-
-  <!-- Header -->
-  <header class="tf-header header-fix">
-    <div class="container-full">
-      <div th:replace="~{view/fragments/header :: header}"></div>
-    </div>
-  </header>
-  <!-- /Header -->
-
   <!-- Page Title -->
   <section class="s-page-title">
-    <div class="container">
-      <div class="content">
-        <h1 class="title-page">My Account</h1>
-        <ul class="breadcrumbs-page">
-          <li><a class="h6 link" th:href="@{/}">Home</a></li>
-          <li class="d-flex"><i class="icon icon-caret-right"></i></li>
-          <li>
-            <h6 class="current-page fw-normal">My account</h6>
-          </li>
-        </ul>
-      </div>
+    <div class="content">
+      <h1 class="title-page">Admin</h1>
     </div>
   </section>
   <!-- /Page Title -->
@@ -88,20 +66,20 @@
                        class="lazyload imgDash"
                        th:data-src="${imgUrl}"
                        th:src="${imgUrl}"
-                       th:with="imgUrl=${#strings.isEmpty(userDto.imageUrl) ? '/images/avatar/avatar-default.jpg' : userDto.imageUrl}">
+                       th:with="imgUrl=${#strings.isEmpty(adminDto.imageUrl) ? '/images/avatar/avatar-default.jpg' : adminDto.imageUrl}">
                 </div>
                 <div class="btn-change_img box-icon changeImgDash">
                   <i class="icon icon-camera"></i>
                 </div>
               </div>
-              <h4 class="author_name" th:text="${userDto.firstName}">Firstname</h4>
-              <p class="author_email h6" th:text="${userDto.email}">Email</p>
+              <h4 class="author_name" th:text="${adminDto.firstName}">Firstname</h4>
+              <p class="author_email h6" th:text="${adminDto.email}">Email</p>
             </div>
             <ul class="my-account-nav">
               <li>
-                <a class="my-account-nav_item h5" href="account-page.html">
-                  <i class="icon icon-circle-four"></i>
-                  Dashboard
+                <a class="my-account-nav_item h5 active" href="/admin/users">
+                  <i class="icon icon-user"></i>
+                  Users
                 </a>
               </li>
               <li>
@@ -117,10 +95,10 @@
                 </a>
               </li>
               <li>
-                <p class="my-account-nav_item h5 active">
+                <a class="my-account-nav_item h5" href="account-setting.html">
                   <i class="icon icon-setting"></i>
                   Setting
-                </p>
+                </a>
               </li>
               <li>
                 <form action="/logout" method="post">
@@ -142,70 +120,55 @@
             <div class="alert alert-danger" role="alert" th:if="${errorMessage}">
               <span th:text="${errorMessage}"></span>
             </div>
-            <form class="form-change_pass" method="post" th:action="@{/user/update-info}"
+            <form class="form-change_pass" method="post" th:action="@{/admin/users/update}"
                   th:object="${userDto}">
               <input th:field="*{id}" type="hidden"/>
-              <input th:field="*{imageUrl}" type="hidden"/>
-              <input th:field="*{createdAt}" type="hidden"/>
-              <input th:field="*{updatedAt}" type="hidden"/>
+              <input th:field="*{email}" type="hidden"/>
               <div class="" style="padding-bottom: 20px">
-                <h2 class="account-title type-semibold">Account Setting</h2>
+                <h2 class="account-title type-semibold"
+                    th:text="'Update user: ' + ${userDto.email}">
+                  Update user:
+                </h2>
                 <div class="form_content site-change">
                   <div class="cols tf-grid-layout sm-col-2">
                     <fieldset>
-                      <input placeholder="First name *" required th:field="*{firstName}"
-                             type="text">
-                      <span class="error-message" th:errors="*{firstName}"
-                            th:if="${#fields.hasErrors('firstName')}"></span>
+                      <input disabled placeholder="First name *"
+                             style="background-color: #6c757d" th:field="*{firstName}" type="text">
                     </fieldset>
                     <fieldset>
-                      <input placeholder="Last name *" required th:field="*{lastName}" type="text">
-                      <span class="error-message" th:errors="*{lastName}"
-                            th:if="${#fields.hasErrors('lastName')}"></span>
+                      <input disabled placeholder="Last name *" style="background-color: #6c757d" th:field="*{lastName}"
+                             type="text">
                     </fieldset>
                   </div>
                   <fieldset>
-                    <input placeholder="Email *" required th:field="*{email}" type="email">
-                    <span class="error-message" th:errors="*{email}"
-                          th:if="${#fields.hasErrors('email')}"></span>
+                    <input disabled placeholder="Email *" style="background-color: #6c757d" th:field="*{email}"
+                           type="email">
                   </fieldset>
+                  <div class="cols tf-grid-layout sm-col-2">
+                    <fieldset>
+                      <div class="tf-select">
+                        <select class="w-100" th:field="*{role}">
+                          <option th:each="role : ${roleList}"
+                                  th:text="${role}"
+                                  th:value="${role}">
+                          </option>
+                        </select>
+                      </div>
+                    </fieldset>
+                    <fieldset>
+                      <div class="tf-select">
+                        <select class="w-100" th:field="*{status}">
+                          <option th:each="status : ${statusList}"
+                                  th:text="${status}"
+                                  th:value="${status}">
+                          </option>
+                        </select>
+                      </div>
+                    </fieldset>
+                  </div>
                 </div>
                 <button class="btn-submit_form tf-btn animate-btn w-100 fw-bold" type="submit">
                   Save change
-                </button>
-              </div>
-            </form>
-            <form class="form-change_pass" method="post" th:action="@{/user/change-password}"
-                  th:object="${userPasswordRequest}">
-              <div class="">
-                <h2 class="account-title type-semibold">Change Password</h2>
-                <div class="form_content site-change">
-                  <fieldset class="password-wrapper">
-                    <input class="password-field" placeholder="Current password *" required
-                           th:field="*{currentPassword}" type="password">
-                    <span class="toggle-pass icon-show-password"></span>
-                    <span class="error-message"
-                          th:errors="*{currentPassword}"
-                          th:if="${#fields.hasErrors('currentPassword')}"></span>
-                  </fieldset>
-                  <fieldset class="password-wrapper">
-                    <input class="password-field" placeholder="New password *" required
-                           th:field="*{password}" type="password">
-                    <span class="toggle-pass icon-show-password"></span>
-                    <span class="error-message" th:errors="*{password}"
-                          th:if="${#fields.hasErrors('password')}"></span>
-                  </fieldset>
-                  <fieldset class="password-wrapper">
-                    <input class="password-field" placeholder="Confirm password *" required
-                           th:field="*{confirmPassword}" type="password">
-                    <span class="toggle-pass icon-show-password"></span>
-                    <span class="error-message"
-                          th:errors="*{confirmPassword}"
-                          th:if="${#fields.hasErrors('confirmPassword')}"></span>
-                  </fieldset>
-                </div>
-                <button class="btn-submit_form tf-btn animate-btn w-100 fw-bold" type="submit">
-                  Change password
                 </button>
               </div>
             </form>
@@ -215,19 +178,7 @@
     </div>
   </section>
   <!-- /Account -->
-
-  <!-- Footer -->
-  <div th:replace="~{view/fragments/footer :: footer}"></div>
-  <!-- /Footer -->
 </div>
-
-<!-- Mobile Menu -->
-<div th:replace="~{view/fragments/header :: mobileMenu}"></div>
-<!-- /Mobile Menu -->
-
-<!-- Toolbar -->
-<div th:replace="~{view/fragments/toolbar :: toolbar}"></div>
-<!-- /Toolbar -->
 
 <!-- Button Sidebar -->
 <div th:replace="~{view/fragments/sidebar :: button-sidebar}"></div>
@@ -235,20 +186,6 @@
 <!-- Sidebar -->
 <div th:replace="~{view/fragments/sidebar :: sidebar}"></div>
 <!-- /Sidebar -->
-
-<!-- Product actions -->
-<div th:replace="~{view/fragments/product-actions :: size-guide}"></div>
-<div th:replace="~{view/fragments/product-actions :: compare}"></div>
-<div th:replace="~{view/fragments/product-actions :: quick-view}"></div>
-<!-- /Product actions -->
-
-<!-- Search -->
-<div th:replace="~{view/fragments/header :: search}"></div>
-<!-- /Search -->
-
-<!-- Shopping Cart -->
-<div th:replace="~{view/fragments/header :: shoppingCart}"></div>
-<!-- /Shopping Cart -->
 
 <!-- Javascript -->
 <script th:src="@{/js/bootstrap.min.js}"></script>

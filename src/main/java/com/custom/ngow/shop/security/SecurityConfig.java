@@ -14,6 +14,8 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
+import com.custom.ngow.shop.config.CustomAuthenticationFailureHandler;
+
 import lombok.RequiredArgsConstructor;
 
 @Configuration
@@ -26,6 +28,7 @@ public class SecurityConfig {
 
   private final UserDetailsService userDetailsService;
   private final DataSource dataSource;
+  private final CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
 
   @Value("${jwt.signer_key}")
   private String secretKey;
@@ -44,7 +47,7 @@ public class SecurityConfig {
                         "/user/register", "/user/forgot-password", "/user/reset-password")
                     .permitAll()
                     .requestMatchers("/admin/**")
-                    .hasRole("ADMIN")
+                    .hasAuthority("ADMIN")
                     .requestMatchers("/user/**")
                     .authenticated()
                     .anyRequest()
@@ -54,7 +57,7 @@ public class SecurityConfig {
                 form.loginPage("/login")
                     .loginProcessingUrl("/perform-login")
                     .defaultSuccessUrl("/", true)
-                    .failureUrl("/login?error=true")
+                    .failureHandler(customAuthenticationFailureHandler)
                     .usernameParameter("email")
                     .passwordParameter("password")
                     .permitAll())

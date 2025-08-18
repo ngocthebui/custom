@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.custom.ngow.shop.constant.UserRole;
+import com.custom.ngow.shop.constant.UserStatus;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -38,6 +39,7 @@ public class User {
   private String imageUrl;
 
   private UserRole role;
+  private UserStatus status;
 
   @CreationTimestamp private LocalDateTime createdAt;
 
