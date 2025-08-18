@@ -33,24 +33,24 @@ public class HomeController extends BaseController {
 
     setBannersToModel(model);
     setPromotionalProductsToModel(model);
-    return "view/pages/index";
+    return "view/shop/pages/index";
   }
 
   @GetMapping("/my-account")
   public String myAccount(Model model) {
     addDefaultToModel(model);
 
-    return "view/pages/account-setting";
+    return "view/shop/pages/account-setting";
   }
 
   @GetMapping("/faq")
   public String faq() {
-    return "view/pages/faq";
+    return "view/shop/pages/faq";
   }
 
   @GetMapping("/wish-list")
   public String wishList() {
-    return "view/pages/wishlist";
+    return "view/shop/pages/wishlist";
   }
 
   @GetMapping("/login")
@@ -70,29 +70,29 @@ public class HomeController extends BaseController {
     }
 
     addDefaultToModel(model);
-    return "view/pages/login";
+    return "view/shop/pages/login";
   }
 
   @GetMapping("/register")
   public String register(
       @ModelAttribute("userRegistration") UserRegistration userRegistration, Model model) {
     addDefaultToModel(model);
-    return "view/pages/register";
+    return "view/shop/pages/register";
   }
 
   @GetMapping("/all-products")
   public String shop5columns() {
-    return "view/pages/shop-5-columns";
+    return "view/shop/pages/shop-5-columns";
   }
 
   @GetMapping("/shop-2-columns")
   public String shop2columns() {
-    return "view/pages/shop-2-columns";
+    return "view/shop/pages/shop-2-columns";
   }
 
   @GetMapping("/product-detail")
   public String productDetail() {
-    return "view/pages/product-detail";
+    return "view/shop/pages/product-detail";
   }
 
   @GetMapping("/search")
@@ -110,7 +110,7 @@ public class HomeController extends BaseController {
     }
     session.setAttribute(SEARCH_HISTORY_KEY, history);
 
-    return "view/pages/shop-5-columns";
+    return "view/shop/pages/shop-5-columns";
   }
 
   private void setBannersToModel(Model model) {

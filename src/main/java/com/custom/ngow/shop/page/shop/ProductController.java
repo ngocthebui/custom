@@ -21,7 +21,7 @@ public class ProductController extends BaseController {
     model.addAttribute("productDetail", product);
 
     addDefaultToModel(model);
-    return "view/pages/product-detail";
+    return "view/shop/pages/product-detail";
   }
 
   private ProductDto getProductDetail() {
