@@ -95,81 +95,14 @@
                      data-preview="4.7"
                      dir="ltr">
                   <div class="swiper-wrapper stagger-wrap">
-                    <div class="swiper-slide stagger-item" data-color="blue" data-size="XS">
+                    <div class="swiper-slide stagger-item"
+                         th:data-color="${image.color}"
+                         th:data-size="${image.size}"
+                         th:each="image : ${productDetail.images}">
                       <div class="item">
                         <img alt="img-product" class="lazyload"
-                             data-src="/images/products/fashion/product-1.jpg"
-                             src="/images/products/fashion/product-1.jpg">
-                      </div>
-                    </div>
-                    <div class="swiper-slide stagger-item" data-color="blue" data-size="S">
-                      <div class="item">
-                        <img alt="img-product" class="lazyload"
-                             data-src="/images/products/fashion/product-2.jpg"
-                             src="/images/products/fashion/product-2.jpg">
-                      </div>
-                    </div>
-                    <div class="swiper-slide stagger-item" data-color="blue" data-size="M">
-                      <div class="item">
-                        <img alt="img-product" class="lazyload"
-                             data-src="/images/products/fashion/product-3.jpg"
-                             src="/images/products/fashion/product-3.jpg">
-                      </div>
-                    </div>
-                    <div class="swiper-slide stagger-item" data-color="blue" data-size="L">
-                      <div class="item">
-                        <img alt="img-product" class="lazyload"
-                             data-src="/images/products/fashion/product-4.jpg"
-                             src="/images/products/fashion/product-4.jpg">
-                      </div>
-                    </div>
-                    <div class="swiper-slide stagger-item" data-color="blue" data-size="L">
-                      <div class="item">
-                        <img alt="img-product" class="lazyload"
-                             data-src="/images/products/fashion/product-5.jpg"
-                             src="/images/products/fashion/product-5.jpg">
-                      </div>
-                    </div>
-                    <div class="swiper-slide stagger-item" data-color="gray" data-size="M">
-                      <div class="item">
-                        <img alt="img-product" class="lazyload"
-                             data-src="/images/products/fashion/product-6.jpg"
-                             src="/images/products/fashion/product-6.jpg">
-                      </div>
-                    </div>
-                    <div class="swiper-slide stagger-item" data-color="pink" data-size="M">
-                      <div class="item">
-                        <img alt="img-product" class="lazyload"
-                             data-src="/images/products/fashion/product-7.jpg"
-                             src="/images/products/fashion/product-7.jpg">
-                      </div>
-                    </div>
-                    <div class="swiper-slide stagger-item" data-color="green" data-size="M">
-                      <div class="item">
-                        <img alt="img-product" class="lazyload"
-                             data-src="/images/products/fashion/product-8.jpg"
-                             src="/images/products/fashion/product-8.jpg">
-                      </div>
-                    </div>
-                    <div class="swiper-slide stagger-item" data-color="gray" data-size="M">
-                      <div class="item">
-                        <img alt="img-product" class="lazyload"
-                             data-src="/images/products/fashion/product-9.jpg"
-                             src="/images/products/fashion/product-9.jpg">
-                      </div>
-                    </div>
-                    <div class="swiper-slide stagger-item" data-color="gray" data-size="M">
-                      <div class="item">
-                        <img alt="img-product" class="lazyload"
-                             data-src="/images/products/fashion/product-10.jpg"
-                             src="/images/products/fashion/product-10.jpg">
-                      </div>
-                    </div>
-                    <div class="swiper-slide stagger-item" data-color="white" data-size="M">
-                      <div class="item">
-                        <img alt="img-product" class="lazyload"
-                             data-src="/images/products/fashion/product-11.jpg"
-                             src="/images/products/fashion/product-11.jpg">
+                             th:data-src="${image.imageUrl}"
+                             th:src="${image.imageUrl}">
                       </div>
                     </div>
                   </div>
@@ -177,116 +110,17 @@
                 <div class="flat-wrap-media-product">
                   <div class="swiper tf-product-media-main" dir="ltr" id="gallery-swiper-started">
                     <div class="swiper-wrapper">
-                      <div class="swiper-slide" data-color="blue" data-size="XS">
+                      <div class="swiper-slide"
+                           th:data-color="${image.color}"
+                           th:data-size="${image.size}"
+                           th:each="image : ${productDetail.images}">
                         <a class="item" data-pswp-height="1146px" data-pswp-width="860px"
-                           href="/images/products/fashion/product-1.jpg" target="_blank">
+                           target="_blank" th:href="${image.imageUrl}">
                           <img alt=""
                                class="tf-image-zoom lazyload"
-                               data-src="/images/products/fashion/product-1.jpg"
-                               data-zoom="/images/products/fashion/product-1.jpg"
-                               src="/images/products/fashion/product-1.jpg">
-                        </a>
-                      </div>
-                      <div class="swiper-slide" data-color="blue" data-size="S">
-                        <a class="item" data-pswp-height="1146px" data-pswp-width="860px"
-                           href="/images/products/fashion/product-2.jpg" target="_blank">
-                          <img alt=""
-                               class="tf-image-zoom lazyload"
-                               data-src="/images/products/fashion/product-2.jpg"
-                               data-zoom="/images/products/fashion/product-2.jpg"
-                               src="/images/products/fashion/product-2.jpg">
-                        </a>
-                      </div>
-                      <div class="swiper-slide" data-color="blue" data-size="M">
-                        <a class="item" data-pswp-height="1146px" data-pswp-width="860px"
-                           href="/images/products/fashion/product-3.jpg" target="_blank">
-                          <img alt="img-product"
-                               class="tf-image-zoom lazyload"
-                               data-src="/images/products/fashion/product-3.jpg"
-                               data-zoom="/images/products/fashion/product-3.jpg"
-                               src="/images/products/fashion/product-3.jpg">
-                        </a>
-                      </div>
-                      <div class="swiper-slide" data-color="blue" data-size="L">
-                        <a class="item" data-pswp-height="1146px" data-pswp-width="860px"
-                           href="/images/products/fashion/product-4.jpg" target="_blank">
-                          <img alt="img-product"
-                               class="tf-image-zoom lazyload"
-                               data-src="/images/products/fashion/product-4.jpg"
-                               data-zoom="/images/products/fashion/product-4.jpg"
-                               src="/images/products/fashion/product-4.jpg">
-                        </a>
-                      </div>
-                      <div class="swiper-slide" data-color="blue" data-size="L">
-                        <a class="item" data-pswp-height="1146px" data-pswp-width="860px"
-                           href="/images/products/fashion/product-5.jpg" target="_blank">
-                          <img alt="img-product"
-                               class="tf-image-zoom lazyload"
-                               data-src="/images/products/fashion/product-5.jpg"
-                               data-zoom="/images/products/fashion/product-5.jpg"
-                               src="/images/products/fashion/product-5.jpg">
-                        </a>
-                      </div>
-                      <div class="swiper-slide" data-color="gray" data-size="M">
-                        <a class="item" data-pswp-height="1146px" data-pswp-width="860px"
-                           href="/images/products/fashion/product-6.jpg" target="_blank">
-                          <img alt="img-product"
-                               class="tf-image-zoom lazyload"
-                               data-src="/images/products/fashion/product-6.jpg"
-                               data-zoom="/images/products/fashion/product-6.jpg"
-                               src="/images/products/fashion/product-6.jpg">
-                        </a>
-                      </div>
-                      <div class="swiper-slide" data-color="pink" data-size="M">
-                        <a class="item" data-pswp-height="1146px" data-pswp-width="860px"
-                           href="/images/products/fashion/product-7.jpg" target="_blank">
-                          <img alt="img-product"
-                               class="tf-image-zoom lazyload"
-                               data-src="/images/products/fashion/product-7.jpg"
-                               data-zoom="/images/products/fashion/product-7.jpg"
-                               src="/images/products/fashion/product-7.jpg">
-                        </a>
-                      </div>
-                      <div class="swiper-slide" data-color="green" data-size="M">
-                        <a class="item" data-pswp-height="1146px" data-pswp-width="860px"
-                           href="/images/products/fashion/product-8.jpg" target="_blank">
-                          <img alt="img-product"
-                               class="tf-image-zoom lazyload"
-                               data-src="/images/products/fashion/product-8.jpg"
-                               data-zoom="/images/products/fashion/product-8.jpg"
-                               src="/images/products/fashion/product-8.jpg">
-                        </a>
-                      </div>
-                      <div class="swiper-slide" data-color="gray" data-size="M">
-                        <a class="item" data-pswp-height="1146px" data-pswp-width="860px"
-                           href="/images/products/fashion/product-9.jpg" target="_blank">
-                          <img alt="img-product"
-                               class="tf-image-zoom lazyload"
-                               data-src="/images/products/fashion/product-9.jpg"
-                               data-zoom="/images/products/fashion/product-9.jpg"
-                               src="/images/products/fashion/product-9.jpg">
-                        </a>
-                      </div>
-                      <div class="swiper-slide" data-color="gray" data-size="M">
-                        <a class="item" data-pswp-height="1146px"
-                           data-pswp-width="860px"
-                           href="/images/products/fashion/product-10.jpg" target="_blank">
-                          <img alt="img-product"
-                               class="tf-image-zoom lazyload"
-                               data-src="/images/products/fashion/product-10.jpg"
-                               data-zoom="/images/products/fashion/product-10.jpg"
-                               src="/images/products/fashion/product-10.jpg">
-                        </a>
-                      </div>
-                      <div class="swiper-slide" data-color="white" data-size="M">
-                        <a class="item" data-pswp-height="1146px"
-                           data-pswp-width="860px"
-                           href="/images/products/fashion/product-11.jpg" target="_blank">
-                          <img alt="img-product"
-                               class="tf-image-zoom lazyload"
-                               data-src="/images/products/fashion/product-11.jpg"
-                               data-zoom="/images/products/fashion/product-11.jpg"
-                               src="/images/products/fashion/product-11.jpg">
+                               th:data-src="${image.imageUrl}"
+                               th:data-zoom="${image.imageUrl}"
+                               th:src="${image.imageUrl}">
                         </a>
                       </div>
                     </div>
@@ -303,7 +137,7 @@
             <div class="tf-product-info-wrap position-relative">
               <div class="tf-zoom-main sticky-top"></div>
               <div class="tf-product-info-list other-image-zoom">
-                <h2 class="product-info-name">Casual Round Neck T-Shirt</h2>
+                <h2 class="product-info-name" th:text="${productDetail.name}">Product name</h2>
                 <div class="product-info-meta">
                   <div class="rating">
                     <div class="d-flex gap-4">
@@ -378,7 +212,7 @@
                     <div class="variant-picker-label">
                       <div class="h4 fw-semibold">
                         Size
-                        <span class="variant-picker-label-value value-currentSize">medium</span>
+                        <span class="variant-picker-label-value value-currentSize">M</span>
                       </div>
                       <a class="size-guide link h6 fw-medium" data-bs-toggle="modal"
                          href="#size-guide">
@@ -387,10 +221,11 @@
                       </a>
                     </div>
                     <div class="variant-picker-values">
-                      <span class="size-btn" data-size="XS">XS</span>
-                      <span class="size-btn" data-size="S">S</span>
-                      <span class="size-btn" data-size="M">M</span>
-                      <span class="size-btn" data-size="L">L</span>
+                      <span class="size-btn"
+                            th:data-size="${size.name}"
+                            th:each="size : ${productDetail.sizes}"
+                            th:text="${size.name}">M
+                      </span>
                     </div>
                   </div>
                   <div class="variant-picker-item variant-color">
@@ -401,25 +236,13 @@
                       </div>
                     </div>
                     <div class="variant-picker-values">
-                      <div class="hover-tooltip tooltip-bot color-btn active" data-color="blue">
-                        <span class="check-color bg-blue-1"></span>
-                        <span class="tooltip">Blue</span>
-                      </div>
-                      <div class="hover-tooltip tooltip-bot color-btn" data-color="gray">
-                        <span class="check-color bg-caramel"></span>
-                        <span class="tooltip">Gray</span>
-                      </div>
-                      <div class="hover-tooltip tooltip-bot color-btn" data-color="pink">
-                        <span class="check-color bg-hot-pink"></span>
-                        <span class="tooltip">Pink</span>
-                      </div>
-                      <div class="hover-tooltip tooltip-bot color-btn" data-color="green">
-                        <span class="check-color bg-dark-jade"></span>
-                        <span class="tooltip">Green</span>
-                      </div>
-                      <div class="hover-tooltip tooltip-bot color-btn" data-color="white">
-                        <span class="check-color bg-white"></span>
-                        <span class="tooltip">White</span>
+                      <div class="hover-tooltip tooltip-bot color-btn"
+                           th:classappend="${iterStat.first} ? 'active' : ''"
+                           th:data-color="${color.name}"
+                           th:each="color, iterStat : ${productDetail.colors}">
+                        <span class="check-color"
+                              th:style="'background-color: ' + ${color.code}"></span>
+                        <span class="tooltip" th:text="${color.name}">Color</span>
                       </div>
                     </div>
                   </div>
