@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.custom.ngow.shop.common.MessageUtil;
 import com.custom.ngow.shop.constant.ProductBadge;
 import com.custom.ngow.shop.dto.ProductDto;
+import com.custom.ngow.shop.dto.ProductImageDto;
 import com.custom.ngow.shop.dto.UserRegistration;
 import com.custom.ngow.shop.entity.Banner;
 import com.custom.ngow.shop.entity.ProductColor;
-import com.custom.ngow.shop.entity.ProductImage;
+import com.custom.ngow.shop.entity.ProductSize;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -156,30 +157,14 @@ public class HomeController extends BaseController {
   private List<ProductDto> getBestSellerProducts() {
     // Product 1
     // images
-    List<ProductImage> images1 =
+    List<ProductImageDto> images1 =
         List.of(
-            new ProductImage(
-                1L,
-                "/images/products/underwear/product-1.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null),
-            new ProductImage(
-                1L,
-                "/images/products/underwear/product-2.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null));
+            new ProductImageDto(
+                1L, "/images/products/underwear/product-1.jpg", "Product", null, null, null),
+            new ProductImageDto(
+                1L, "/images/products/underwear/product-2.jpg", "Product", null, null, null));
     // sizes
-    List<String> sizes1 = new ArrayList<>();
+    List<ProductSize> sizes1 = new ArrayList<>();
     // badges
     List<ProductBadge> badges1 = List.of(ProductBadge.SALE);
     // colors
@@ -202,30 +187,14 @@ public class HomeController extends BaseController {
 
     // Product 2
     // images
-    List<ProductImage> images2 =
+    List<ProductImageDto> images2 =
         List.of(
-            new ProductImage(
-                1L,
-                "/images/products/underwear/product-4.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null),
-            new ProductImage(
-                1L,
-                "/images/products/underwear/product-5.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null));
+            new ProductImageDto(
+                1L, "/images/products/underwear/product-4.jpg", "Product", null, null, null),
+            new ProductImageDto(
+                1L, "/images/products/underwear/product-5.jpg", "Product", null, null, null));
     // sizes
-    List<String> sizes2 = new ArrayList<>();
+    List<ProductSize> sizes2 = new ArrayList<>();
     // badges
     List<ProductBadge> badges2 = new ArrayList<>();
     // colors
@@ -240,30 +209,18 @@ public class HomeController extends BaseController {
 
     // Product 3
     // images
-    List<ProductImage> images3 =
+    List<ProductImageDto> images3 =
         List.of(
-            new ProductImage(
-                1L,
-                "/images/products/underwear/product-8.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null),
-            new ProductImage(
-                1L,
-                "/images/products/underwear/product-9.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null));
+            new ProductImageDto(
+                1L, "/images/products/underwear/product-8.jpg", "Product", null, null, null),
+            new ProductImageDto(
+                1L, "/images/products/underwear/product-9.jpg", "Product", null, null, null));
     // sizes
-    List<String> sizes3 = Arrays.asList("XS", "S", "M");
+    List<ProductSize> sizes3 =
+        Arrays.asList(
+            new ProductSize(1L, "XS", null, null, null),
+            new ProductSize(1L, "S", null, null, null),
+            new ProductSize(1L, "M", null, null, null));
     // badges
     List<ProductBadge> badges3 = List.of(ProductBadge.HOT);
     // colors
@@ -288,30 +245,14 @@ public class HomeController extends BaseController {
 
     // Product 4
     // images
-    List<ProductImage> images4 =
+    List<ProductImageDto> images4 =
         List.of(
-            new ProductImage(
-                1L,
-                "/images/products/underwear/product-12.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null),
-            new ProductImage(
-                1L,
-                "/images/products/underwear/product-13.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null));
+            new ProductImageDto(
+                1L, "/images/products/underwear/product-12.jpg", "Product", null, null, null),
+            new ProductImageDto(
+                1L, "/images/products/underwear/product-13.jpg", "Product", null, null, null));
     // sizes
-    List<String> sizes4 = new ArrayList<>();
+    List<ProductSize> sizes4 = new ArrayList<>();
     // badges
     List<ProductBadge> badges4 = new ArrayList<>();
     // colors
@@ -329,30 +270,17 @@ public class HomeController extends BaseController {
 
     // Product 5
     // images
-    List<ProductImage> images5 =
+    List<ProductImageDto> images5 =
         List.of(
-            new ProductImage(
-                1L,
-                "/images/products/underwear/product-15.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null),
-            new ProductImage(
-                1L,
-                "/images/products/underwear/product-16.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null));
+            new ProductImageDto(
+                1L, "/images/products/underwear/product-15.jpg", "Product", null, null, null),
+            new ProductImageDto(
+                1L, "/images/products/underwear/product-16.jpg", "Product", null, null, null));
     // sizes
-    List<String> sizes5 = List.of("XS", "M");
+    List<ProductSize> sizes5 =
+        List.of(
+            new ProductSize(1L, "XS", null, null, null),
+            new ProductSize(1L, "M", null, null, null));
     // badges
     List<ProductBadge> badges5 = List.of(ProductBadge.FLASH_SALE);
     // colors
@@ -377,30 +305,14 @@ public class HomeController extends BaseController {
 
     // Product 6
     // images
-    List<ProductImage> images6 =
+    List<ProductImageDto> images6 =
         List.of(
-            new ProductImage(
-                1L,
-                "/images/products/underwear/product-19.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null),
-            new ProductImage(
-                1L,
-                "/images/products/underwear/product-20.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null));
+            new ProductImageDto(
+                1L, "/images/products/underwear/product-19.jpg", "Product", null, null, null),
+            new ProductImageDto(
+                1L, "/images/products/underwear/product-20.jpg", "Product", null, null, null));
     // sizes
-    List<String> sizes6 = new ArrayList<>();
+    List<ProductSize> sizes6 = new ArrayList<>();
     // badges
     List<ProductBadge> badges6 = List.of(ProductBadge.LIMITED);
     // colors
@@ -411,30 +323,18 @@ public class HomeController extends BaseController {
 
     // Product 7
     // images
-    List<ProductImage> images7 =
+    List<ProductImageDto> images7 =
         List.of(
-            new ProductImage(
-                1L,
-                "/images/products/underwear/product-21.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null),
-            new ProductImage(
-                1L,
-                "/images/products/underwear/product-22.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null));
+            new ProductImageDto(
+                1L, "/images/products/underwear/product-21.jpg", "Product", null, null, null),
+            new ProductImageDto(
+                1L, "/images/products/underwear/product-22.jpg", "Product", null, null, null));
     // sizes
-    List<String> sizes7 = List.of("XS", "S", "M");
+    List<ProductSize> sizes7 =
+        List.of(
+            new ProductSize(1L, "XS", null, null, null),
+            new ProductSize(1L, "S", null, null, null),
+            new ProductSize(1L, "M", null, null, null));
     // badges
     List<ProductBadge> badges7 = List.of(ProductBadge.NEW);
     // colors
@@ -466,30 +366,19 @@ public class HomeController extends BaseController {
 
     // Product 8
     // images
-    List<ProductImage> images8 =
+    List<ProductImageDto> images8 =
         List.of(
-            new ProductImage(
-                1L,
-                "/images/products/underwear/product-26.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null),
-            new ProductImage(
-                1L,
-                "/images/products/underwear/product-27.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null));
+            new ProductImageDto(
+                1L, "/images/products/underwear/product-26.jpg", "Product", null, null, null),
+            new ProductImageDto(
+                1L, "/images/products/underwear/product-27.jpg", "Product", null, null, null));
     // sizes
-    List<String> sizes8 = List.of("XS", "S", "M", "L");
+    List<ProductSize> sizes8 =
+        List.of(
+            new ProductSize(1L, "XS", null, null, null),
+            new ProductSize(1L, "S", null, null, null),
+            new ProductSize(1L, "M", null, null, null),
+            new ProductSize(1L, "L", null, null, null));
     // badges
     List<ProductBadge> badges8 = new ArrayList<>();
     // colors
@@ -591,30 +480,16 @@ public class HomeController extends BaseController {
   private List<ProductDto> getTrendingProducts() {
     // Product 1
     // images
-    List<ProductImage> images1 =
+    List<ProductImageDto> images1 =
         List.of(
-            new ProductImage(
-                1L,
-                "/images/products/product-1.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null),
-            new ProductImage(
-                1L,
-                "/images/products/product-2.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null));
+            new ProductImageDto(1L, "/images/products/product-1.jpg", "Product", null, null, null),
+            new ProductImageDto(1L, "/images/products/product-2.jpg", "Product", null, null, null));
     // sizes
-    List<String> sizes1 = Arrays.asList("XS", "S", "M");
+    List<ProductSize> sizes1 =
+        Arrays.asList(
+            new ProductSize(1L, "XS", null, null, null),
+            new ProductSize(1L, "S", null, null, null),
+            new ProductSize(1L, "M", null, null, null));
     // badges
     List<ProductBadge> badges1 = List.of(ProductBadge.HOT);
     // colors
@@ -627,30 +502,12 @@ public class HomeController extends BaseController {
 
     // Product 2
     // images
-    List<ProductImage> images2 =
+    List<ProductImageDto> images2 =
         List.of(
-            new ProductImage(
-                1L,
-                "/images/products/product-7.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null),
-            new ProductImage(
-                1L,
-                "/images/products/product-8.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null));
+            new ProductImageDto(1L, "/images/products/product-7.jpg", "Product", null, null, null),
+            new ProductImageDto(1L, "/images/products/product-8.jpg", "Product", null, null, null));
     // sizes
-    List<String> sizes2 = new ArrayList<>();
+    List<ProductSize> sizes2 = new ArrayList<>();
     // badges
     List<ProductBadge> badges2 = List.of(ProductBadge.FLASH_SALE);
     // colors
@@ -663,30 +520,13 @@ public class HomeController extends BaseController {
 
     // Product 3
     // images
-    List<ProductImage> images3 =
+    List<ProductImageDto> images3 =
         List.of(
-            new ProductImage(
-                1L,
-                "/images/products/product-13.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null),
-            new ProductImage(
-                1L,
-                "/images/products/product-14.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null));
+            new ProductImageDto(1L, "/images/products/product-13.jpg", "Product", null, null, null),
+            new ProductImageDto(
+                1L, "/images/products/product-14.jpg", "Product", null, null, null));
     // sizes
-    List<String> sizes3 = new ArrayList<>();
+    List<ProductSize> sizes3 = new ArrayList<>();
     // badges
     List<ProductBadge> badges3 = List.of(ProductBadge.TRENDING);
     // colors
@@ -694,30 +534,17 @@ public class HomeController extends BaseController {
 
     // Product 4
     // images
-    List<ProductImage> images4 =
+    List<ProductImageDto> images4 =
         List.of(
-            new ProductImage(
-                1L,
-                "/images/products/product-23.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null),
-            new ProductImage(
-                1L,
-                "/images/products/product-24.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null));
+            new ProductImageDto(1L, "/images/products/product-23.jpg", "Product", null, null, null),
+            new ProductImageDto(
+                1L, "/images/products/product-24.jpg", "Product", null, null, null));
     // sizes
-    List<String> sizes4 = Arrays.asList("XS", "S", "M");
+    List<ProductSize> sizes4 =
+        Arrays.asList(
+            new ProductSize(1L, "XS", null, null, null),
+            new ProductSize(1L, "S", null, null, null),
+            new ProductSize(1L, "M", null, null, null));
     // badges
     List<ProductBadge> badges4 = List.of(ProductBadge.NEW);
     // colors
@@ -730,30 +557,16 @@ public class HomeController extends BaseController {
 
     // Product 5
     // images
-    List<ProductImage> images5 =
+    List<ProductImageDto> images5 =
         List.of(
-            new ProductImage(
-                1L,
-                "/images/products/product-21.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null),
-            new ProductImage(
-                1L,
-                "/images/products/product-22.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null));
+            new ProductImageDto(1L, "/images/products/product-21.jpg", "Product", null, null, null),
+            new ProductImageDto(
+                1L, "/images/products/product-22.jpg", "Product", null, null, null));
     // sizes
-    List<String> sizes5 = Arrays.asList("XS", "M");
+    List<ProductSize> sizes5 =
+        Arrays.asList(
+            new ProductSize(1L, "XS", null, null, null),
+            new ProductSize(1L, "M", null, null, null));
     // badges
     List<ProductBadge> badges5 = List.of(ProductBadge.FLASH_SALE);
     // colors
@@ -766,30 +579,13 @@ public class HomeController extends BaseController {
 
     // Product 6
     // images
-    List<ProductImage> images6 =
+    List<ProductImageDto> images6 =
         List.of(
-            new ProductImage(
-                1L,
-                "/images/products/product-33.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null),
-            new ProductImage(
-                1L,
-                "/images/products/product-34.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null));
+            new ProductImageDto(1L, "/images/products/product-33.jpg", "Product", null, null, null),
+            new ProductImageDto(
+                1L, "/images/products/product-34.jpg", "Product", null, null, null));
     // sizes
-    List<String> sizes6 = new ArrayList<>();
+    List<ProductSize> sizes6 = new ArrayList<>();
     // badges
     List<ProductBadge> badges6 = List.of(ProductBadge.SALE);
     // colors
@@ -801,30 +597,17 @@ public class HomeController extends BaseController {
 
     // Product 7
     // images
-    List<ProductImage> images7 =
+    List<ProductImageDto> images7 =
         List.of(
-            new ProductImage(
-                1L,
-                "/images/products/product-37.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null),
-            new ProductImage(
-                1L,
-                "/images/products/product-38.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null));
+            new ProductImageDto(1L, "/images/products/product-37.jpg", "Product", null, null, null),
+            new ProductImageDto(
+                1L, "/images/products/product-38.jpg", "Product", null, null, null));
     // sizes
-    List<String> sizes7 = Arrays.asList("XS", "S", "M");
+    List<ProductSize> sizes7 =
+        Arrays.asList(
+            new ProductSize(1L, "XS", null, null, null),
+            new ProductSize(1L, "S", null, null, null),
+            new ProductSize(1L, "M", null, null, null));
     // badges
     List<ProductBadge> badges7 = List.of(ProductBadge.NEW);
     // colors
@@ -843,30 +626,18 @@ public class HomeController extends BaseController {
 
     // Product 8
     // images
-    List<ProductImage> images8 =
+    List<ProductImageDto> images8 =
         List.of(
-            new ProductImage(
-                1L,
-                "/images/products/product-41.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null),
-            new ProductImage(
-                1L,
-                "/images/products/product-42.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null,
-                null));
+            new ProductImageDto(1L, "/images/products/product-41.jpg", "Product", null, null, null),
+            new ProductImageDto(
+                1L, "/images/products/product-42.jpg", "Product", null, null, null));
     // sizes
-    List<String> sizes8 = Arrays.asList("XS", "S", "M", "L");
+    List<ProductSize> sizes8 =
+        Arrays.asList(
+            new ProductSize(1L, "XS", null, null, null),
+            new ProductSize(1L, "S", null, null, null),
+            new ProductSize(1L, "M", null, null, null),
+            new ProductSize(1L, "L", null, null, null));
     // badges
     List<ProductBadge> badges8 = null;
     // colors

@@ -210,7 +210,7 @@
                     <div class="variant-box">
                       <ul class="product-size_list" th:if="${!product.sizes.isEmpty()}">
                         <li class="size-item h6" th:each="size : ${product.sizes}"
-                            th:text="${size}"></li>
+                            th:text="${size.name}"></li>
                       </ul>
                     </div>
                     <ul class="product-action_list">

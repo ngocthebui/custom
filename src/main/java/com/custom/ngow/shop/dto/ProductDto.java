@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.custom.ngow.shop.constant.ProductBadge;
 import com.custom.ngow.shop.entity.ProductColor;
-import com.custom.ngow.shop.entity.ProductImage;
+import com.custom.ngow.shop.entity.ProductSize;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,8 +18,8 @@ public class ProductDto {
   private String name;
   private double price;
   private double salePrice;
-  private List<ProductImage> images;
-  private List<String> sizes;
+  private List<ProductImageDto> images;
+  private List<ProductSize> sizes;
   private List<ProductBadge> badges;
   private List<ProductColor> colors;
   private Integer countdownTimer; // second
