@@ -1,6 +1,8 @@
 package com.custom.ngow.shop.page.shop;
 
+import java.text.DecimalFormat;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.custom.ngow.shop.dto.ProductDto;
 import com.custom.ngow.shop.dto.ProductImageDto;
+import com.custom.ngow.shop.entity.Category;
 import com.custom.ngow.shop.entity.ProductColor;
 import com.custom.ngow.shop.entity.ProductSize;
 
@@ -37,6 +40,17 @@ public class ProductController extends BaseController {
     product.setImages(getProductImages());
     product.setSizes(getProductSizes());
     product.setColors(getProductColors());
+    product.setRating(4.8);
+    product.setReviewCount(3671);
+
+    DecimalFormat df = new DecimalFormat("#.##");
+    product.setPrice(Double.parseDouble(df.format(19.337)));
+    product.setSalePercent(29);
+    product.setSalePrice(14.99);
+
+    product.setCountdownTimer(1007500);
+    product.setSku("Themesflat_#KT_Yellow_7");
+    product.setCategories(getCategories());
 
     return product;
   }
@@ -83,5 +97,14 @@ public class ProductController extends BaseController {
         new ProductColor(1L, "green", "#114842", null, null, null),
         new ProductColor(
             1L, "white", "rgba(var(--bs-white-rgb), var(--bs-bg-opacity))", null, null, null));
+  }
+
+  private Set<Category> getCategories() {
+    return Set.of(
+        new Category(1L, "Daily Wear Rings", null, null, null, null),
+        new Category(1L, "Ring diamond", null, null, null, null),
+        new Category(1L, "Anniversary rings", null, null, null, null),
+        new Category(1L, "Solitaire Rings", null, null, null, null),
+        new Category(1L, "Half Eternity Rings", null, null, null, null));
   }
 }

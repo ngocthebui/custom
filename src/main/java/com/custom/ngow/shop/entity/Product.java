@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -20,7 +21,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -71,9 +73,12 @@ public class Product {
   private Double rating = 0.0;
   private Integer reviewCount = 0;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "category_id", nullable = false)
-  private Category category;
+  @ManyToMany
+  @JoinTable(
+      name = "category_product",
+      joinColumns = @JoinColumn(name = "product_id"),
+      inverseJoinColumns = @JoinColumn(name = "category_id"))
+  private Set<Category> categories;
 
   @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<ProductImage> images = new ArrayList<>();

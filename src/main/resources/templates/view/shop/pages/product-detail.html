@@ -141,38 +141,27 @@
                 <div class="product-info-meta">
                   <div class="rating">
                     <div class="d-flex gap-4">
-                      <svg fill="none" height="14" viewBox="0 0 14 14" width="14"
+                      <svg fill="none"
+                           height="14" th:each="i : ${#numbers.sequence(1,5)}" viewBox="0 0 14 14" width="14"
                            xmlns="http://www.w3.org/2000/svg">
+
+                        <defs>
+                          <linearGradient id="halfStar" x1="0" x2="1" y1="0" y2="0">
+                            <stop offset="50%" stop-color="#EF9122"/>
+                            <stop offset="50%" stop-color="#ddd"/>
+                          </linearGradient>
+                        </defs>
+
                         <path
                             d="M14 5.4091L8.913 5.07466L6.99721 0.261719L5.08143 5.07466L0 5.4091L3.89741 8.7184L2.61849 13.7384L6.99721 10.9707L11.376 13.7384L10.097 8.7184L14 5.4091Z"
-                            fill="#EF9122"/>
-                      </svg>
-                      <svg fill="none" height="14" viewBox="0 0 14 14" width="14"
-                           xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M14 5.4091L8.913 5.07466L6.99721 0.261719L5.08143 5.07466L0 5.4091L3.89741 8.7184L2.61849 13.7384L6.99721 10.9707L11.376 13.7384L10.097 8.7184L14 5.4091Z"
-                            fill="#EF9122"/>
-                      </svg>
-                      <svg fill="none" height="14" viewBox="0 0 14 14" width="14"
-                           xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M14 5.4091L8.913 5.07466L6.99721 0.261719L5.08143 5.07466L0 5.4091L3.89741 8.7184L2.61849 13.7384L6.99721 10.9707L11.376 13.7384L10.097 8.7184L14 5.4091Z"
-                            fill="#EF9122"/>
-                      </svg>
-                      <svg fill="none" height="14" viewBox="0 0 14 14" width="14"
-                           xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M14 5.4091L8.913 5.07466L6.99721 0.261719L5.08143 5.07466L0 5.4091L3.89741 8.7184L2.61849 13.7384L6.99721 10.9707L11.376 13.7384L10.097 8.7184L14 5.4091Z"
-                            fill="#EF9122"/>
-                      </svg>
-                      <svg fill="none" height="14" viewBox="0 0 14 14" width="14"
-                           xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M14 5.4091L8.913 5.07466L6.99721 0.261719L5.08143 5.07466L0 5.4091L3.89741 8.7184L2.61849 13.7384L6.99721 10.9707L11.376 13.7384L10.097 8.7184L14 5.4091Z"
-                            fill="#EF9122"/>
+                            th:attr="fill=${i <= floor ? '#EF9122' : (i == floor + 1 and decimal >= 0.0) ? 'url(#halfStar)' : '#ddd'}"
+                            th:with="floor=${T(java.lang.Math).floor(productDetail.rating)},
+                 decimal=${productDetail.rating - floor}"/>
                       </svg>
                     </div>
-                    <div class="reviews text-main">(3.671 review)</div>
+                    <div class="reviews text-main"
+                         th:text="'(' + ${productDetail.reviewCount} + ' review)'">(0 review)
+                    </div>
                   </div>
                   <div class="people-add text-primary">
                     <i class="icon icon-shopping-cart-simple"></i>
@@ -181,22 +170,23 @@
                 </div>
                 <div class="tf-product-heading">
                   <div class="product-info-price price-wrap">
-                    <span class="price-new price-on-sale h2 fw-4">$ 14.99</span>
-                    <span class="price-old compare-at-price h6">$19.337</span>
+                    <span class="price-new price-on-sale h2 fw-4" th:text="'$ ' + ${productDetail.salePrice}">$0</span>
+                    <span class="price-old compare-at-price h6">$0</span>
                     <p class="badges-on-sale h6 fw-semibold">
-                                                <span class="number-sale" data-person-sale="29">
-                                                    -29 %
+                                                <span class="number-sale" th:data-person-sale="${productDetail.salePercent}"
+                                                th:text="'-' + ${productDetail.salePercent} + ' %'">
+                                                    -0 %
                                                 </span>
                     </p>
                   </div>
-                  <div class="tf-product-info-countdown">
+                  <div th:if="${productDetail.countdownTimer != null && productDetail.countdownTimer != 0}" class="tf-product-info-countdown">
                     <div class="countdown-title">
                       <h5>Hurry up</h5>
                       <p class="text-main">offer ends in:</p>
                     </div>
                     <div class="tf-countdown style-1">
                       <div class="js-countdown" data-labels="Days,Hours,Mins,Secs"
-                           data-timer="1007500"></div>
+                           th:data-timer="${productDetail.countdownTimer}"></div>
                     </div>
                   </div>
                 </div>
@@ -331,8 +321,8 @@
                   </li>
                   <li class="item-cate-sku h6">
                     <span class="label fw-6 text-black">Categories:</span>
-                    <span class="value text-main-2">Daily Wear Rings, Ring diamond, Anniversary rings, Solitaire Rings, Half
-                                                Eternity Rings</span>
+                    <span class="value text-main-2"
+                          th:text="${#strings.listJoin(productDetail.categories.![name], ', ')}"></span>
                   </li>
                 </ul>
               </div>
