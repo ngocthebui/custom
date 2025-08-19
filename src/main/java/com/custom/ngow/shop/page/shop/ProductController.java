@@ -51,6 +51,7 @@ public class ProductController extends BaseController {
     product.setCountdownTimer(1007500);
     product.setSku("Themesflat_#KT_Yellow_7");
     product.setCategories(getCategories());
+    product.setDescription(getDescription());
 
     return product;
   }
@@ -106,5 +107,9 @@ public class ProductController extends BaseController {
         new Category(1L, "Anniversary rings", null, null, null, null),
         new Category(1L, "Solitaire Rings", null, null, null, null),
         new Category(1L, "Half Eternity Rings", null, null, null, null));
+  }
+
+  private String getDescription() {
+    return "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a tortor commodo enim pulvinar hendrerit. Mauris a leo rutrum lectus vehicula dignissim feugiat eu felis. Fusce libero est, commodo vitae ultricies id, sollicitudin a augue. In finibus suscipit nulla, id bibendum diam fermentum sed. Suspendisse potenti. Proin finibus turpis mauris, et fringilla ex scelerisque ut. Nam laoreet pulvinar lacus, eu suscipit justo. Donec nec leo enim. Morbi lacinia varius mi, nec mattis felis rhoncus et. Donec ac facilisis arcu. Mauris tristique lorem id velit mattis finibus. Sed a neque augue. Vestibulum metus lectus, ultricies id rhoncus iaculis, accumsan a lectus. Duis viverra, risus sed egestas blandit, ante libero rutrum tortor, sed dignissim dolor nunc id arcu.";
   }
 }

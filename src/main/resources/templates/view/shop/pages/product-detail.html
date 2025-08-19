@@ -142,7 +142,8 @@
                   <div class="rating">
                     <div class="d-flex gap-4">
                       <svg fill="none"
-                           height="14" th:each="i : ${#numbers.sequence(1,5)}" viewBox="0 0 14 14" width="14"
+                           height="14" th:each="i : ${#numbers.sequence(1,5)}" viewBox="0 0 14 14"
+                           width="14"
                            xmlns="http://www.w3.org/2000/svg">
 
                         <defs>
@@ -170,16 +171,20 @@
                 </div>
                 <div class="tf-product-heading">
                   <div class="product-info-price price-wrap">
-                    <span class="price-new price-on-sale h2 fw-4" th:text="'$ ' + ${productDetail.salePrice}">$0</span>
+                    <span class="price-new price-on-sale h2 fw-4"
+                          th:text="'$ ' + ${productDetail.salePrice}">$0</span>
                     <span class="price-old compare-at-price h6">$0</span>
                     <p class="badges-on-sale h6 fw-semibold">
-                                                <span class="number-sale" th:data-person-sale="${productDetail.salePercent}"
-                                                th:text="'-' + ${productDetail.salePercent} + ' %'">
+                                                <span class="number-sale"
+                                                      th:data-person-sale="${productDetail.salePercent}"
+                                                      th:text="'-' + ${productDetail.salePercent} + ' %'">
                                                     -0 %
                                                 </span>
                     </p>
                   </div>
-                  <div th:if="${productDetail.countdownTimer != null && productDetail.countdownTimer != 0}" class="tf-product-info-countdown">
+                  <div
+                      class="tf-product-info-countdown"
+                      th:if="${productDetail.countdownTimer != null && productDetail.countdownTimer != 0}">
                     <div class="countdown-title">
                       <h5>Hurry up</h5>
                       <p class="text-main">offer ends in:</p>
@@ -317,7 +322,8 @@
                 <ul class="tf-product-cate-sku">
                   <li class="item-cate-sku h6">
                     <span class="label fw-6 text-black">SKU:</span>
-                    <a class="value link text-main-2" href="#">Themesflat_#KT_Yellow_7</a>
+                    <a class="value link text-main-2" href="#"
+                       th:text="${productDetail.sku}">SKU</a>
                   </li>
                   <li class="item-cate-sku h6">
                     <span class="label fw-6 text-black">Categories:</span>
@@ -490,21 +496,7 @@
           <div class="tab-pane wd-product-descriptions active show" id="descriptions"
                role="tabpanel">
             <div class="tab-descriptions">
-              <p class="h6 desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a
-                tortor commodo enim pulvinar
-                hendrerit. Mauris a leo rutrum lectus vehicula dignissim feugiat eu felis. Fusce
-                libero est, commodo vitae
-                ultricies id, sollicitudin a augue. In finibus suscipit nulla, id bibendum diam
-                fermentum sed. Suspendisse
-                potenti. Proin finibus turpis mauris, et fringilla ex scelerisque ut. Nam laoreet
-                pulvinar lacus, eu suscipit
-                justo. Donec nec leo enim. Morbi lacinia varius mi, nec mattis felis rhoncus et.
-                Donec ac facilisis arcu. Mauris
-                tristique lorem id velit mattis finibus. Sed a neque augue. Vestibulum metus lectus,
-                ultricies id rhoncus iaculis,
-                accumsan a lectus. Duis viverra, risus sed egestas blandit, ante libero rutrum
-                tortor, sed dignissim dolor nunc id
-                arcu.</p>
+              <p class="h6 desc" th:text="${productDetail.description}">Description</p>
               <div class="list-infor tf-grid-layout md-col-2 xl-col-4">
                 <div class="infor-item">
                   <div class="h4 heading">Diamond & Gemstones</div>
