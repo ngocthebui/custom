@@ -23,10 +23,10 @@ public class CustomErrorController extends BaseController implements ErrorContro
       int statusCode = Integer.parseInt(status.toString());
 
       if (statusCode == HttpStatus.NOT_FOUND.value()) {
-        return "view/pages/404";
+        return "view/shop/pages/404";
       }
     }
 
-    return "view/pages/404";
+    return "view/shop/pages/404";
   }
 }

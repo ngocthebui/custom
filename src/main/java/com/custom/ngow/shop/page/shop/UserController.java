@@ -43,7 +43,7 @@ public class UserController extends BaseController {
       RedirectAttributes redirectAttributes) {
     if (bindingResult.hasErrors()) {
       addDefaultToModel(model);
-      return "view/pages/register";
+      return "view/shop/pages/register";
     }
 
     try {
@@ -54,7 +54,7 @@ public class UserController extends BaseController {
     } catch (CustomException e) {
       bindingResult.rejectValue(e.getField(), e.getErrorCode(), e.getArgs(), "");
       addDefaultToModel(model);
-      return "view/pages/register";
+      return "view/shop/pages/register";
     }
   }
 
@@ -63,7 +63,7 @@ public class UserController extends BaseController {
     model.addAttribute("userDto", userService.getCurrentUserDto());
     model.addAttribute("userPasswordRequest", new UserPasswordRequest());
     addDefaultToModel(model);
-    return "view/pages/account-setting";
+    return "view/shop/pages/account-setting";
   }
 
   @PostMapping("/update-info")
@@ -76,7 +76,7 @@ public class UserController extends BaseController {
       model.addAttribute("userDto", userDto);
       model.addAttribute("userPasswordRequest", new UserPasswordRequest());
       addDefaultToModel(model);
-      return "view/pages/account-setting";
+      return "view/shop/pages/account-setting";
     }
 
     try {
@@ -87,7 +87,7 @@ public class UserController extends BaseController {
       model.addAttribute("userDto", userDto);
       model.addAttribute("userPasswordRequest", new UserPasswordRequest());
       addDefaultToModel(model);
-      return "view/pages/account-setting";
+      return "view/shop/pages/account-setting";
     }
 
     redirectAttributes.addFlashAttribute(
@@ -105,7 +105,7 @@ public class UserController extends BaseController {
       model.addAttribute("userDto", userService.getCurrentUserDto());
       model.addAttribute("userPasswordRequest", userPasswordRequest);
       addDefaultToModel(model);
-      return "view/pages/account-setting";
+      return "view/shop/pages/account-setting";
     }
 
     try {
@@ -116,7 +116,7 @@ public class UserController extends BaseController {
       model.addAttribute("userDto", userService.getCurrentUserDto());
       model.addAttribute("userPasswordRequest", userPasswordRequest);
       addDefaultToModel(model);
-      return "view/pages/account-setting";
+      return "view/shop/pages/account-setting";
     }
 
     redirectAttributes.addFlashAttribute(
@@ -129,7 +129,7 @@ public class UserController extends BaseController {
       @ModelAttribute("resetPasswordRequest") UserResetPasswordRequest resetPasswordRequest,
       Model model) {
     addDefaultToModel(model);
-    return "view/pages/forgot-password";
+    return "view/shop/pages/forgot-password";
   }
 
   @PostMapping("/reset-password")
@@ -140,7 +140,7 @@ public class UserController extends BaseController {
       RedirectAttributes redirectAttributes) {
     if (bindingResult.hasErrors()) {
       addDefaultToModel(model);
-      return "view/pages/forgot-password";
+      return "view/shop/pages/forgot-password";
     }
 
     try {
@@ -149,7 +149,7 @@ public class UserController extends BaseController {
       bindingResult.rejectValue(e.getField(), e.getErrorCode(), e.getArgs(), "");
 
       addDefaultToModel(model);
-      return "view/pages/forgot-password";
+      return "view/shop/pages/forgot-password";
     }
 
     redirectAttributes.addFlashAttribute(

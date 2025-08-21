@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -20,7 +21,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -41,9 +43,6 @@ public class Product {
   @Column(nullable = false)
   private String name;
 
-  @Column(length = 1000)
-  private String description;
-
   @Column(nullable = false)
   private String sku; // Mã sản phẩm
 
@@ -52,16 +51,29 @@ public class Product {
 
   private BigDecimal salePrice;
   private Integer stockQuantity;
-  private String material; // Chất liệu túi
+
+  @Column(length = 1000)
+  private String description;
+
+  private String material; // Chất liệu
+  private int strapQuantity; // Số lượng dây đeo
+  private String innerPocket; // Ngăn trong
+  private String handleLength; // Chiều dài tay cầm
+  private boolean removableStrap; // Dây đeo có thể tháo rời
+  private boolean adjustableStrap; // Dây đeo có thể điều chỉnh
+  private String lockType; // Loại khóa cài
+  private String strapLength; // Chiều dài dây đeo
+  private String strapTotalLength; // Tổng chiều dài dây
+  private String weight; // Trọng lượng
+  private String width; // Chiều rộng
+  private String depth; // Chiều sâu
+  private String height; // Chiều cao
 
   @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<ProductColor> colors;
 
   @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<ProductSize> sizes;
-
-  private Double weight;
-  private String dimensions; // Kích thước
 
   @Enumerated(EnumType.STRING)
   private ProductStatus status = ProductStatus.ACTIVE;
@@ -71,9 +83,12 @@ public class Product {
   private Double rating = 0.0;
   private Integer reviewCount = 0;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "category_id", nullable = false)
-  private Category category;
+  @ManyToMany
+  @JoinTable(
+      name = "category_product",
+      joinColumns = @JoinColumn(name = "product_id"),
+      inverseJoinColumns = @JoinColumn(name = "category_id"))
+  private Set<Category> categories;
 
   @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<ProductImage> images = new ArrayList<>();

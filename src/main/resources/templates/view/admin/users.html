@@ -183,7 +183,7 @@
                   <thead>
                   <tr>
                     <th>
-                      <a th:href="@{${pagingUrl}(page=0, sort='id', dir=${reverseDir})}">
+                      <a th:href="@{${pagingUrl}(page=${userPage.number}, sort='id', dir=${reverseDir})}">
                         ID
                         <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
                            th:if="${sort == 'id'}">
@@ -191,7 +191,7 @@
                       </a>
                     </th>
                     <th>
-                      <a th:href="@{${pagingUrl}(page=0, sort='email', dir=${reverseDir})}">
+                      <a th:href="@{${pagingUrl}(page=${userPage.number}, sort='email', dir=${reverseDir})}">
                         Email
                         <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
                            th:if="${sort == 'email'}">
@@ -199,7 +199,7 @@
                       </a>
                     </th>
                     <th>
-                      <a th:href="@{${pagingUrl}(page=0, sort='firstName', dir=${reverseDir})}">
+                      <a th:href="@{${pagingUrl}(page=${userPage.number}, sort='firstName', dir=${reverseDir})}">
                         First name
                         <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
                            th:if="${sort == 'firstName'}">
@@ -207,7 +207,7 @@
                       </a>
                     </th>
                     <th>
-                      <a th:href="@{${pagingUrl}(page=0, sort='lastName', dir=${reverseDir})}">
+                      <a th:href="@{${pagingUrl}(page=${userPage.number}, sort='lastName', dir=${reverseDir})}">
                         Last name
                         <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
                            th:if="${sort == 'lastName'}">
@@ -216,7 +216,7 @@
                     </th>
                     <th>Image</th>
                     <th>
-                      <a th:href="@{${pagingUrl}(page=0, sort='role', dir=${reverseDir})}">
+                      <a th:href="@{${pagingUrl}(page=${userPage.number}, sort='role', dir=${reverseDir})}">
                         Role
                         <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
                            th:if="${sort == 'role'}">
@@ -224,7 +224,7 @@
                       </a>
                     </th>
                     <th>
-                      <a th:href="@{${pagingUrl}(page=0, sort='status', dir=${reverseDir})}">
+                      <a th:href="@{${pagingUrl}(page=${userPage.number}, sort='status', dir=${reverseDir})}">
                         Status
                         <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
                            th:if="${sort == 'status'}">
@@ -232,7 +232,7 @@
                       </a>
                     </th>
                     <th>
-                      <a th:href="@{${pagingUrl}(page=0, sort='createdAt', dir=${reverseDir})}">
+                      <a th:href="@{${pagingUrl}(page=${userPage.number}, sort='createdAt', dir=${reverseDir})}">
                         Created At
                         <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
                            th:if="${sort == 'createdAt'}">
@@ -240,7 +240,7 @@
                       </a>
                     </th>
                     <th>
-                      <a th:href="@{${pagingUrl}(page=0, sort='updatedAt', dir=${reverseDir})}">
+                      <a th:href="@{${pagingUrl}(page=${userPage.number}, sort='updatedAt', dir=${reverseDir})}">
                         Updated At
                         <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
                            th:if="${sort == 'updatedAt'}">
