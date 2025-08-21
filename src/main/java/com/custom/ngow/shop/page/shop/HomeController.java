@@ -147,9 +147,9 @@ public class HomeController extends BaseController {
 
   private void setPromotionalProductsToModel(Model model) {
     List<List<ProductDto>> promotionalProducts = new ArrayList<>();
-    promotionalProducts.add(getTrendingProducts());
     promotionalProducts.add(getBestSellerProducts());
-    promotionalProducts.add(getTrendingProducts());
+    promotionalProducts.add(getBestSellerProducts());
+    promotionalProducts.add(getBestSellerProducts());
 
     model.addAttribute("promotionalProducts", promotionalProducts);
   }
@@ -403,476 +403,103 @@ public class HomeController extends BaseController {
                 true,
                 null));
 
-    // add to list
-    return List.of(
-        new ProductDto(
-            1L,
-            "Seamless breathable thong",
-            null,
-            null,
-            99.99,
-            69.99,
-            0,
-            images1,
-            sizes1,
-            badges1,
-            colors1,
-            25472,
-            false,
-            null,
-            null,
-            null,
-            null),
-        new ProductDto(
-            2L,
-            "Cotton high waisted panties",
-            null,
-            null,
-            89.99,
-            59.99,
-            0,
-            images2,
-            sizes2,
-            badges2,
-            colors2,
-            0,
-            true,
-            null,
-            null,
-            null,
-            null),
-        new ProductDto(
-            3L,
-            "Sexy lace panties",
-            null,
-            null,
-            79.99,
-            49.99,
-            0,
-            images3,
-            sizes3,
-            badges3,
-            colors3,
-            0,
-            true,
-            null,
-            null,
-            null,
-            null),
-        new ProductDto(
-            4L,
-            "Seamless underwear",
-            null,
-            null,
-            109.99,
-            74.99,
-            0,
-            images4,
-            sizes5,
-            badges4,
-            colors4,
-            25472,
-            false,
-            null,
-            null,
-            null,
-            null),
-        new ProductDto(
-            5L,
-            "Half sleeve crop top",
-            null,
-            null,
-            119.99,
-            84.99,
-            0,
-            images5,
-            sizes5,
-            badges5,
-            colors5,
-            0,
-            false,
-            null,
-            null,
-            null,
-            null),
-        new ProductDto(
-            6L,
-            null,
-            "Elastic waist panties",
-            null,
-            139.99,
-            94.99,
-            0,
-            images6,
-            sizes6,
-            badges6,
-            colors6,
-            0,
-            false,
-            null,
-            null,
-            null,
-            null),
-        new ProductDto(
-            7L,
-            null,
-            "Seamless breathable thong",
-            null,
-            69.99,
-            44.99,
-            0,
-            images7,
-            sizes7,
-            badges7,
-            colors7,
-            0,
-            true,
-            null,
-            null,
-            null,
-            null),
-        new ProductDto(
-            8L,
-            null,
-            "Cotton high waisted panties",
-            null,
-            129.99,
-            89.99,
-            0,
-            images8,
-            sizes8,
-            badges8,
-            colors8,
-            0,
-            true,
-            null,
-            null,
-            null,
-            null));
-  }
+    ProductDto productDto1 = new ProductDto();
+    productDto1.setName("Seamless breathable thong");
+    productDto1.setPrice(99.99);
+    productDto1.setSalePrice(69.99);
+    productDto1.setImages(images1);
+    productDto1.setSizes(sizes1);
+    productDto1.setBadges(badges1);
+    productDto1.setColors(colors1);
+    productDto1.setCountdownTimer(25472);
+    productDto1.setIsTopSale(false);
 
-  private List<ProductDto> getTrendingProducts() {
-    // Product 1
-    // images
-    List<ProductImageDto> images1 =
-        List.of(
-            new ProductImageDto(1L, "/images/products/product-1.jpg", "Product", null, null, null),
-            new ProductImageDto(1L, "/images/products/product-2.jpg", "Product", null, null, null));
-    // sizes
-    List<ProductSize> sizes1 =
-        Arrays.asList(
-            new ProductSize(1L, "XS", null, null, null),
-            new ProductSize(1L, "S", null, null, null),
-            new ProductSize(1L, "M", null, null, null));
-    // badges
-    List<ProductBadge> badges1 = List.of(ProductBadge.HOT);
-    // colors
-    List<ProductColor> colors1 =
-        List.of(
-            new ProductColor(1L, "Pink", "#F56EB7", "/images/products/product-7.jpg", true, null),
-            new ProductColor(1L, "Geige", "#EEDFC6", "/images/products/product-9.jpg", true, null),
-            new ProductColor(
-                1L, "Olive", "#A6AB84", "/images/products/product-11.jpg", true, null));
+    ProductDto productDto2 = new ProductDto();
+    productDto2.setName("Cotton high waisted panties");
+    productDto2.setPrice(89.99);
+    productDto2.setSalePrice(59.99);
+    productDto2.setImages(images2);
+    productDto2.setSizes(sizes2);
+    productDto2.setBadges(badges2);
+    productDto2.setColors(colors2);
+    productDto2.setCountdownTimer(0);
+    productDto2.setIsTopSale(true);
 
-    // Product 2
-    // images
-    List<ProductImageDto> images2 =
-        List.of(
-            new ProductImageDto(1L, "/images/products/product-7.jpg", "Product", null, null, null),
-            new ProductImageDto(1L, "/images/products/product-8.jpg", "Product", null, null, null));
-    // sizes
-    List<ProductSize> sizes2 = new ArrayList<>();
-    // badges
-    List<ProductBadge> badges2 = List.of(ProductBadge.FLASH_SALE);
-    // colors
-    List<ProductColor> colors2 =
-        List.of(
-            new ProductColor(1L, "Brown", "#C8A07C", "/images/products/product-1.jpg", true, null),
-            new ProductColor(1L, "Blue", "#B2CBEA", "/images/products/product-4.jpg", true, null),
-            new ProductColor(
-                1L, "Orange", "#EC6E1A", "/images/products/product-3.jpg", true, null));
+    ProductDto productDto3 = new ProductDto();
+    productDto3.setName("Sexy lace panties");
+    productDto3.setPrice(79.99);
+    productDto3.setSalePrice(49.99);
+    productDto3.setImages(images3);
+    productDto3.setSizes(sizes3);
+    productDto3.setBadges(badges3);
+    productDto3.setColors(colors3);
+    productDto3.setCountdownTimer(0);
+    productDto3.setIsTopSale(true);
 
-    // Product 3
-    // images
-    List<ProductImageDto> images3 =
-        List.of(
-            new ProductImageDto(1L, "/images/products/product-13.jpg", "Product", null, null, null),
-            new ProductImageDto(
-                1L, "/images/products/product-14.jpg", "Product", null, null, null));
-    // sizes
-    List<ProductSize> sizes3 = new ArrayList<>();
-    // badges
-    List<ProductBadge> badges3 = List.of(ProductBadge.TRENDING);
-    // colors
-    List<ProductColor> colors3 = new ArrayList<>();
+    ProductDto productDto4 = new ProductDto();
+    productDto4.setName("Seamless underwear");
+    productDto4.setPrice(109.99);
+    productDto4.setSalePrice(74.99);
+    productDto4.setImages(images4);
+    productDto4.setSizes(sizes4);
+    productDto4.setBadges(badges4);
+    productDto4.setColors(colors4);
+    productDto4.setCountdownTimer(25472);
+    productDto4.setIsTopSale(false);
 
-    // Product 4
-    // images
-    List<ProductImageDto> images4 =
-        List.of(
-            new ProductImageDto(1L, "/images/products/product-23.jpg", "Product", null, null, null),
-            new ProductImageDto(
-                1L, "/images/products/product-24.jpg", "Product", null, null, null));
-    // sizes
-    List<ProductSize> sizes4 =
-        Arrays.asList(
-            new ProductSize(1L, "XS", null, null, null),
-            new ProductSize(1L, "S", null, null, null),
-            new ProductSize(1L, "M", null, null, null));
-    // badges
-    List<ProductBadge> badges4 = List.of(ProductBadge.NEW);
-    // colors
-    List<ProductColor> colors4 =
-        List.of(
-            new ProductColor(1L, "Beige", "#EEDFC6", "/images/products/product-23.jpg", true, null),
-            new ProductColor(1L, "Dark", "#201E21", "/images/products/product-25.jpg", true, null),
-            new ProductColor(
-                1L, "Sage Green", "#71A46E", "/images/products/product-26.jpg", true, null));
+    ProductDto productDto5 = new ProductDto();
+    productDto5.setName("Half sleeve crop top");
+    productDto5.setPrice(119.99);
+    productDto5.setSalePrice(84.99);
+    productDto5.setImages(images5);
+    productDto5.setSizes(sizes5);
+    productDto5.setBadges(badges5);
+    productDto5.setColors(colors5);
+    productDto5.setCountdownTimer(0);
+    productDto5.setIsTopSale(false);
 
-    // Product 5
-    // images
-    List<ProductImageDto> images5 =
-        List.of(
-            new ProductImageDto(1L, "/images/products/product-21.jpg", "Product", null, null, null),
-            new ProductImageDto(
-                1L, "/images/products/product-22.jpg", "Product", null, null, null));
-    // sizes
-    List<ProductSize> sizes5 =
-        Arrays.asList(
-            new ProductSize(1L, "XS", null, null, null),
-            new ProductSize(1L, "M", null, null, null));
-    // badges
-    List<ProductBadge> badges5 = List.of(ProductBadge.FLASH_SALE);
-    // colors
-    List<ProductColor> colors5 =
-        List.of(
-            new ProductColor(1L, "Beige", "#EEDFC6", "/images/products/product-23.jpg", true, null),
-            new ProductColor(1L, "Dark", "#201E21", "/images/products/product-25.jpg", true, null),
-            new ProductColor(
-                1L, "Sage Green", "#71A46E", "/images/products/product-26.jpg", true, null));
+    ProductDto productDto6 = new ProductDto();
+    productDto6.setName("Elastic waist panties");
+    productDto6.setPrice(139.99);
+    productDto6.setSalePrice(94.99);
+    productDto6.setImages(images6);
+    productDto6.setSizes(sizes6);
+    productDto6.setBadges(badges6);
+    productDto6.setColors(colors6);
+    productDto6.setCountdownTimer(0);
+    productDto6.setIsTopSale(false);
 
-    // Product 6
-    // images
-    List<ProductImageDto> images6 =
-        List.of(
-            new ProductImageDto(1L, "/images/products/product-33.jpg", "Product", null, null, null),
-            new ProductImageDto(
-                1L, "/images/products/product-34.jpg", "Product", null, null, null));
-    // sizes
-    List<ProductSize> sizes6 = new ArrayList<>();
-    // badges
-    List<ProductBadge> badges6 = List.of(ProductBadge.SALE);
-    // colors
-    List<ProductColor> colors6 =
-        List.of(
-            new ProductColor(1L, "Dark", "#201E21", "/images/products/product-33.jpg", true, null),
-            new ProductColor(1L, "Beige", "#EEDFC6", "/images/products/product-35.jpg", true, null),
-            new ProductColor(1L, "Jade", "#114842", "/images/products/product-36.jpg", true, null));
+    ProductDto productDto7 = new ProductDto();
+    productDto7.setName("Seamless breathable thong");
+    productDto7.setPrice(69.99);
+    productDto7.setSalePrice(44.99);
+    productDto7.setImages(images7);
+    productDto7.setSizes(sizes7);
+    productDto7.setBadges(badges7);
+    productDto7.setColors(colors7);
+    productDto7.setCountdownTimer(0);
+    productDto7.setIsTopSale(true);
 
-    // Product 7
-    // images
-    List<ProductImageDto> images7 =
-        List.of(
-            new ProductImageDto(1L, "/images/products/product-37.jpg", "Product", null, null, null),
-            new ProductImageDto(
-                1L, "/images/products/product-38.jpg", "Product", null, null, null));
-    // sizes
-    List<ProductSize> sizes7 =
-        Arrays.asList(
-            new ProductSize(1L, "XS", null, null, null),
-            new ProductSize(1L, "S", null, null, null),
-            new ProductSize(1L, "M", null, null, null));
-    // badges
-    List<ProductBadge> badges7 = List.of(ProductBadge.NEW);
-    // colors
-    List<ProductColor> colors7 =
-        List.of(
-            new ProductColor(
-                1L,
-                "White",
-                "rgba(var(--bs-white-rgb), var(--bs-bg-opacity))",
-                "/images/products/product-37.jpg",
-                true,
-                null),
-            new ProductColor(1L, "Pink", "#F56EB7", "/images/products/product-39.jpg", true, null),
-            new ProductColor(
-                1L, "Beige", "#EEDFC6", "/images/products/product-40.jpg", true, null));
-
-    // Product 8
-    // images
-    List<ProductImageDto> images8 =
-        List.of(
-            new ProductImageDto(1L, "/images/products/product-41.jpg", "Product", null, null, null),
-            new ProductImageDto(
-                1L, "/images/products/product-42.jpg", "Product", null, null, null));
-    // sizes
-    List<ProductSize> sizes8 =
-        Arrays.asList(
-            new ProductSize(1L, "XS", null, null, null),
-            new ProductSize(1L, "S", null, null, null),
-            new ProductSize(1L, "M", null, null, null),
-            new ProductSize(1L, "L", null, null, null));
-    // badges
-    List<ProductBadge> badges8 = null;
-    // colors
-    List<ProductColor> colors8 =
-        List.of(
-            new ProductColor(1L, "Beige", "#EEDFC6", "/images/products/product-41.jpg", true, null),
-            new ProductColor(
-                1L,
-                "Black",
-                "rgba(var(--bs-black-rgb), var(--bs-bg-opacity))",
-                "/images/products/product-43.jpg",
-                true,
-                null),
-            new ProductColor(
-                1L, "Violet", "#51518D", "/images/products/product-44.jpg", true, null));
+    ProductDto productDto8 = new ProductDto();
+    productDto8.setName("Cotton high waisted panties");
+    productDto8.setPrice(129.99);
+    productDto8.setSalePrice(84.99);
+    productDto8.setImages(images8);
+    productDto8.setSizes(sizes8);
+    productDto8.setBadges(badges8);
+    productDto8.setColors(colors8);
+    productDto8.setCountdownTimer(0);
+    productDto8.setIsTopSale(true);
 
     // add to list
     return List.of(
-        new ProductDto(
-            1L,
-            "Summer Two Piece Set",
-            null,
-            null,
-            99.99,
-            69.99,
-            0,
-            images1,
-            sizes1,
-            badges1,
-            colors1,
-            0,
-            false,
-            null,
-            null,
-            null,
-            null),
-        new ProductDto(
-            2L,
-            "Nike Sportswear Tee Shirts",
-            null,
-            null,
-            99.99,
-            69.99,
-            0,
-            images2,
-            sizes2,
-            badges2,
-            colors2,
-            25472,
-            false,
-            null,
-            null,
-            null,
-            null),
-        new ProductDto(
-            3L,
-            "Women's Straight Leg Pants",
-            null,
-            null,
-            29.99,
-            19.99,
-            0,
-            images3,
-            sizes3,
-            badges3,
-            colors3,
-            0,
-            true,
-            null,
-            null,
-            null,
-            null),
-        new ProductDto(
-            4L,
-            "V-neck button down vest",
-            null,
-            null,
-            99.99,
-            69.99,
-            0,
-            images4,
-            sizes4,
-            badges4,
-            colors4,
-            0,
-            false,
-            null,
-            null,
-            null,
-            null),
-        new ProductDto(
-            5L,
-            "Half sleeve crop top",
-            null,
-            null,
-            119.99,
-            84.99,
-            0,
-            images5,
-            sizes5,
-            badges5,
-            colors5,
-            0,
-            true,
-            null,
-            null,
-            null,
-            null),
-        new ProductDto(
-            6L,
-            "Summer two piece set",
-            null,
-            null,
-            139.99,
-            94.99,
-            0,
-            images6,
-            sizes6,
-            badges6,
-            colors6,
-            0,
-            false,
-            null,
-            null,
-            null,
-            null),
-        new ProductDto(
-            7L,
-            "Women's straight leg pants",
-            null,
-            null,
-            69.99,
-            44.99,
-            0,
-            images7,
-            sizes7,
-            badges7,
-            colors7,
-            0,
-            true,
-            null,
-            null,
-            null,
-            null),
-        new ProductDto(
-            8L,
-            "Short sleeve office shirt",
-            null,
-            null,
-            129.99,
-            89.99,
-            0,
-            images8,
-            sizes8,
-            badges8,
-            colors8,
-            0,
-            false,
-            null,
-            null,
-            null,
-            null));
+        productDto1,
+        productDto2,
+        productDto3,
+        productDto4,
+        productDto5,
+        productDto6,
+        productDto7,
+        productDto8);
   }
 }

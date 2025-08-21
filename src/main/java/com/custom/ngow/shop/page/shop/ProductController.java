@@ -53,6 +53,20 @@ public class ProductController extends BaseController {
     product.setCategories(getCategories());
     product.setDescription(getDescription());
 
+    product.setMaterial("Da nhân tạo nếp nhăn");
+    product.setStrapQuantity(1);
+    product.setInnerPocket("1 ngăn phía trong");
+    product.setStrapLength("22-64 cm");
+    product.setRemovableStrap(false);
+    product.setAdjustableStrap(true);
+    product.setLockType("Khóa zip");
+    product.setHandleLength("22-28.5 cm");
+    product.setStrapTotalLength("36-118 cm");
+    product.setWeight("272 g");
+    product.setWidth("26 cm");
+    product.setDepth("6 cm");
+    product.setHeight("15 cm");
+
     return product;
   }
 

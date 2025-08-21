@@ -497,50 +497,73 @@
                role="tabpanel">
             <div class="tab-descriptions">
               <p class="h6 desc" th:text="${productDetail.description}">Description</p>
-              <div class="list-infor tf-grid-layout md-col-2 xl-col-4">
+              <div class="list-infor tf-grid-layout md-col-2 xl-col-3">
                 <div class="infor-item">
-                  <div class="h4 heading">Diamond & Gemstones</div>
+                  <div class="h4 heading">Thông tin chung</div>
                   <ul>
                     <li>
-                      <h6 class="fw-6 text-black title">Diamond type:</h6>
-                      <div class="h6">Type IIa</div>
+                      <h6 class="fw-6 text-black title">Chất liệu:</h6>
+                      <div class="h6" th:text="${productDetail.material}"></div>
                     </li>
                     <li>
-                      <h6 class="fw-6 text-black title">Total Number:</h6>
-                      <div class="h6">01</div>
+                      <h6 class="fw-6 text-black title">Trọng lượng:</h6>
+                      <div class="h6" th:text="${productDetail.weight}"></div>
                     </li>
                     <li>
-                      <h6 class="fw-6 text-black title">Total Weight:</h6>
-                      <div class="h6">0.5 ct</div>
+                      <h6 class="fw-6 text-black title">Ngăn trong:</h6>
+                      <div class="h6" th:text="${productDetail.innerPocket}"></div>
+                    </li>
+                    <li>
+                      <h6 class="fw-6 text-black title">Loại khóa cài:</h6>
+                      <div class="h6" th:text="${productDetail.lockType}"></div>
                     </li>
                   </ul>
                 </div>
                 <div class="infor-item">
-                  <div class="h4 heading">Dimensions</div>
+                  <div class="h4 heading">Dây đeo</div>
                   <ul>
                     <li>
-                      <h6 class="fw-6 text-black title">Length:</h6>
-                      <div class="h6">21.2 mm</div>
+                      <h6 class="fw-6 text-black title">Số lượng dây đeo:</h6>
+                      <div class="h6" th:text="${productDetail.strapQuantity}"></div>
                     </li>
                     <li>
-                      <h6 class="fw-6 text-black title">Width:</h6>
-                      <div class="h6">6 mm</div>
+                      <h6 class="fw-6 text-black title">Chiều dài tay cầm:</h6>
+                      <div class="h6" th:text="${productDetail.handleLength}"></div>
+                    </li>
+                    <li>
+                      <h6 class="fw-6 text-black title">Dây đeo có thể tháo rời:</h6>
+                      <div class="h6" th:text="${productDetail.removableStrap} ? 'Có' : 'Không'">
+                      </div>
+                    </li>
+                    <li>
+                      <h6 class="fw-6 text-black title">Dây đeo có thể điều chỉnh:</h6>
+                      <div class="h6" th:text="${productDetail.adjustableStrap} ? 'Có' : 'Không'">
+                      </div>
+                    </li>
+                    <li>
+                      <h6 class="fw-6 text-black title">Chiều dài dây đeo:</h6>
+                      <div class="h6" th:text="${productDetail.strapLength}"></div>
+                    </li>
+                    <li>
+                      <h6 class="fw-6 text-black title">Tổng chiều dài dây:</h6>
+                      <div class="h6" th:text="${productDetail.strapTotalLength}"></div>
                     </li>
                   </ul>
                 </div>
                 <div class="infor-item">
-                  <div class="h4 heading">Gold Weight</div>
+                  <div class="h4 heading">Kích thước</div>
                   <ul>
                     <li>
-                      <h6 class="fw-6 text-black title">1.98 gm</h6>
+                      <h6 class="fw-6 text-black title">Chiều rộng:</h6>
+                      <div class="h6" th:text="${productDetail.width}"></div>
                     </li>
-                  </ul>
-                </div>
-                <div class="infor-item">
-                  <div class="h4 heading">Purity</div>
-                  <ul>
                     <li>
-                      <h6 class="fw-6 text-black title">14KT</h6>
+                      <h6 class="fw-6 text-black title">Chiều sâu:</h6>
+                      <div class="h6" th:text="${productDetail.depth}"></div>
+                    </li>
+                    <li>
+                      <h6 class="fw-6 text-black title">Chiều cao:</h6>
+                      <div class="h6" th:text="${productDetail.height}"></div>
                     </li>
                   </ul>
                 </div>

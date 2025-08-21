@@ -43,9 +43,6 @@ public class Product {
   @Column(nullable = false)
   private String name;
 
-  @Column(length = 1000)
-  private String description;
-
   @Column(nullable = false)
   private String sku; // Mã sản phẩm
 
@@ -54,16 +51,29 @@ public class Product {
 
   private BigDecimal salePrice;
   private Integer stockQuantity;
-  private String material; // Chất liệu túi
+
+  @Column(length = 1000)
+  private String description;
+
+  private String material; // Chất liệu
+  private int strapQuantity; // Số lượng dây đeo
+  private String innerPocket; // Ngăn trong
+  private String handleLength; // Chiều dài tay cầm
+  private boolean removableStrap; // Dây đeo có thể tháo rời
+  private boolean adjustableStrap; // Dây đeo có thể điều chỉnh
+  private String lockType; // Loại khóa cài
+  private String strapLength; // Chiều dài dây đeo
+  private String strapTotalLength; // Tổng chiều dài dây
+  private String weight; // Trọng lượng
+  private String width; // Chiều rộng
+  private String depth; // Chiều sâu
+  private String height; // Chiều cao
 
   @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<ProductColor> colors;
 
   @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private List<ProductSize> sizes;
-
-  private Double weight;
-  private String dimensions; // Kích thước
 
   @Enumerated(EnumType.STRING)
   private ProductStatus status = ProductStatus.ACTIVE;
