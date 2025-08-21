@@ -1,5 +1,7 @@
 package com.custom.ngow.shop.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +24,10 @@ public class CategoryService {
 
   private final CategoryRepository categoryRepository;
   private final MessageUtil messageUtil;
+
+  public List<Category> getAllCategories() {
+    return categoryRepository.findAll();
+  }
 
   public void createCategory(CategoryDto categoryDto) {
     if (categoryRepository.existsByNameIgnoreCase(categoryDto.getName())) {

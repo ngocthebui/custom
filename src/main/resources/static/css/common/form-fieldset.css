@@ -1,0 +1,19 @@
+.form-group {
+  display: grid;
+  grid-template-columns: 90px 1fr; /* label 90px, input chiếm phần còn lại */
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  font-weight: bold;
+}
+
+.form-group input {
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}

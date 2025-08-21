@@ -56,11 +56,11 @@ public class Product {
   private String description;
 
   private String material; // Chất liệu
-  private int strapQuantity; // Số lượng dây đeo
+  private Integer strapQuantity; // Số lượng dây đeo
   private String innerPocket; // Ngăn trong
   private String handleLength; // Chiều dài tay cầm
-  private boolean removableStrap; // Dây đeo có thể tháo rời
-  private boolean adjustableStrap; // Dây đeo có thể điều chỉnh
+  private Boolean removableStrap; // Dây đeo có thể tháo rời
+  private Boolean adjustableStrap; // Dây đeo có thể điều chỉnh
   private String lockType; // Loại khóa cài
   private String strapLength; // Chiều dài dây đeo
   private String strapTotalLength; // Tổng chiều dài dây
