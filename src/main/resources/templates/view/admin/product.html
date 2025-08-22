@@ -92,7 +92,7 @@
                         properties</a>
                     </li>
                     <li class="nav-tab-item" role="presentation">
-                      <a class="tab-link" data-bs-toggle="tab" href="#reviews">Customer Reviews</a>
+                      <a class="tab-link" data-bs-toggle="tab" href="#variants">Variants</a>
                     </li>
                     <li class="nav-tab-item" role="presentation">
                       <a class="tab-link" data-bs-toggle="tab" href="#faqs">FAQs</a>
@@ -249,8 +249,36 @@
                       </div>
                     </div>
                   </div>
-                </div>
 
+                  <div class="tab-pane wd-product-descriptions" id="variants" role="tabpanel">
+                    <div class="form_content site-change">
+                      <button class="btn-blue tf-btn animate-btn w-maxcontent fw-bold"
+                              id="btn-add-color"
+                              type="button">Add color
+                      </button>
+                      <div id="color-list">
+                        <div class="color-item tf-grid-layout sm-col-3 my-1"
+                             th:each="color,iterStat : *{colors}">
+                          <fieldset>
+                            <input placeholder="Tên màu (VD: Đỏ, Đen)"
+                                   th:field="*{colors[__${iterStat.index}__].name}"
+                                   type="text"/>
+                          </fieldset>
+                          <fieldset>
+                            <span class="color-circle">
+                              <input th:field="*{colors[__${iterStat.index}__].code}" type="color"
+                                     value="#ff0000"/>
+                            </span>
+                          </fieldset>
+                          <button
+                              class="btn-remove btn-blue tf-btn animate-btn w-maxcontent fw-bold"
+                              type="button">Delete
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <button class="btn-submit_form tf-btn animate-btn w-100 fw-bold" type="submit">
                   Save change
                 </button>
@@ -284,6 +312,54 @@
 <script th:src="@{/js/count-down.js}"></script>
 <script th:src="@{/js/main.js}"></script>
 <script th:src="@{/js/language-switcher.js}"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const colorList = document.getElementById("color-list");
+    const addBtn = document.getElementById("btn-add-color");
+
+    function reindexColors() {
+      const items = colorList.querySelectorAll(".color-item");
+      items.forEach((item, index) => {
+        // input name sẽ thành colors[index].name, colors[index].code
+        item.querySelectorAll("input").forEach(input => {
+          if (input.type === "text") {
+            input.name = `colors[${index}].name`;
+          } else if (input.type === "color") {
+            input.name = `colors[${index}].code`;
+          }
+        });
+      });
+    }
+
+    addBtn.addEventListener("click", function () {
+      const newItem = document.createElement("div");
+      newItem.classList.add("color-item", "tf-grid-layout", "sm-col-3", "my-1");
+      newItem.innerHTML = `
+      <fieldset>
+        <input type="text" name="" placeholder="Tên màu (VD: Đỏ, Đen)" />
+      </fieldset>
+      <fieldset>
+        <span class="color-circle">
+          <input type="color" name="" />
+        </span>
+      </fieldset>
+      <button class="btn-remove btn-blue tf-btn animate-btn w-maxcontent fw-bold" type="button">Delete</button>
+    `;
+      colorList.appendChild(newItem);
+      reindexColors();
+    });
+
+    colorList.addEventListener("click", function (e) {
+      if (e.target.classList.contains("btn-remove")) {
+        e.target.closest(".color-item").remove();
+        reindexColors();
+      }
+    });
+
+    // Khởi tạo index ban đầu
+    reindexColors();
+  });
+</script>
 </body>
 
 </html>

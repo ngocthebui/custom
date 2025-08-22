@@ -1,6 +1,9 @@
 package com.custom.ngow.shop.dto;
 
 import java.math.BigDecimal;
+import java.util.List;
+
+import com.custom.ngow.shop.entity.ProductColor;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -42,4 +45,6 @@ public class ProductRegistration {
   private String width; // Chiều rộng
   private String depth; // Chiều sâu
   private String height; // Chiều cao
+
+  private List<ProductColor> colors = List.of(new ProductColor());
 }
