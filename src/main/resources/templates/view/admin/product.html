@@ -74,12 +74,6 @@
                     th:text="${mode} + ' product'">
                   Update product:
                 </h2>
-
-                <div th:each="error : ${allErrorsMessage}">
-                  <div class="error-message">
-                    <span th:text="${error}"></span>
-                  </div>
-                </div>
                 <div class="form_content site-change">
                   <h5>Basic information</h5>
                   <div class="cols tf-grid-layout sm-col-2">
@@ -151,16 +145,25 @@
                       <label for="material">Material</label>
                       <input id="material" placeholder="Material *" required
                              th:field="*{material}" type="text">
+                      <div class="error-message" th:if="${#fields.hasErrors('material')}">
+                        <span th:errors="*{material}"></span>
+                      </div>
                     </fieldset>
                     <fieldset>
                       <label for="innerPocket">Inner pocket</label>
                       <input id="innerPocket" placeholder="Inner pocket *" required
                              th:field="*{innerPocket}" type="text">
+                      <div class="error-message" th:if="${#fields.hasErrors('innerPocket')}">
+                        <span th:errors="*{innerPocket}"></span>
+                      </div>
                     </fieldset>
                     <fieldset>
                       <label for="lockType">Lock type</label>
                       <input id="lockType" placeholder="Lock type *" required
                              th:field="*{lockType}" type="text">
+                      <div class="error-message" th:if="${#fields.hasErrors('lockType')}">
+                        <span th:errors="*{lockType}"></span>
+                      </div>
                     </fieldset>
                   </div>
 
@@ -171,16 +174,25 @@
                       <label for="strapQuantity">Strap quantity</label>
                       <input id="strapQuantity" placeholder="Number of straps *" required
                              th:field="*{strapQuantity}" type="number">
+                      <div class="error-message" th:if="${#fields.hasErrors('strapQuantity')}">
+                        <span th:errors="*{strapQuantity}"></span>
+                      </div>
                     </fieldset>
                     <fieldset>
                       <label for="strapLength">Strap length</label>
                       <input id="strapLength" placeholder="Strap length *" required
                              th:field="*{strapLength}" type="text">
+                      <div class="error-message" th:if="${#fields.hasErrors('strapLength')}">
+                        <span th:errors="*{strapLength}"></span>
+                      </div>
                     </fieldset>
                     <fieldset>
                       <label for="strapTotalLength">Strap total length</label>
                       <input id="strapTotalLength" placeholder="Strap total length *" required
                              th:field="*{strapTotalLength}" type="text">
+                      <div class="error-message" th:if="${#fields.hasErrors('strapTotalLength')}">
+                        <span th:errors="*{strapTotalLength}"></span>
+                      </div>
                     </fieldset>
                   </div>
                   <div class="cols tf-grid-layout sm-col-2">
@@ -201,27 +213,42 @@
                       <label for="width">Width</label>
                       <input id="width" placeholder="Width *" required
                              th:field="*{width}" type="text">
+                      <div class="error-message" th:if="${#fields.hasErrors('width')}">
+                        <span th:errors="*{width}"></span>
+                      </div>
                     </fieldset>
                     <fieldset>
                       <label for="depth">Depth</label>
                       <input id="depth" placeholder="Depth *" required th:field="*{depth}"
                              type="text">
+                      <div class="error-message" th:if="${#fields.hasErrors('depth')}">
+                        <span th:errors="*{depth}"></span>
+                      </div>
                     </fieldset>
                     <fieldset>
                       <label for="height">Height</label>
                       <input id="height" placeholder="Height *" required
                              th:field="*{height}" type="text">
+                      <div class="error-message" th:if="${#fields.hasErrors('height')}">
+                        <span th:errors="*{height}"></span>
+                      </div>
                     </fieldset>
                     <fieldset>
                       <label for="handleLength">Handle length</label>
                       <input id="handleLength" placeholder="Handle length *"
                              required
                              th:field="*{handleLength}" type="text">
+                      <div class="error-message" th:if="${#fields.hasErrors('handleLength')}">
+                        <span th:errors="*{handleLength}"></span>
+                      </div>
                     </fieldset>
                     <fieldset>
                       <label for="weight">Weight</label>
                       <input id="weight" placeholder="Weight *" required
                              th:field="*{weight}" type="text">
+                      <div class="error-message" th:if="${#fields.hasErrors('weight')}">
+                        <span th:errors="*{weight}"></span>
+                      </div>
                     </fieldset>
                   </div>
                 </div>
@@ -251,6 +278,9 @@
                           type="button">Delete
                       </button>
                     </div>
+                    <div class="error-message" th:if="${#fields.hasErrors('colors')}">
+                      <span th:errors="*{colors}"></span>
+                    </div>
                   </div>
                 </div>
 
@@ -272,6 +302,9 @@
                           class="btn-remove btn-blue tf-btn animate-btn w-maxcontent fw-bold"
                           type="button">Delete
                       </button>
+                    </div>
+                    <div class="error-message" th:if="${#fields.hasErrors('sizes')}">
+                      <span th:errors="*{sizes}"></span>
                     </div>
                   </div>
                 </div>
