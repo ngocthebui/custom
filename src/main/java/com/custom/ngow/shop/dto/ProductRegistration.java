@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.custom.ngow.shop.constant.ProductBadge;
 import com.custom.ngow.shop.entity.ProductColor;
 import com.custom.ngow.shop.entity.ProductSize;
 
@@ -20,11 +21,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ProductRegistration {
 
+  private String mode;
+
+  private Long id;
+
   @NotBlank(message = "{error.required}")
   private String name;
 
+  @NotEmpty(message = "{error.required}")
+  private List<Long> categoryIdList = new ArrayList<>();
+
   @NotNull(message = "{error.required}")
-  private Long categoryId;
+  private String badgeClassName;
 
   @Size(max = 1000, message = "{error.maxlength}")
   private String description;
@@ -33,7 +41,10 @@ public class ProductRegistration {
   private BigDecimal price;
 
   @NotNull(message = "{error.required}")
-  private BigDecimal salePrice;
+  private Integer salePercentage = 0;
+
+  @NotNull(message = "{error.required}")
+  private Integer stockQuantity;
 
   @NotEmpty(message = "{error.required}")
   private String material; // Chất liệu
@@ -77,4 +88,47 @@ public class ProductRegistration {
 
   @NotEmpty(message = "{error.required}")
   private List<ProductSize> sizes = new ArrayList<>();
+
+  public ProductRegistration(
+      Long id,
+      String name,
+      ProductBadge badgeClassName,
+      String description,
+      BigDecimal price,
+      Integer salePercentage,
+      Integer stockQuantity,
+      String material,
+      Integer strapQuantity,
+      String innerPocket,
+      String handleLength,
+      Boolean removableStrap,
+      Boolean adjustableStrap,
+      String lockType,
+      String strapLength,
+      String strapTotalLength,
+      String weight,
+      String width,
+      String depth,
+      String height) {
+    this.id = id;
+    this.name = name;
+    this.badgeClassName = badgeClassName.getClassName();
+    this.description = description;
+    this.price = price;
+    this.salePercentage = salePercentage;
+    this.stockQuantity = stockQuantity;
+    this.material = material;
+    this.strapQuantity = strapQuantity;
+    this.innerPocket = innerPocket;
+    this.handleLength = handleLength;
+    this.removableStrap = removableStrap;
+    this.adjustableStrap = adjustableStrap;
+    this.lockType = lockType;
+    this.strapLength = strapLength;
+    this.strapTotalLength = strapTotalLength;
+    this.weight = weight;
+    this.width = width;
+    this.depth = depth;
+    this.height = height;
+  }
 }

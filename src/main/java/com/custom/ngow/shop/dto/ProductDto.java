@@ -22,7 +22,7 @@ public class ProductDto {
   private String sku;
   private double price;
   private double salePrice;
-  private double salePercent;
+  private int salePercent;
 
   private String material; // Chất liệu
   private int strapQuantity; // Số lượng dây đeo
@@ -40,7 +40,7 @@ public class ProductDto {
 
   private List<ProductImageDto> images;
   private List<ProductSize> sizes;
-  private List<ProductBadge> badges;
+  private ProductBadge badge;
   private List<ProductColor> colors;
   private Integer countdownTimer; // second
   private Boolean isTopSale;

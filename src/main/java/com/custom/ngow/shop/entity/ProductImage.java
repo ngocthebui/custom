@@ -39,7 +39,7 @@ public class ProductImage {
   private ProductColor color;
 
   @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "product_size_id")
+  @JoinColumn(name = "size_id")
   private ProductSize size;
 
   @ManyToOne(fetch = FetchType.LAZY)

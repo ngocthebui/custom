@@ -16,12 +16,14 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "categories")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = "products")
 public class Category {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,4 +40,16 @@ public class Category {
   @CreationTimestamp private LocalDateTime createdAt;
 
   @UpdateTimestamp private LocalDateTime updatedAt;
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof Category c)) return false;
+    return id != null && id.equals(c.id);
+  }
+
+  @Override
+  public int hashCode() {
+    return getClass().hashCode();
+  }
 }

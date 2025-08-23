@@ -29,6 +29,13 @@ public class CategoryService {
     return categoryRepository.findAll();
   }
 
+  public Category getCategoryById(Long id) {
+    return categoryRepository
+        .findById(id)
+        .orElseThrow(
+            () -> new CustomException(messageUtil, "", new String[] {"Id"}, "error.notExist"));
+  }
+
   public void createCategory(CategoryDto categoryDto) {
     if (categoryRepository.existsByNameIgnoreCase(categoryDto.getName())) {
       log.error("Category already exists with the name {}", categoryDto.getName());
