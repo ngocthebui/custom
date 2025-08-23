@@ -32,7 +32,7 @@
   <link rel="stylesheet" th:href="@{/css/animate.css}">
   <link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css">
   <link rel="stylesheet" th:href="@{/css/common.css}" type="text/css">
-  <link rel="stylesheet" th:href="@{/css/common/form-fieldset.css}" type="text/css">
+  <link rel="stylesheet" th:href="@{/css/admin/product.css}" type="text/css">
 
   <!-- Favicon and Touch Icons  -->
   <link rel="shortcut icon" th:href="@{/images/logo/favicon.svg}">
@@ -80,232 +80,205 @@
                     <span th:text="${error}"></span>
                   </div>
                 </div>
-
-                <div class="flat-animate-tab tab-style-1">
-                  <ul class="menu-tab menu-tab-1" role="tablist">
-                    <li class="nav-tab-item" role="presentation">
-                      <a class="tab-link active" data-bs-toggle="tab" href="#basic">Basic
-                        information</a>
-                    </li>
-                    <li class="nav-tab-item" role="presentation">
-                      <a class="tab-link" data-bs-toggle="tab" href="#property">Product
-                        properties</a>
-                    </li>
-                    <li class="nav-tab-item" role="presentation">
-                      <a class="tab-link" data-bs-toggle="tab" href="#variants">Variants</a>
-                    </li>
-                    <li class="nav-tab-item" role="presentation">
-                      <a class="tab-link" data-bs-toggle="tab" href="#faqs">FAQs</a>
-                    </li>
-                  </ul>
-                </div>
-                <div class="tab-content" style="margin-top: 48px">
-                  <div class="tab-pane wd-product-descriptions active show" id="basic"
-                       role="tabpanel">
-                    <div class="form_content site-change">
-                      <div class="cols tf-grid-layout sm-col-2">
-                        <fieldset>
-                          <label for="name">Product name</label>
-                          <div>
-                            <input id="name" placeholder="Product name *" required
-                                   th:field="*{name}" type="text">
-                            <div class="error-message" th:if="${#fields.hasErrors('name')}">
-                              <span th:errors="*{name}"></span>
-                            </div>
-                          </div>
-                        </fieldset>
-                        <fieldset>
-                          <label for="category">Category</label>
-                          <div class="tf-select">
-                            <select class="w-100" id="category" required th:field="*{categoryId}">
-                              <option value="">-- Select Category --</option>
-                              <option th:each="category : ${categoryList}"
-                                      th:text="${category.name}"
-                                      th:value="${category.id}">
-                              </option>
-                            </select>
-                            <div class="error-message" th:if="${#fields.hasErrors('categoryId')}">
-                              <span th:errors="*{categoryId}"></span>
-                            </div>
-                          </div>
-                        </fieldset>
+                <div class="form_content site-change">
+                  <h5>Basic information</h5>
+                  <div class="cols tf-grid-layout sm-col-2">
+                    <fieldset>
+                      <label for="name">Product name</label>
+                      <div>
+                        <input id="name" placeholder="Product name *" required
+                               th:field="*{name}" type="text">
+                        <div class="error-message" th:if="${#fields.hasErrors('name')}">
+                          <span th:errors="*{name}"></span>
+                        </div>
                       </div>
-                      <div class="cols tf-grid-layout sm-col-2">
-                        <fieldset>
-                          <label for="price">Price</label>
-                          <div>
-                            <input id="price" placeholder="Price *" required
-                                   th:field="*{price}" type="number">
-                            <div class="error-message" th:if="${#fields.hasErrors('price')}">
-                              <span th:errors="*{price}"></span>
-                            </div>
-                          </div>
-                        </fieldset>
-                        <fieldset>
-                          <label for="salePrice">Sale price</label>
-                          <div>
-                            <input id="salePrice" placeholder="Sale price *" required
-                                   th:field="*{salePrice}" type="number">
-                            <div class="error-message" th:if="${#fields.hasErrors('salePrice')}">
-                              <span th:errors="*{salePrice}"></span>
-                            </div>
-                          </div>
-                        </fieldset>
+                    </fieldset>
+                    <fieldset>
+                      <label for="category">Category</label>
+                      <div class="tf-select">
+                        <select class="w-100" id="category" required th:field="*{categoryId}">
+                          <option value="">-- Select Category --</option>
+                          <option th:each="category : ${categoryList}"
+                                  th:text="${category.name}"
+                                  th:value="${category.id}">
+                          </option>
+                        </select>
+                        <div class="error-message" th:if="${#fields.hasErrors('categoryId')}">
+                          <span th:errors="*{categoryId}"></span>
+                        </div>
                       </div>
-                      <fieldset>
-                        <label for="description">Description</label>
-                        <div>
+                    </fieldset>
+                  </div>
+                  <div class="cols tf-grid-layout sm-col-2">
+                    <fieldset>
+                      <label for="price">Price</label>
+                      <div>
+                        <input id="price" placeholder="Price *" required
+                               th:field="*{price}" type="number">
+                        <div class="error-message" th:if="${#fields.hasErrors('price')}">
+                          <span th:errors="*{price}"></span>
+                        </div>
+                      </div>
+                    </fieldset>
+                    <fieldset>
+                      <label for="salePrice">Sale price</label>
+                      <div>
+                        <input id="salePrice" placeholder="Sale price *" required
+                               th:field="*{salePrice}" type="number">
+                        <div class="error-message" th:if="${#fields.hasErrors('salePrice')}">
+                          <span th:errors="*{salePrice}"></span>
+                        </div>
+                      </div>
+                    </fieldset>
+                  </div>
+                  <fieldset>
+                    <label for="description">Description</label>
+                    <div>
                           <textarea id="description" maxlength="1000" placeholder="Description *"
                                     th:field="*{description}" type="text"></textarea>
-                          <div class="error-message" th:if="${#fields.hasErrors('description')}">
-                            <span th:errors="*{description}"></span>
-                          </div>
-                        </div>
+                      <div class="error-message" th:if="${#fields.hasErrors('description')}">
+                        <span th:errors="*{description}"></span>
+                      </div>
+                    </div>
+                  </fieldset>
+                </div>
+
+                <div class="form_content site-change">
+                  <!-- Nhóm 1: Chất liệu & cấu tạo -->
+                  <h5>Material and structure</h5>
+                  <div class="cols tf-grid-layout sm-col-3">
+                    <fieldset>
+                      <label for="material">Material</label>
+                      <input id="material" placeholder="Material *" required
+                             th:field="*{material}" type="text">
+                    </fieldset>
+                    <fieldset>
+                      <label for="innerPocket">Inner pocket</label>
+                      <input id="innerPocket" placeholder="Inner pocket *" required
+                             th:field="*{innerPocket}" type="text">
+                    </fieldset>
+                    <fieldset>
+                      <label for="lockType">Lock type</label>
+                      <input id="lockType" placeholder="Lock type *" required
+                             th:field="*{lockType}" type="text">
+                    </fieldset>
+                  </div>
+
+                  <!-- Nhóm 2: Dây đeo -->
+                  <h5 class="mt-3">Strap</h5>
+                  <div class="cols tf-grid-layout sm-col-3">
+                    <fieldset>
+                      <label for="strapQuantity">Strap quantity</label>
+                      <input id="strapQuantity" placeholder="Number of straps *" required
+                             th:field="*{strapQuantity}" type="number">
+                    </fieldset>
+                    <fieldset>
+                      <label for="strapLength">Strap length</label>
+                      <input id="strapLength" placeholder="Strap length *" required
+                             th:field="*{strapLength}" type="text">
+                    </fieldset>
+                    <fieldset>
+                      <label for="strapTotalLength">Strap total length</label>
+                      <input id="strapTotalLength" placeholder="Strap total length *" required
+                             th:field="*{strapTotalLength}" type="text">
+                    </fieldset>
+                  </div>
+                  <div class="cols tf-grid-layout sm-col-2">
+                    <fieldset>
+                      <label for="removableStrap">Removable strap: </label>
+                      <input id="removableStrap" th:field="*{removableStrap}" type="checkbox">
+                    </fieldset>
+                    <fieldset>
+                      <label for="adjustableStrap">Adjustable strap: </label>
+                      <input id="adjustableStrap" th:field="*{adjustableStrap}" type="checkbox">
+                    </fieldset>
+                  </div>
+
+                  <!-- Nhóm 3: Kích thước & trọng lượng -->
+                  <h5 class="mt-3">Size & weight</h5>
+                  <div class="cols tf-grid-layout sm-col-5">
+                    <fieldset>
+                      <label for="width">Width</label>
+                      <input id="width" placeholder="Width *" required
+                             th:field="*{width}" type="text">
+                    </fieldset>
+                    <fieldset>
+                      <label for="depth">Depth</label>
+                      <input id="depth" placeholder="Depth *" required th:field="*{depth}"
+                             type="text">
+                    </fieldset>
+                    <fieldset>
+                      <label for="height">Height</label>
+                      <input id="height" placeholder="Height *" required
+                             th:field="*{height}" type="text">
+                    </fieldset>
+                    <fieldset>
+                      <label for="handleLength">Handle length</label>
+                      <input id="handleLength" placeholder="Handle length *"
+                             required
+                             th:field="*{handleLength}" type="text">
+                    </fieldset>
+                    <fieldset>
+                      <label for="weight">Weight</label>
+                      <input id="weight" placeholder="Weight *" required
+                             th:field="*{weight}" type="text">
+                    </fieldset>
+                  </div>
+                </div>
+
+                <div class="form_content site-change">
+                  <h5 class="mt-3">Color</h5>
+                  <button class="btn-blue tf-btn animate-btn w-maxcontent fw-bold"
+                          id="btn-add-color"
+                          type="button">Add color
+                  </button>
+                  <div id="color-list">
+                    <div class="color-item tf-grid-layout sm-col-3 my-1"
+                         th:each="color,iterStat : *{colors}">
+                      <fieldset>
+                        <input placeholder="Color name (Eg: Red, Black)"
+                               th:field="*{colors[__${iterStat.index}__].name}"
+                               type="text"/>
                       </fieldset>
-                    </div>
-                  </div>
-
-                  <div class="tab-pane wd-product-descriptions" id="property" role="tabpanel">
-                    <div class="form_content site-change">
-                      <!-- Nhóm 1: Chất liệu & cấu tạo -->
-                      <h5>Material and structure</h5>
-                      <div class="cols tf-grid-layout sm-col-3">
-                        <fieldset>
-                          <label for="material">Material</label>
-                          <input id="material" placeholder="Material *" required
-                                 th:field="*{material}" type="text">
-                        </fieldset>
-                        <fieldset>
-                          <label for="innerPocket">Inner pocket</label>
-                          <input id="innerPocket" placeholder="Inner pocket *" required
-                                 th:field="*{innerPocket}" type="text">
-                        </fieldset>
-                        <fieldset>
-                          <label for="lockType">Lock type</label>
-                          <input id="lockType" placeholder="Lock type *" required
-                                 th:field="*{lockType}" type="text">
-                        </fieldset>
-                      </div>
-
-                      <!-- Nhóm 2: Dây đeo -->
-                      <h5 class="mt-3">Strap</h5>
-                      <div class="cols tf-grid-layout sm-col-3">
-                        <fieldset>
-                          <label for="strapQuantity">Strap quantity</label>
-                          <input id="strapQuantity" placeholder="Number of straps *" required
-                                 th:field="*{strapQuantity}" type="number">
-                        </fieldset>
-                        <fieldset>
-                          <label for="strapLength">Strap length</label>
-                          <input id="strapLength" placeholder="Strap length *" required
-                                 th:field="*{strapLength}" type="text">
-                        </fieldset>
-                        <fieldset>
-                          <label for="strapTotalLength">Strap total length</label>
-                          <input id="strapTotalLength" placeholder="Strap total length *" required
-                                 th:field="*{strapTotalLength}" type="text">
-                        </fieldset>
-                      </div>
-                      <div class="cols tf-grid-layout sm-col-2">
-                        <fieldset>
-                          <label for="removableStrap">Removable strap: </label>
-                          <input id="removableStrap" th:field="*{removableStrap}" type="checkbox">
-                        </fieldset>
-                        <fieldset>
-                          <label for="adjustableStrap">Adjustable strap: </label>
-                          <input id="adjustableStrap" th:field="*{adjustableStrap}" type="checkbox">
-                        </fieldset>
-                      </div>
-
-                      <!-- Nhóm 3: Kích thước & trọng lượng -->
-                      <h5 class="mt-3">Size & weight</h5>
-                      <div class="cols tf-grid-layout sm-col-5">
-                        <fieldset>
-                          <label for="width">Width</label>
-                          <input id="width" placeholder="Width *" required
-                                 th:field="*{width}" type="text">
-                        </fieldset>
-                        <fieldset>
-                          <label for="depth">Depth</label>
-                          <input id="depth" placeholder="Depth *" required th:field="*{depth}"
-                                 type="text">
-                        </fieldset>
-                        <fieldset>
-                          <label for="height">Height</label>
-                          <input id="height" placeholder="Height *" required
-                                 th:field="*{height}" type="text">
-                        </fieldset>
-                        <fieldset>
-                          <label for="handleLength">Handle length</label>
-                          <input id="handleLength" placeholder="Handle length *"
-                                 required
-                                 th:field="*{handleLength}" type="text">
-                        </fieldset>
-                        <fieldset>
-                          <label for="weight">Weight</label>
-                          <input id="weight" placeholder="Weight *" required
-                                 th:field="*{weight}" type="text">
-                        </fieldset>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="tab-pane wd-product-descriptions" id="variants" role="tabpanel">
-                    <h5 class="mt-3">Color</h5>
-                    <div class="form_content site-change">
-                      <button class="btn-blue tf-btn animate-btn w-maxcontent fw-bold"
-                              id="btn-add-color"
-                              type="button">Add color
-                      </button>
-                      <div id="color-list">
-                        <div class="color-item tf-grid-layout sm-col-3 my-1"
-                             th:each="color,iterStat : *{colors}">
-                          <fieldset>
-                            <input placeholder="Color name (Eg: Red, Black)"
-                                   th:field="*{colors[__${iterStat.index}__].name}"
-                                   type="text"/>
-                          </fieldset>
-                          <fieldset>
+                      <fieldset>
                             <span class="color-circle">
                               <input th:field="*{colors[__${iterStat.index}__].code}" type="color"
                                      value="#ff0000"/>
                             </span>
-                          </fieldset>
-                          <button
-                              class="btn-remove btn-blue tf-btn animate-btn w-maxcontent fw-bold"
-                              type="button">Delete
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-
-                    <h5 class="mt-3">Size</h5>
-                    <div class="form_content site-change">
-                      <button class="btn-blue tf-btn animate-btn w-maxcontent fw-bold"
-                              id="btn-add-size"
-                              type="button">Add size
+                      </fieldset>
+                      <button
+                          class="btn-remove btn-blue tf-btn animate-btn w-maxcontent fw-bold"
+                          type="button">Delete
                       </button>
-                      <div id="size-list">
-                        <div class="size-item tf-grid-layout sm-col-2 my-1"
-                             th:each="size,iterStat : *{sizes}">
-                          <fieldset>
-                            <input placeholder="Size name (Eg: S, M, L)"
-                                   th:field="*{sizes[__${iterStat.index}__].name}"
-                                   type="text"/>
-                          </fieldset>
-                          <button
-                              class="btn-remove btn-blue tf-btn animate-btn w-maxcontent fw-bold"
-                              type="button">Delete
-                          </button>
-                        </div>
-                      </div>
                     </div>
                   </div>
                 </div>
-                <button class="btn-submit_form tf-btn animate-btn w-100 fw-bold" type="submit">
-                  Save change
-                </button>
+
+                <div class="form_content site-change">
+                  <h5 class="mt-3">Size</h5>
+                  <button class="btn-blue tf-btn animate-btn w-maxcontent fw-bold"
+                          id="btn-add-size"
+                          type="button">Add size
+                  </button>
+                  <div id="size-list">
+                    <div class="size-item tf-grid-layout sm-col-2 my-1"
+                         th:each="size,iterStat : *{sizes}">
+                      <fieldset>
+                        <input placeholder="Size name (Eg: S, M, L)"
+                               th:field="*{sizes[__${iterStat.index}__].name}"
+                               type="text"/>
+                      </fieldset>
+                      <button
+                          class="btn-remove btn-blue tf-btn animate-btn w-maxcontent fw-bold"
+                          type="button">Delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
+              <button class="btn-submit_form tf-btn animate-btn w-100 fw-bold" type="submit">
+                Save change
+              </button>
             </form>
           </div>
         </div>
@@ -334,94 +307,7 @@
 <script th:src="@{/js/parallaxie.js}"></script>
 <script th:src="@{/js/count-down.js}"></script>
 <script th:src="@{/js/main.js}"></script>
-<script th:src="@{/js/language-switcher.js}"></script>
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const colorList = document.getElementById("color-list");
-    const addBtn = document.getElementById("btn-add-color");
-
-    function reindexColors() {
-      const items = colorList.querySelectorAll(".color-item");
-      items.forEach((item, index) => {
-        // input name sẽ thành colors[index].name, colors[index].code
-        item.querySelectorAll("input").forEach(input => {
-          if (input.type === "text") {
-            input.name = `colors[${index}].name`;
-          } else if (input.type === "color") {
-            input.name = `colors[${index}].code`;
-          }
-        });
-      });
-    }
-
-    addBtn.addEventListener("click", function () {
-      const newItem = document.createElement("div");
-      newItem.classList.add("color-item", "tf-grid-layout", "sm-col-3", "my-1");
-      newItem.innerHTML = `
-      <fieldset>
-        <input type="text" name="" placeholder="Tên màu (VD: Đỏ, Đen)" />
-      </fieldset>
-      <fieldset>
-        <span class="color-circle">
-          <input type="color" name="" />
-        </span>
-      </fieldset>
-      <button class="btn-remove btn-blue tf-btn animate-btn w-maxcontent fw-bold" type="button">Delete</button>
-    `;
-      colorList.appendChild(newItem);
-      reindexColors();
-    });
-
-    colorList.addEventListener("click", function (e) {
-      if (e.target.classList.contains("btn-remove")) {
-        e.target.closest(".color-item").remove();
-        reindexColors();
-      }
-    });
-
-    // Khởi tạo index ban đầu
-    reindexColors();
-  });
-</script>
-<script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const sizeList = document.getElementById("size-list");
-    const addSizeBtn = document.getElementById("btn-add-size");
-
-    function reindexSizes() {
-      const items = sizeList.querySelectorAll(".size-item");
-      items.forEach((item, index) => {
-        const input = item.querySelector("input[type='text']");
-        if (input) {
-          input.name = `sizes[${index}].name`;
-        }
-      });
-    }
-
-    addSizeBtn.addEventListener("click", function () {
-      const newItem = document.createElement("div");
-      newItem.classList.add("size-item", "tf-grid-layout", "sm-col-2", "my-1");
-      newItem.innerHTML = `
-        <fieldset>
-          <input type="text" name="" placeholder="Size name (Eg: S, M, L)" />
-        </fieldset>
-        <button class="btn-remove btn-blue tf-btn animate-btn w-maxcontent fw-bold" type="button">Delete</button>
-      `;
-      sizeList.appendChild(newItem);
-      reindexSizes();
-    });
-
-    sizeList.addEventListener("click", function (e) {
-      if (e.target.classList.contains("btn-remove")) {
-        e.target.closest(".size-item").remove();
-        reindexSizes();
-      }
-    });
-
-    // Khởi tạo index ban đầu
-    reindexSizes();
-  });
-</script>
+<script th:src="@{/js/admin/product.js}"></script>
 </body>
 
 </html>

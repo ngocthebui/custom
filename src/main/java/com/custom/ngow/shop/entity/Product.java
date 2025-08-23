@@ -76,7 +76,7 @@ public class Product {
   private List<ProductSize> sizes;
 
   @Enumerated(EnumType.STRING)
-  private ProductStatus status = ProductStatus.ACTIVE;
+  private ProductStatus status = ProductStatus.INACTIVE;
 
   private Boolean isFeatured = false;
   private Integer viewCount = 0;
