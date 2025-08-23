@@ -251,6 +251,7 @@
                   </div>
 
                   <div class="tab-pane wd-product-descriptions" id="variants" role="tabpanel">
+                    <h5 class="mt-3">Color</h5>
                     <div class="form_content site-change">
                       <button class="btn-blue tf-btn animate-btn w-maxcontent fw-bold"
                               id="btn-add-color"
@@ -260,7 +261,7 @@
                         <div class="color-item tf-grid-layout sm-col-3 my-1"
                              th:each="color,iterStat : *{colors}">
                           <fieldset>
-                            <input placeholder="Tên màu (VD: Đỏ, Đen)"
+                            <input placeholder="Color name (Eg: Red, Black)"
                                    th:field="*{colors[__${iterStat.index}__].name}"
                                    type="text"/>
                           </fieldset>
@@ -269,6 +270,28 @@
                               <input th:field="*{colors[__${iterStat.index}__].code}" type="color"
                                      value="#ff0000"/>
                             </span>
+                          </fieldset>
+                          <button
+                              class="btn-remove btn-blue tf-btn animate-btn w-maxcontent fw-bold"
+                              type="button">Delete
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    <h5 class="mt-3">Size</h5>
+                    <div class="form_content site-change">
+                      <button class="btn-blue tf-btn animate-btn w-maxcontent fw-bold"
+                              id="btn-add-size"
+                              type="button">Add size
+                      </button>
+                      <div id="size-list">
+                        <div class="size-item tf-grid-layout sm-col-2 my-1"
+                             th:each="size,iterStat : *{sizes}">
+                          <fieldset>
+                            <input placeholder="Size name (Eg: S, M, L)"
+                                   th:field="*{sizes[__${iterStat.index}__].name}"
+                                   type="text"/>
                           </fieldset>
                           <button
                               class="btn-remove btn-blue tf-btn animate-btn w-maxcontent fw-bold"
@@ -358,6 +381,45 @@
 
     // Khởi tạo index ban đầu
     reindexColors();
+  });
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const sizeList = document.getElementById("size-list");
+    const addSizeBtn = document.getElementById("btn-add-size");
+
+    function reindexSizes() {
+      const items = sizeList.querySelectorAll(".size-item");
+      items.forEach((item, index) => {
+        const input = item.querySelector("input[type='text']");
+        if (input) {
+          input.name = `sizes[${index}].name`;
+        }
+      });
+    }
+
+    addSizeBtn.addEventListener("click", function () {
+      const newItem = document.createElement("div");
+      newItem.classList.add("size-item", "tf-grid-layout", "sm-col-2", "my-1");
+      newItem.innerHTML = `
+        <fieldset>
+          <input type="text" name="" placeholder="Size name (Eg: S, M, L)" />
+        </fieldset>
+        <button class="btn-remove btn-blue tf-btn animate-btn w-maxcontent fw-bold" type="button">Delete</button>
+      `;
+      sizeList.appendChild(newItem);
+      reindexSizes();
+    });
+
+    sizeList.addEventListener("click", function (e) {
+      if (e.target.classList.contains("btn-remove")) {
+        e.target.closest(".size-item").remove();
+        reindexSizes();
+      }
+    });
+
+    // Khởi tạo index ban đầu
+    reindexSizes();
   });
 </script>
 </body>
