@@ -1,8 +1,5 @@
-.table-my_order {
-  table-layout: auto;
-}
-
 .user-table {
+  table-layout: auto;
   width: 100%;
   border-collapse: collapse;
   text-align: center;

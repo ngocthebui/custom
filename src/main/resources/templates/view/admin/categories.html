@@ -30,7 +30,6 @@
   <link href="/css/swiper-bundle.min.css" rel="stylesheet">
   <link href="/css/animate.css" rel="stylesheet">
   <link href="/css/styles.css" rel="stylesheet" type="text/css">
-  <link href="/css/fragments/list-user.css" rel="stylesheet">
 
   <!-- Favicon and Touch Icons  -->
   <link href="/images/logo/favicon.svg" rel="shortcut icon">
@@ -59,7 +58,7 @@
     <input accept="image/*" class="fileInputDash" style="display: none;" type="file">
     <div class="container-full">
       <div class="row">
-        <div th:replace="~{view/admin/fragments/menu.html :: menu('users')}"></div>
+        <div th:replace="~{view/admin/fragments/menu.html :: menu('categories')}"></div>
         <div class="col-xl-10">
           <div class="my-account-content">
             <div class="acount-order_stats">
@@ -70,29 +69,29 @@
                    data-tablet="3" dir="ltr">
                 <div class="swiper-wrapper">
                   <!-- item 1 -->
-                  <div class="swiper-slide">
-                    <div class="order-box">
-                      <div class="order_icon">
-                        <i class="icon icon-check-fat"></i>
-                      </div>
-                      <div class="order_info">
-                        <p class="info_label h6">Active users</p>
-                        <h2 class="info_count type-semibold" th:text="${countActiveUsers}">0</h2>
-                      </div>
-                    </div>
-                  </div>
+                  <!--                  <div class="swiper-slide">-->
+                  <!--                    <div class="order-box">-->
+                  <!--                      <div class="order_icon">-->
+                  <!--                        <i class="icon icon-check-fat"></i>-->
+                  <!--                      </div>-->
+                  <!--                      <div class="order_info">-->
+                  <!--                        <p class="info_label h6">Active users</p>-->
+                  <!--                        <h2 class="info_count type-semibold" th:text="${countActiveUsers}">0</h2>-->
+                  <!--                      </div>-->
+                  <!--                    </div>-->
+                  <!--                  </div>-->
                   <!-- item 2 -->
-                  <div class="swiper-slide">
-                    <div class="order-box">
-                      <div class="order_icon">
-                        <i class="icon icon-x"></i>
-                      </div>
-                      <div class="order_info">
-                        <p class="info_label h6">Inactive users</p>
-                        <h2 class="info_count type-semibold" th:text="${countInactiveUsers}">0</h2>
-                      </div>
-                    </div>
-                  </div>
+                  <!--                  <div class="swiper-slide">-->
+                  <!--                    <div class="order-box">-->
+                  <!--                      <div class="order_icon">-->
+                  <!--                        <i class="icon icon-x"></i>-->
+                  <!--                      </div>-->
+                  <!--                      <div class="order_info">-->
+                  <!--                        <p class="info_label h6">Inactive users</p>-->
+                  <!--                        <h2 class="info_count type-semibold" th:text="${countInactiveUsers}">0</h2>-->
+                  <!--                      </div>-->
+                  <!--                    </div>-->
+                  <!--                  </div>-->
                   <!-- item 3 -->
                   <div class="swiper-slide">
                     <div class="order-box">
@@ -100,8 +99,9 @@
                         <i class="icon icon-user"></i>
                       </div>
                       <div class="order_info">
-                        <p class="info_label h6">Total users</p>
-                        <h2 class="info_count type-semibold" th:text="${countTotalUsers}">0</h2>
+                        <p class="info_label h6">Total categories</p>
+                        <h2 class="info_count type-semibold" th:text="${countTotalCategories}">
+                          0</h2>
                       </div>
                     </div>
                   </div>
@@ -110,22 +110,17 @@
               </div>
             </div>
             <div class="account-my_order">
-              <h2 class="account-title type-semibold">All users
-                <div class="search-email">
-                  <form action="/admin/users/search" class="form-search style-2" method="GET">
-                    <fieldset>
-                      <input aria-required="true" class="style-stroke" name="q"
-                             placeholder="Search email"
-                             required="" tabindex="0" type="text"
-                             value="">
-                    </fieldset>
-                    <button class="link" type="submit"><i class="icon icon-magnifying-glass"></i>
+              <div class="tf-grid-layout sm-col-2">
+                <h2 class="account-title type-semibold">All categories
+                  <a href="/admin/categories/update">
+                    <button class="btn-blue tf-btn animate-btn w-auto fw-bold">
+                      Creat new
                     </button>
-                  </form>
-                </div>
-              </h2>
+                  </a>
+                </h2>
+              </div>
               <div class="overflow-auto">
-                <table class="table-my_order order_recent user-table">
+                <table class="table-my_order order_recent">
                   <thead>
                   <tr>
                     <th>
@@ -137,43 +132,18 @@
                       </a>
                     </th>
                     <th>
-                      <a th:href="@{${pagingUrl}(page=${pageData.number}, sort='email', dir=${reverseDir})}">
-                        Email
+                      <a th:href="@{${pagingUrl}(page=${pageData.number}, sort='name', dir=${reverseDir})}">
+                        Name
                         <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
-                           th:if="${sort == 'email'}">
+                           th:if="${sort == 'name'}">
                         </i>
                       </a>
                     </th>
                     <th>
-                      <a th:href="@{${pagingUrl}(page=${pageData.number}, sort='firstName', dir=${reverseDir})}">
-                        First name
+                      <a th:href="@{${pagingUrl}(page=${pageData.number}, sort='description', dir=${reverseDir})}">
+                        Description
                         <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
-                           th:if="${sort == 'firstName'}">
-                        </i>
-                      </a>
-                    </th>
-                    <th>
-                      <a th:href="@{${pagingUrl}(page=${pageData.number}, sort='lastName', dir=${reverseDir})}">
-                        Last name
-                        <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
-                           th:if="${sort == 'lastName'}">
-                        </i>
-                      </a>
-                    </th>
-                    <th>Image</th>
-                    <th>
-                      <a th:href="@{${pagingUrl}(page=${pageData.number}, sort='role', dir=${reverseDir})}">
-                        Role
-                        <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
-                           th:if="${sort == 'role'}">
-                        </i>
-                      </a>
-                    </th>
-                    <th>
-                      <a th:href="@{${pagingUrl}(page=${pageData.number}, sort='status', dir=${reverseDir})}">
-                        Status
-                        <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
-                           th:if="${sort == 'status'}">
+                           th:if="${sort == 'description'}">
                         </i>
                       </a>
                     </th>
@@ -197,36 +167,19 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr class="tb-order-item" th:each="user : ${pageData.content}">
-                    <td th:text="${user.id}">ID</td>
-                    <td th:text="${user.email}">Email</td>
-                    <td th:text="${user.firstName}">First Name</td>
-                    <td th:text="${user.lastName}">Last Name</td>
-                    <td>
-                      <div class="tb-order_product">
-                        <img alt="Image"
-                             class="lazyload user-avatar"
-                             th:data-src="${user.imageUrl}"
-                             th:src="${user.imageUrl}">
-                      </div>
-                    </td>
-                    <td th:text="${user.role.name()}">Role</td>
-                    <td>
-                      <div class="tb-order_status stt-complete"
-                           th:classappend="${user.status.name() == 'ACTIVE'} ? 'stt-complete' : 'stt-cancel'"
-                           th:text="${user.status.name()}">
-                        ACTIVE
-                      </div>
-                    </td>
-                    <td th:text="${#temporals.format(user.createdAt, 'yyyy-MM-dd HH:mm')}">Created
+                  <tr class="tb-order-item" th:each="data : ${pageData.content}">
+                    <td th:text="${data.id}">ID</td>
+                    <td th:text="${data.name}">Email</td>
+                    <td th:text="${data.description}">First Name</td>
+                    <td th:text="${#temporals.format(data.createdAt, 'yyyy-MM-dd HH:mm')}">Created
                       At
                     </td>
-                    <td th:text="${#temporals.format(user.updatedAt, 'yyyy-MM-dd HH:mm')}">Updated
+                    <td th:text="${#temporals.format(data.updatedAt, 'yyyy-MM-dd HH:mm')}">Updated
                       At
                     </td>
                     <td>
                       <a class="my-account-nav_item h5"
-                         th:href="@{'/admin/users/update/' + ${user.id}}">
+                         th:href="@{'/admin/categories/update/' + ${data.id}}">
                         <i class="icon icon-setting"></i>
                       </a>
                     </td>
