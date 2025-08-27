@@ -31,6 +31,7 @@
   <link href="/css/animate.css" rel="stylesheet">
   <link href="/css/styles.css" rel="stylesheet" type="text/css">
   <link href="/css/fragments/list-user.css" rel="stylesheet">
+  <link href="/css/admin/admin.css" rel="stylesheet" type="text/css">
 
   <!-- Favicon and Touch Icons  -->
   <link href="/images/logo/favicon.svg" rel="shortcut icon">
@@ -47,13 +48,7 @@
 </button>
 
 <div id="wrapper">
-  <!-- Page Title -->
-  <section class="s-page-title">
-    <div class="content">
-      <h1 class="title-page">Admin</h1>
-    </div>
-  </section>
-  <!-- /Page Title -->
+  <section th:replace="~{view/admin/fragments/admin-title.html :: title}"></section>
   <!-- Account -->
   <section class="flat-spacing">
     <input accept="image/*" class="fileInputDash" style="display: none;" type="file">

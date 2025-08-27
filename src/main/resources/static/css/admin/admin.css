@@ -1,5 +1,13 @@
-/* Search Email Component Styles */
+.admin-title {
+  padding: 40px 0;
+  background-color: var(--bg-9);
+}
 
+.admin-title .content {
+  text-align: center;
+}
+
+/* Search Email Component Styles */
 .admin-nav {
   display: flex;
   justify-content: space-between;
