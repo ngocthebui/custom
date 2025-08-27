@@ -206,8 +206,9 @@
                       <div class="tb-order_product">
                         <img alt="Image"
                              class="lazyload user-avatar"
-                             th:data-src="${user.imageUrl}"
-                             th:src="${user.imageUrl}">
+                             th:data-src="${imgUrl}"
+                             th:src="${imgUrl}"
+                             th:with="imgUrl=${#strings.isEmpty(user.imageUrl) ? '/images/avatar/avatar-default.jpg' : user.imageUrl}">
                       </div>
                     </td>
                     <td th:text="${user.role.name()}">Role</td>
