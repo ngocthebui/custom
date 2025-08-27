@@ -262,11 +262,13 @@
                   <div class="cols tf-grid-layout sm-col-2">
                     <fieldset>
                       <label for="removableStrap">Removable strap: </label>
-                      <input id="removableStrap" th:field="*{removableStrap}" type="checkbox">
+                      <input class="tf-check" id="removableStrap" th:field="*{removableStrap}"
+                             type="checkbox">
                     </fieldset>
                     <fieldset>
                       <label for="adjustableStrap">Adjustable strap: </label>
-                      <input id="adjustableStrap" th:field="*{adjustableStrap}" type="checkbox">
+                      <input class="tf-check" id="adjustableStrap" th:field="*{adjustableStrap}"
+                             type="checkbox">
                     </fieldset>
                   </div>
 
@@ -326,6 +328,7 @@
                   <div id="color-list">
                     <div class="color-item tf-grid-layout sm-col-3 my-1"
                          th:each="color,iterStat : *{colors}">
+                      <input th:field="*{colors[__${iterStat.index}__].id}" type="hidden">
                       <fieldset>
                         <input placeholder="Color name (Eg: Red, Black)"
                                th:field="*{colors[__${iterStat.index}__].name}"
@@ -353,6 +356,7 @@
                       </fieldset>
                       <button
                           class="btn-remove btn-blue tf-btn animate-btn w-maxcontent fw-bold"
+                          th:if="*{colors[__${iterStat.index}__].id == null}"
                           type="button">Delete
                       </button>
                     </div>
@@ -371,6 +375,7 @@
                   <div id="size-list">
                     <div class="size-item tf-grid-layout sm-col-2 my-1"
                          th:each="size,iterStat : *{sizes}">
+                      <input th:field="*{sizes[__${iterStat.index}__].id}" type="hidden">
                       <fieldset>
                         <input placeholder="Size name (Eg: S, M, L)"
                                th:field="*{sizes[__${iterStat.index}__].name}"
@@ -378,6 +383,7 @@
                       </fieldset>
                       <button
                           class="btn-remove btn-blue tf-btn animate-btn w-maxcontent fw-bold"
+                          th:if="*{sizes[__${iterStat.index}__].id == null}"
                           type="button">Delete
                       </button>
                     </div>

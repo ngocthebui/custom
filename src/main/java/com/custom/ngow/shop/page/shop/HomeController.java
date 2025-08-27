@@ -160,9 +160,23 @@ public class HomeController extends BaseController {
     List<ProductImageDto> images1 =
         List.of(
             new ProductImageDto(
-                1L, "/images/products/underwear/product-1.jpg", "Product", null, null, null),
+                1L,
+                "/images/products/underwear/product-1.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null),
             new ProductImageDto(
-                1L, "/images/products/underwear/product-2.jpg", "Product", null, null, null));
+                1L,
+                "/images/products/underwear/product-2.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null));
     // sizes
     List<ProductSize> sizes1 = new ArrayList<>();
     // colors
@@ -188,9 +202,23 @@ public class HomeController extends BaseController {
     List<ProductImageDto> images2 =
         List.of(
             new ProductImageDto(
-                1L, "/images/products/underwear/product-4.jpg", "Product", null, null, null),
+                1L,
+                "/images/products/underwear/product-4.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null),
             new ProductImageDto(
-                1L, "/images/products/underwear/product-5.jpg", "Product", null, null, null));
+                1L,
+                "/images/products/underwear/product-5.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null));
     // sizes
     List<ProductSize> sizes2 = new ArrayList<>();
     // colors
@@ -208,9 +236,23 @@ public class HomeController extends BaseController {
     List<ProductImageDto> images3 =
         List.of(
             new ProductImageDto(
-                1L, "/images/products/underwear/product-8.jpg", "Product", null, null, null),
+                1L,
+                "/images/products/underwear/product-8.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null),
             new ProductImageDto(
-                1L, "/images/products/underwear/product-9.jpg", "Product", null, null, null));
+                1L,
+                "/images/products/underwear/product-9.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null));
     // sizes
     List<ProductSize> sizes3 =
         Arrays.asList(
@@ -242,9 +284,23 @@ public class HomeController extends BaseController {
     List<ProductImageDto> images4 =
         List.of(
             new ProductImageDto(
-                1L, "/images/products/underwear/product-12.jpg", "Product", null, null, null),
+                1L,
+                "/images/products/underwear/product-12.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null),
             new ProductImageDto(
-                1L, "/images/products/underwear/product-13.jpg", "Product", null, null, null));
+                1L,
+                "/images/products/underwear/product-13.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null));
     // sizes
     List<ProductSize> sizes4 = new ArrayList<>();
     // colors
@@ -265,9 +321,23 @@ public class HomeController extends BaseController {
     List<ProductImageDto> images5 =
         List.of(
             new ProductImageDto(
-                1L, "/images/products/underwear/product-15.jpg", "Product", null, null, null),
+                1L,
+                "/images/products/underwear/product-15.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null),
             new ProductImageDto(
-                1L, "/images/products/underwear/product-16.jpg", "Product", null, null, null));
+                1L,
+                "/images/products/underwear/product-16.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null));
     // sizes
     List<ProductSize> sizes5 =
         List.of(
@@ -298,9 +368,23 @@ public class HomeController extends BaseController {
     List<ProductImageDto> images6 =
         List.of(
             new ProductImageDto(
-                1L, "/images/products/underwear/product-19.jpg", "Product", null, null, null),
+                1L,
+                "/images/products/underwear/product-19.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null),
             new ProductImageDto(
-                1L, "/images/products/underwear/product-20.jpg", "Product", null, null, null));
+                1L,
+                "/images/products/underwear/product-20.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null));
     // sizes
     List<ProductSize> sizes6 = new ArrayList<>();
     // colors
@@ -314,9 +398,23 @@ public class HomeController extends BaseController {
     List<ProductImageDto> images7 =
         List.of(
             new ProductImageDto(
-                1L, "/images/products/underwear/product-21.jpg", "Product", null, null, null),
+                1L,
+                "/images/products/underwear/product-21.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null),
             new ProductImageDto(
-                1L, "/images/products/underwear/product-22.jpg", "Product", null, null, null));
+                1L,
+                "/images/products/underwear/product-22.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null));
     // sizes
     List<ProductSize> sizes7 =
         List.of(
@@ -355,9 +453,23 @@ public class HomeController extends BaseController {
     List<ProductImageDto> images8 =
         List.of(
             new ProductImageDto(
-                1L, "/images/products/underwear/product-26.jpg", "Product", null, null, null),
+                1L,
+                "/images/products/underwear/product-26.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null),
             new ProductImageDto(
-                1L, "/images/products/underwear/product-27.jpg", "Product", null, null, null));
+                1L,
+                "/images/products/underwear/product-27.jpg",
+                "Product",
+                null,
+                null,
+                null,
+                null,
+                null));
     // sizes
     List<ProductSize> sizes8 =
         List.of(

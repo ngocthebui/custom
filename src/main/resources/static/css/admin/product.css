@@ -15,3 +15,10 @@
   cursor: pointer;
   background: transparent;
 }
+
+.preview-img {
+  max-height: 400px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}

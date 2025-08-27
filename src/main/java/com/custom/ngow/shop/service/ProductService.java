@@ -32,6 +32,13 @@ public class ProductService {
   private final ProductRepository productRepository;
   private final CategoryService categoryService;
   private final MessageUtil messageUtil;
+  private final ProductColorService productColorService;
+  private final ProductSizeService productSizeService;
+
+  public Product save(Product product) {
+    log.info("Save product {}", product.getSku());
+    return productRepository.save(product);
+  }
 
   public long countAllProducts() {
     return productRepository.count();
@@ -71,11 +78,7 @@ public class ProductService {
     product.setSalePrice(getSalePrice(product.getPrice(), salePercentage));
 
     // top sale 50%
-    if (salePercentage != null && salePercentage >= 50) {
-      product.setIsTopSale(true);
-    } else {
-      product.setIsTopSale(false);
-    }
+    product.setIsTopSale(salePercentage != null && salePercentage >= 50);
 
     product.setStockQuantity(dto.getStockQuantity());
     product.setDescription(dto.getDescription());

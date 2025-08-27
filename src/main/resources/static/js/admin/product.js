@@ -136,7 +136,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Tạo div chứa item
     const div = document.createElement("div");
-    div.classList.add("category-item", "size-item", "tf-grid-layout", "sm-col-2", "my-1");
+    div.classList.add("category-item", "size-item", "tf-grid-layout",
+        "sm-col-2", "my-1");
 
     div.innerHTML = `
       <fieldset>
@@ -200,3 +201,43 @@ function updateSalePrice() {
 
   document.getElementById("salePrice").value = salePrice > 0 ? salePrice : "";
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  const imageList = document.getElementById("image-list");
+  const addImageBtn = document.getElementById("btn-add-image");
+  const imageTemplate = document.getElementById("image-template").innerHTML;
+
+  function reIndexImages() {
+    const items = imageList.querySelectorAll(".image-item");
+    items.forEach((item, i) => {
+      // update tất cả input/select name cho đúng index
+      item.querySelectorAll("input, select").forEach(el => {
+        if (el.name) {
+          el.name = el.name.replace(/images\[\d+\]/, `images[${i}]`);
+        }
+      });
+    });
+  }
+
+  function bindDeleteEvent(item) {
+    const btn = item.querySelector(".btn-remove");
+    btn.addEventListener("click", function () {
+      item.remove();
+      reIndexImages();
+    });
+  }
+
+  addImageBtn.addEventListener("click", function () {
+    const newItem = document.createElement("div");
+    newItem.innerHTML = imageTemplate.trim();
+    const item = newItem.firstElementChild;
+    imageList.appendChild(item);
+    bindDeleteEvent(item);
+    reIndexImages();
+  });
+
+  // Gắn delete cho các item đã render từ server
+  imageList.querySelectorAll(".image-item").forEach(item => {
+    bindDeleteEvent(item);
+  });
+});

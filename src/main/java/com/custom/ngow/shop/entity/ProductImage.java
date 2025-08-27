@@ -3,6 +3,7 @@ package com.custom.ngow.shop.entity;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,12 +17,14 @@ import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Table(name = "product_images")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = {"color", "size", "product"})
 public class ProductImage {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,4 +50,6 @@ public class ProductImage {
   private Product product;
 
   @CreationTimestamp private LocalDateTime createdAt;
+
+  @UpdateTimestamp private LocalDateTime updatedAt;
 }

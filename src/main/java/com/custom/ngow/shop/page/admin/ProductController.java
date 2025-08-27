@@ -58,7 +58,7 @@ public class ProductController {
 
   @PostMapping("/register")
   @Transactional
-  public String createProduct(
+  public String registerProduct(
       @Valid @ModelAttribute("productDto") ProductRegistration productDto,
       BindingResult bindingResult,
       Model model,
@@ -94,15 +94,6 @@ public class ProductController {
 
     redirectAttributes.addFlashAttribute(
         "successMessage", messageUtil.getMessage(successCode, new String[] {"product"}));
-    return "redirect:/admin/products/update?productId=" + product.getId();
-  }
-
-  @GetMapping("/update/image")
-  public String updateProductImage(@RequestParam("productId") Long productId, Model model) {
-    model.addAttribute("categoryList", categoryService.getAllCategories());
-    model.addAttribute("badgeList", ProductBadge.values());
-    model.addAttribute("mode", "Update");
-    model.addAttribute("adminDto", userService.getCurrentUserDto());
-    return "view/admin/product";
+    return "redirect:/admin/products/images?productId=" + product.getId();
   }
 }
