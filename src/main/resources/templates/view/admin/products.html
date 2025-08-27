@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]>
+<html class="ie"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en-US"
+      xml:lang="en-US"
+      xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <title>Ochaka - Multipurpose eCommerce HTML Template</title>
+  <meta content="themesflat.com" name="author">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+  <meta
+      content="Themesflat Ochaka - A modern and elegant Multipurpose eCommerce HTML Template, perfect for online stores selling rings, necklaces, watches, and other accessories. SEO-optimized, fast-loading, and fully customizable."
+      name="description">
+  <meta name="_csrf" th:content="${_csrf.token}"/>
+  <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+  <!-- font -->
+  <link href="/fonts/fonts.css" rel="stylesheet">
+  <link href="/icon/icomoon/style.css" rel="stylesheet">
+  <!-- css -->
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/swiper-bundle.min.css" rel="stylesheet">
+  <link href="/css/animate.css" rel="stylesheet">
+  <link href="/css/styles.css" rel="stylesheet" type="text/css">
+  <link href="/css/admin/admin-nav.css" rel="stylesheet" type="text/css">
+
+  <!-- Favicon and Touch Icons  -->
+  <link href="/images/logo/favicon.svg" rel="shortcut icon">
+  <link href="/images/logo/favicon.svg" rel="apple-touch-icon-precomposed">
+
+</head>
+
+<body>
+
+<!-- Scroll Top -->
+<button id="goTop">
+  <span class="border-progress"></span>
+  <span class="icon icon-caret-up"></span>
+</button>
+
+<div id="wrapper">
+  <!-- Page Title -->
+  <section class="s-page-title">
+    <div class="content">
+      <h1 class="title-page">Admin</h1>
+    </div>
+  </section>
+  <!-- /Page Title -->
+  <!-- Account -->
+  <section class="flat-spacing">
+    <input accept="image/*" class="fileInputDash" style="display: none;" type="file">
+    <div class="container-full">
+      <div class="row">
+        <div th:replace="~{view/admin/fragments/menu.html :: menu('products')}"></div>
+        <div class="col-xl-10">
+          <div class="my-account-content">
+            <div class="acount-order_stats">
+              <div class="swiper tf-swiper" data-mobile="1" data-mobile-sm="2" data-pagination="1"
+                   data-pagination-lg="3" data-pagination-md="3"
+                   data-pagination-sm="2" data-preview="3" data-space="12" data-space-lg="48"
+                   data-space-md="16"
+                   data-tablet="3" dir="ltr">
+                <div class="swiper-wrapper">
+                  <!-- item 1 -->
+                  <div class="swiper-slide">
+                    <div class="order-box">
+                      <div class="order_icon">
+                        <i class="icon icon-check-fat"></i>
+                      </div>
+                      <div class="order_info">
+                        <p class="info_label h6">Active products</p>
+                        <h2 class="info_count type-semibold" th:text="${countActiveProducts}">0</h2>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- item 2-->
+                  <div class="swiper-slide">
+                    <div class="order-box">
+                      <div class="order_icon">
+                        <i class="icon icon-x"></i>
+                      </div>
+                      <div class="order_info">
+                        <p class="info_label h6">Inactive products</p>
+                        <h2 class="info_count type-semibold" th:text="${countInactiveProducts}">
+                          0</h2>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- item 3-->
+                  <div class="swiper-slide">
+                    <div class="order-box">
+                      <div class="order_icon">
+                        <i class="icon icon-user"></i>
+                      </div>
+                      <div class="order_info">
+                        <p class="info_label h6">Total products</p>
+                        <h2 class="info_count type-semibold" th:text="${countTotalProducts}">
+                          0</h2>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="sw-dot-default tf-sw-pagination"></div>
+              </div>
+            </div>
+            <div class="account-my_order">
+              <div class="tf-grid-layout sm-col-1">
+                <h2 class="account-title type-semibold">All products
+                </h2>
+              </div>
+              <div class="admin-nav">
+                <a href="/admin/products/create">
+                  <button class="btn-blue tf-btn animate-btn w-auto fw-bold admin-nav_child">
+                    Creat new
+                  </button>
+                </a>
+                <div class="admin-nav_child">
+                  <form action="/admin/products/search" class="form-search style-2" method="GET">
+                    <fieldset>
+                      <input aria-required="true" class="style-stroke" name="q"
+                             placeholder="Search SKU"
+                             required="" tabindex="0" type="text"
+                             value="">
+                    </fieldset>
+                    <button class="link" type="submit"><i class="icon icon-magnifying-glass"></i>
+                    </button>
+                  </form>
+                </div>
+              </div>
+              <div class="overflow-auto">
+                <table class="table-my_order order_recent">
+                  <thead>
+                  <tr>
+                    <th>
+                      <a th:href="@{${pagingUrl}(page=${pageData.number}, sort='id', dir=${reverseDir})}">
+                        ID
+                        <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
+                           th:if="${sort == 'id'}">
+                        </i>
+                      </a>
+                    </th>
+                    <th>
+                      <a th:href="@{${pagingUrl}(page=${pageData.number}, sort='sku', dir=${reverseDir})}">
+                        SKU
+                        <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
+                           th:if="${sort == 'sku'}">
+                        </i>
+                      </a>
+                    </th>
+                    <th>
+                      <a th:href="@{${pagingUrl}(page=${pageData.number}, sort='price', dir=${reverseDir})}">
+                        Price
+                        <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
+                           th:if="${sort == 'price'}">
+                        </i>
+                      </a>
+                    </th>
+                    <th>
+                      <a th:href="@{${pagingUrl}(page=${pageData.number}, sort='salePercentage', dir=${reverseDir})}">
+                        Sale %
+                        <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
+                           th:if="${sort == 'salePercentage'}">
+                        </i>
+                      </a>
+                    </th>
+                    <th>
+                      Images
+                    </th>
+                    <th>
+                      <a th:href="@{${pagingUrl}(page=${pageData.number}, sort='status', dir=${reverseDir})}">
+                        Status
+                        <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
+                           th:if="${sort == 'status'}">
+                        </i>
+                      </a>
+                    </th>
+                    <th>
+                      <a th:href="@{${pagingUrl}(page=${pageData.number}, sort='badge', dir=${reverseDir})}">
+                        Badge
+                        <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
+                           th:if="${sort == 'badge'}">
+                        </i>
+                      </a>
+                    </th>
+                    <th>
+                      <a th:href="@{${pagingUrl}(page=${pageData.number}, sort='rating', dir=${reverseDir})}">
+                        Rating
+                        <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
+                           th:if="${sort == 'rating'}">
+                        </i>
+                      </a>
+                    </th>
+                    <th>Update</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr class="tb-order-item" th:each="data : ${pageData.content}">
+                    <td th:text="${data.id}"></td>
+                    <td th:text="${data.sku}"></td>
+                    <td th:text="${data.price}"></td>
+                    <td th:text="${data.salePercentage}"></td>
+                    <td>
+                      <a class="my-account-nav_item h5"
+                         th:href="@{'/admin/products/images?productId=' + ${data.id}}">
+                        <i class="icon icon-setting"></i>
+                      </a>
+                    </td>
+                    <td>
+                      <div class="tb-order_status stt-complete"
+                           th:classappend="${data.status.name() == 'ACTIVE'} ? 'stt-complete' : 'stt-cancel'"
+                           th:text="${data.status.name()}">
+                      </div>
+                    </td>
+                    <td>
+                      <div class="product-badge_item h6"
+                           th:classappend="${data.badge.className}"
+                           th:if="${data.badge != null}">
+                        <i class="icon icon-thunder"
+                           th:if="${data.badge.className == 'flash-sale'}"></i>
+                        <span th:text="${data.badge.value}"></span>
+                      </div>
+                    </td>
+                    <td th:text="${data.rating}"></td>
+                    <td>
+                      <a class="my-account-nav_item h5"
+                         th:href="@{'/admin/products/update?productId=' + ${data.id}}">
+                        <i class="icon icon-setting"></i>
+                      </a>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="wd-full wg-pagination" th:if="${!pageData.content.isEmpty()}">
+                <!-- Previous -->
+                <a class="pagination-item h6 direct"
+                   th:href="@{${pagingUrl}(page=${pageData.number - 1}, sort=${sort}, dir=${dir})}"
+                   th:if="${pageData.hasPrevious()}">
+                  <i class="icon icon-caret-left"></i>
+                </a>
+                <!-- Page numbers -->
+                <span th:each="i : ${#numbers.sequence(0, pageData.totalPages - 1)}">
+                  <a class="pagination-item h6"
+                     th:href="@{${pagingUrl}(page=${i}, sort=${sort}, dir=${dir})}"
+                     th:if="${i != pageData.number}"
+                     th:text="${i + 1}">
+                  </a>
+                  <span class="pagination-item h6 active"
+                        th:if="${i == pageData.number}"
+                        th:text="${i + 1}">
+                  </span>
+                </span>
+                <!-- Next -->
+                <a class="pagination-item h6 direct"
+                   th:href="@{${pagingUrl}(page=${pageData.number + 1}, sort=${sort}, dir=${dir})}"
+                   th:if="${pageData.hasNext()}">
+                  <i class="icon icon-caret-right"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /Account -->
+</div>
+
+<!-- Button Sidebar -->
+<div class="btn-sidebar-mb d-lg-none left">
+  <button data-bs-target="#mbSidebar" data-bs-toggle="offcanvas">
+    <i class="icon icon-sidebar"></i>
+  </button>
+</div>
+<!-- /Button Sidebar -->
+<!-- Sidebar -->
+<div class="offcanvas offcanvas-start canvas-sidebar" id="mbSidebar">
+  <div class="canvas-wrapper">
+    <div class="canvas-header">
+      <span class="title h4 fw-bold">Admin</span>
+      <span class="icon-close link icon-close-popup" data-bs-dismiss="offcanvas"></span>
+    </div>
+    <div class="canvas-body sidebar-mobile-append sidebar-account"></div>
+  </div>
+</div>
+<!-- /Sidebar -->
+
+<!-- Javascript -->
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/swiper-bundle.min.js"></script>
+<script src="/js/carousel.js"></script>
+<script src="/js/bootstrap-select.min.js"></script>
+<script src="/js/lazysize.min.js"></script>
+<script src="/js/wow.min.js"></script>
+<script src="/js/main.js"></script>
+</body>
+
+</html>

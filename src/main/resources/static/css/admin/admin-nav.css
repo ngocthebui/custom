@@ -1,0 +1,21 @@
+/* Search Email Component Styles */
+
+.admin-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+@media (max-width: 576px) {
+  .admin-nav {
+    font-size: 20px;
+  }
+
+  .admin-nav_child {
+    width: 200px; /* Nhỏ hơn trên mobile */
+    max-width: 200px;
+  }
+}

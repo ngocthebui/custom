@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.custom.ngow.shop.common.MessageUtil;
 import com.custom.ngow.shop.constant.Mode;
 import com.custom.ngow.shop.constant.ProductBadge;
+import com.custom.ngow.shop.constant.ProductStatus;
 import com.custom.ngow.shop.dto.ProductRegistration;
 import com.custom.ngow.shop.entity.Product;
 import com.custom.ngow.shop.exception.CustomException;
@@ -30,6 +31,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Service
 public class ProductController {
+
+  private static final int PAGE_SIZE = 5;
 
   private final ProductService productService;
   private final MessageUtil messageUtil;
@@ -95,5 +98,53 @@ public class ProductController {
     redirectAttributes.addFlashAttribute(
         "successMessage", messageUtil.getMessage(successCode, new String[] {"product"}));
     return "redirect:/admin/products/images?productId=" + product.getId();
+  }
+
+  @GetMapping
+  public String getAllProducts(
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "id") String sort,
+      @RequestParam(defaultValue = "asc") String dir,
+      Model model) {
+    model.addAttribute("adminDto", userService.getCurrentUserDto());
+
+    model.addAttribute(
+        "countActiveProducts", productService.countProductsByStatus(ProductStatus.ACTIVE));
+    model.addAttribute(
+        "countInactiveProducts", productService.countProductsByStatus(ProductStatus.INACTIVE));
+    model.addAttribute("countTotalProducts", productService.countAllProducts());
+
+    model.addAttribute(
+        "pageData", productService.getProductsWithPaging(page, PAGE_SIZE, sort, dir));
+
+    model.addAttribute("pagingUrl", "/admin/products");
+    model.addAttribute("sort", sort);
+    model.addAttribute("dir", dir);
+    model.addAttribute("reverseDir", dir.equals("asc") ? "desc" : "asc");
+    return "view/admin/products";
+  }
+
+  @GetMapping("/search")
+  public String getProductBySKU(
+      @RequestParam String q,
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "id") String sort,
+      @RequestParam(defaultValue = "asc") String dir,
+      Model model) {
+    model.addAttribute("adminDto", userService.getCurrentUserDto());
+    model.addAttribute(
+        "countActiveProducts", productService.countProductsByStatus(ProductStatus.ACTIVE));
+    model.addAttribute(
+        "countInactiveProducts", productService.countProductsByStatus(ProductStatus.INACTIVE));
+    model.addAttribute("countTotalProducts", productService.countAllProducts());
+
+    model.addAttribute(
+        "pageData", productService.searchBySkuContains(q, page, PAGE_SIZE, sort, dir));
+
+    model.addAttribute("pagingUrl", "/admin/products/search?q=" + q);
+    model.addAttribute("sort", sort);
+    model.addAttribute("dir", dir);
+    model.addAttribute("reverseDir", dir.equals("asc") ? "desc" : "asc");
+    return "view/admin/products";
   }
 }

@@ -8,11 +8,17 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.custom.ngow.shop.common.MessageUtil;
 import com.custom.ngow.shop.constant.ProductBadge;
+import com.custom.ngow.shop.constant.ProductStatus;
+import com.custom.ngow.shop.dto.ProductListDto;
 import com.custom.ngow.shop.dto.ProductRegistration;
 import com.custom.ngow.shop.entity.Category;
 import com.custom.ngow.shop.entity.Product;
@@ -32,8 +38,6 @@ public class ProductService {
   private final ProductRepository productRepository;
   private final CategoryService categoryService;
   private final MessageUtil messageUtil;
-  private final ProductColorService productColorService;
-  private final ProductSizeService productSizeService;
 
   public Product save(Product product) {
     log.info("Save product {}", product.getSku());
@@ -42,6 +46,51 @@ public class ProductService {
 
   public long countAllProducts() {
     return productRepository.count();
+  }
+
+  public long countProductsByStatus(ProductStatus status) {
+    return productRepository.countByStatus(status);
+  }
+
+  public Page<ProductListDto> getProductsWithPaging(int page, int size, String sortBy, String dir) {
+    Sort.Direction direction =
+        dir.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+    Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortBy));
+
+    Page<Product> products = productRepository.findAll(pageable);
+
+    // convert Page<Product> -> Page<ProductListDto>
+    return products.map(
+        product ->
+            new ProductListDto(
+                product.getId(),
+                product.getSku(),
+                product.getPrice(),
+                product.getSalePercentage(),
+                product.getStatus(),
+                product.getBadge(),
+                product.getRating()));
+  }
+
+  public Page<ProductListDto> searchBySkuContains(
+      String sku, int page, int size, String sortBy, String dir) {
+    Sort.Direction direction =
+        dir.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+    Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortBy));
+
+    Page<Product> products = productRepository.findAllBySkuContainsIgnoreCase(sku, pageable);
+
+    // convert Page<Product> -> Page<ProductListDto>
+    return products.map(
+        product ->
+            new ProductListDto(
+                product.getId(),
+                product.getSku(),
+                product.getPrice(),
+                product.getSalePercentage(),
+                product.getStatus(),
+                product.getBadge(),
+                product.getRating()));
   }
 
   public Product getProductById(long id) {
