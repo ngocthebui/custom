@@ -19425,18 +19425,18 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
 .table-my_order td:first-child {
   width: 155px;
 }
-.table-my_order th:nth-child(2),
-.table-my_order td:nth-child(2) {
-  width: 415px;
-}
+/*.table-my_order th:nth-child(2),*/
+/*.table-my_order td:nth-child(2) {*/
+/*  width: 415px;*/
+/*}*/
 .table-my_order th:last-child,
 .table-my_order td:last-child {
   width: 130px;
 }
-.table-my_order.order_recent th:nth-child(2),
-.table-my_order.order_recent td:nth-child(2) {
-  width: 458px;
-}
+/*.table-my_order.order_recent th:nth-child(2),*/
+/*.table-my_order.order_recent td:nth-child(2) {*/
+/*  width: 458px;*/
+/*}*/
 .table-my_order.order_recent th:last-child,
 .table-my_order.order_recent td:last-child {
   width: unset;
@@ -19452,12 +19452,12 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
     vertical-align: middle;
   }
 }
-@media (max-width: 767px) {
-  .table-my_order th:nth-child(2),
-  .table-my_order td:nth-child(2) {
-    min-width: 300px;
-  }
-}
+/*@media (max-width: 767px) {*/
+/*  .table-my_order th:nth-child(2),*/
+/*  .table-my_order td:nth-child(2) {*/
+/*    min-width: 300px;*/
+/*  }*/
+/*}*/
 
 .tb-order_product {
   display: flex;

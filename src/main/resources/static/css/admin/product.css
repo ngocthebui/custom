@@ -1,0 +1,24 @@
+.color-circle {
+  display: inline-block;
+  width: 55px;   /* kích thước vòng tròn */
+  height: 55px;
+  border-radius: 50%;
+  overflow: hidden;   /* bo tròn input */
+  border: 1px solid #ccc;
+}
+
+.color-circle input[type="color"] {
+  width: 100%;
+  height: 100%;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+}
+
+.preview-img {
+  max-height: 400px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+}

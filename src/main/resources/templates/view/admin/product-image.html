@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+
+<!--[if IE 8]>
+<html class="ie"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en-US"
+      xml:lang="en-US"
+      xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <title>Ochaka - Multipurpose eCommerce HTML Template</title>
+  <meta content="themesflat.com" name="author">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+  <meta
+      content="Themesflat Ochaka - A modern and elegant Multipurpose eCommerce HTML Template, perfect for online stores selling rings, necklaces, watches, and other accessories. SEO-optimized, fast-loading, and fully customizable."
+      name="description">
+  <meta name="_csrf" th:content="${_csrf.token}"/>
+  <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+
+  <!-- font -->
+  <link rel="stylesheet" th:href="@{/fonts/fonts.css}">
+  <link rel="stylesheet" th:href="@{/icon/icomoon/style.css}">
+  <!-- css -->
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+  <link rel="stylesheet" th:href="@{/css/swiper-bundle.min.css}">
+  <link rel="stylesheet" th:href="@{/css/animate.css}">
+  <link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css">
+  <link rel="stylesheet" th:href="@{/css/common.css}" type="text/css">
+  <link rel="stylesheet" th:href="@{/css/admin/product.css}" type="text/css">
+  <link href="/css/admin/admin.css" rel="stylesheet" type="text/css">
+
+  <!-- Favicon and Touch Icons  -->
+  <link rel="shortcut icon" th:href="@{/images/logo/favicon.svg}">
+  <link rel="apple-touch-icon-precomposed" th:href="@{/images/logo/favicon.svg}">
+</head>
+
+<body>
+
+<!-- Scroll Top and preload -->
+<div th:replace="~{view/shop/fragments/goTop :: goTop}"></div>
+<!-- /Scroll Top and preload -->
+
+<div id="wrapper">
+  <!-- Page Title -->
+  <section th:replace="~{view/admin/fragments/admin-title.html :: title}"></section>
+  <!-- /Page Title -->
+  <!-- Account -->
+  <section class="flat-spacing">
+    <input accept="image/*" class="fileInputDash" style="display: none;" type="file">
+    <div class="container-full">
+      <div class="row">
+        <div th:replace="~{view/admin/fragments/menu.html :: menu('products')}"></div>
+        <div class="col-xl-9">
+          <div class="my-account-content">
+            <div class="alert alert-success" role="alert" th:if="${successMessage}">
+              <span th:text="${successMessage}"></span>
+            </div>
+            <div class="alert alert-danger" role="alert" th:if="${errorMessage}">
+              <span th:text="${errorMessage}"></span>
+            </div>
+            <form class="form-change_pass" enctype="multipart/form-data" method="post"
+                  th:action="@{/admin/products/images/register}" th:object="${imageListDto}">
+              <input th:field="*{productId}" type="hidden">
+              <div class="" style="padding-bottom: 20px">
+                <h2 class="account-title type-semibold">
+                  Update images:
+                </h2>
+                <div class="form_content site-change">
+                  <button class="btn-blue tf-btn animate-btn w-maxcontent fw-bold"
+                          id="btn-add-image"
+                          type="button">Add Image
+                  </button>
+                  <div id="image-list">
+                    <div class="image-item tf-grid-layout sm-col-2 my-2"
+                         th:each="imageDto, iterStat : *{images}">
+                      <input th:field="*{images[__${iterStat.index}__].id}" type="hidden">
+                      <fieldset>
+                        <div class="product-image-preview">
+                          <div class="box-icon">
+                            <label style="cursor: pointer;">
+                              <i class="icon icon-camera"></i>
+                              <input accept="image/*"
+                                     class="preview-input"
+                                     style="display: none;"
+                                     th:field="*{images[__${iterStat.index}__].image}"
+                                     type="file">
+                            </label>
+                          </div>
+                          <div class="image">
+                            <img alt="Product"
+                                 class="lazyload preview-img"
+                                 th:data-src="${imgUrl}"
+                                 th:src="${imgUrl}"
+                                 th:with="imgUrl=${#strings.isEmpty(imageDto.imageUrl) ? '/images/avatar/avatar-default.jpg' : imageDto.imageUrl}">
+                          </div>
+                        </div>
+                      </fieldset>
+
+                      <div class="tf-grid-layout sm-col-1">
+                        <fieldset>
+                          <label>Color</label>
+                          <div class="tf-select">
+                            <select class="w-100" required
+                                    th:field="*{images[__${iterStat.index}__].colorId}">
+                              <option value="">-- Select Color --</option>
+                              <option th:each="color : ${colorList}"
+                                      th:text="${color.name}"
+                                      th:value="${color.id}"></option>
+                            </select>
+                          </div>
+                        </fieldset>
+
+                        <fieldset>
+                          <label>Size</label>
+                          <div class="tf-select">
+                            <select class="w-100" required
+                                    th:field="*{images[__${iterStat.index}__].sizeId}">
+                              <option value="">-- Select Size --</option>
+                              <option th:each="size : ${sizeList}"
+                                      th:text="${size.name}"
+                                      th:value="${size.id}"></option>
+                            </select>
+                          </div>
+                        </fieldset>
+
+                        <div class="tf-grid-layout sm-col-2">
+                          <fieldset>
+                            <label>Order</label>
+                            <input th:field="*{images[__${iterStat.index}__].sortOrder}"
+                                   type="number">
+                          </fieldset>
+                          <fieldset>
+                            <label>Main picture</label>
+                            <div>
+                              <input class="tf-check"
+                                     th:field="*{images[__${iterStat.index}__].isMain}"
+                                     type="checkbox">
+                            </div>
+                          </fieldset>
+                        </div>
+
+                        <!-- Nút delete -->
+                        <button class="btn-remove btn-blue tf-btn animate-btn w-maxcontent fw-bold"
+                                th:if="*{images[__${iterStat.index}__].id == null}"
+                                type="button">Delete
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Template ẩn để clone khi add -->
+                <script id="image-template" type="text/template">
+                  <div class="image-item tf-grid-layout sm-col-2 my-2">
+                    <input type="hidden" name="images[0].id" value="">
+                    <fieldset>
+                      <div class="product-image-preview">
+                        <div class="box-icon">
+                          <label style="cursor: pointer;">
+                            <i class="icon icon-camera"></i>
+                            <input class="preview-input" name="images[0].image" accept="image/*"
+                                   type="file" style="display: none;">
+                          </label>
+                        </div>
+                        <div class="image">
+                          <img alt="Product" class="lazyload preview-img"
+                               src="/images/avatar/avatar-default.jpg">
+                        </div>
+                      </div>
+                    </fieldset>
+
+                    <div class="tf-grid-layout sm-col-1">
+                      <fieldset>
+                        <label>Color</label>
+                        <div class="tf-select">
+                          <select class="w-100" name="images[0].colorId" required>
+                            <option value="">-- Select Color --</option>
+                            <option th:each="color : ${colorList}" th:value="${color.id}"
+                                    th:text="${color.name}"></option>
+                          </select>
+                        </div>
+                      </fieldset>
+
+                      <fieldset>
+                        <label>Size</label>
+                        <div class="tf-select">
+                          <select class="w-100" name="images[0].sizeId" required>
+                            <option value="">-- Select Size --</option>
+                            <option th:each="size : ${sizeList}" th:value="${size.id}"
+                                    th:text="${size.name}"></option>
+                          </select>
+                        </div>
+                      </fieldset>
+
+                      <div class="tf-grid-layout sm-col-2">
+                        <fieldset>
+                          <label>Order</label>
+                          <input type="number" name="images[0].sortOrder">
+                        </fieldset>
+                        <fieldset>
+                          <label>Main picture</label>
+                          <div>
+                            <input class="tf-check" type="checkbox" name="images[0].isMain">
+                          </div>
+                        </fieldset>
+                      </div>
+
+                      <button class="btn-remove btn-blue tf-btn animate-btn w-maxcontent fw-bold"
+                              type="button">Delete
+                      </button>
+                    </div>
+                  </div>
+                </script>
+              </div>
+              <button class="btn-submit_form tf-btn animate-btn w-100 fw-bold" type="submit">
+                Save change
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /Account -->
+</div>
+
+<!-- Button Sidebar -->
+<div th:replace="~{view/shop/fragments/sidebar :: button-sidebar}"></div>
+<!-- /Button Sidebar -->
+<!-- Sidebar -->
+<div th:replace="~{view/shop/fragments/sidebar :: sidebar}"></div>
+<!-- /Sidebar -->
+
+<!-- Javascript -->
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/swiper-bundle.min.js}"></script>
+<script th:src="@{/js/carousel.js}"></script>
+<script th:src="@{/js/bootstrap-select.min.js}"></script>
+<script th:src="@{/js/lazysize.min.js}"></script>
+<script th:src="@{/js/wow.min.js}"></script>
+<script th:src="@{/js/infinityslide.js}"></script>
+<script th:src="@{/js/parallaxie.js}"></script>
+<script th:src="@{/js/count-down.js}"></script>
+<script th:src="@{/js/main.js}"></script>
+<script th:src="@{/js/admin/product.js}"></script>
+</body>
+
+</html>

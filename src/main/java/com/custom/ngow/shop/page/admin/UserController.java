@@ -41,7 +41,7 @@ public class UserController {
     model.addAttribute("countInactiveUsers", userService.countUsersByStatus(UserStatus.INACTIVE));
     model.addAttribute("countTotalUsers", userService.countAllUser());
 
-    model.addAttribute("userPage", userService.getUsers(page, PAGE_SIZE, sort, dir));
+    model.addAttribute("pageData", userService.getUsers(page, PAGE_SIZE, sort, dir));
     model.addAttribute("adminDto", userService.getCurrentUserDto());
 
     model.addAttribute("pagingUrl", "/admin/users");
@@ -62,7 +62,7 @@ public class UserController {
     model.addAttribute("countInactiveUsers", userService.countUsersByStatus(UserStatus.INACTIVE));
     model.addAttribute("countTotalUsers", userService.countAllUser());
 
-    model.addAttribute("userPage", userService.searchByEmailContain(q, page, PAGE_SIZE, sort, dir));
+    model.addAttribute("pageData", userService.searchByEmailContain(q, page, PAGE_SIZE, sort, dir));
     model.addAttribute("adminDto", userService.getCurrentUserDto());
 
     model.addAttribute("pagingUrl", "/admin/users/search?q=" + q);

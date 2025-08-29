@@ -4,11 +4,11 @@ import lombok.Getter;
 
 @Getter
 public enum ProductBadge {
+  NEW("new", "New"),
   HOT("hot", "Hot"),
   FLASH_SALE("flash-sale", "Flash Sale"),
   TRENDING("trend", "Trending"),
-  NEW("new", "New"),
-  SALE("sale", "20% OFF"),
+  SALE("sale", "SALE OFF"),
   LIMITED("limit", "Limited");
 
   private final String className;
@@ -17,5 +17,14 @@ public enum ProductBadge {
   ProductBadge(String className, String value) {
     this.className = className;
     this.value = value;
+  }
+
+  public static ProductBadge getByClassName(String className) {
+    for (ProductBadge badge : ProductBadge.values()) {
+      if (badge.className.equals(className)) {
+        return badge;
+      }
+    }
+    return NEW;
   }
 }

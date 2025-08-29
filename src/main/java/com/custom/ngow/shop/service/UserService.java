@@ -340,7 +340,7 @@ public class UserService {
     UserStatus status = userDto.getStatus();
     if (role == null || status == null) {
       log.error("Role or status is null for user {}", userDto.getEmail());
-      throw new CustomException(messageUtil, "", new String[] {"ROLE, STATUS"}, "error.notNull");
+      throw new CustomException(messageUtil, "", new String[] {"ROLE, STATUS"}, "error.required");
     }
 
     User user = findById(userDto.getId());

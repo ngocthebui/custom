@@ -30,7 +30,6 @@
   <link href="/css/swiper-bundle.min.css" rel="stylesheet">
   <link href="/css/animate.css" rel="stylesheet">
   <link href="/css/styles.css" rel="stylesheet" type="text/css">
-  <link href="/css/fragments/list-user.css" rel="stylesheet">
   <link href="/css/admin/admin.css" rel="stylesheet" type="text/css">
 
   <!-- Favicon and Touch Icons  -->
@@ -48,13 +47,15 @@
 </button>
 
 <div id="wrapper">
+  <!-- Page Title -->
   <section th:replace="~{view/admin/fragments/admin-title.html :: title}"></section>
+  <!-- /Page Title -->
   <!-- Account -->
   <section class="flat-spacing">
     <input accept="image/*" class="fileInputDash" style="display: none;" type="file">
     <div class="container-full">
       <div class="row">
-        <div th:replace="~{view/admin/fragments/menu.html :: menu('users')}"></div>
+        <div th:replace="~{view/admin/fragments/menu.html :: menu('products')}"></div>
         <div class="col-xl-10">
           <div class="my-account-content">
             <div class="acount-order_stats">
@@ -71,32 +72,34 @@
                         <i class="icon icon-check-fat"></i>
                       </div>
                       <div class="order_info">
-                        <p class="info_label h6">Active users</p>
-                        <h2 class="info_count type-semibold" th:text="${countActiveUsers}">0</h2>
+                        <p class="info_label h6">Active products</p>
+                        <h2 class="info_count type-semibold" th:text="${countActiveProducts}">0</h2>
                       </div>
                     </div>
                   </div>
-                  <!-- item 2 -->
+                  <!-- item 2-->
                   <div class="swiper-slide">
                     <div class="order-box">
                       <div class="order_icon">
                         <i class="icon icon-x"></i>
                       </div>
                       <div class="order_info">
-                        <p class="info_label h6">Inactive users</p>
-                        <h2 class="info_count type-semibold" th:text="${countInactiveUsers}">0</h2>
+                        <p class="info_label h6">Inactive products</p>
+                        <h2 class="info_count type-semibold" th:text="${countInactiveProducts}">
+                          0</h2>
                       </div>
                     </div>
                   </div>
-                  <!-- item 3 -->
+                  <!-- item 3-->
                   <div class="swiper-slide">
                     <div class="order-box">
                       <div class="order_icon">
                         <i class="icon icon-user"></i>
                       </div>
                       <div class="order_info">
-                        <p class="info_label h6">Total users</p>
-                        <h2 class="info_count type-semibold" th:text="${countTotalUsers}">0</h2>
+                        <p class="info_label h6">Total products</p>
+                        <h2 class="info_count type-semibold" th:text="${countTotalProducts}">
+                          0</h2>
                       </div>
                     </div>
                   </div>
@@ -105,12 +108,19 @@
               </div>
             </div>
             <div class="account-my_order">
-              <h2 class="account-title type-semibold">All users
-                <div class="search-email">
-                  <form action="/admin/users/search" class="form-search style-2" method="GET">
+              <h2 class="account-title type-semibold">All products
+              </h2>
+              <div class="admin-nav">
+                <a href="/admin/products/create">
+                  <button class="btn-blue tf-btn animate-btn w-auto fw-bold admin-nav_child">
+                    Creat new
+                  </button>
+                </a>
+                <div class="admin-nav_child">
+                  <form action="/admin/products/search" class="form-search style-2" method="GET">
                     <fieldset>
                       <input aria-required="true" class="style-stroke" name="q"
-                             placeholder="Search email"
+                             placeholder="Search SKU"
                              required="" tabindex="0" type="text"
                              value="">
                     </fieldset>
@@ -118,9 +128,9 @@
                     </button>
                   </form>
                 </div>
-              </h2>
+              </div>
               <div class="overflow-auto">
-                <table class="table-my_order order_recent user-table">
+                <table class="table-my_order order_recent">
                   <thead>
                   <tr>
                     <th>
@@ -132,37 +142,31 @@
                       </a>
                     </th>
                     <th>
-                      <a th:href="@{${pagingUrl}(page=${pageData.number}, sort='email', dir=${reverseDir})}">
-                        Email
+                      <a th:href="@{${pagingUrl}(page=${pageData.number}, sort='sku', dir=${reverseDir})}">
+                        SKU
                         <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
-                           th:if="${sort == 'email'}">
+                           th:if="${sort == 'sku'}">
                         </i>
                       </a>
                     </th>
                     <th>
-                      <a th:href="@{${pagingUrl}(page=${pageData.number}, sort='firstName', dir=${reverseDir})}">
-                        First name
+                      <a th:href="@{${pagingUrl}(page=${pageData.number}, sort='price', dir=${reverseDir})}">
+                        Price
                         <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
-                           th:if="${sort == 'firstName'}">
+                           th:if="${sort == 'price'}">
                         </i>
                       </a>
                     </th>
                     <th>
-                      <a th:href="@{${pagingUrl}(page=${pageData.number}, sort='lastName', dir=${reverseDir})}">
-                        Last name
+                      <a th:href="@{${pagingUrl}(page=${pageData.number}, sort='salePercentage', dir=${reverseDir})}">
+                        Sale %
                         <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
-                           th:if="${sort == 'lastName'}">
+                           th:if="${sort == 'salePercentage'}">
                         </i>
                       </a>
                     </th>
-                    <th>Image</th>
                     <th>
-                      <a th:href="@{${pagingUrl}(page=${pageData.number}, sort='role', dir=${reverseDir})}">
-                        Role
-                        <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
-                           th:if="${sort == 'role'}">
-                        </i>
-                      </a>
+                      Images
                     </th>
                     <th>
                       <a th:href="@{${pagingUrl}(page=${pageData.number}, sort='status', dir=${reverseDir})}">
@@ -173,18 +177,18 @@
                       </a>
                     </th>
                     <th>
-                      <a th:href="@{${pagingUrl}(page=${pageData.number}, sort='createdAt', dir=${reverseDir})}">
-                        Created At
+                      <a th:href="@{${pagingUrl}(page=${pageData.number}, sort='badge', dir=${reverseDir})}">
+                        Badge
                         <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
-                           th:if="${sort == 'createdAt'}">
+                           th:if="${sort == 'badge'}">
                         </i>
                       </a>
                     </th>
                     <th>
-                      <a th:href="@{${pagingUrl}(page=${pageData.number}, sort='updatedAt', dir=${reverseDir})}">
-                        Updated At
+                      <a th:href="@{${pagingUrl}(page=${pageData.number}, sort='rating', dir=${reverseDir})}">
+                        Rating
                         <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
-                           th:if="${sort == 'updatedAt'}">
+                           th:if="${sort == 'rating'}">
                         </i>
                       </a>
                     </th>
@@ -192,37 +196,36 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr class="tb-order-item" th:each="user : ${pageData.content}">
-                    <td th:text="${user.id}">ID</td>
-                    <td th:text="${user.email}">Email</td>
-                    <td th:text="${user.firstName}">First Name</td>
-                    <td th:text="${user.lastName}">Last Name</td>
-                    <td>
-                      <div class="tb-order_product">
-                        <img alt="Image"
-                             class="lazyload user-avatar"
-                             th:data-src="${imgUrl}"
-                             th:src="${imgUrl}"
-                             th:with="imgUrl=${#strings.isEmpty(user.imageUrl) ? '/images/avatar/avatar-default.jpg' : user.imageUrl}">
-                      </div>
-                    </td>
-                    <td th:text="${user.role.name()}">Role</td>
-                    <td>
-                      <div class="tb-order_status stt-complete"
-                           th:classappend="${user.status.name() == 'ACTIVE'} ? 'stt-complete' : 'stt-cancel'"
-                           th:text="${user.status.name()}">
-                        ACTIVE
-                      </div>
-                    </td>
-                    <td th:text="${#temporals.format(user.createdAt, 'yyyy-MM-dd HH:mm')}">Created
-                      At
-                    </td>
-                    <td th:text="${#temporals.format(user.updatedAt, 'yyyy-MM-dd HH:mm')}">Updated
-                      At
-                    </td>
+                  <tr class="tb-order-item" th:each="data : ${pageData.content}">
+                    <td th:text="${data.id}"></td>
+                    <td th:text="${data.sku}"></td>
+                    <td th:text="${data.price}"></td>
+                    <td th:text="${data.salePercentage}"></td>
                     <td>
                       <a class="my-account-nav_item h5"
-                         th:href="@{'/admin/users/update/' + ${user.id}}">
+                         th:href="@{'/admin/products/images?productId=' + ${data.id}}">
+                        <i class="icon icon-setting"></i>
+                      </a>
+                    </td>
+                    <td>
+                      <div class="tb-order_status stt-complete"
+                           th:classappend="${data.status.name() == 'ACTIVE'} ? 'stt-complete' : 'stt-cancel'"
+                           th:text="${data.status.name()}">
+                      </div>
+                    </td>
+                    <td>
+                      <div class="product-badge_item h6"
+                           th:classappend="${data.badge.className}"
+                           th:if="${data.badge != null}">
+                        <i class="icon icon-thunder"
+                           th:if="${data.badge.className == 'flash-sale'}"></i>
+                        <span th:text="${data.badge.value}"></span>
+                      </div>
+                    </td>
+                    <td th:text="${data.rating}"></td>
+                    <td>
+                      <a class="my-account-nav_item h5"
+                         th:href="@{'/admin/products/update?productId=' + ${data.id}}">
                         <i class="icon icon-setting"></i>
                       </a>
                     </td>

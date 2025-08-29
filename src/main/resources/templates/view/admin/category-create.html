@@ -54,7 +54,7 @@
     <input accept="image/*" class="fileInputDash" style="display: none;" type="file">
     <div class="container-full">
       <div class="row">
-        <div th:replace="~{view/admin/fragments/menu.html :: menu('users')}"></div>
+        <div th:replace="~{view/admin/fragments/menu.html :: menu('categories')}"></div>
         <div class="col-xl-9">
           <div class="my-account-content">
             <div class="alert alert-success" role="alert" th:if="${successMessage}">
@@ -63,54 +63,22 @@
             <div class="alert alert-danger" role="alert" th:if="${errorMessage}">
               <span th:text="${errorMessage}"></span>
             </div>
-            <form class="form-change_pass" method="post" th:action="@{/admin/users/update}"
-                  th:object="${userDto}">
-              <input th:field="*{id}" type="hidden"/>
-              <input th:field="*{email}" type="hidden"/>
+            <form class="form-change_pass" method="post" th:action="@{/admin/categories/create}"
+                  th:object="${categoryDto}">
               <div class="" style="padding-bottom: 20px">
                 <h2 class="account-title type-semibold"
-                    th:text="'Update user: ' + ${userDto.email}">
-                  Update user:
+                    th:text="${mode} + ' category'">
+                  Update category:
                 </h2>
                 <div class="form_content site-change">
-                  <div class="cols tf-grid-layout sm-col-2">
-                    <fieldset>
-                      <input disabled placeholder="First name *"
-                             style="background-color: #6c757d" th:field="*{firstName}" type="text">
-                    </fieldset>
-                    <fieldset>
-                      <input disabled placeholder="Last name *" style="background-color: #6c757d"
-                             th:field="*{lastName}"
-                             type="text">
-                    </fieldset>
-                  </div>
                   <fieldset>
-                    <input disabled placeholder="Email *" style="background-color: #6c757d"
-                           th:field="*{email}"
-                           type="email">
+                    <input placeholder="Name *" required
+                           th:field="*{name}" type="text">
                   </fieldset>
-                  <div class="cols tf-grid-layout sm-col-2">
-                    <fieldset>
-                      <div class="tf-select">
-                        <select class="w-100" th:field="*{role}">
-                          <option th:each="role : ${roleList}"
-                                  th:text="${role}"
-                                  th:value="${role}">
-                          </option>
-                        </select>
-                      </div>
-                    </fieldset>
-                    <fieldset>
-                      <div class="tf-select">
-                        <select class="w-100" th:field="*{status}">
-                          <option th:each="status : ${statusList}"
-                                  th:text="${status}"
-                                  th:value="${status}">
-                          </option>
-                        </select>
-                      </div>
-                    </fieldset>
-                  </div>
+                  <fieldset>
+                    <textarea maxlength="255" placeholder="Description *"
+                              th:field="*{description}" type="text"></textarea>
+                  </fieldset>
                 </div>
                 <button class="btn-submit_form tf-btn animate-btn w-100 fw-bold" type="submit">
                   Save change

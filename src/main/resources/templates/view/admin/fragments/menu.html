@@ -1,0 +1,59 @@
+<div class="col-xl-2 d-none d-xl-block" th:fragment="menu(activePage)">
+  <div class="sidebar-account sidebar-content-wrap sticky-top">
+    <div class="account-author">
+      <div class="author_avatar">
+        <div class="image">
+          <img alt="Avatar"
+               class="lazyload imgDash"
+               th:data-src="${imgUrl}"
+               th:src="${imgUrl}"
+               th:with="imgUrl=${#strings.isEmpty(adminDto.imageUrl) ? '/images/avatar/avatar-default.jpg' : adminDto.imageUrl}">
+        </div>
+        <div class="btn-change_img box-icon changeImgDash">
+          <i class="icon icon-camera"></i>
+        </div>
+      </div>
+      <h4 class="author_name" th:text="${adminDto.firstName}">Firstname</h4>
+      <p class="author_email h6" th:text="${adminDto.email}">Email</p>
+    </div>
+    <ul class="my-account-nav">
+      <li>
+        <a class="my-account-nav_item h5" href="/admin/users"
+           th:classappend="${activePage == 'users'} ? ' active' : ''">
+          <i class="icon icon-user"></i>
+          Users
+        </a>
+      </li>
+      <li>
+        <a class="my-account-nav_item h5" href="/admin/categories"
+           th:classappend="${activePage == 'categories'} ? ' active' : ''">
+          <i class="icon icon-box-arrow-down"></i>
+          Categories
+        </a>
+      </li>
+      <li>
+        <a class="my-account-nav_item h5" href="/admin/products"
+           th:classappend="${activePage == 'products'} ? ' active' : ''">
+          <i class="icon icon-bag"></i>
+          Products
+        </a>
+      </li>
+      <li>
+        <a class="my-account-nav_item h5" href="account-setting.html"
+           th:classappend="${activePage == 'x'} ? ' active' : ''">
+          <i class="icon icon-setting"></i>
+          Setting
+        </a>
+      </li>
+      <li>
+        <form action="/logout" method="post">
+          <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
+          <button class="my-account-nav_item h5" style="width: 100%" type="submit">
+            <i class="icon icon-sign-out"></i>
+            Log out
+          </button>
+        </form>
+      </li>
+    </ul>
+  </div>
+</div>
