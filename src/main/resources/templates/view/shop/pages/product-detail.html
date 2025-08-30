@@ -96,8 +96,8 @@
                      dir="ltr">
                   <div class="swiper-wrapper stagger-wrap">
                     <div class="swiper-slide stagger-item"
-                         th:data-color="${image.color}"
-                         th:data-size="${image.size}"
+                         th:data-color="${image.colorName}"
+                         th:data-size="${image.sizeName}"
                          th:each="image : ${productDetail.images}">
                       <div class="item">
                         <img alt="img-product" class="lazyload"
@@ -111,8 +111,8 @@
                   <div class="swiper tf-product-media-main" dir="ltr" id="gallery-swiper-started">
                     <div class="swiper-wrapper">
                       <div class="swiper-slide"
-                           th:data-color="${image.color}"
-                           th:data-size="${image.size}"
+                           th:data-color="${image.colorName}"
+                           th:data-size="${image.sizeName}"
                            th:each="image : ${productDetail.images}">
                         <a class="item" data-pswp-height="1146px" data-pswp-width="860px"
                            target="_blank" th:href="${image.imageUrl}">
@@ -176,8 +176,8 @@
                     <span class="price-old compare-at-price h6">$0</span>
                     <p class="badges-on-sale h6 fw-semibold">
                                                 <span class="number-sale"
-                                                      th:data-person-sale="${productDetail.salePercent}"
-                                                      th:text="'-' + ${productDetail.salePercent} + ' %'">
+                                                      th:data-person-sale="${productDetail.salePercentage}"
+                                                      th:text="'-' + ${productDetail.salePercentage} + ' %'">
                                                     -0 %
                                                 </span>
                     </p>

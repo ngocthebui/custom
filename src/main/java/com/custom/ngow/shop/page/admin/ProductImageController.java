@@ -11,9 +11,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.custom.ngow.shop.common.MessageUtil;
 import com.custom.ngow.shop.dto.ProductImageListDto;
+import com.custom.ngow.shop.entity.Product;
 import com.custom.ngow.shop.exception.CustomException;
 import com.custom.ngow.shop.service.ProductColorService;
 import com.custom.ngow.shop.service.ProductImageService;
+import com.custom.ngow.shop.service.ProductService;
 import com.custom.ngow.shop.service.ProductSizeService;
 import com.custom.ngow.shop.service.UserService;
 
@@ -31,6 +33,7 @@ public class ProductImageController {
   private final ProductImageService productImageService;
   private final ProductColorService productColorService;
   private final ProductSizeService productSizeService;
+  private final ProductService productService;
 
   @GetMapping
   public String updateProductImage(@RequestParam("productId") Long productId, Model model) {
@@ -49,7 +52,8 @@ public class ProductImageController {
       Model model,
       RedirectAttributes redirectAttributes) {
     try {
-      productImageService.saveImagesForProduct(imageListDto);
+      Product product = productService.getProductById(imageListDto.getProductId());
+      productImageService.saveImagesForProduct(imageListDto, product);
     } catch (CustomException e) {
       model.addAttribute("imageListDto", imageListDto);
       model.addAttribute(
