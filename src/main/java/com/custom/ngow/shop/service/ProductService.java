@@ -18,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.custom.ngow.shop.common.MessageUtil;
 import com.custom.ngow.shop.constant.ProductBadge;
 import com.custom.ngow.shop.constant.ProductStatus;
+import com.custom.ngow.shop.dto.ProductDto;
+import com.custom.ngow.shop.dto.ProductImageDto;
 import com.custom.ngow.shop.dto.ProductListDto;
 import com.custom.ngow.shop.dto.ProductRegistration;
 import com.custom.ngow.shop.entity.Category;
@@ -25,6 +27,7 @@ import com.custom.ngow.shop.entity.Product;
 import com.custom.ngow.shop.entity.ProductColor;
 import com.custom.ngow.shop.entity.ProductSize;
 import com.custom.ngow.shop.exception.CustomException;
+import com.custom.ngow.shop.repository.ProductImageRepository;
 import com.custom.ngow.shop.repository.ProductRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -36,6 +39,7 @@ import lombok.extern.slf4j.Slf4j;
 public class ProductService {
 
   private final ProductRepository productRepository;
+  private final ProductImageRepository productImageRepository;
   private final CategoryService categoryService;
   private final MessageUtil messageUtil;
 
@@ -221,5 +225,27 @@ public class ProductService {
     productRegistration.setSizes(productRepository.findSizesByProductId(productId));
 
     return productRegistration;
+  }
+
+  public ProductDto getProductDetailBySku(String sku) {
+    ProductDto productDto = productRepository.findProductDetailBySku(sku);
+    if (productDto != null) {
+      Set<Category> categorySet = productRepository.findCategoriesByProductId(productDto.getId());
+      productDto.setCategories(categorySet);
+
+      List<ProductColor> productColorList =
+          productRepository.findColorsByProductId(productDto.getId());
+      productDto.setColors(productColorList);
+
+      List<ProductSize> productSizeList =
+          productRepository.findSizesByProductId(productDto.getId());
+      productDto.setSizes(productSizeList);
+
+      List<ProductImageDto> imageDtoList =
+          productImageRepository.findByProductId(productDto.getId());
+      productDto.setImages(imageDtoList);
+    }
+
+    return productDto;
   }
 }

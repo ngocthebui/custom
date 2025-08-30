@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.custom.ngow.shop.constant.ProductStatus;
+import com.custom.ngow.shop.dto.ProductDto;
 import com.custom.ngow.shop.dto.ProductRegistration;
 import com.custom.ngow.shop.entity.Category;
 import com.custom.ngow.shop.entity.Product;
@@ -59,4 +60,40 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
   long countByStatus(ProductStatus status);
 
   Page<Product> findAllBySkuContainsIgnoreCase(String sku, Pageable pageable);
+
+  @Query(
+      "SELECT new com.custom.ngow.shop.dto.ProductDto( "
+          + "p.id, "
+          + "p.name, "
+          + "p.sku, "
+          + "p.price, "
+          + "p.salePercentage, "
+          + "p.salePrice, "
+          + "p.stockQuantity, "
+          + "p.description, "
+          + "p.material, "
+          + "p.strapQuantity, "
+          + "p.innerPocket, "
+          + "p.handleLength, "
+          + "p.removableStrap, "
+          + "p.adjustableStrap, "
+          + "p.lockType, "
+          + "p.strapLength, "
+          + "p.strapTotalLength, "
+          + "p.weight, "
+          + "p.width, "
+          + "p.depth, "
+          + "p.height, "
+          + "p.status, "
+          + "p.badge, "
+          + "p.countdownTimer, "
+          + "p.isTopSale, "
+          + "p.isFeatured, "
+          + "p.viewCount, "
+          + "p.rating, "
+          + "p.reviewCount"
+          + ") "
+          + "FROM Product p "
+          + "WHERE p.sku = :sku")
+  ProductDto findProductDetailBySku(@Param("sku") String sku);
 }
