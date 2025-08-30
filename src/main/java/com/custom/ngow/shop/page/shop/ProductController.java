@@ -17,6 +17,12 @@ public class ProductController extends BaseController {
 
   private final ProductService productService;
 
+  @GetMapping
+  public String getAllProducts(Model model) {
+    addDefaultToModel(model);
+    return "view/shop/pages/products";
+  }
+
   @GetMapping("/{sku}")
   public String getProductDetail(@PathVariable String sku, Model model) {
     model.addAttribute("productDetail", productService.getProductDetailBySku(sku));

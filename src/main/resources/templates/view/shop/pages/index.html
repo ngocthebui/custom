@@ -244,8 +244,8 @@
                     </ul>
                     <ul class="product-badge_list">
                       <li class="product-badge_item h6"
-                          th:if="${product.badge != null}"
-                          th:classappend="${product.badge.className}">
+                          th:classappend="${product.badge.className}"
+                          th:if="${product.badge != null}">
                         <i class="icon icon-thunder"
                            th:if="${product.badge.className == 'flash-sale'}"></i>
                         <span th:text="${product.badge.value}"></span>
