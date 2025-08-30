@@ -1,5 +1,6 @@
 package com.custom.ngow.shop.page.shop;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -160,23 +161,9 @@ public class HomeController extends BaseController {
     List<ProductImageDto> images1 =
         List.of(
             new ProductImageDto(
-                1L,
-                "/images/products/underwear/product-1.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null),
+                1L, "/images/products/underwear/product-1.jpg", "Product", null, null, null, null),
             new ProductImageDto(
-                1L,
-                "/images/products/underwear/product-2.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null));
+                1L, "/images/products/underwear/product-2.jpg", "Product", null, null, null, null));
     // sizes
     List<ProductSize> sizes1 = new ArrayList<>();
     // colors
@@ -202,23 +189,9 @@ public class HomeController extends BaseController {
     List<ProductImageDto> images2 =
         List.of(
             new ProductImageDto(
-                1L,
-                "/images/products/underwear/product-4.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null),
+                1L, "/images/products/underwear/product-4.jpg", "Product", null, null, null, null),
             new ProductImageDto(
-                1L,
-                "/images/products/underwear/product-5.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null));
+                1L, "/images/products/underwear/product-5.jpg", "Product", null, null, null, null));
     // sizes
     List<ProductSize> sizes2 = new ArrayList<>();
     // colors
@@ -236,23 +209,9 @@ public class HomeController extends BaseController {
     List<ProductImageDto> images3 =
         List.of(
             new ProductImageDto(
-                1L,
-                "/images/products/underwear/product-8.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null),
+                1L, "/images/products/underwear/product-8.jpg", "Product", null, null, null, null),
             new ProductImageDto(
-                1L,
-                "/images/products/underwear/product-9.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null));
+                1L, "/images/products/underwear/product-9.jpg", "Product", null, null, null, null));
     // sizes
     List<ProductSize> sizes3 =
         Arrays.asList(
@@ -284,19 +243,11 @@ public class HomeController extends BaseController {
     List<ProductImageDto> images4 =
         List.of(
             new ProductImageDto(
-                1L,
-                "/images/products/underwear/product-12.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null),
+                1L, "/images/products/underwear/product-12.jpg", "Product", null, null, null, null),
             new ProductImageDto(
                 1L,
                 "/images/products/underwear/product-13.jpg",
                 "Product",
-                null,
                 null,
                 null,
                 null,
@@ -321,19 +272,11 @@ public class HomeController extends BaseController {
     List<ProductImageDto> images5 =
         List.of(
             new ProductImageDto(
-                1L,
-                "/images/products/underwear/product-15.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null),
+                1L, "/images/products/underwear/product-15.jpg", "Product", null, null, null, null),
             new ProductImageDto(
                 1L,
                 "/images/products/underwear/product-16.jpg",
                 "Product",
-                null,
                 null,
                 null,
                 null,
@@ -368,19 +311,11 @@ public class HomeController extends BaseController {
     List<ProductImageDto> images6 =
         List.of(
             new ProductImageDto(
-                1L,
-                "/images/products/underwear/product-19.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null),
+                1L, "/images/products/underwear/product-19.jpg", "Product", null, null, null, null),
             new ProductImageDto(
                 1L,
                 "/images/products/underwear/product-20.jpg",
                 "Product",
-                null,
                 null,
                 null,
                 null,
@@ -398,19 +333,11 @@ public class HomeController extends BaseController {
     List<ProductImageDto> images7 =
         List.of(
             new ProductImageDto(
-                1L,
-                "/images/products/underwear/product-21.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null),
+                1L, "/images/products/underwear/product-21.jpg", "Product", null, null, null, null),
             new ProductImageDto(
                 1L,
                 "/images/products/underwear/product-22.jpg",
                 "Product",
-                null,
                 null,
                 null,
                 null,
@@ -453,19 +380,11 @@ public class HomeController extends BaseController {
     List<ProductImageDto> images8 =
         List.of(
             new ProductImageDto(
-                1L,
-                "/images/products/underwear/product-26.jpg",
-                "Product",
-                null,
-                null,
-                null,
-                null,
-                null),
+                1L, "/images/products/underwear/product-26.jpg", "Product", null, null, null, null),
             new ProductImageDto(
                 1L,
                 "/images/products/underwear/product-27.jpg",
                 "Product",
-                null,
                 null,
                 null,
                 null,
@@ -501,8 +420,8 @@ public class HomeController extends BaseController {
 
     ProductDto productDto1 = new ProductDto();
     productDto1.setName("Seamless breathable thong");
-    productDto1.setPrice(99.99);
-    productDto1.setSalePrice(69.99);
+    productDto1.setPrice(BigDecimal.valueOf(99.99));
+    productDto1.setSalePrice(BigDecimal.valueOf(69.99));
     productDto1.setImages(images1);
     productDto1.setSizes(sizes1);
     productDto1.setBadge(ProductBadge.SALE);
@@ -512,8 +431,8 @@ public class HomeController extends BaseController {
 
     ProductDto productDto2 = new ProductDto();
     productDto2.setName("Cotton high waisted panties");
-    productDto2.setPrice(89.99);
-    productDto2.setSalePrice(59.99);
+    productDto2.setPrice(BigDecimal.valueOf(89.99));
+    productDto2.setSalePrice(BigDecimal.valueOf(59.99));
     productDto2.setImages(images2);
     productDto2.setSizes(sizes2);
     productDto2.setBadge(null);
@@ -523,8 +442,8 @@ public class HomeController extends BaseController {
 
     ProductDto productDto3 = new ProductDto();
     productDto3.setName("Sexy lace panties");
-    productDto3.setPrice(79.99);
-    productDto3.setSalePrice(49.99);
+    productDto3.setPrice(BigDecimal.valueOf(79.99));
+    productDto3.setSalePrice(BigDecimal.valueOf(49.99));
     productDto3.setImages(images3);
     productDto3.setSizes(sizes3);
     productDto3.setBadge(ProductBadge.HOT);
@@ -534,8 +453,8 @@ public class HomeController extends BaseController {
 
     ProductDto productDto4 = new ProductDto();
     productDto4.setName("Seamless underwear");
-    productDto4.setPrice(109.99);
-    productDto4.setSalePrice(74.99);
+    productDto4.setPrice(BigDecimal.valueOf(109.99));
+    productDto4.setSalePrice(BigDecimal.valueOf(74.99));
     productDto4.setImages(images4);
     productDto4.setSizes(sizes4);
     productDto4.setBadge(null);
@@ -545,8 +464,8 @@ public class HomeController extends BaseController {
 
     ProductDto productDto5 = new ProductDto();
     productDto5.setName("Half sleeve crop top");
-    productDto5.setPrice(119.99);
-    productDto5.setSalePrice(84.99);
+    productDto5.setPrice(BigDecimal.valueOf(119.99));
+    productDto5.setSalePrice(BigDecimal.valueOf(84.99));
     productDto5.setImages(images5);
     productDto5.setSizes(sizes5);
     productDto5.setBadge(ProductBadge.FLASH_SALE);
@@ -556,8 +475,8 @@ public class HomeController extends BaseController {
 
     ProductDto productDto6 = new ProductDto();
     productDto6.setName("Elastic waist panties");
-    productDto6.setPrice(139.99);
-    productDto6.setSalePrice(94.99);
+    productDto6.setPrice(BigDecimal.valueOf(139.99));
+    productDto6.setSalePrice(BigDecimal.valueOf(94.99));
     productDto6.setImages(images6);
     productDto6.setSizes(sizes6);
     productDto6.setBadge(ProductBadge.LIMITED);
@@ -567,8 +486,8 @@ public class HomeController extends BaseController {
 
     ProductDto productDto7 = new ProductDto();
     productDto7.setName("Seamless breathable thong");
-    productDto7.setPrice(69.99);
-    productDto7.setSalePrice(44.99);
+    productDto7.setPrice(BigDecimal.valueOf(69.99));
+    productDto7.setSalePrice(BigDecimal.valueOf(44.99));
     productDto7.setImages(images7);
     productDto7.setSizes(sizes7);
     productDto7.setBadge(ProductBadge.NEW);
@@ -578,8 +497,8 @@ public class HomeController extends BaseController {
 
     ProductDto productDto8 = new ProductDto();
     productDto8.setName("Cotton high waisted panties");
-    productDto8.setPrice(129.99);
-    productDto8.setSalePrice(84.99);
+    productDto8.setPrice(BigDecimal.valueOf(129.99));
+    productDto8.setSalePrice(BigDecimal.valueOf(84.99));
     productDto8.setImages(images8);
     productDto8.setSizes(sizes8);
     productDto8.setBadge(null);

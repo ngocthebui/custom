@@ -79,20 +79,6 @@ public class Product {
   private String depth; // Chiều sâu
   private String height; // Chiều cao
 
-  @OneToMany(
-      mappedBy = "product",
-      cascade = CascadeType.ALL,
-      fetch = FetchType.LAZY,
-      orphanRemoval = true)
-  private List<ProductColor> colors = new ArrayList<>();
-
-  @OneToMany(
-      mappedBy = "product",
-      cascade = CascadeType.ALL,
-      fetch = FetchType.LAZY,
-      orphanRemoval = true)
-  private List<ProductSize> sizes = new ArrayList<>();
-
   @Enumerated(EnumType.STRING)
   private ProductStatus status = ProductStatus.INACTIVE;
 
@@ -112,6 +98,20 @@ public class Product {
       joinColumns = @JoinColumn(name = "product_id"),
       inverseJoinColumns = @JoinColumn(name = "category_id"))
   private Set<Category> categories = new HashSet<>();
+
+  @OneToMany(
+      mappedBy = "product",
+      cascade = CascadeType.ALL,
+      fetch = FetchType.LAZY,
+      orphanRemoval = true)
+  private List<ProductColor> colors = new ArrayList<>();
+
+  @OneToMany(
+      mappedBy = "product",
+      cascade = CascadeType.ALL,
+      fetch = FetchType.LAZY,
+      orphanRemoval = true)
+  private List<ProductSize> sizes = new ArrayList<>();
 
   @OneToMany(
       mappedBy = "product",

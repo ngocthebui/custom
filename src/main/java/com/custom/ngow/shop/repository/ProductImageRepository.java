@@ -21,7 +21,9 @@ public interface ProductImageRepository extends JpaRepository<ProductImage, Long
           + "img.isMain, "
           + "img.sortOrder, "
           + "img.color.id, "
-          + "img.size.id"
+          + "img.color.name, "
+          + "img.size.id, "
+          + "img.size.name "
           + ") "
           + "FROM ProductImage img "
           + "WHERE img.product.id = :productId")

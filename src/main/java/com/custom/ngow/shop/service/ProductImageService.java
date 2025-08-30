@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.custom.ngow.shop.common.MessageUtil;
-import com.custom.ngow.shop.constant.ProductStatus;
 import com.custom.ngow.shop.dto.ProductImageDto;
 import com.custom.ngow.shop.dto.ProductImageListDto;
 import com.custom.ngow.shop.entity.Product;
@@ -27,7 +26,6 @@ public class ProductImageService {
 
   private final ProductImageRepository productImageRepository;
   private final MessageUtil messageUtil;
-  private final ProductService productService;
   private final ProductColorService productColorService;
   private final ProductSizeService productSizeService;
   private final MediaStorageService mediaStorageService;
@@ -49,10 +47,7 @@ public class ProductImageService {
   }
 
   @Transactional
-  public void saveImagesForProduct(ProductImageListDto imageListDto) {
-    Product product = productService.getProductById(imageListDto.getProductId());
-    product.getImages().clear();
-
+  public void saveImagesForProduct(ProductImageListDto imageListDto, Product product) {
     imageListDto
         .getImages()
         .forEach(
@@ -89,11 +84,8 @@ public class ProductImageService {
                 uploadProductImage(productImage, folderPath, image.getImage());
               }
 
-              product.getImages().add(productImage);
+              productImageRepository.save(productImage);
             });
-
-    product.setStatus(ProductStatus.ACTIVE);
-    productService.save(product);
   }
 
   private void uploadProductImage(

@@ -1,5 +1,6 @@
 package com.custom.ngow.shop.page.shop;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Set;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.custom.ngow.shop.dto.ProductDto;
+import com.custom.ngow.shop.dto.ProductImageDto;
 import com.custom.ngow.shop.entity.Category;
 import com.custom.ngow.shop.entity.ProductColor;
 import com.custom.ngow.shop.entity.ProductSize;
@@ -36,16 +38,16 @@ public class ProductController extends BaseController {
 
     product.setId(1L);
     product.setName("Casual Round Neck T-Shirt");
-    //    product.setImages(getProductImages());
+    product.setImages(getProductImages());
     product.setSizes(getProductSizes());
     product.setColors(getProductColors());
     product.setRating(4.8);
     product.setReviewCount(3671);
 
     DecimalFormat df = new DecimalFormat("#.##");
-    product.setPrice(Double.parseDouble(df.format(19.337)));
-    product.setSalePercent(29);
-    product.setSalePrice(14.99);
+    product.setPrice(BigDecimal.valueOf(19.337));
+    product.setSalePercentage(29);
+    product.setSalePrice(BigDecimal.valueOf(14.99));
 
     product.setCountdownTimer(1007500);
     product.setSku("Themesflat_#KT_Yellow_7");
@@ -69,31 +71,130 @@ public class ProductController extends BaseController {
     return product;
   }
 
-  //  private List<ProductImageDto> getProductImages() {
-  //    return List.of(
-  //        new ProductImageDto(
-  //            1L, "/images/products/fashion/product-1.jpg", "Image", false, "blue", "XS"),
-  //        new ProductImageDto(
-  //            1L, "/images/products/fashion/product-2.jpg", "Image", false, "blue", "M"),
-  //        new ProductImageDto(
-  //            1L, "/images/products/fashion/product-3.jpg", "Image", false, "blue", "S"),
-  //        new ProductImageDto(
-  //            1L, "/images/products/fashion/product-4.jpg", "Image", false, "blue", "L"),
-  //        new ProductImageDto(
-  //            1L, "/images/products/fashion/product-5.jpg", "Image", false, "blue", "L"),
-  //        new ProductImageDto(
-  //            1L, "/images/products/fashion/product-6.jpg", "Image", false, "gray", "M"),
-  //        new ProductImageDto(
-  //            1L, "/images/products/fashion/product-7.jpg", "Image", false, "pink", "M"),
-  //        new ProductImageDto(
-  //            1L, "/images/products/fashion/product-8.jpg", "Image", false, "green", "M"),
-  //        new ProductImageDto(
-  //            1L, "/images/products/fashion/product-9.jpg", "Image", false, "gray", "M"),
-  //        new ProductImageDto(
-  //            1L, "/images/products/fashion/product-10.jpg", "Image", false, "gray", "M"),
-  //        new ProductImageDto(
-  //            1L, "/images/products/fashion/product-11.jpg", "Image", false, "white", "M"));
-  //  }
+  private List<ProductImageDto> getProductImages() {
+    return List.of(
+        new ProductImageDto(
+            1L,
+            "/images/products/fashion/product-1.jpg",
+            "Image",
+            false,
+            0,
+            null,
+            "blue",
+            null,
+            "XS",
+            null),
+        new ProductImageDto(
+            1L,
+            "/images/products/fashion/product-2.jpg",
+            "Image",
+            false,
+            1,
+            null,
+            "blue",
+            null,
+            "M",
+            null),
+        new ProductImageDto(
+            1L,
+            "/images/products/fashion/product-3.jpg",
+            "Image",
+            false,
+            2,
+            null,
+            "blue",
+            null,
+            "S",
+            null),
+        new ProductImageDto(
+            1L,
+            "/images/products/fashion/product-4.jpg",
+            "Image",
+            false,
+            3,
+            null,
+            "blue",
+            null,
+            "L",
+            null),
+        new ProductImageDto(
+            1L,
+            "/images/products/fashion/product-5.jpg",
+            "Image",
+            false,
+            4,
+            null,
+            "blue",
+            null,
+            "L",
+            null),
+        new ProductImageDto(
+            1L,
+            "/images/products/fashion/product-6.jpg",
+            "Image",
+            false,
+            5,
+            null,
+            "gray",
+            null,
+            "M",
+            null),
+        new ProductImageDto(
+            1L,
+            "/images/products/fashion/product-7.jpg",
+            "Image",
+            false,
+            6,
+            null,
+            "pink",
+            null,
+            "M",
+            null),
+        new ProductImageDto(
+            1L,
+            "/images/products/fashion/product-8.jpg",
+            "Image",
+            false,
+            7,
+            null,
+            "green",
+            null,
+            "M",
+            null),
+        new ProductImageDto(
+            1L,
+            "/images/products/fashion/product-9.jpg",
+            "Image",
+            false,
+            8,
+            null,
+            "gray",
+            null,
+            "M",
+            null),
+        new ProductImageDto(
+            1L,
+            "/images/products/fashion/product-10.jpg",
+            "Image",
+            false,
+            9,
+            null,
+            "gray",
+            null,
+            "M",
+            null),
+        new ProductImageDto(
+            1L,
+            "/images/products/fashion/product-11.jpg",
+            "Image",
+            false,
+            10,
+            null,
+            "white",
+            null,
+            "M",
+            null));
+  }
 
   private List<ProductSize> getProductSizes() {
     return List.of(
@@ -116,10 +217,10 @@ public class ProductController extends BaseController {
   private Set<Category> getCategories() {
     return Set.of(
         new Category(1L, "Daily Wear Rings", null, null, null, null),
-        new Category(1L, "Ring diamond", null, null, null, null),
-        new Category(1L, "Anniversary rings", null, null, null, null),
-        new Category(1L, "Solitaire Rings", null, null, null, null),
-        new Category(1L, "Half Eternity Rings", null, null, null, null));
+        new Category(2L, "Ring diamond", null, null, null, null),
+        new Category(3L, "Anniversary rings", null, null, null, null),
+        new Category(4L, "Solitaire Rings", null, null, null, null),
+        new Category(5L, "Half Eternity Rings", null, null, null, null));
   }
 
   private String getDescription() {
