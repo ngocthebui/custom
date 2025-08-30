@@ -82,21 +82,6 @@ public class HomeController extends BaseController {
     return "view/shop/pages/register";
   }
 
-  @GetMapping("/all-products")
-  public String shop5columns() {
-    return "view/shop/pages/shop-5-columns";
-  }
-
-  @GetMapping("/shop-2-columns")
-  public String shop2columns() {
-    return "view/shop/pages/shop-2-columns";
-  }
-
-  @GetMapping("/product-detail")
-  public String productDetail() {
-    return "view/shop/pages/product-detail";
-  }
-
   @GetMapping("/search")
   public String search(@RequestParam("q") String query, HttpSession session, Model model) {
     List<String> history = (List<String>) session.getAttribute(SEARCH_HISTORY_KEY);
@@ -112,7 +97,7 @@ public class HomeController extends BaseController {
     }
     session.setAttribute(SEARCH_HISTORY_KEY, history);
 
-    return "view/shop/pages/shop-5-columns";
+    return "products";
   }
 
   private void setBannersToModel(Model model) {

@@ -22,18 +22,19 @@
       name="description">
 
   <!-- font -->
-  <link rel="stylesheet" th:href="@{/fonts/fonts.css}">
-  <link rel="stylesheet" th:href="@{/icon/icomoon/style.css}">
+  <link href="/fonts/fonts.css" rel="stylesheet">
+  <link href="/icon/icomoon/style.css" rel="stylesheet">
   <!-- css -->
-  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-  <link rel="stylesheet" th:href="@{/css/swiper-bundle.min.css}">
-  <link rel="stylesheet" th:href="@{/css/animate.css}">
-  <link rel="stylesheet" th:href="@{/css/styles.css}" type="text/css">
-  <link rel="stylesheet" th:href="@{/css/fragments/home.css}" type="text/css">
+  <link href="https://sibforms.com/forms/end-form/build/sib-styles.css" rel="stylesheet">
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/swiper-bundle.min.css" rel="stylesheet">
+  <link href="/css/animate.css" rel="stylesheet">
+  <link href="/css/styles.css" rel="stylesheet" type="text/css">
+  <link href="/css/fragments/home.css" rel="stylesheet" type="text/css">
 
   <!-- Favicon and Touch Icons  -->
-  <link rel="shortcut icon" th:href="@{/images/logo/favicon.svg}">
-  <link rel="apple-touch-icon-precomposed" th:href="@{/images/logo/favicon.svg}">
+  <link href="/images/logo/favicon.svg" rel="shortcut icon">
+  <link href="/images/logo/favicon.svg" rel="apple-touch-icon-precomposed">
 </head>
 
 <body>
@@ -244,8 +245,8 @@
                     </ul>
                     <ul class="product-badge_list">
                       <li class="product-badge_item h6"
-                          th:if="${product.badge != null}"
-                          th:classappend="${product.badge.className}">
+                          th:classappend="${product.badge.className}"
+                          th:if="${product.badge != null}">
                         <i class="icon icon-thunder"
                            th:if="${product.badge.className == 'flash-sale'}"></i>
                         <span th:text="${product.badge.value}"></span>
@@ -1236,18 +1237,18 @@
 <!-- /New Letter -->
 
 <!-- Javascript -->
-<script th:src="@{/js/bootstrap.min.js}"></script>
-<script th:src="@{/js/jquery.min.js}"></script>
-<script th:src="@{/js/swiper-bundle.min.js}"></script>
-<script th:src="@{/js/carousel.js}"></script>
-<script th:src="@{/js/bootstrap-select.min.js}"></script>
-<script th:src="@{/js/lazysize.min.js}"></script>
-<script th:src="@{/js/wow.min.js}"></script>
-<script th:src="@{/js/infinityslide.js}"></script>
-<script th:src="@{/js/parallaxie.js}"></script>
-<script th:src="@{/js/count-down.js}"></script>
-<script th:src="@{/js/main.js}"></script>
-<script th:src="@{/js/language-switcher.js}"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/swiper-bundle.min.js"></script>
+<script src="/js/carousel.js"></script>
+<script src="/js/bootstrap-select.min.js"></script>
+<script src="/js/lazysize.min.js"></script>
+<script src="/js/wow.min.js"></script>
+<script src="/js/infinityslide.js"></script>
+<script src="/js/parallaxie.js"></script>
+<script src="/js/count-down.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/language-switcher.js"></script>
 </body>
 
 </html>

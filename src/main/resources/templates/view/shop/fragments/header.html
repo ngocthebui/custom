@@ -5,22 +5,18 @@
       <span></span>
     </a>
   </div>
-  <div class="col-xl-3 col-md-4 col-6 d-flex justify-content-center justify-content-xl-start">
-    <a class="logo-site" href="/">
-      <img alt="Logo" th:src="@{/images/logo/logo.svg}">
-    </a>
-  </div>
-  <div class="col-xl-6 d-none d-xl-block">
+
+  <div class="col-xl-5 d-none d-xl-block">
     <nav class="box-navigation">
-      <ul class="box-nav-menu">
+      <ul class="box-nav-menu justify-content-start">
         <li class="menu-item position-relative">
-          <a class="item-link" href="#">
-            <span th:text="#{navbar.products}">PRODUCTS</span>
+          <a href="#" class="item-link">
+            <span th:text="#{navbar.products}" th:remove="tag">PRODUCTS</span>
             <i class="icon icon-caret-down"></i>
           </a>
           <div class="sub-menu">
             <ul class="sub-menu_list">
-              <li><a class="sub-menu_link" href="/all-products">Tất Cả Sản Phẩm</a></li>
+              <li><a class="sub-menu_link" href="/products">Tất Cả Sản Phẩm</a></li>
               <li><a class="sub-menu_link" href="blog-grid.html">Túi Đeo Chéo</a></li>
               <li><a class="sub-menu_link" href="blog-list-1.html">Túi Xách Tay</a></li>
               <li><a class="sub-menu_link" href="blog-list-2.html">Balo</a></li>
@@ -30,7 +26,7 @@
         </li>
         <li class="menu-item">
           <a class="item-link" href="#">
-            <span th:text="#{navbar.collections}">COLLECTIONS</span>
+            <span th:text="#{navbar.collections}" th:remove="tag">COLLECTIONS</span>
             <i class="icon icon-caret-down"></i>
           </a>
           <div class="sub-menu mega-menu mega-home">
@@ -56,7 +52,7 @@
         </li>
         <li class="menu-item">
           <a class="item-link" href="#">
-            <span th:text="#{navbar.shop}">SHOP</span>
+            <span th:text="#{navbar.shop}" th:remove="tag">SHOP</span>
             <i class="icon icon-caret-down"></i>
           </a>
           <div class="sub-menu mega-menu">
@@ -159,7 +155,7 @@
         </li>
         <li class="menu-item">
           <a class="item-link" href="#">
-            <span th:text="#{navbar.product}">PRODUCT</span>
+            <span th:text="#{navbar.product}" th:remove="tag">PRODUCT</span>
             <i class="icon icon-caret-down"></i>
           </a>
           <div class="sub-menu mega-menu">
@@ -335,7 +331,7 @@
         </li>
         <li class="menu-item position-relative">
           <a class="item-link" href="#">
-            <span th:text="#{navbar.pages}">PAGE</span>
+            <span th:text="#{navbar.pages}" th:remove="tag">PAGE</span>
             <i class="icon icon-caret-down"></i>
           </a>
           <div class="sub-menu">
@@ -352,7 +348,7 @@
         </li>
         <li class="menu-item position-relative">
           <a class="item-link" href="#">
-            <span th:text="#{navbar.blog}">BLOG</span>
+            <span th:text="#{navbar.blog}" th:remove="tag">BLOG</span>
             <i class="icon icon-caret-down"></i>
           </a>
           <div class="sub-menu">
@@ -367,7 +363,16 @@
       </ul>
     </nav>
   </div>
-  <div class="col-xl-3 col-md-4 col-3">
+
+  <div class="col-xl-2 col-md-4 col-6">
+    <div class="d-flex justify-content-center">
+      <a class="logo-site" href="/">
+        <img alt="Logo" th:src="@{/images/logo/logo.svg}">
+      </a>
+    </div>
+  </div>
+
+  <div class="col-xl-5 col-md-4 col-3">
     <ul class="nav-icon-list">
       <li class="d-none d-lg-flex">
         <a class="nav-icon-item link"
@@ -403,8 +408,8 @@
   <div class="canvas-header">
     <p class="text-logo-mb">Ochaka.</p>
     <a class="tf-btn type-small style-2"
-       href="/user/setting">
-      My Account
+       th:href="${isAdmin} ? '/admin/users' : '/user/setting'">
+      <span th:text="${isAdmin} ? 'Admin' : 'Account'"></span>
       <i class="icon icon-user"></i>
     </a>
     <span class="br-line"></span>
