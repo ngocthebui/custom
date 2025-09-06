@@ -1,6 +1,6 @@
 package com.custom.ngow.shop.service;
 
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,7 @@ public class ProductSizeService {
   private final ProductSizeRepository productSizeRepository;
   private final MessageUtil messageUtil;
 
-  public List<ProductSize> getByProductId(Long productId) {
+  public Set<ProductSize> getByProductId(Long productId) {
     return productSizeRepository.findByProductId(productId);
   }
 

@@ -2,9 +2,7 @@ package com.custom.ngow.shop.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -104,42 +102,42 @@ public class Product {
       cascade = CascadeType.ALL,
       fetch = FetchType.LAZY,
       orphanRemoval = true)
-  private List<ProductColor> colors = new ArrayList<>();
+  private Set<ProductColor> colors = new HashSet<>();
 
   @OneToMany(
       mappedBy = "product",
       cascade = CascadeType.ALL,
       fetch = FetchType.LAZY,
       orphanRemoval = true)
-  private List<ProductSize> sizes = new ArrayList<>();
+  private Set<ProductSize> sizes = new HashSet<>();
 
   @OneToMany(
       mappedBy = "product",
       cascade = CascadeType.ALL,
       fetch = FetchType.LAZY,
       orphanRemoval = true)
-  private List<ProductImage> images = new ArrayList<>();
+  private Set<ProductImage> images = new HashSet<>();
 
   @OneToMany(
       mappedBy = "product",
       cascade = CascadeType.ALL,
       fetch = FetchType.LAZY,
       orphanRemoval = true)
-  private List<Review> reviews = new ArrayList<>();
+  private Set<Review> reviews = new HashSet<>();
 
   @OneToMany(
       mappedBy = "product",
       cascade = CascadeType.ALL,
       fetch = FetchType.LAZY,
       orphanRemoval = true)
-  private List<CartItem> cartItems = new ArrayList<>();
+  private Set<CartItem> cartItems = new HashSet<>();
 
   @OneToMany(
       mappedBy = "product",
       cascade = CascadeType.ALL,
       fetch = FetchType.LAZY,
       orphanRemoval = true)
-  private List<OrderItem> orderItems = new ArrayList<>();
+  private Set<OrderItem> orderItems = new HashSet<>();
 
   @CreationTimestamp private LocalDateTime createdAt;
 

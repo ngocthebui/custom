@@ -1,7 +1,6 @@
 package com.custom.ngow.shop.dto;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Set;
 
 import com.custom.ngow.shop.constant.ProductBadge;
@@ -52,68 +51,7 @@ public class ProductDto {
   private Integer reviewCount = 0;
 
   private Set<Category> categories;
-  private List<ProductColor> colors;
-  private List<ProductSize> sizes;
-  private List<ProductImageDto> images;
-
-  public ProductDto(
-      Long id,
-      String name,
-      String sku,
-      BigDecimal price,
-      Integer salePercentage,
-      BigDecimal salePrice,
-      Integer stockQuantity,
-      String description,
-      String material,
-      Integer strapQuantity,
-      String innerPocket,
-      String handleLength,
-      Boolean removableStrap,
-      Boolean adjustableStrap,
-      String lockType,
-      String strapLength,
-      String strapTotalLength,
-      String weight,
-      String width,
-      String depth,
-      String height,
-      ProductStatus status,
-      ProductBadge badge,
-      Integer countdownTimer,
-      Boolean isTopSale,
-      Boolean isFeatured,
-      Integer viewCount,
-      Double rating,
-      Integer reviewCount) {
-    this.id = id;
-    this.name = name;
-    this.sku = sku;
-    this.price = price;
-    this.salePercentage = salePercentage;
-    this.salePrice = salePrice;
-    this.stockQuantity = stockQuantity;
-    this.description = description;
-    this.material = material;
-    this.strapQuantity = strapQuantity;
-    this.innerPocket = innerPocket;
-    this.handleLength = handleLength;
-    this.removableStrap = removableStrap;
-    this.adjustableStrap = adjustableStrap;
-    this.lockType = lockType;
-    this.strapLength = strapLength;
-    this.strapTotalLength = strapTotalLength;
-    this.weight = weight;
-    this.width = width;
-    this.depth = depth;
-    this.height = height;
-    this.status = status;
-    this.badge = badge;
-    this.countdownTimer = countdownTimer;
-    this.isTopSale = isTopSale;
-    this.isFeatured = isFeatured;
-    this.viewCount = viewCount;
-    this.rating = rating;
-    this.reviewCount = reviewCount;
-  }
+  private Set<ProductColor> colors;
+  private Set<ProductSize> sizes;
+  private Set<ProductImageDto> images;
 }
