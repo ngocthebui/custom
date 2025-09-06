@@ -8,6 +8,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -42,6 +43,7 @@ public class ProductService {
   private final ProductImageRepository productImageRepository;
   private final CategoryService categoryService;
   private final MessageUtil messageUtil;
+  private final ModelMapper modelMapper;
 
   public Product save(Product product) {
     log.info("Save product {}", product.getSku());
@@ -216,33 +218,22 @@ public class ProductService {
   }
 
   public ProductRegistration getProductForUpdate(Long productId) {
-    ProductRegistration productRegistration = productRepository.findProductForUpdate(productId);
+    Product product = productRepository.findByIdFetchAll(productId).orElse(null);
+    ProductRegistration productRegistration = new ProductRegistration();
 
-    Set<Category> categorySet = productRepository.findCategoriesByProductId(productId);
-    categorySet.forEach(category -> productRegistration.getCategoryIdList().add(category.getId()));
-
-    productRegistration.setColors(productRepository.findColorsByProductId(productId));
-    productRegistration.setSizes(productRepository.findSizesByProductId(productId));
+    if (product != null) {
+      productRegistration = modelMapper.map(product, ProductRegistration.class);
+    }
 
     return productRegistration;
   }
 
   public ProductDto getProductDetailBySku(String sku) {
-    ProductDto productDto = productRepository.findProductDetailBySku(sku);
-    if (productDto != null) {
-      Set<Category> categorySet = productRepository.findCategoriesByProductId(productDto.getId());
-      productDto.setCategories(categorySet);
-
-      List<ProductColor> productColorList =
-          productRepository.findColorsByProductId(productDto.getId());
-      productDto.setColors(productColorList);
-
-      List<ProductSize> productSizeList =
-          productRepository.findSizesByProductId(productDto.getId());
-      productDto.setSizes(productSizeList);
-
-      List<ProductImageDto> imageDtoList =
-          productImageRepository.findByProductId(productDto.getId());
+    Product product = productRepository.findProductBySku(sku).orElse(null);
+    ProductDto productDto = new ProductDto();
+    if (product != null) {
+      Set<ProductImageDto> imageDtoList = productImageRepository.findByProductId(product.getId());
+      productDto = modelMapper.map(product, ProductDto.class);
       productDto.setImages(imageDtoList);
     }
 

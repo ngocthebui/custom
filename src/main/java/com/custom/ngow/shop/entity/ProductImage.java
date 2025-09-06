@@ -52,4 +52,16 @@ public class ProductImage {
   @CreationTimestamp private LocalDateTime createdAt;
 
   @UpdateTimestamp private LocalDateTime updatedAt;
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof ProductImage c)) return false;
+    return id != null && id.equals(c.id);
+  }
+
+  @Override
+  public int hashCode() {
+    return id != null ? id.hashCode() : System.identityHashCode(this);
+  }
 }

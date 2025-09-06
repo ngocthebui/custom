@@ -1,6 +1,6 @@
 package com.custom.ngow.shop.repository;
 
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -27,5 +27,5 @@ public interface ProductImageRepository extends JpaRepository<ProductImage, Long
           + ") "
           + "FROM ProductImage img "
           + "WHERE img.product.id = :productId")
-  List<ProductImageDto> findByProductId(@Param("productId") Long productId);
+  Set<ProductImageDto> findByProductId(@Param("productId") Long productId);
 }

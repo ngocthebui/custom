@@ -1,6 +1,6 @@
 package com.custom.ngow.shop.service;
 
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +30,7 @@ public class ProductImageService {
   private final ProductSizeService productSizeService;
   private final MediaStorageService mediaStorageService;
 
-  public List<ProductImageDto> getImagesByProductId(Long productId) {
+  public Set<ProductImageDto> getImagesByProductId(Long productId) {
     return productImageRepository.findByProductId(productId);
   }
 

@@ -1,6 +1,6 @@
 package com.custom.ngow.shop.service;
 
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
@@ -18,7 +18,7 @@ public class ProductColorService {
   private final ProductColorRepository productColorRepository;
   private final MessageUtil messageUtil;
 
-  public List<ProductColor> getByProductId(Long productId) {
+  public Set<ProductColor> getByProductId(Long productId) {
     return productColorRepository.findByProductId(productId);
   }
 

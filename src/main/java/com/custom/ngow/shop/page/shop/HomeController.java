@@ -3,7 +3,9 @@ package com.custom.ngow.shop.page.shop;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -143,17 +145,17 @@ public class HomeController extends BaseController {
   private List<ProductDto> getBestSellerProducts() {
     // Product 1
     // images
-    List<ProductImageDto> images1 =
-        List.of(
+    Set<ProductImageDto> images1 =
+        Set.of(
             new ProductImageDto(
                 1L, "/images/products/underwear/product-1.jpg", "Product", null, null, null, null),
             new ProductImageDto(
-                1L, "/images/products/underwear/product-2.jpg", "Product", null, null, null, null));
+                2L, "/images/products/underwear/product-2.jpg", "Product", null, null, null, null));
     // sizes
-    List<ProductSize> sizes1 = new ArrayList<>();
+    Set<ProductSize> sizes1 = new HashSet<>();
     // colors
-    List<ProductColor> colors1 =
-        List.of(
+    Set<ProductColor> colors1 =
+        Set.of(
             new ProductColor(
                 1L,
                 "Sage Green",
@@ -162,7 +164,7 @@ public class HomeController extends BaseController {
                 true,
                 null),
             new ProductColor(
-                1L,
+                2L,
                 "Light Orange",
                 "#F55B31",
                 "/images/products/underwear/product-3.jpg",
@@ -171,41 +173,41 @@ public class HomeController extends BaseController {
 
     // Product 2
     // images
-    List<ProductImageDto> images2 =
-        List.of(
+    Set<ProductImageDto> images2 =
+        Set.of(
             new ProductImageDto(
                 1L, "/images/products/underwear/product-4.jpg", "Product", null, null, null, null),
             new ProductImageDto(
-                1L, "/images/products/underwear/product-5.jpg", "Product", null, null, null, null));
+                2L, "/images/products/underwear/product-5.jpg", "Product", null, null, null, null));
     // sizes
-    List<ProductSize> sizes2 = new ArrayList<>();
+    Set<ProductSize> sizes2 = new HashSet<>();
     // colors
-    List<ProductColor> colors2 =
-        List.of(
+    Set<ProductColor> colors2 =
+        Set.of(
             new ProductColor(
                 1L, "Beige", "#EEDFC6", "/images/products/underwear/product-4.jpg", true, null),
             new ProductColor(
-                1L, "Dark", "#201E21", "/images/products/underwear/product-6.jpg", true, null),
+                2L, "Dark", "#201E21", "/images/products/underwear/product-6.jpg", true, null),
             new ProductColor(
-                1L, "Green", "#114842", "/images/products/underwear/product-7.jpg", true, null));
+                3L, "Green", "#114842", "/images/products/underwear/product-7.jpg", true, null));
 
     // Product 3
     // images
-    List<ProductImageDto> images3 =
-        List.of(
+    Set<ProductImageDto> images3 =
+        Set.of(
             new ProductImageDto(
                 1L, "/images/products/underwear/product-8.jpg", "Product", null, null, null, null),
             new ProductImageDto(
-                1L, "/images/products/underwear/product-9.jpg", "Product", null, null, null, null));
+                2L, "/images/products/underwear/product-9.jpg", "Product", null, null, null, null));
     // sizes
-    List<ProductSize> sizes3 =
-        Arrays.asList(
+    Set<ProductSize> sizes3 =
+        Set.of(
             new ProductSize(1L, "XS", null, null, null),
-            new ProductSize(1L, "S", null, null, null),
-            new ProductSize(1L, "M", null, null, null));
+            new ProductSize(2L, "S", null, null, null),
+            new ProductSize(3L, "M", null, null, null));
     // colors
-    List<ProductColor> colors3 =
-        List.of(
+    Set<ProductColor> colors3 =
+        Set.of(
             new ProductColor(
                 1L,
                 "Dusty Olive",
@@ -214,23 +216,23 @@ public class HomeController extends BaseController {
                 true,
                 null),
             new ProductColor(
-                1L,
+                2L,
                 "Light Orange",
                 "#F55B31",
                 "/images/products/underwear/product-10.jpg",
                 true,
                 null),
             new ProductColor(
-                1L, "Green", "#114842", "/images/products/underwear/product-11.jpg", true, null));
+                3L, "Green", "#114842", "/images/products/underwear/product-11.jpg", true, null));
 
     // Product 4
     // images
-    List<ProductImageDto> images4 =
-        List.of(
+    Set<ProductImageDto> images4 =
+        Set.of(
             new ProductImageDto(
                 1L, "/images/products/underwear/product-12.jpg", "Product", null, null, null, null),
             new ProductImageDto(
-                1L,
+                2L,
                 "/images/products/underwear/product-13.jpg",
                 "Product",
                 null,
@@ -238,14 +240,14 @@ public class HomeController extends BaseController {
                 null,
                 null));
     // sizes
-    List<ProductSize> sizes4 = new ArrayList<>();
+    Set<ProductSize> sizes4 = new HashSet<>();
     // colors
-    List<ProductColor> colors4 =
-        List.of(
+    Set<ProductColor> colors4 =
+        Set.of(
             new ProductColor(
                 1L, "Green", "#114842", "/images/products/underwear/product-12.jpg", true, null),
             new ProductColor(
-                1L,
+                2L,
                 "Dusty Olive",
                 "#A6AB84",
                 "/images/products/underwear/product-14.jpg",
@@ -254,10 +256,10 @@ public class HomeController extends BaseController {
 
     // Product 5
     // images
-    List<ProductImageDto> images5 =
-        List.of(
+    Set<ProductImageDto> images5 =
+        Set.of(
             new ProductImageDto(
-                1L, "/images/products/underwear/product-15.jpg", "Product", null, null, null, null),
+                2L, "/images/products/underwear/product-15.jpg", "Product", null, null, null, null),
             new ProductImageDto(
                 1L,
                 "/images/products/underwear/product-16.jpg",
@@ -267,13 +269,13 @@ public class HomeController extends BaseController {
                 null,
                 null));
     // sizes
-    List<ProductSize> sizes5 =
-        List.of(
+    Set<ProductSize> sizes5 =
+        Set.of(
             new ProductSize(1L, "XS", null, null, null),
-            new ProductSize(1L, "M", null, null, null));
+            new ProductSize(2L, "M", null, null, null));
     // colors
-    List<ProductColor> colors5 =
-        List.of(
+    Set<ProductColor> colors5 =
+        Set.of(
             new ProductColor(
                 1L,
                 "White",
@@ -282,23 +284,23 @@ public class HomeController extends BaseController {
                 true,
                 null),
             new ProductColor(
-                1L,
+                2L,
                 "Light Orange",
                 "#F55B31",
                 "/images/products/underwear/product-17.jpg",
                 true,
                 null),
             new ProductColor(
-                1L, "Dark", "#201E21", "/images/products/underwear/product-18.jpg", true, null));
+                3L, "Dark", "#201E21", "/images/products/underwear/product-18.jpg", true, null));
 
     // Product 6
     // images
-    List<ProductImageDto> images6 =
-        List.of(
+    Set<ProductImageDto> images6 =
+        Set.of(
             new ProductImageDto(
                 1L, "/images/products/underwear/product-19.jpg", "Product", null, null, null, null),
             new ProductImageDto(
-                1L,
+                2L,
                 "/images/products/underwear/product-20.jpg",
                 "Product",
                 null,
@@ -306,21 +308,21 @@ public class HomeController extends BaseController {
                 null,
                 null));
     // sizes
-    List<ProductSize> sizes6 = new ArrayList<>();
+    Set<ProductSize> sizes6 = new HashSet<>();
     // colors
-    List<ProductColor> colors6 =
-        List.of(
+    Set<ProductColor> colors6 =
+        Set.of(
             new ProductColor(
                 1L, "Beige", "#EEDFC6", "/images/products/underwear/product-19.jpg", true, null));
 
     // Product 7
     // images
-    List<ProductImageDto> images7 =
-        List.of(
+    Set<ProductImageDto> images7 =
+        Set.of(
             new ProductImageDto(
                 1L, "/images/products/underwear/product-21.jpg", "Product", null, null, null, null),
             new ProductImageDto(
-                1L,
+                2L,
                 "/images/products/underwear/product-22.jpg",
                 "Product",
                 null,
@@ -328,32 +330,32 @@ public class HomeController extends BaseController {
                 null,
                 null));
     // sizes
-    List<ProductSize> sizes7 =
-        List.of(
+    Set<ProductSize> sizes7 =
+        Set.of(
             new ProductSize(1L, "XS", null, null, null),
-            new ProductSize(1L, "S", null, null, null),
-            new ProductSize(1L, "M", null, null, null));
+            new ProductSize(3L, "S", null, null, null),
+            new ProductSize(2L, "M", null, null, null));
     // colors
-    List<ProductColor> colors7 =
-        List.of(
+    Set<ProductColor> colors7 =
+        Set.of(
             new ProductColor(
                 1L, "Purple", "#D5D4FE", "/images/products/underwear/product-21.jpg", true, null),
             new ProductColor(
-                1L,
+                2L,
                 "Dark Violet",
                 "#51518D",
                 "/images/products/underwear/product-23.jpg",
                 true,
                 null),
             new ProductColor(
-                1L,
+                3L,
                 "Sage Green",
                 "#71A46E",
                 "/images/products/underwear/product-24.jpg",
                 true,
                 null),
             new ProductColor(
-                1L,
+                4L,
                 "Hot Pink",
                 "#D5D4FE",
                 "/images/products/underwear/product-25.jpg",
@@ -362,12 +364,12 @@ public class HomeController extends BaseController {
 
     // Product 8
     // images
-    List<ProductImageDto> images8 =
-        List.of(
+    Set<ProductImageDto> images8 =
+        Set.of(
             new ProductImageDto(
                 1L, "/images/products/underwear/product-26.jpg", "Product", null, null, null, null),
             new ProductImageDto(
-                1L,
+                2L,
                 "/images/products/underwear/product-27.jpg",
                 "Product",
                 null,
@@ -375,28 +377,28 @@ public class HomeController extends BaseController {
                 null,
                 null));
     // sizes
-    List<ProductSize> sizes8 =
-        List.of(
+    Set<ProductSize> sizes8 =
+        Set.of(
             new ProductSize(1L, "XS", null, null, null),
-            new ProductSize(1L, "S", null, null, null),
-            new ProductSize(1L, "M", null, null, null),
-            new ProductSize(1L, "L", null, null, null));
+            new ProductSize(2L, "S", null, null, null),
+            new ProductSize(3L, "M", null, null, null),
+            new ProductSize(4L, "L", null, null, null));
     // colors
-    List<ProductColor> colors8 =
-        List.of(
+    Set<ProductColor> colors8 =
+        Set.of(
             new ProductColor(
                 1L, "Dark", "#201E21", "/images/products/underwear/product-26.jpg", true, null),
             new ProductColor(
-                1L, "Purple", "#D5D4FE", "/images/products/underwear/product-28.jpg", true, null),
+                2L, "Purple", "#D5D4FE", "/images/products/underwear/product-28.jpg", true, null),
             new ProductColor(
-                1L,
+                3L,
                 "Sage Green",
                 "#71A46E",
                 "/images/products/underwear/product-29.jpg",
                 true,
                 null),
             new ProductColor(
-                1L,
+                4L,
                 "White",
                 "rgba(var(--bs-white-rgb), var(--bs-bg-opacity))",
                 "/images/products/underwear/product-30.jpg",
