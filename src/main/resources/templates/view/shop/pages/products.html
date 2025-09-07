@@ -119,15 +119,17 @@
         <div class="wrapper-shop tf-grid-layout tf-col-4" id="gridLayout">
           <!-- Product 1 -->
           <div class="card-product grid" data-availability="In stock" data-brand="fisoew"
-               th:each="product : ${productList}">
+               th:each="product : ${productList}"
+               th:with="mainProductImgUrl=${product.images.isEmpty() ? '/images/products/product-default.jpg' : product.images[0].imageUrl},
+              hoverProductImgUrl=${product.images.size() > 1 ? product.images[1].imageUrl : '/images/products/product-default.jpg'}">
             <div class="card-product_wrapper">
               <a class="product-img" th:href="@{'/products/' + ${product.sku}}">
                 <img alt="Product" class="lazyload img-product"
-                     th:data-src="${product.images[0].imageUrl}"
-                     th:src="${product.images[0].imageUrl}">
+                     th:data-src="${mainProductImgUrl}"
+                     th:src="${mainProductImgUrl}">
                 <img alt="Product" class="lazyload img-hover"
-                     th:data-src="${product.images[1].imageUrl}"
-                     th:src="${product.images[1].imageUrl}">
+                     th:data-src="${hoverProductImgUrl}"
+                     th:src="${hoverProductImgUrl}">
               </a>
               <div class="variant-box">
                 <ul class="product-size_list" th:if="${!product.sizes.isEmpty()}">
@@ -221,14 +223,13 @@
               </div>
               <ul class="product-color_list">
                 <li class="product-color-item color-swatch hover-tooltip tooltip-bot"
+                    th:attr="data-main=${!color.imageUrls.isEmpty()} ? ${color.imageUrls.get(0)} : ${mainProductImgUrl},
+               data-hover=${!color.imageUrls.isEmpty() and color.imageUrls.size() > 1 ? color.imageUrls.get(1) : hoverProductImgUrl}"
                     th:classappend="${iterStat.first} ? 'active' : ''"
                     th:each="color, iterStat : ${product.colors}">
                   <span class="tooltip color-filter" th:text="${color.name}">Brown</span>
                   <span class="swatch-value"
                         th:style="'background-color: ' + ${color.code}"></span>
-                  <img alt="Image"
-                       th:data-src="${!color.imageUrls.isEmpty()} ? ${color.imageUrls.last} : ${product.images[0].imageUrl}"
-                       th:src="${!color.imageUrls.isEmpty()} ? ${color.imageUrls.last} : ${product.images[0].imageUrl}">
                 </li>
               </ul>
             </div>

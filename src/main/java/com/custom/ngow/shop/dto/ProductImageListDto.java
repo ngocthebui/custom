@@ -1,7 +1,7 @@
 package com.custom.ngow.shop.dto;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,5 +12,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProductImageListDto {
   private Long productId;
-  private Set<ProductImageDto> images = new HashSet<>();
+  private List<ProductImageDto> images = new ArrayList<>();
 }

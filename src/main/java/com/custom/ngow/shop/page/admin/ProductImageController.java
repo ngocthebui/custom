@@ -39,7 +39,8 @@ public class ProductImageController {
   public String updateProductImage(@RequestParam("productId") Long productId, Model model) {
     model.addAttribute(
         "imageListDto",
-        new ProductImageListDto(productId, productImageService.getImagesByProductId(productId)));
+        new ProductImageListDto(
+            productId, productImageService.getImagesByProductId(productId).stream().toList()));
     model.addAttribute("colorList", productColorService.getByProductId(productId));
     model.addAttribute("sizeList", productSizeService.getByProductId(productId));
     model.addAttribute("adminDto", userService.getCurrentUserDto());

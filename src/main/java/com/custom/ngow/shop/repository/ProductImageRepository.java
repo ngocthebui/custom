@@ -26,7 +26,8 @@ public interface ProductImageRepository extends JpaRepository<ProductImage, Long
           + "img.size.name "
           + ") "
           + "FROM ProductImage img "
-          + "WHERE img.product.id = :productId")
+          + "WHERE img.product.id = :productId "
+          + "ORDER BY img.sortOrder ASC ")
   Set<ProductImageDto> findByProductId(@Param("productId") Long productId);
 
   @Query(
@@ -36,7 +37,7 @@ public interface ProductImageRepository extends JpaRepository<ProductImage, Long
           LEFT JOIN FETCH pi.size
           LEFT JOIN FETCH pi.product
           WHERE pi.product.id IN :productIds
-          ORDER BY pi.sortOrder
+          ORDER BY pi.sortOrder ASC
           """)
   Set<ProductImage> findByProductIds(@Param("productIds") Set<Long> productIds);
 }

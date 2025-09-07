@@ -36,7 +36,6 @@ public class ProductColor {
   @Column(nullable = false) // #ff0000
   private String code;
 
-  private String imageUrl;
   private Boolean isActive = true;
 
   @OneToMany(

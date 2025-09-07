@@ -44,6 +44,7 @@ public class ProductController {
       @ModelAttribute("productDto") ProductRegistration productDto, Model model) {
     model.addAttribute("categoryList", categoryService.getAllCategories());
     model.addAttribute("badgeList", ProductBadge.values());
+    model.addAttribute("productStatusList", ProductStatus.values());
     model.addAttribute("mode", Mode.CREATE.name());
     model.addAttribute("adminDto", userService.getCurrentUserDto());
     return "view/admin/product";
@@ -54,6 +55,7 @@ public class ProductController {
     model.addAttribute("productDto", productService.getProductForUpdate(productId));
     model.addAttribute("categoryList", categoryService.getAllCategories());
     model.addAttribute("badgeList", ProductBadge.values());
+    model.addAttribute("productStatusList", ProductStatus.values());
     model.addAttribute("mode", Mode.UPDATE.name());
     model.addAttribute("adminDto", userService.getCurrentUserDto());
     return "view/admin/product";
@@ -70,6 +72,7 @@ public class ProductController {
     if (bindingResult.hasErrors()) {
       model.addAttribute("categoryList", categoryService.getAllCategories());
       model.addAttribute("badgeList", ProductBadge.values());
+      model.addAttribute("productStatusList", ProductStatus.values());
       model.addAttribute("adminDto", userService.getCurrentUserDto());
       model.addAttribute("productDto", productDto);
       return "view/admin/product";
@@ -88,6 +91,7 @@ public class ProductController {
     } catch (CustomException e) {
       model.addAttribute("categoryList", categoryService.getAllCategories());
       model.addAttribute("badgeList", ProductBadge.values());
+      model.addAttribute("productStatusList", ProductStatus.values());
       model.addAttribute("adminDto", userService.getCurrentUserDto());
       model.addAttribute("productDto", productDto);
 

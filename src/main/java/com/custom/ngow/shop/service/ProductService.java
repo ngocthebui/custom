@@ -2,9 +2,10 @@ package com.custom.ngow.shop.service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -124,7 +125,16 @@ public class ProductService {
 
   @Transactional
   public Product updateProduct(Long productId, ProductRegistration dto) {
-    Product product = getProductById(productId);
+    Product product =
+        productRepository
+            .findByIdFetchAll(productId)
+            .orElseThrow(
+                () ->
+                    new CustomException(
+                        messageUtil,
+                        "",
+                        new String[] {"Product id: " + productId},
+                        "error.notExist"));
 
     applyProductRegistration(product, dto);
     return productRepository.save(product);
@@ -158,6 +168,9 @@ public class ProductService {
 
     // Badge
     product.setBadge(ProductBadge.getByClassName(dto.getBadgeClassName()));
+
+    // Status
+    product.setStatus(ProductStatus.valueOf(dto.getStatus()));
 
     // Material and structure
     product.setMaterial(dto.getMaterial());
@@ -267,6 +280,10 @@ public class ProductService {
       Product product,
       Map<Long, Set<ProductColorDto>> colorsmap,
       Map<Long, Set<ProductImageDto>> imagesMap) {
+    // model mapper skip null
+    product.setColors(null);
+    product.setImages(null);
+
     ProductDto productDto = modelMapper.map(product, ProductDto.class);
 
     Set<ProductColorDto> productColorDtos =
@@ -289,10 +306,12 @@ public class ProductService {
     Set<ProductImage> images = productImageRepository.findByProductIds(productIds);
 
     return images.stream()
+        .sorted(Comparator.comparing(ProductImage::getSortOrder))
         .collect(
             Collectors.groupingBy(
                 image -> image.getProduct().getId(),
-                Collectors.mapping(this::mapToProductImageDto, Collectors.toSet())));
+                Collectors.mapping(
+                    this::mapToProductImageDto, Collectors.toCollection(LinkedHashSet::new))));
   }
 
   /** Load Colors for many Products once (batch loading) */
@@ -304,10 +323,12 @@ public class ProductService {
     Set<ProductColor> colors = productColorRepository.findByProductIds(productIds);
 
     return colors.stream()
+        .sorted(Comparator.comparing(ProductColor::getId))
         .collect(
             Collectors.groupingBy(
                 color -> color.getProduct().getId(),
-                Collectors.mapping(this::mapToProductColorDto, Collectors.toSet())));
+                Collectors.mapping(
+                    this::mapToProductColorDto, Collectors.toCollection(LinkedHashSet::new))));
   }
 
   private ProductImageDto mapToProductImageDto(ProductImage image) {
@@ -329,8 +350,12 @@ public class ProductService {
     productColorDto.setName(color.getName());
     productColorDto.setCode(color.getCode());
 
-    List<String> imageUrls = new ArrayList<>();
-    color.getImages().forEach(image -> imageUrls.add(image.getImageUrl()));
+    List<String> imageUrls =
+        color.getImages().stream()
+            .sorted(Comparator.comparing(ProductImage::getSortOrder))
+            .map(ProductImage::getImageUrl)
+            .toList();
+
     productColorDto.setImageUrls(imageUrls);
 
     return productColorDto;
