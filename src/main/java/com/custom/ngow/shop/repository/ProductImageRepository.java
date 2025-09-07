@@ -28,4 +28,15 @@ public interface ProductImageRepository extends JpaRepository<ProductImage, Long
           + "FROM ProductImage img "
           + "WHERE img.product.id = :productId")
   Set<ProductImageDto> findByProductId(@Param("productId") Long productId);
+
+  @Query(
+      """
+          SELECT DISTINCT pi FROM ProductImage pi
+          LEFT JOIN FETCH pi.color
+          LEFT JOIN FETCH pi.size
+          LEFT JOIN FETCH pi.product
+          WHERE pi.product.id IN :productIds
+          ORDER BY pi.sortOrder
+          """)
+  Set<ProductImage> findByProductIds(@Param("productIds") Set<Long> productIds);
 }

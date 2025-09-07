@@ -1,5 +1,6 @@
 package com.custom.ngow.shop.repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -29,6 +30,16 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
         WHERE p.id = :id
         """)
   Optional<Product> findByIdFetchAll(Long id);
+
+  @Query(
+      """
+        SELECT DISTINCT p FROM Product p
+        LEFT JOIN FETCH p.categories
+        LEFT JOIN FETCH p.sizes
+        WHERE p.status = 'ACTIVE'
+        ORDER BY p.createdAt DESC
+        """)
+  List<Product> findAllActiveProducts();
 
   @Query("SELECT p.categories FROM Product p WHERE p.id = :productId")
   Set<Category> findCategoriesByProductId(@Param("productId") Long productId);

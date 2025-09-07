@@ -200,7 +200,7 @@
               <div class="swiper-slide" th:each="product : ${productList}">
                 <div class="card-product">
                   <div class="card-product_wrapper">
-                    <a class="product-img" th:href="@{'/product/' + ${product.id}}">
+                    <a class="product-img" th:href="@{'/products/' + ${product.sku}}">
                       <img alt="Product" class="lazyload img-product"
                            th:data-src="${product.images[0].imageUrl}"
                            th:src="${product.images[0].imageUrl}">
@@ -306,8 +306,8 @@
                         <span class="swatch-value"
                               th:style="'background-color: ' + ${color.code}"></span>
                         <img alt="Image"
-                             th:data-src="${color.imageUrl}"
-                             th:src="${color.imageUrl}">
+                             th:data-src="${!color.imageUrls.isEmpty()} ? ${color.imageUrls.last} : ${product.images[0].imageUrl}"
+                             th:src="${!color.imageUrls.isEmpty()} ? ${color.imageUrls.last} : ${product.images[0].imageUrl}">
                       </li>
                     </ul>
                   </div>

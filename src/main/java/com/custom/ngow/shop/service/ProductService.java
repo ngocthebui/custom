@@ -2,8 +2,11 @@ package com.custom.ngow.shop.service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -19,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.custom.ngow.shop.common.MessageUtil;
 import com.custom.ngow.shop.constant.ProductBadge;
 import com.custom.ngow.shop.constant.ProductStatus;
+import com.custom.ngow.shop.dto.ProductColorDto;
 import com.custom.ngow.shop.dto.ProductDto;
 import com.custom.ngow.shop.dto.ProductImageDto;
 import com.custom.ngow.shop.dto.ProductListDto;
@@ -26,8 +30,10 @@ import com.custom.ngow.shop.dto.ProductRegistration;
 import com.custom.ngow.shop.entity.Category;
 import com.custom.ngow.shop.entity.Product;
 import com.custom.ngow.shop.entity.ProductColor;
+import com.custom.ngow.shop.entity.ProductImage;
 import com.custom.ngow.shop.entity.ProductSize;
 import com.custom.ngow.shop.exception.CustomException;
+import com.custom.ngow.shop.repository.ProductColorRepository;
 import com.custom.ngow.shop.repository.ProductImageRepository;
 import com.custom.ngow.shop.repository.ProductRepository;
 
@@ -41,6 +47,7 @@ public class ProductService {
 
   private final ProductRepository productRepository;
   private final ProductImageRepository productImageRepository;
+  private final ProductColorRepository productColorRepository;
   private final CategoryService categoryService;
   private final MessageUtil messageUtil;
   private final ModelMapper modelMapper;
@@ -238,5 +245,94 @@ public class ProductService {
     }
 
     return productDto;
+  }
+
+  /** get all product for product list */
+  public List<ProductDto> getAllProducts() {
+    List<Product> products = productRepository.findAllActiveProducts();
+    if (products.isEmpty()) {
+      return Collections.emptyList();
+    }
+
+    Set<Long> productIds = products.stream().map(Product::getId).collect(Collectors.toSet());
+    Map<Long, Set<ProductColorDto>> colorsmap = loadProductColors(productIds);
+    Map<Long, Set<ProductImageDto>> imagesMap = loadProductImages(productIds);
+
+    return products.stream()
+        .map(product -> mapToProductListDto(product, colorsmap, imagesMap))
+        .toList();
+  }
+
+  private ProductDto mapToProductListDto(
+      Product product,
+      Map<Long, Set<ProductColorDto>> colorsmap,
+      Map<Long, Set<ProductImageDto>> imagesMap) {
+    ProductDto productDto = modelMapper.map(product, ProductDto.class);
+
+    Set<ProductColorDto> productColorDtos =
+        colorsmap.getOrDefault(product.getId(), Collections.emptySet());
+    Set<ProductImageDto> productImageDtos =
+        imagesMap.getOrDefault(product.getId(), Collections.emptySet());
+
+    productDto.setColors(productColorDtos);
+    productDto.setImages(productImageDtos);
+
+    return productDto;
+  }
+
+  /** Load Images for many Products once (batch loading) */
+  private Map<Long, Set<ProductImageDto>> loadProductImages(Set<Long> productIds) {
+    if (productIds.isEmpty()) {
+      return Collections.emptyMap();
+    }
+
+    Set<ProductImage> images = productImageRepository.findByProductIds(productIds);
+
+    return images.stream()
+        .collect(
+            Collectors.groupingBy(
+                image -> image.getProduct().getId(),
+                Collectors.mapping(this::mapToProductImageDto, Collectors.toSet())));
+  }
+
+  /** Load Colors for many Products once (batch loading) */
+  private Map<Long, Set<ProductColorDto>> loadProductColors(Set<Long> productIds) {
+    if (productIds.isEmpty()) {
+      return Collections.emptyMap();
+    }
+
+    Set<ProductColor> colors = productColorRepository.findByProductIds(productIds);
+
+    return colors.stream()
+        .collect(
+            Collectors.groupingBy(
+                color -> color.getProduct().getId(),
+                Collectors.mapping(this::mapToProductColorDto, Collectors.toSet())));
+  }
+
+  private ProductImageDto mapToProductImageDto(ProductImage image) {
+    return new ProductImageDto(
+        image.getId(),
+        image.getImageUrl(),
+        image.getAltText(),
+        image.getIsMain(),
+        image.getSortOrder(),
+        image.getColor().getId(),
+        image.getColor().getName(),
+        image.getSize().getId(),
+        image.getSize().getName());
+  }
+
+  private ProductColorDto mapToProductColorDto(ProductColor color) {
+    ProductColorDto productColorDto = new ProductColorDto();
+    productColorDto.setId(color.getId());
+    productColorDto.setName(color.getName());
+    productColorDto.setCode(color.getCode());
+
+    List<String> imageUrls = new ArrayList<>();
+    color.getImages().forEach(image -> imageUrls.add(image.getImageUrl()));
+    productColorDto.setImageUrls(imageUrls);
+
+    return productColorDto;
   }
 }
