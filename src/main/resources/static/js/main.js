@@ -1132,27 +1132,35 @@
 
         // lấy link ảnh từ data attribute
         var mainImgUrl = $swatch.data("main");
-        var hoverImgUrl = $swatch.data("hover");
+        var hoverImgUrl = $swatch.data("hover") || mainImgUrl;
 
         var $card = $swatch.closest(".card-product, .banner-card_product");
         var $imgProduct = $card.find(".img-product");
         var $hoverImg = $card.find(".img-hover");
 
-        // cập nhật ảnh chính
+        // 👉 Cập nhật cả ảnh chính & hover cùng lúc
         if (mainImgUrl) {
-          $imgProduct.attr("src", mainImgUrl).attr("data-src", mainImgUrl);
+          $imgProduct.attr({
+            "src": mainImgUrl,
+            "data-src": mainImgUrl
+          });
         }
 
-        // cập nhật ảnh hover
         if (hoverImgUrl) {
-          $hoverImg.attr("src", hoverImgUrl).attr("data-src", hoverImgUrl);
+          $hoverImg.attr({
+            "src": hoverImgUrl,
+            "data-src": hoverImgUrl
+          });
         }
 
-        // cập nhật label nếu có
-        var colorLabel = $swatch.find(".color-label").text().trim();
-        $card.find(".quickadd-variant-color .variant-value").text(colorLabel);
+        // Cập nhật label nếu có
+        var $colorLabel = $swatch.find(".color-label");
+        if ($colorLabel.length > 0) {
+          $card.find(".quickadd-variant-color .variant-value")
+          .text($colorLabel.text().trim());
+        }
 
-        // active swatch
+        // Active swatch
         $card.find(".color-swatch.active").removeClass("active");
         $swatch.addClass("active");
       });
