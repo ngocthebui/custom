@@ -157,7 +157,7 @@
                             d="M14 5.4091L8.913 5.07466L6.99721 0.261719L5.08143 5.07466L0 5.4091L3.89741 8.7184L2.61849 13.7384L6.99721 10.9707L11.376 13.7384L10.097 8.7184L14 5.4091Z"
                             th:attr="fill=${i <= floor ? '#EF9122' : (i == floor + 1 and decimal >= 0.0) ? 'url(#halfStar)' : '#ddd'}"
                             th:with="floor=${T(java.lang.Math).floor(productDetail.rating)},
-                 decimal=${productDetail.rating - floor}"/>
+                            decimal=${productDetail.rating - floor}"/>
                       </svg>
                     </div>
                     <div class="reviews text-main"
@@ -175,11 +175,11 @@
                           th:text="'$ ' + ${productDetail.salePrice}">$0</span>
                     <span class="price-old compare-at-price h6">$0</span>
                     <p class="badges-on-sale h6 fw-semibold">
-                                                <span class="number-sale"
-                                                      th:data-person-sale="${productDetail.salePercentage}"
-                                                      th:text="'-' + ${productDetail.salePercentage} + ' %'">
-                                                    -0 %
-                                                </span>
+                      <span class="number-sale"
+                            th:data-person-sale="${productDetail.salePercentage}"
+                            th:text="'-' + ${productDetail.salePercentage} + ' %'">
+                          -0 %
+                      </span>
                     </p>
                   </div>
                   <div
@@ -217,8 +217,9 @@
                     </div>
                     <div class="variant-picker-values">
                       <span class="size-btn"
+                            th:classappend="${iterStat.first} ? 'active' : ''"
                             th:data-size="${size.name}"
-                            th:each="size : ${productDetail.sizes}"
+                            th:each="size, iterStat : ${productDetail.sizes}"
                             th:text="${size.name}">M
                       </span>
                     </div>
@@ -3057,7 +3058,6 @@
 <!-- Product actions -->
 <div th:replace="~{view/shop/fragments/product-actions :: size-guide}"></div>
 <div th:replace="~{view/shop/fragments/product-actions :: compare}"></div>
-<div th:replace="~{view/shop/fragments/product-actions :: quick-view}"></div>
 <!-- /Product actions -->
 
 <!-- Search -->

@@ -224,7 +224,7 @@
               <ul class="product-color_list">
                 <li class="product-color-item color-swatch hover-tooltip tooltip-bot"
                     th:attr="data-main=${!color.imageUrls.isEmpty()} ? ${color.imageUrls.get(0)} : ${mainProductImgUrl},
-               data-hover=${!color.imageUrls.isEmpty() and color.imageUrls.size() > 1 ? color.imageUrls.get(1) : hoverProductImgUrl}"
+                    data-hover=${!color.imageUrls.isEmpty() and color.imageUrls.size() > 1 ? color.imageUrls.get(1) : hoverProductImgUrl}"
                     th:classappend="${iterStat.first} ? 'active' : ''"
                     th:each="color, iterStat : ${product.colors}">
                   <span class="tooltip color-filter" th:text="${color.name}">Brown</span>
@@ -510,8 +510,10 @@
 <script th:src="@{/js/parallaxie.js}"></script>
 <script th:src="@{/js/count-down.js}"></script>
 <script th:src="@{/js/nouislider.min.js}"></script>
+<script src="/js/drift.min.js"></script>
 <script th:src="@{/js/shop.js}"></script>
 <script th:src="@{/js/main.js}"></script>
+<script src="/js/photoswipe-lightbox.umd.min.js"></script>
 <script th:src="@{/js/language-switcher.js}"></script>
 </body>
 
