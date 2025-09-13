@@ -256,7 +256,7 @@
   /* Variant Picker
   -------------------------------------------------------------------------*/
   var variantPicker = function () {
-    $(".variant-picker-item").each(function() {
+    $(".variant-picker-item").each(function () {
       var $picker = $(this);
 
       $picker.find(".color-btn").on("click", function (e) {

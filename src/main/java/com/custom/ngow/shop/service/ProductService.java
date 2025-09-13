@@ -1,5 +1,28 @@
 package com.custom.ngow.shop.service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import org.apache.commons.lang3.StringUtils;
+import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.custom.ngow.shop.common.MessageUtil;
 import com.custom.ngow.shop.constant.ProductBadge;
 import com.custom.ngow.shop.constant.ProductStatus;
@@ -17,29 +40,9 @@ import com.custom.ngow.shop.exception.CustomException;
 import com.custom.ngow.shop.repository.ProductColorRepository;
 import com.custom.ngow.shop.repository.ProductImageRepository;
 import com.custom.ngow.shop.repository.ProductRepository;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
-import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -113,7 +116,7 @@ public class ProductService {
         .orElseThrow(
             () ->
                 new CustomException(
-                    messageUtil, "", new String[]{"Product id: " + id}, "error.notExist"));
+                    messageUtil, "", new String[] {"Product id: " + id}, "error.notExist"));
   }
 
   @Transactional
@@ -133,7 +136,7 @@ public class ProductService {
                     new CustomException(
                         messageUtil,
                         "",
-                        new String[]{"Product id: " + productId},
+                        new String[] {"Product id: " + productId},
                         "error.notExist"));
 
     applyProductRegistration(product, dto);
@@ -200,7 +203,7 @@ public class ProductService {
       if (StringUtils.isEmpty(productColor.getName())
           || StringUtils.isEmpty(productColor.getCode())) {
         throw new CustomException(
-            messageUtil, "", new String[]{"colorName, colorCode"}, "error.required");
+            messageUtil, "", new String[] {"colorName, colorCode"}, "error.required");
       }
 
       if (productColor.getId() != null) {
@@ -236,10 +239,10 @@ public class ProductService {
     Set<Long> incomingSizeIds = new HashSet<>();
     Map<Long, ProductSize> incomingSizesMap = new HashMap<>();
 
-// Prepare incoming data
+    // Prepare incoming data
     for (ProductSize productSize : dto.getSizes()) {
       if (StringUtils.isEmpty(productSize.getName())) {
-        throw new CustomException(messageUtil, "", new String[]{"sizeName"}, "error.required");
+        throw new CustomException(messageUtil, "", new String[] {"sizeName"}, "error.required");
       }
 
       if (productSize.getId() != null) {
@@ -252,7 +255,7 @@ public class ProductService {
       }
     }
 
-// Update existing sizes và remove unused ones
+    // Update existing sizes và remove unused ones
     Iterator<ProductSize> sizeIterator = product.getSizes().iterator();
     while (sizeIterator.hasNext()) {
       ProductSize existingSize = sizeIterator.next();
@@ -325,9 +328,7 @@ public class ProductService {
     return productDto;
   }
 
-  /**
-   * get all product for product list
-   */
+  /** get all product for product list */
   public List<ProductDto> getAllProducts() {
     List<Product> products = productRepository.findAllActiveProducts();
     if (products.isEmpty()) {
@@ -364,9 +365,7 @@ public class ProductService {
     return productDto;
   }
 
-  /**
-   * Load Images for many Products once (batch loading)
-   */
+  /** Load Images for many Products once (batch loading) */
   private Map<Long, Set<ProductImageDto>> loadProductImages(Set<Long> productIds) {
     if (productIds.isEmpty()) {
       return Collections.emptyMap();
@@ -383,9 +382,7 @@ public class ProductService {
                     this::mapToProductImageDto, Collectors.toCollection(LinkedHashSet::new))));
   }
 
-  /**
-   * Load Colors for many Products once (batch loading)
-   */
+  /** Load Colors for many Products once (batch loading) */
   private Map<Long, Set<ProductColorDto>> loadProductColors(Set<Long> productIds) {
     if (productIds.isEmpty()) {
       return Collections.emptyMap();

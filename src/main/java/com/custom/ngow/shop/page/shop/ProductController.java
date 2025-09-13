@@ -20,7 +20,8 @@ public class ProductController extends BaseController {
   @GetMapping
   public String getAllProducts(Model model) {
     addDefaultToModel(model);
-    model.addAttribute("productList", productService.getAllProducts());return "view/shop/pages/products";
+    model.addAttribute("productList", productService.getAllProducts());
+    return "view/shop/pages/products";
   }
 
   @GetMapping("/{sku}")

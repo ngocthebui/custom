@@ -1,9 +1,9 @@
 .color-circle {
   display: inline-block;
-  width: 55px;   /* kích thước vòng tròn */
+  width: 55px; /* kích thước vòng tròn */
   height: 55px;
   border-radius: 50%;
-  overflow: hidden;   /* bo tròn input */
+  overflow: hidden; /* bo tròn input */
   border: 1px solid #ccc;
 }
 
