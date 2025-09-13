@@ -15,11 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.custom.ngow.shop.common.MessageUtil;
 import com.custom.ngow.shop.constant.ProductBadge;
+import com.custom.ngow.shop.dto.ProductColorDto;
 import com.custom.ngow.shop.dto.ProductDto;
 import com.custom.ngow.shop.dto.ProductImageDto;
 import com.custom.ngow.shop.dto.UserRegistration;
 import com.custom.ngow.shop.entity.Banner;
-import com.custom.ngow.shop.entity.ProductColor;
+import com.custom.ngow.shop.entity.Category;
 import com.custom.ngow.shop.entity.ProductSize;
 
 import jakarta.servlet.http.HttpSession;
@@ -154,22 +155,15 @@ public class HomeController extends BaseController {
     // sizes
     Set<ProductSize> sizes1 = new HashSet<>();
     // colors
-    Set<ProductColor> colors1 =
+    Set<ProductColorDto> colors1 =
         Set.of(
-            new ProductColor(
-                1L,
-                "Sage Green",
-                "#71A46E",
-                "/images/products/underwear/product-1.jpg",
-                true,
-                null),
-            new ProductColor(
+            new ProductColorDto(
+                1L, "Sage Green", "#71A46E", List.of("/images/products/underwear/product-1.jpg")),
+            new ProductColorDto(
                 2L,
                 "Light Orange",
                 "#F55B31",
-                "/images/products/underwear/product-3.jpg",
-                true,
-                null));
+                List.of("/images/products/underwear/product-3.jpg")));
 
     // Product 2
     // images
@@ -182,14 +176,14 @@ public class HomeController extends BaseController {
     // sizes
     Set<ProductSize> sizes2 = new HashSet<>();
     // colors
-    Set<ProductColor> colors2 =
+    Set<ProductColorDto> colors2 =
         Set.of(
-            new ProductColor(
-                1L, "Beige", "#EEDFC6", "/images/products/underwear/product-4.jpg", true, null),
-            new ProductColor(
-                2L, "Dark", "#201E21", "/images/products/underwear/product-6.jpg", true, null),
-            new ProductColor(
-                3L, "Green", "#114842", "/images/products/underwear/product-7.jpg", true, null));
+            new ProductColorDto(
+                1L, "Beige", "#EEDFC6", List.of("/images/products/underwear/product-4.jpg")),
+            new ProductColorDto(
+                2L, "Dark", "#201E21", List.of("/images/products/underwear/product-6.jpg")),
+            new ProductColorDto(
+                3L, "Green", "#114842", List.of("/images/products/underwear/product-7.jpg")));
 
     // Product 3
     // images
@@ -206,24 +200,17 @@ public class HomeController extends BaseController {
             new ProductSize(2L, "S", null, null, null),
             new ProductSize(3L, "M", null, null, null));
     // colors
-    Set<ProductColor> colors3 =
+    Set<ProductColorDto> colors3 =
         Set.of(
-            new ProductColor(
-                1L,
-                "Dusty Olive",
-                "#A6AB84",
-                "/images/products/underwear/product-8.jpg",
-                true,
-                null),
-            new ProductColor(
+            new ProductColorDto(
+                1L, "Dusty Olive", "#A6AB84", List.of("/images/products/underwear/product-8.jpg")),
+            new ProductColorDto(
                 2L,
                 "Light Orange",
                 "#F55B31",
-                "/images/products/underwear/product-10.jpg",
-                true,
-                null),
-            new ProductColor(
-                3L, "Green", "#114842", "/images/products/underwear/product-11.jpg", true, null));
+                List.of("/images/products/underwear/product-10.jpg")),
+            new ProductColorDto(
+                3L, "Green", "#114842", List.of("/images/products/underwear/product-11.jpg")));
 
     // Product 4
     // images
@@ -242,17 +229,15 @@ public class HomeController extends BaseController {
     // sizes
     Set<ProductSize> sizes4 = new HashSet<>();
     // colors
-    Set<ProductColor> colors4 =
+    Set<ProductColorDto> colors4 =
         Set.of(
-            new ProductColor(
-                1L, "Green", "#114842", "/images/products/underwear/product-12.jpg", true, null),
-            new ProductColor(
+            new ProductColorDto(
+                1L, "Green", "#114842", List.of("/images/products/underwear/product-12.jpg")),
+            new ProductColorDto(
                 2L,
                 "Dusty Olive",
                 "#A6AB84",
-                "/images/products/underwear/product-14.jpg",
-                true,
-                null));
+                List.of("/images/products/underwear/product-14.jpg")));
 
     // Product 5
     // images
@@ -274,24 +259,20 @@ public class HomeController extends BaseController {
             new ProductSize(1L, "XS", null, null, null),
             new ProductSize(2L, "M", null, null, null));
     // colors
-    Set<ProductColor> colors5 =
+    Set<ProductColorDto> colors5 =
         Set.of(
-            new ProductColor(
+            new ProductColorDto(
                 1L,
                 "White",
                 "rgba(var(--bs-white-rgb), var(--bs-bg-opacity))",
-                "/images/products/underwear/product-15.jpg",
-                true,
-                null),
-            new ProductColor(
+                List.of("/images/products/underwear/product-15.jpg")),
+            new ProductColorDto(
                 2L,
                 "Light Orange",
                 "#F55B31",
-                "/images/products/underwear/product-17.jpg",
-                true,
-                null),
-            new ProductColor(
-                3L, "Dark", "#201E21", "/images/products/underwear/product-18.jpg", true, null));
+                List.of("/images/products/underwear/product-17.jpg")),
+            new ProductColorDto(
+                3L, "Dark", "#201E21", List.of("/images/products/underwear/product-18.jpg")));
 
     // Product 6
     // images
@@ -310,10 +291,10 @@ public class HomeController extends BaseController {
     // sizes
     Set<ProductSize> sizes6 = new HashSet<>();
     // colors
-    Set<ProductColor> colors6 =
+    Set<ProductColorDto> colors6 =
         Set.of(
-            new ProductColor(
-                1L, "Beige", "#EEDFC6", "/images/products/underwear/product-19.jpg", true, null));
+            new ProductColorDto(
+                1L, "Beige", "#EEDFC6", List.of("/images/products/underwear/product-19.jpg")));
 
     // Product 7
     // images
@@ -336,31 +317,16 @@ public class HomeController extends BaseController {
             new ProductSize(3L, "S", null, null, null),
             new ProductSize(2L, "M", null, null, null));
     // colors
-    Set<ProductColor> colors7 =
+    Set<ProductColorDto> colors7 =
         Set.of(
-            new ProductColor(
-                1L, "Purple", "#D5D4FE", "/images/products/underwear/product-21.jpg", true, null),
-            new ProductColor(
-                2L,
-                "Dark Violet",
-                "#51518D",
-                "/images/products/underwear/product-23.jpg",
-                true,
-                null),
-            new ProductColor(
-                3L,
-                "Sage Green",
-                "#71A46E",
-                "/images/products/underwear/product-24.jpg",
-                true,
-                null),
-            new ProductColor(
-                4L,
-                "Hot Pink",
-                "#D5D4FE",
-                "/images/products/underwear/product-25.jpg",
-                true,
-                null));
+            new ProductColorDto(
+                1L, "Purple", "#D5D4FE", List.of("/images/products/underwear/product-21.jpg")),
+            new ProductColorDto(
+                2L, "Dark Violet", "#51518D", List.of("/images/products/underwear/product-23.jpg")),
+            new ProductColorDto(
+                3L, "Sage Green", "#71A46E", List.of("/images/products/underwear/product-24.jpg")),
+            new ProductColorDto(
+                4L, "Hot Pink", "#D5D4FE", List.of("/images/products/underwear/product-25.jpg")));
 
     // Product 8
     // images
@@ -384,26 +350,19 @@ public class HomeController extends BaseController {
             new ProductSize(3L, "M", null, null, null),
             new ProductSize(4L, "L", null, null, null));
     // colors
-    Set<ProductColor> colors8 =
+    Set<ProductColorDto> colors8 =
         Set.of(
-            new ProductColor(
-                1L, "Dark", "#201E21", "/images/products/underwear/product-26.jpg", true, null),
-            new ProductColor(
-                2L, "Purple", "#D5D4FE", "/images/products/underwear/product-28.jpg", true, null),
-            new ProductColor(
-                3L,
-                "Sage Green",
-                "#71A46E",
-                "/images/products/underwear/product-29.jpg",
-                true,
-                null),
-            new ProductColor(
+            new ProductColorDto(
+                1L, "Dark", "#201E21", List.of("/images/products/underwear/product-26.jpg")),
+            new ProductColorDto(
+                2L, "Purple", "#D5D4FE", List.of("/images/products/underwear/product-28.jpg")),
+            new ProductColorDto(
+                3L, "Sage Green", "#71A46E", List.of("/images/products/underwear/product-29.jpg")),
+            new ProductColorDto(
                 4L,
                 "White",
                 "rgba(var(--bs-white-rgb), var(--bs-bg-opacity))",
-                "/images/products/underwear/product-30.jpg",
-                true,
-                null));
+                List.of("/images/products/underwear/product-30.jpg")));
 
     ProductDto productDto1 = new ProductDto();
     productDto1.setName("Seamless breathable thong");
@@ -415,6 +374,7 @@ public class HomeController extends BaseController {
     productDto1.setColors(colors1);
     productDto1.setCountdownTimer(25472);
     productDto1.setIsTopSale(false);
+    productDto1.setCategories(Set.of(new Category(1L, "Test", "test", "", null, null, null)));
 
     ProductDto productDto2 = new ProductDto();
     productDto2.setName("Cotton high waisted panties");
@@ -426,6 +386,7 @@ public class HomeController extends BaseController {
     productDto2.setColors(colors2);
     productDto2.setCountdownTimer(0);
     productDto2.setIsTopSale(true);
+    productDto2.setCategories(Set.of(new Category(1L, "Test", "test", "", null, null, null)));
 
     ProductDto productDto3 = new ProductDto();
     productDto3.setName("Sexy lace panties");
@@ -437,6 +398,7 @@ public class HomeController extends BaseController {
     productDto3.setColors(colors3);
     productDto3.setCountdownTimer(0);
     productDto3.setIsTopSale(true);
+    productDto3.setCategories(Set.of(new Category(1L, "Test", "test", "", null, null, null)));
 
     ProductDto productDto4 = new ProductDto();
     productDto4.setName("Seamless underwear");
@@ -448,6 +410,7 @@ public class HomeController extends BaseController {
     productDto4.setColors(colors4);
     productDto4.setCountdownTimer(25472);
     productDto4.setIsTopSale(false);
+    productDto4.setCategories(Set.of(new Category(1L, "Test", "test", "", null, null, null)));
 
     ProductDto productDto5 = new ProductDto();
     productDto5.setName("Half sleeve crop top");
@@ -459,6 +422,7 @@ public class HomeController extends BaseController {
     productDto5.setColors(colors5);
     productDto5.setCountdownTimer(0);
     productDto5.setIsTopSale(false);
+    productDto5.setCategories(Set.of(new Category(1L, "Test", "test", "", null, null, null)));
 
     ProductDto productDto6 = new ProductDto();
     productDto6.setName("Elastic waist panties");
@@ -470,6 +434,7 @@ public class HomeController extends BaseController {
     productDto6.setColors(colors6);
     productDto6.setCountdownTimer(0);
     productDto6.setIsTopSale(false);
+    productDto6.setCategories(Set.of(new Category(1L, "Test", "test", "", null, null, null)));
 
     ProductDto productDto7 = new ProductDto();
     productDto7.setName("Seamless breathable thong");
@@ -481,6 +446,7 @@ public class HomeController extends BaseController {
     productDto7.setColors(colors7);
     productDto7.setCountdownTimer(0);
     productDto7.setIsTopSale(true);
+    productDto7.setCategories(Set.of(new Category(1L, "Test", "test", "", null, null, null)));
 
     ProductDto productDto8 = new ProductDto();
     productDto8.setName("Cotton high waisted panties");
@@ -492,6 +458,7 @@ public class HomeController extends BaseController {
     productDto8.setColors(colors8);
     productDto8.setCountdownTimer(0);
     productDto8.setIsTopSale(true);
+    productDto8.setCategories(Set.of(new Category(1L, "Test", "test", "", null, null, null)));
 
     // add to list
     return List.of(

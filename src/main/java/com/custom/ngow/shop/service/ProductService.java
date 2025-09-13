@@ -2,8 +2,15 @@ package com.custom.ngow.shop.service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -19,15 +26,20 @@ import org.springframework.transaction.annotation.Transactional;
 import com.custom.ngow.shop.common.MessageUtil;
 import com.custom.ngow.shop.constant.ProductBadge;
 import com.custom.ngow.shop.constant.ProductStatus;
+import com.custom.ngow.shop.dto.ProductColorDto;
 import com.custom.ngow.shop.dto.ProductDto;
 import com.custom.ngow.shop.dto.ProductImageDto;
 import com.custom.ngow.shop.dto.ProductListDto;
 import com.custom.ngow.shop.dto.ProductRegistration;
+import com.custom.ngow.shop.dto.ResponseData;
 import com.custom.ngow.shop.entity.Category;
 import com.custom.ngow.shop.entity.Product;
 import com.custom.ngow.shop.entity.ProductColor;
+import com.custom.ngow.shop.entity.ProductImage;
 import com.custom.ngow.shop.entity.ProductSize;
 import com.custom.ngow.shop.exception.CustomException;
+import com.custom.ngow.shop.repository.CategoryRepository;
+import com.custom.ngow.shop.repository.ProductColorRepository;
 import com.custom.ngow.shop.repository.ProductImageRepository;
 import com.custom.ngow.shop.repository.ProductRepository;
 
@@ -41,6 +53,8 @@ public class ProductService {
 
   private final ProductRepository productRepository;
   private final ProductImageRepository productImageRepository;
+  private final ProductColorRepository productColorRepository;
+  private final CategoryRepository categoryRepository;
   private final CategoryService categoryService;
   private final MessageUtil messageUtil;
   private final ModelMapper modelMapper;
@@ -117,7 +131,16 @@ public class ProductService {
 
   @Transactional
   public Product updateProduct(Long productId, ProductRegistration dto) {
-    Product product = getProductById(productId);
+    Product product =
+        productRepository
+            .findByIdFetchAll(productId)
+            .orElseThrow(
+                () ->
+                    new CustomException(
+                        messageUtil,
+                        "",
+                        new String[] {"Product id: " + productId},
+                        "error.notExist"));
 
     applyProductRegistration(product, dto);
     return productRepository.save(product);
@@ -152,6 +175,9 @@ public class ProductService {
     // Badge
     product.setBadge(ProductBadge.getByClassName(dto.getBadgeClassName()));
 
+    // Status
+    product.setStatus(ProductStatus.valueOf(dto.getStatus()));
+
     // Material and structure
     product.setMaterial(dto.getMaterial());
     product.setInnerPocket(dto.getInnerPocket());
@@ -172,25 +198,86 @@ public class ProductService {
     product.setWeight(dto.getWeight());
 
     // Colors
-    product.getColors().clear();
+    Set<Long> incomingColorIds = new HashSet<>();
+    Map<Long, ProductColor> incomingColorsMap = new HashMap<>();
+
+    // Prepare incoming data
     for (ProductColor productColor : dto.getColors()) {
       if (StringUtils.isEmpty(productColor.getName())
           || StringUtils.isEmpty(productColor.getCode())) {
         throw new CustomException(
             messageUtil, "", new String[] {"colorName, colorCode"}, "error.required");
       }
-      productColor.setProduct(product);
-      product.getColors().add(productColor);
+
+      if (productColor.getId() != null) {
+        incomingColorIds.add(productColor.getId());
+        incomingColorsMap.put(productColor.getId(), productColor);
+      } else {
+        // New color
+        productColor.setProduct(product);
+        product.getColors().add(productColor);
+      }
+    }
+
+    // Update existing colors and remove unused ones
+    Iterator<ProductColor> colorIterator = product.getColors().iterator();
+    while (colorIterator.hasNext()) {
+      ProductColor existingColor = colorIterator.next();
+
+      if (existingColor.getId() != null) {
+        if (incomingColorIds.contains(existingColor.getId())) {
+          // Update existing color
+          ProductColor updatedColor = incomingColorsMap.get(existingColor.getId());
+          existingColor.setName(updatedColor.getName());
+          existingColor.setCode(updatedColor.getCode());
+        } else {
+          // Remove unused color
+          colorIterator.remove();
+          existingColor.setProduct(null);
+        }
+      }
     }
 
     // Sizes
-    product.getSizes().clear();
+    Set<Long> incomingSizeIds = new HashSet<>();
+    Map<Long, ProductSize> incomingSizesMap = new HashMap<>();
+
+    // Prepare incoming data
     for (ProductSize productSize : dto.getSizes()) {
       if (StringUtils.isEmpty(productSize.getName())) {
         throw new CustomException(messageUtil, "", new String[] {"sizeName"}, "error.required");
       }
-      productSize.setProduct(product);
-      product.getSizes().add(productSize);
+
+      if (productSize.getId() != null) {
+        incomingSizeIds.add(productSize.getId());
+        incomingSizesMap.put(productSize.getId(), productSize);
+      } else {
+        // New size
+        productSize.setProduct(product);
+        product.getSizes().add(productSize);
+      }
+    }
+
+    // Update existing sizes và remove unused ones
+    Iterator<ProductSize> sizeIterator = product.getSizes().iterator();
+    while (sizeIterator.hasNext()) {
+      ProductSize existingSize = sizeIterator.next();
+
+      if (existingSize.getId() != null) {
+        if (incomingSizeIds.contains(existingSize.getId())) {
+          // Update existing size
+          ProductSize updatedSize = incomingSizesMap.get(existingSize.getId());
+          existingSize.setName(updatedSize.getName());
+          // Update other properties if needed
+          if (updatedSize.getName() != null) {
+            existingSize.setName(updatedSize.getName());
+          }
+        } else {
+          // Remove unused size
+          sizeIterator.remove();
+          existingSize.setProduct(null);
+        }
+      }
     }
   }
 
@@ -223,6 +310,10 @@ public class ProductService {
 
     if (product != null) {
       productRegistration = modelMapper.map(product, ProductRegistration.class);
+
+      List<Long> categoryIdList = new ArrayList<>();
+      product.getCategories().forEach(category -> categoryIdList.add(category.getId()));
+      productRegistration.setCategoryIdList(categoryIdList);
     }
 
     return productRegistration;
@@ -238,5 +329,139 @@ public class ProductService {
     }
 
     return productDto;
+  }
+
+  /** get all product for product list */
+  public ResponseData<ProductDto> getAllProducts(int page, int size) {
+    Pageable pageable = PageRequest.of(page, size);
+    // get list product ids
+    Page<Long> productIds = productRepository.findAllActiveProductIdsPaging(pageable);
+
+    return getProductDtoByIdList(productIds);
+  }
+
+  /** get all product for product list by category */
+  public ResponseData<ProductDto> getAllProductsByCategory(
+      String categoryCode, int page, int size) {
+    Pageable pageable = PageRequest.of(page, size);
+    // get list product ids
+    Page<Long> productIds =
+        categoryRepository.findAllProductIdsByCategoryCode(categoryCode, pageable);
+
+    return getProductDtoByIdList(productIds);
+  }
+
+  private ResponseData<ProductDto> getProductDtoByIdList(Page<Long> productIds) {
+    // get products with id list
+    List<Product> productsWithCollections =
+        productRepository.findActiveProductsWithCollections(productIds.getContent());
+
+    if (productsWithCollections.isEmpty()) {
+      return new ResponseData<>();
+    }
+
+    // get colors and images
+    Map<Long, Set<ProductColorDto>> colorsmap =
+        loadProductColors(new HashSet<>(productIds.getContent()));
+    Map<Long, Set<ProductImageDto>> imagesMap =
+        loadProductImages(new HashSet<>(productIds.getContent()));
+
+    // convert to dto
+    List<ProductDto> response =
+        productsWithCollections.stream()
+            .map(product -> mapToProductListDto(product, colorsmap, imagesMap))
+            .toList();
+
+    ResponseData<ProductDto> responseData = new ResponseData<>();
+    responseData.setData(response);
+    responseData.setPage(productIds.getNumber());
+    responseData.setTotalPages(productIds.getTotalPages());
+
+    return responseData;
+  }
+
+  private ProductDto mapToProductListDto(
+      Product product,
+      Map<Long, Set<ProductColorDto>> colorsmap,
+      Map<Long, Set<ProductImageDto>> imagesMap) {
+    // model mapper skip null
+    product.setColors(null);
+    product.setImages(null);
+
+    ProductDto productDto = modelMapper.map(product, ProductDto.class);
+
+    Set<ProductColorDto> productColorDtos =
+        colorsmap.getOrDefault(product.getId(), Collections.emptySet());
+    Set<ProductImageDto> productImageDtos =
+        imagesMap.getOrDefault(product.getId(), Collections.emptySet());
+
+    productDto.setColors(productColorDtos);
+    productDto.setImages(productImageDtos);
+
+    return productDto;
+  }
+
+  /** Load Images for many Products once (batch loading) */
+  private Map<Long, Set<ProductImageDto>> loadProductImages(Set<Long> productIds) {
+    if (productIds.isEmpty()) {
+      return Collections.emptyMap();
+    }
+
+    Set<ProductImage> images = productImageRepository.findByProductIds(productIds);
+
+    return images.stream()
+        .sorted(Comparator.comparing(ProductImage::getSortOrder))
+        .collect(
+            Collectors.groupingBy(
+                image -> image.getProduct().getId(),
+                Collectors.mapping(
+                    this::mapToProductImageDto, Collectors.toCollection(LinkedHashSet::new))));
+  }
+
+  /** Load Colors for many Products once (batch loading) */
+  private Map<Long, Set<ProductColorDto>> loadProductColors(Set<Long> productIds) {
+    if (productIds.isEmpty()) {
+      return Collections.emptyMap();
+    }
+
+    Set<ProductColor> colors = productColorRepository.findByProductIds(productIds);
+
+    return colors.stream()
+        .sorted(Comparator.comparing(ProductColor::getId))
+        .collect(
+            Collectors.groupingBy(
+                color -> color.getProduct().getId(),
+                Collectors.mapping(
+                    this::mapToProductColorDto, Collectors.toCollection(LinkedHashSet::new))));
+  }
+
+  private ProductImageDto mapToProductImageDto(ProductImage image) {
+    return new ProductImageDto(
+        image.getId(),
+        image.getImageUrl(),
+        image.getAltText(),
+        image.getIsMain(),
+        image.getSortOrder(),
+        image.getColor().getId(),
+        image.getColor().getName(),
+        image.getSize().getId(),
+        image.getSize().getName());
+  }
+
+  private ProductColorDto mapToProductColorDto(ProductColor color) {
+    ProductColorDto productColorDto = new ProductColorDto();
+    productColorDto.setId(color.getId());
+    productColorDto.setName(color.getName());
+    productColorDto.setCode(color.getCode());
+
+    List<String> imageUrls =
+        color.getImages().stream()
+            .sorted(Comparator.comparing(ProductImage::getSortOrder))
+            .map(ProductImage::getImageUrl)
+            .toList();
+
+    productColorDto.setImageUrls(imageUrls);
+
+    return productColorDto;
   }
 }

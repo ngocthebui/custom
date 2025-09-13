@@ -10,23 +10,25 @@
     <nav class="box-navigation">
       <ul class="box-nav-menu justify-content-start">
         <li class="menu-item position-relative">
-          <a href="#" class="item-link">
-            <span th:text="#{navbar.products}" th:remove="tag">PRODUCTS</span>
+          <a class="item-link" href="#">
+            <span th:remove="tag" th:text="#{navbar.products}">PRODUCTS</span>
             <i class="icon icon-caret-down"></i>
           </a>
           <div class="sub-menu">
             <ul class="sub-menu_list">
               <li><a class="sub-menu_link" href="/products">Tất Cả Sản Phẩm</a></li>
-              <li><a class="sub-menu_link" href="blog-grid.html">Túi Đeo Chéo</a></li>
-              <li><a class="sub-menu_link" href="blog-list-1.html">Túi Xách Tay</a></li>
-              <li><a class="sub-menu_link" href="blog-list-2.html">Balo</a></li>
-              <li><a class="sub-menu_link" href="blog-detail.html">Ví & Clutch</a></li>
+              <li th:each="category : ${categoryList}">
+                <a class="sub-menu_link"
+                   th:href="'/products/' + ${category.code}"
+                   th:text="${category.name}">
+                </a>
+              </li>
             </ul>
           </div>
         </li>
         <li class="menu-item">
           <a class="item-link" href="#">
-            <span th:text="#{navbar.collections}" th:remove="tag">COLLECTIONS</span>
+            <span th:remove="tag" th:text="#{navbar.collections}">COLLECTIONS</span>
             <i class="icon icon-caret-down"></i>
           </a>
           <div class="sub-menu mega-menu mega-home">
@@ -52,7 +54,7 @@
         </li>
         <li class="menu-item">
           <a class="item-link" href="#">
-            <span th:text="#{navbar.shop}" th:remove="tag">SHOP</span>
+            <span th:remove="tag" th:text="#{navbar.shop}">SHOP</span>
             <i class="icon icon-caret-down"></i>
           </a>
           <div class="sub-menu mega-menu">
@@ -155,7 +157,7 @@
         </li>
         <li class="menu-item">
           <a class="item-link" href="#">
-            <span th:text="#{navbar.product}" th:remove="tag">PRODUCT</span>
+            <span th:remove="tag" th:text="#{navbar.product}">PRODUCT</span>
             <i class="icon icon-caret-down"></i>
           </a>
           <div class="sub-menu mega-menu">
@@ -331,7 +333,7 @@
         </li>
         <li class="menu-item position-relative">
           <a class="item-link" href="#">
-            <span th:text="#{navbar.pages}" th:remove="tag">PAGE</span>
+            <span th:remove="tag" th:text="#{navbar.pages}">PAGE</span>
             <i class="icon icon-caret-down"></i>
           </a>
           <div class="sub-menu">
@@ -348,7 +350,7 @@
         </li>
         <li class="menu-item position-relative">
           <a class="item-link" href="#">
-            <span th:text="#{navbar.blog}" th:remove="tag">BLOG</span>
+            <span th:remove="tag" th:text="#{navbar.blog}">BLOG</span>
             <i class="icon icon-caret-down"></i>
           </a>
           <div class="sub-menu">
@@ -530,7 +532,7 @@
         <div class="heading">
           <h4 class="title flex-grow-1">Trending product</h4>
           <a class="tf-btn-line has-icon none-line fw-medium fs-18 text-normal"
-             href="/all-products">
+             href="/products">
             View All Product
             <i class="icon icon-caret-circle-right"></i>
           </a>

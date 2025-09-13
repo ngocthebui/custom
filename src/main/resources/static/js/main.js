@@ -256,27 +256,27 @@
   /* Variant Picker
   -------------------------------------------------------------------------*/
   var variantPicker = function () {
-    if ($(".variant-picker-item").length) {
-      $(".color-btn").on("click", function (e) {
-        var value = $(this).data("scroll");
+    $(".variant-picker-item").each(function () {
+      var $picker = $(this);
+
+      $picker.find(".color-btn").on("click", function (e) {
         var value2 = $(this).data("color");
 
-        $(".value-currentColor").text(value);
-        $(".value-currentColor").text(value2);
-
-        $(this).closest(".variant-picker-values").find(
-            ".color-btn").removeClass("active");
+        // Chỉ tìm trong chính variant picker này
+        $picker.find(".value-currentColor").text(value2);
+        $picker.find(".color-btn").removeClass("active");
         $(this).addClass("active");
       });
-      $(".size-btn").on("click", function (e) {
+
+      $picker.find(".size-btn").on("click", function (e) {
         var value = $(this).data("size");
-        $(".value-currentSize").text(value);
 
-        $(this).closest(".variant-picker-values").find(".size-btn").removeClass(
-            "active");
+        // Chỉ tìm trong chính variant picker này
+        $picker.find(".value-currentSize").text(value);
+        $picker.find(".size-btn").removeClass("active");
         $(this).addClass("active");
       });
-    }
+    });
   };
 
   /* Change Value
@@ -1129,15 +1129,39 @@
     if ($(".card-product, .banner-card_product").length > 0) {
       $(".color-swatch").on("click mouseover", function () {
         var $swatch = $(this);
-        var swatchColor = $swatch.find("img:not(.swatch-img)").attr("src");
-        var imgProduct = $swatch.closest(
-            ".card-product, .banner-card_product").find(".img-product");
-        var colorLabel = $swatch.find(".color-label").text().trim();
-        imgProduct.attr("src", swatchColor);
-        $swatch.closest(".card-product, .banner-card_product").find(
-            ".quickadd-variant-color .variant-value").text(colorLabel);
-        $swatch.closest(".card-product, .banner-card_product").find(
-            ".color-swatch.active").removeClass("active");
+
+        // lấy link ảnh từ data attribute
+        var mainImgUrl = $swatch.data("main");
+        var hoverImgUrl = $swatch.data("hover") || mainImgUrl;
+
+        var $card = $swatch.closest(".card-product, .banner-card_product");
+        var $imgProduct = $card.find(".img-product");
+        var $hoverImg = $card.find(".img-hover");
+
+        // 👉 Cập nhật cả ảnh chính & hover cùng lúc
+        if (mainImgUrl) {
+          $imgProduct.attr({
+            "src": mainImgUrl,
+            "data-src": mainImgUrl
+          });
+        }
+
+        if (hoverImgUrl) {
+          $hoverImg.attr({
+            "src": hoverImgUrl,
+            "data-src": hoverImgUrl
+          });
+        }
+
+        // Cập nhật label nếu có
+        var $colorLabel = $swatch.find(".color-label");
+        if ($colorLabel.length > 0) {
+          $card.find(".quickadd-variant-color .variant-value")
+          .text($colorLabel.text().trim());
+        }
+
+        // Active swatch
+        $card.find(".color-swatch.active").removeClass("active");
         $swatch.addClass("active");
       });
     }

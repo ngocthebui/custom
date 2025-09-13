@@ -8,9 +8,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class ProductImageListDto {
-  private Long productId;
-  private List<ProductImageDto> images = new ArrayList<>();
+@AllArgsConstructor
+public class ProductColorDto {
+
+  private Long id;
+  private String name;
+  private String code;
+  private List<String> imageUrls = new ArrayList<>();
 }

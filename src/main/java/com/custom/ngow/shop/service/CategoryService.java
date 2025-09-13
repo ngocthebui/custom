@@ -29,6 +29,13 @@ public class CategoryService {
     return categoryRepository.findAll();
   }
 
+  public Category getCategoryByCode(String categoryCode) {
+    return categoryRepository
+        .findByCode(categoryCode)
+        .orElseThrow(
+            () -> new CustomException(messageUtil, "", new String[] {"Code"}, "error.notExist"));
+  }
+
   public Category getCategoryById(Long id) {
     return categoryRepository
         .findById(id)
@@ -45,6 +52,7 @@ public class CategoryService {
 
     Category category = new Category();
     category.setName(categoryDto.getName());
+    category.setCode(categoryDto.getCode());
     category.setDescription(categoryDto.getDescription());
 
     categoryRepository.save(category);
@@ -63,6 +71,7 @@ public class CategoryService {
             new CategoryDto(
                 category.getId(),
                 category.getName(),
+                category.getCode(),
                 category.getDescription(),
                 category.getCreatedAt(),
                 category.getUpdatedAt()));

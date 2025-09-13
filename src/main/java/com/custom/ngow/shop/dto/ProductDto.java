@@ -6,7 +6,6 @@ import java.util.Set;
 import com.custom.ngow.shop.constant.ProductBadge;
 import com.custom.ngow.shop.constant.ProductStatus;
 import com.custom.ngow.shop.entity.Category;
-import com.custom.ngow.shop.entity.ProductColor;
 import com.custom.ngow.shop.entity.ProductSize;
 
 import lombok.AllArgsConstructor;
@@ -51,7 +50,7 @@ public class ProductDto {
   private Integer reviewCount = 0;
 
   private Set<Category> categories;
-  private Set<ProductColor> colors;
+  private Set<ProductColorDto> colors;
   private Set<ProductSize> sizes;
   private Set<ProductImageDto> images;
 }

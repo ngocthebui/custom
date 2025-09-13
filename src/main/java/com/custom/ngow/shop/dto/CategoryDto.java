@@ -18,6 +18,9 @@ public class CategoryDto {
   @NotBlank(message = "{error.required}")
   private String name;
 
+  @NotBlank(message = "{error.required}")
+  private String code;
+
   @Size(max = 255, message = "{error.maxlength}")
   private String description;
 

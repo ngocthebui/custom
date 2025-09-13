@@ -66,15 +66,22 @@
 
   <!-- Page Title -->
   <section class="s-page-title style-2">
-    <div class="container">
+    <div class="container-full">
       <div class="content">
         <ul class="breadcrumbs-page">
           <li><a class="h6 link" href="/">Home</a></li>
           <li class="d-flex"><i class="icon icon-caret-right"></i></li>
-          <li><a class="h6 link" href="shop-default.html">Shop</a></li>
+          <li><a class="h6 link" href="/products">Shop</a></li>
           <li class="d-flex"><i class="icon icon-caret-right"></i></li>
           <li>
-            <h6 class="current-page fw-normal" th:text="${productDetail.name}">Product Name</h6>
+            <a class="h6 link"
+                 th:href="@{'/products/' + ${categoryValue.code}}"
+                 th:text="${categoryValue.name}">
+            </a>
+          </li>
+          <li class="d-flex"><i class="icon icon-caret-right"></i></li>
+          <li>
+            <h6 class="current-page fw-normal" th:text="${productDetail.sku}">Product Name</h6>
           </li>
         </ul>
       </div>
@@ -82,7 +89,7 @@
   </section>
   <!-- /Page Title -->
   <!-- Product Main -->
-  <section class="flat-single-product flat-spacing-3">
+  <section class="flat-single-product flat-spacing">
     <div class="tf-main-product section-image-zoom">
       <div class="container">
         <div class="row">
@@ -139,7 +146,9 @@
               <div class="tf-product-info-list other-image-zoom">
                 <h2 class="product-info-name" th:text="${productDetail.name}">Product name</h2>
                 <div class="product-info-meta">
-                  <div class="rating">
+                  <div class="rating" th:with="displayRating=${productDetail.rating == 0 ? 5 : productDetail.rating},
+                          floor=${T(java.lang.Math).floor(displayRating)},
+                          decimal=${displayRating - floor}">
                     <div class="d-flex gap-4">
                       <svg fill="none"
                            height="14" th:each="i : ${#numbers.sequence(1,5)}" viewBox="0 0 14 14"
@@ -147,7 +156,8 @@
                            xmlns="http://www.w3.org/2000/svg">
 
                         <defs>
-                          <linearGradient id="halfStar" x1="0" x2="1" y1="0" y2="0">
+                          <linearGradient th:id="'halfStar_' + ${productDetail.id}" x1="0" x2="1"
+                                          y1="0" y2="0">
                             <stop offset="50%" stop-color="#EF9122"/>
                             <stop offset="50%" stop-color="#ddd"/>
                           </linearGradient>
@@ -155,9 +165,7 @@
 
                         <path
                             d="M14 5.4091L8.913 5.07466L6.99721 0.261719L5.08143 5.07466L0 5.4091L3.89741 8.7184L2.61849 13.7384L6.99721 10.9707L11.376 13.7384L10.097 8.7184L14 5.4091Z"
-                            th:attr="fill=${i <= floor ? '#EF9122' : (i == floor + 1 and decimal >= 0.0) ? 'url(#halfStar)' : '#ddd'}"
-                            th:with="floor=${T(java.lang.Math).floor(productDetail.rating)},
-                 decimal=${productDetail.rating - floor}"/>
+                            th:fill="${i <= floor ? '#EF9122' : (i == floor + 1 and decimal >= 0.0) ? ('url(#halfStar_' + productDetail.id + ')') : '#ddd'}"/>
                       </svg>
                     </div>
                     <div class="reviews text-main"
@@ -171,15 +179,17 @@
                 </div>
                 <div class="tf-product-heading">
                   <div class="product-info-price price-wrap">
-                    <span class="price-new price-on-sale h2 fw-4"
-                          th:text="'$ ' + ${productDetail.salePrice}">$0</span>
-                    <span class="price-old compare-at-price h6">$0</span>
-                    <p class="badges-on-sale h6 fw-semibold">
-                                                <span class="number-sale"
-                                                      th:data-person-sale="${productDetail.salePercentage}"
-                                                      th:text="'-' + ${productDetail.salePercentage} + ' %'">
-                                                    -0 %
-                                                </span>
+                    <span class="price-new h2 fw-4"
+                          th:text="${#numbers.formatInteger(productDetail.salePrice, 3, 'COMMA')} + ' ₫'">0</span>
+                    <span class="price-old h6" th:if="${productDetail.salePercentage} > 0"
+                          th:text="${#numbers.formatInteger(productDetail.price, 3, 'COMMA')} + ' ₫'">$ 0</span>
+                    <p class="badges-on-sale h6 fw-semibold"
+                       th:if="${productDetail.salePercentage} > 0">
+                      <span class="number-sale"
+                            th:data-person-sale="${productDetail.salePercentage}"
+                            th:text="'-' + ${productDetail.salePercentage} + ' %'">
+                          -0 %
+                      </span>
                     </p>
                   </div>
                   <div
@@ -217,8 +227,9 @@
                     </div>
                     <div class="variant-picker-values">
                       <span class="size-btn"
+                            th:classappend="${iterStat.first} ? 'active' : ''"
                             th:data-size="${size.name}"
-                            th:each="size : ${productDetail.sizes}"
+                            th:each="size, iterStat : ${productDetail.sizes}"
                             th:text="${size.name}">M
                       </span>
                     </div>
@@ -226,7 +237,7 @@
                   <div class="variant-picker-item variant-color">
                     <div class="variant-picker-label">
                       <div class="h4 fw-semibold">
-                        Colors
+                        Color
                         <span class="variant-picker-label-value value-currentColor">orange</span>
                       </div>
                     </div>
@@ -345,22 +356,14 @@
             <div class="tf-mini-cart-item align-items-start">
               <div class="tf-mini-cart-image">
                 <img alt="img-product" class="lazyload"
-                     data-src="/images/products/fashion/thumbs/thumbs-1.jpg"
-                     src="/images/products/fashion/thumbs/thumbs-1.jpg">
+                     th:data-src="${productDetail.images != null ? productDetail.images[0].imageUrl : '/images/products/product-default.jpg'}"
+                     th:src="${productDetail.images != null ? productDetail.images[0].imageUrl : '/images/products/product-default.jpg'}">
               </div>
               <div class="tf-mini-cart-info">
                 <h6 class="title">
-                  <a class="link text-line-clamp-1" href="product-detail.html">Queen fashion long
-                    sleeve shirt, basic
-                    t-shirt</a>
+                  <a class="link text-line-clamp-1" href="#" th:text="${productDetail.name}"></a>
                 </h6>
-                <div class="size">
-                  <div class="text-small text-main-2 sub">Size: XS</div>
-                  <div class="text-small text-main-2 sub">Color:</div>
-                  <div class="dot-color bg-caramel"></div>
-                </div>
-                <div class="h6 fw-semibold">
-                  $69,99
+                <div class="h6 fw-semibold" th:text="${#numbers.formatInteger(productDetail.salePrice, 3, 'COMMA')} + ' ₫'">
                 </div>
               </div>
             </div>
@@ -371,10 +374,23 @@
                 <h6 class="title">Size:</h6>
                 <div class="tf-select style-1">
                   <select class="font-sora">
-                    <option selected="selected">M</option>
-                    <option>S</option>
-                    <option>L</option>
-                    <option>XL</option>
+                    <option th:each="size, iterStat : ${productDetail.sizes}"
+                            th:text="${size.name}"
+                            th:value="${size.id}"
+                            th:classappend="${iterStat.first} ? 'active' : ''">
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="tf-sticky-atc-variant-price">
+                <h6 class="title">Color:</h6>
+                <div class="tf-select style-1">
+                  <select class="font-sora">
+                    <option th:each="color, iterStat : ${productDetail.colors}"
+                            th:text="${color.name}"
+                            th:value="${color.id}"
+                            th:classappend="${iterStat.first} ? 'active' : ''">
+                    </option>
                   </select>
                 </div>
               </div>
@@ -3057,7 +3073,6 @@
 <!-- Product actions -->
 <div th:replace="~{view/shop/fragments/product-actions :: size-guide}"></div>
 <div th:replace="~{view/shop/fragments/product-actions :: compare}"></div>
-<div th:replace="~{view/shop/fragments/product-actions :: quick-view}"></div>
 <!-- /Product actions -->
 
 <!-- Search -->
