@@ -139,25 +139,22 @@
               <div class="tf-product-info-list other-image-zoom">
                 <h2 class="product-info-name" th:text="${productDetail.name}">Product name</h2>
                 <div class="product-info-meta">
-                  <div class="rating">
+                  <div class="rating" th:with="displayRating=${productDetail.rating == 0 ? 5 : productDetail.rating},
+                          floor=${T(java.lang.Math).floor(displayRating)},
+                          decimal=${displayRating - floor}">
                     <div class="d-flex gap-4">
-                      <svg fill="none"
-                           height="14" th:each="i : ${#numbers.sequence(1,5)}" viewBox="0 0 14 14"
-                           width="14"
-                           xmlns="http://www.w3.org/2000/svg">
+                      <svg th:each="i : ${#numbers.sequence(1,5)}"
+                           fill="none" height="14" viewBox="0 0 14 14" width="14" xmlns="http://www.w3.org/2000/svg">
 
                         <defs>
-                          <linearGradient id="halfStar" x1="0" x2="1" y1="0" y2="0">
+                          <linearGradient th:id="'halfStar_' + ${productDetail.id}" x1="0" x2="1" y1="0" y2="0">
                             <stop offset="50%" stop-color="#EF9122"/>
                             <stop offset="50%" stop-color="#ddd"/>
                           </linearGradient>
                         </defs>
 
-                        <path
-                            d="M14 5.4091L8.913 5.07466L6.99721 0.261719L5.08143 5.07466L0 5.4091L3.89741 8.7184L2.61849 13.7384L6.99721 10.9707L11.376 13.7384L10.097 8.7184L14 5.4091Z"
-                            th:attr="fill=${i <= floor ? '#EF9122' : (i == floor + 1 and decimal >= 0.0) ? 'url(#halfStar)' : '#ddd'}"
-                            th:with="floor=${T(java.lang.Math).floor(productDetail.rating)},
-                            decimal=${productDetail.rating - floor}"/>
+                        <path d="M14 5.4091L8.913 5.07466L6.99721 0.261719L5.08143 5.07466L0 5.4091L3.89741 8.7184L2.61849 13.7384L6.99721 10.9707L11.376 13.7384L10.097 8.7184L14 5.4091Z"
+                              th:fill="${i <= floor ? '#EF9122' : (i == floor + 1 and decimal >= 0.0) ? ('url(#halfStar_' + productDetail.id + ')') : '#ddd'}"/>
                       </svg>
                     </div>
                     <div class="reviews text-main"
@@ -171,9 +168,8 @@
                 </div>
                 <div class="tf-product-heading">
                   <div class="product-info-price price-wrap">
-                    <span class="price-new price-on-sale h2 fw-4"
-                          th:text="'$ ' + ${productDetail.salePrice}">$0</span>
-                    <span class="price-old compare-at-price h6">$0</span>
+                    <span class="price-new h2 fw-4" th:text="${#numbers.formatInteger(productDetail.salePrice, 3, 'COMMA')} + ' ₫'">0</span>
+                    <span th:if="${productDetail.salePercentage} > 0" class="price-old h6" th:text="${#numbers.formatInteger(productDetail.price, 3, 'COMMA')} + ' ₫'">$ 0</span>
                     <p class="badges-on-sale h6 fw-semibold">
                       <span class="number-sale"
                             th:data-person-sale="${productDetail.salePercentage}"

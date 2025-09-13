@@ -219,25 +219,22 @@
                th:text="${product.name}"
                th:href="@{'/products/' + ${product.sku}}"></a>
             <div class="product-info-meta">
-              <div class="rating">
+              <div class="rating" th:with="displayRating=${product.rating == 0 ? 5 : product.rating},
+                          floor=${T(java.lang.Math).floor(displayRating)},
+                          decimal=${displayRating - floor}">
                 <div class="d-flex gap-4">
-                  <svg fill="none"
-                       height="14" th:each="i : ${#numbers.sequence(1,5)}" viewBox="0 0 14 14"
-                       width="14"
-                       xmlns="http://www.w3.org/2000/svg">
+                  <svg th:each="i : ${#numbers.sequence(1,5)}"
+                       fill="none" height="14" viewBox="0 0 14 14" width="14" xmlns="http://www.w3.org/2000/svg">
 
                     <defs>
-                      <linearGradient id="halfStar" x1="0" x2="1" y1="0" y2="0">
+                      <linearGradient th:id="'halfStar_' + ${product.id}" x1="0" x2="1" y1="0" y2="0">
                         <stop offset="50%" stop-color="#EF9122"/>
                         <stop offset="50%" stop-color="#ddd"/>
                       </linearGradient>
                     </defs>
 
-                    <path
-                        d="M14 5.4091L8.913 5.07466L6.99721 0.261719L5.08143 5.07466L0 5.4091L3.89741 8.7184L2.61849 13.7384L6.99721 10.9707L11.376 13.7384L10.097 8.7184L14 5.4091Z"
-                        th:attr="fill=${i <= floor ? '#EF9122' : (i == floor + 1 and decimal >= 0.0) ? 'url(#halfStar)' : '#ddd'}"
-                        th:with="floor=${T(java.lang.Math).floor(product.rating)},
-                            decimal=${product.rating - floor}"/>
+                    <path d="M14 5.4091L8.913 5.07466L6.99721 0.261719L5.08143 5.07466L0 5.4091L3.89741 8.7184L2.61849 13.7384L6.99721 10.9707L11.376 13.7384L10.097 8.7184L14 5.4091Z"
+                          th:fill="${i <= floor ? '#EF9122' : (i == floor + 1 and decimal >= 0.0) ? ('url(#halfStar_' + product.id + ')') : '#ddd'}"/>
                   </svg>
                 </div>
                 <div class="reviews text-main"
@@ -261,8 +258,8 @@
                 </p>
               </div>
             </div>
-            <p class="product-infor-sub text-main h6" th:text="${product.description}">
-            </p>
+<!--            <p class="product-infor-sub text-main h6" th:text="${product.description}">-->
+<!--            </p>-->
           </div>
           <div class="tf-product-variant w-100">
             <div class="variant-picker-item variant-size">
@@ -380,7 +377,8 @@
                 options </a>
             </div>
           </div>
-          <a class="tf-btn-line text-normal letter-space-0 fw-normal" href="product-detail.html">
+          <a class="tf-btn-line text-normal letter-space-0 fw-normal"
+             th:href="@{'/products/' + ${product.sku}}">
             <span class="h5">View full details</span>
             <i class="icon icon-arrow-top-right fs-24"></i>
           </a>
