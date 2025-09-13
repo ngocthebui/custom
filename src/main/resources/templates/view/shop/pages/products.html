@@ -119,9 +119,9 @@
         <div class="wrapper-shop tf-grid-layout tf-col-4" id="gridLayout">
           <!-- Product 1 -->
           <div class="card-product grid" data-availability="In stock" data-brand="fisoew"
-               th:each="product : ${productList}"
-               th:with="mainProductImgUrl=${product.images.isEmpty() ? '/images/products/product-default.jpg' : product.images[0].imageUrl},
-              hoverProductImgUrl=${product.images.size() > 1 ? product.images[1].imageUrl : '/images/products/product-default.jpg'}">
+               th:each="product : ${response.data}"
+               th:with="mainProductImgUrl=${product.colors[0].imageUrls.isEmpty() ? '/images/products/product-default.jpg' : product.colors[0].imageUrls.first},
+              hoverProductImgUrl=${product.colors[0].imageUrls.size() > 1 ? product.colors[0].imageUrls[1] : '/images/products/product-default.jpg'}">
             <div class="card-product_wrapper">
               <a class="product-img" th:href="@{'/products/' + ${product.sku}}">
                 <img alt="Product" class="lazyload img-product"
@@ -238,14 +238,32 @@
           </div>
 
           <!-- Pagination -->
-          <div class="wd-full wg-pagination m-0 justify-content-center">
-            <a class="pagination-item h6 direct" href="#"><i class="icon icon-caret-left"></i></a>
-            <a class="pagination-item h6" href="#">1</a>
-            <span class="pagination-item h6 active">2</span>
-            <a class="pagination-item h6" href="#">3</a>
-            <a class="pagination-item h6" href="#">4</a>
-            <a class="pagination-item h6" href="#">5</a>
-            <a class="pagination-item h6 direct" href="#"><i class="icon icon-caret-right"></i></a>
+          <div class="wd-full wg-pagination m-0 justify-content-center"
+               th:if="${!response.data.isEmpty()}">
+            <!-- Previous -->
+            <a class="pagination-item h6 direct"
+               th:href="@{/products(page=${response.page - 1})}"
+               th:if="${response.page > 0}">
+              <i class="icon icon-caret-left"></i>
+            </a>
+            <!-- Page numbers -->
+            <span th:each="i : ${#numbers.sequence(0, response.totalPages - 1)}">
+                  <a class="pagination-item h6"
+                     th:href="@{/products(page=${i})}"
+                     th:if="${i != response.page}"
+                     th:text="${i + 1}">
+                  </a>
+                  <span class="pagination-item h6 active"
+                        th:if="${i == response.page}"
+                        th:text="${i + 1}">
+                  </span>
+                </span>
+            <!-- Next -->
+            <a class="pagination-item h6 direct"
+               th:href="@{/products(page=${response.page + 1})}"
+               th:if="${response.page < (response.totalPages - 1)}">
+              <i class="icon icon-caret-right"></i>
+            </a>
           </div>
         </div>
       </div>
@@ -488,7 +506,7 @@
 <!-- Product actions -->
 <div th:replace="~{view/shop/fragments/product-actions :: size-guide}"></div>
 <div th:replace="~{view/shop/fragments/product-actions :: compare}"></div>
-<th:block th:each="product : ${productList}">
+<th:block th:each="product : ${response.data}">
   <div th:replace="~{view/shop/fragments/product-actions :: quick-view(${product})}"></div>
 </th:block>
 <!-- /Product actions -->

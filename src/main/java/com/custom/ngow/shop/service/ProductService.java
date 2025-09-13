@@ -31,6 +31,7 @@ import com.custom.ngow.shop.dto.ProductDto;
 import com.custom.ngow.shop.dto.ProductImageDto;
 import com.custom.ngow.shop.dto.ProductListDto;
 import com.custom.ngow.shop.dto.ProductRegistration;
+import com.custom.ngow.shop.dto.ResponseData;
 import com.custom.ngow.shop.entity.Category;
 import com.custom.ngow.shop.entity.Product;
 import com.custom.ngow.shop.entity.ProductColor;
@@ -329,19 +330,37 @@ public class ProductService {
   }
 
   /** get all product for product list */
-  public List<ProductDto> getAllProducts() {
-    List<Product> products = productRepository.findAllActiveProducts();
-    if (products.isEmpty()) {
-      return Collections.emptyList();
+  public ResponseData<ProductDto> getAllProducts(int page, int size) {
+    Pageable pageable = PageRequest.of(page, size);
+    // get list product ids
+    Page<Long> productIds = productRepository.findAllActiveProductIdsPaging(pageable);
+
+    // get products with id list
+    List<Product> productsWithCollections =
+        productRepository.findActiveProductsWithCollections(productIds.getContent());
+
+    if (productsWithCollections.isEmpty()) {
+      return new ResponseData<>();
     }
 
-    Set<Long> productIds = products.stream().map(Product::getId).collect(Collectors.toSet());
-    Map<Long, Set<ProductColorDto>> colorsmap = loadProductColors(productIds);
-    Map<Long, Set<ProductImageDto>> imagesMap = loadProductImages(productIds);
+    // get colors and images
+    Map<Long, Set<ProductColorDto>> colorsmap =
+        loadProductColors(new HashSet<>(productIds.getContent()));
+    Map<Long, Set<ProductImageDto>> imagesMap =
+        loadProductImages(new HashSet<>(productIds.getContent()));
 
-    return products.stream()
-        .map(product -> mapToProductListDto(product, colorsmap, imagesMap))
-        .toList();
+    // convert to dto
+    List<ProductDto> response =
+        productsWithCollections.stream()
+            .map(product -> mapToProductListDto(product, colorsmap, imagesMap))
+            .toList();
+
+    ResponseData<ProductDto> responseData = new ResponseData<>();
+    responseData.setData(response);
+    responseData.setPage(productIds.getNumber());
+    responseData.setTotalPages(productIds.getTotalPages());
+
+    return responseData;
   }
 
   private ProductDto mapToProductListDto(

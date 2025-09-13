@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.custom.ngow.shop.service.ProductService;
 
@@ -15,12 +16,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ProductController extends BaseController {
 
+  private static final int PAGE_SIZE = 12;
+
   private final ProductService productService;
 
   @GetMapping
-  public String getAllProducts(Model model) {
+  public String getAllProducts(@RequestParam(defaultValue = "0") int page, Model model) {
     addDefaultToModel(model);
-    model.addAttribute("productList", productService.getAllProducts());
+    model.addAttribute("response", productService.getAllProducts(page, PAGE_SIZE));
     return "view/shop/pages/products";
   }
 

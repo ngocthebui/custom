@@ -712,7 +712,7 @@
     let maxItemList = 5;
 
     if (layoutClassGrid.includes("tf-col-2")) {
-      maxItems = 6;
+      maxItems = 12;
     } else if (layoutClassGrid.includes("tf-col-3")) {
       maxItems = 9;
     } else if (layoutClassGrid.includes("tf-col-4")) {
@@ -741,11 +741,11 @@
       }
     });
 
-    if (gridItems.length <= maxItems - 1) {
-      $(".wg-pagination").hide();
-    } else {
-      $(".wg-pagination").css("display", "flex");
-    }
+    // if (gridItems.length <= maxItems - 1) {
+    //   $(".wg-pagination").hide();
+    // } else {
+    //   $(".wg-pagination").css("display", "flex");
+    // }
   };
   $(function () {
     rangeTwoPrice();

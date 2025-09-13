@@ -108,7 +108,7 @@ public class ProductController {
   public String getAllProducts(
       @RequestParam(defaultValue = "0") int page,
       @RequestParam(defaultValue = "id") String sort,
-      @RequestParam(defaultValue = "asc") String dir,
+      @RequestParam(defaultValue = "desc") String dir,
       Model model) {
     model.addAttribute("adminDto", userService.getCurrentUserDto());
 
@@ -133,7 +133,7 @@ public class ProductController {
       @RequestParam String q,
       @RequestParam(defaultValue = "0") int page,
       @RequestParam(defaultValue = "id") String sort,
-      @RequestParam(defaultValue = "asc") String dir,
+      @RequestParam(defaultValue = "desc") String dir,
       Model model) {
     model.addAttribute("adminDto", userService.getCurrentUserDto());
     model.addAttribute(

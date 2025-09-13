@@ -144,7 +144,8 @@
                           decimal=${displayRating - floor}">
                     <div class="d-flex gap-4">
                       <svg fill="none"
-                           height="14" th:each="i : ${#numbers.sequence(1,5)}" viewBox="0 0 14 14" width="14"
+                           height="14" th:each="i : ${#numbers.sequence(1,5)}" viewBox="0 0 14 14"
+                           width="14"
                            xmlns="http://www.w3.org/2000/svg">
 
                         <defs>
@@ -175,7 +176,8 @@
                           th:text="${#numbers.formatInteger(productDetail.salePrice, 3, 'COMMA')} + ' ₫'">0</span>
                     <span class="price-old h6" th:if="${productDetail.salePercentage} > 0"
                           th:text="${#numbers.formatInteger(productDetail.price, 3, 'COMMA')} + ' ₫'">$ 0</span>
-                    <p class="badges-on-sale h6 fw-semibold">
+                    <p class="badges-on-sale h6 fw-semibold"
+                       th:if="${productDetail.salePercentage} > 0">
                       <span class="number-sale"
                             th:data-person-sale="${productDetail.salePercentage}"
                             th:text="'-' + ${productDetail.salePercentage} + ' %'">

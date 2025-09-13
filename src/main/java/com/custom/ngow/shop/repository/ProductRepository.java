@@ -2,7 +2,6 @@ package com.custom.ngow.shop.repository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,43 +11,47 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.custom.ngow.shop.constant.ProductStatus;
-import com.custom.ngow.shop.entity.Category;
 import com.custom.ngow.shop.entity.Product;
-import com.custom.ngow.shop.entity.ProductColor;
-import com.custom.ngow.shop.entity.ProductSize;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
   @Query(
       """
-        SELECT DISTINCT p FROM Product p
-        LEFT JOIN FETCH p.categories
-        LEFT JOIN FETCH p.colors
-        LEFT JOIN FETCH p.sizes
-        LEFT JOIN FETCH p.images
-        WHERE p.id = :id
-        """)
+          SELECT DISTINCT p FROM Product p
+          LEFT JOIN FETCH p.categories
+          LEFT JOIN FETCH p.colors
+          LEFT JOIN FETCH p.sizes
+          LEFT JOIN FETCH p.images
+          WHERE p.id = :id
+          """)
   Optional<Product> findByIdFetchAll(Long id);
+
+  @Query("""
+      SELECT DISTINCT p.id FROM Product p
+      WHERE p.status = 'ACTIVE'
+      """)
+  Page<Long> findAllActiveProductIdsPaging(Pageable pageable);
 
   @Query(
       """
-        SELECT DISTINCT p FROM Product p
-        LEFT JOIN FETCH p.categories
-        LEFT JOIN FETCH p.sizes
-        WHERE p.status = 'ACTIVE'
-        ORDER BY p.createdAt DESC
-        """)
+      SELECT DISTINCT p FROM Product p
+      LEFT JOIN FETCH p.categories
+      LEFT JOIN FETCH p.sizes
+      WHERE p.id IN :ids
+      ORDER BY p.createdAt DESC
+      """)
+  List<Product> findActiveProductsWithCollections(@Param("ids") List<Long> ids);
+
+  @Query(
+      """
+          SELECT DISTINCT p FROM Product p
+          LEFT JOIN FETCH p.categories
+          LEFT JOIN FETCH p.sizes
+          WHERE p.status = 'ACTIVE'
+          ORDER BY p.createdAt DESC
+          """)
   List<Product> findAllActiveProducts();
-
-  @Query("SELECT p.categories FROM Product p WHERE p.id = :productId")
-  Set<Category> findCategoriesByProductId(@Param("productId") Long productId);
-
-  @Query("SELECT p.colors FROM Product p WHERE p.id = :productId")
-  Set<ProductColor> findColorsByProductId(@Param("productId") Long productId);
-
-  @Query("SELECT p.sizes FROM Product p WHERE p.id = :productId")
-  Set<ProductSize> findSizesByProductId(@Param("productId") Long productId);
 
   long countByStatus(ProductStatus status);
 
@@ -56,12 +59,12 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
   @Query(
       """
-        SELECT DISTINCT p FROM Product p
-        LEFT JOIN FETCH p.categories
-        LEFT JOIN FETCH p.colors
-        LEFT JOIN FETCH p.sizes
-        LEFT JOIN FETCH p.images
-        WHERE p.sku = :sku AND p.status = 'ACTIVE'
-        """)
+          SELECT DISTINCT p FROM Product p
+          LEFT JOIN FETCH p.categories
+          LEFT JOIN FETCH p.colors
+          LEFT JOIN FETCH p.sizes
+          LEFT JOIN FETCH p.images
+          WHERE p.sku = :sku AND p.status = 'ACTIVE'
+          """)
   Optional<Product> findProductBySku(String sku);
 }
