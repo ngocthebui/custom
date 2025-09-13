@@ -137,6 +137,14 @@
                       </a>
                     </th>
                     <th>
+                      <a th:href="@{${pagingUrl}(page=${pageData.number}, sort='code', dir=${reverseDir})}">
+                        Code
+                        <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
+                           th:if="${sort == 'code'}">
+                        </i>
+                      </a>
+                    </th>
+                    <th>
                       <a th:href="@{${pagingUrl}(page=${pageData.number}, sort='description', dir=${reverseDir})}">
                         Description
                         <i th:class="${dir == 'asc'} ? 'icon icon-caret-up' : 'icon icon-caret-down'"
@@ -165,9 +173,10 @@
                   </thead>
                   <tbody>
                   <tr class="tb-order-item" th:each="data : ${pageData.content}">
-                    <td th:text="${data.id}">ID</td>
-                    <td th:text="${data.name}">Email</td>
-                    <td th:text="${data.description}">First Name</td>
+                    <td th:text="${data.id}"></td>
+                    <td th:text="${data.name}"></td>
+                    <td th:text="${data.code}"></td>
+                    <td th:text="${data.description}"></td>
                     <td th:text="${#temporals.format(data.createdAt, 'yyyy-MM-dd HH:mm')}">Created
                       At
                     </td>

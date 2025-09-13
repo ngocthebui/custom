@@ -1129,20 +1129,20 @@ a:focus, a:hover {
 }
 
 .flat-spacing {
-  padding-top: 112px;
+  padding-top: 60px;
   padding-bottom: 112px;
 }
 
 @media (max-width: 1024px) {
   .flat-spacing {
-    padding-top: 80px;
+    padding-top: 40px;
     padding-bottom: 80px;
   }
 }
 
 @media (max-width: 767px) {
   .flat-spacing {
-    padding-top: 60px;
+    padding-top: 30px;
     padding-bottom: 60px;
   }
 }
@@ -16633,7 +16633,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
 
 @media (min-width: 1200px) {
   .tf-shop-control {
-    margin-bottom: 48px;
+    margin-bottom: 20px;
   }
 }
 
@@ -19266,7 +19266,7 @@ html:not([dir=rtl]) .noUi-horizontal .noUi-handle {
 
 .s-page-title.style-2 .content {
   padding-top: 16px;
-  padding-bottom: 49px;
+  padding-bottom: 25px;
   text-align: left;
   border-top: 1px solid var(--line-8);
 }

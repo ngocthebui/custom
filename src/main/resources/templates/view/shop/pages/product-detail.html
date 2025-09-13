@@ -71,7 +71,14 @@
         <ul class="breadcrumbs-page">
           <li><a class="h6 link" href="/">Home</a></li>
           <li class="d-flex"><i class="icon icon-caret-right"></i></li>
-          <li><a class="h6 link" href="shop-default.html">Shop</a></li>
+          <li><a class="h6 link" href="/products">Shop</a></li>
+          <li class="d-flex"><i class="icon icon-caret-right"></i></li>
+          <li>
+            <a class="h6 link"
+                 th:href="@{'/products/' + ${categoryValue.code}}"
+                 th:text="${categoryValue.name}">
+            </a>
+          </li>
           <li class="d-flex"><i class="icon icon-caret-right"></i></li>
           <li>
             <h6 class="current-page fw-normal" th:text="${productDetail.name}">Product Name</h6>
@@ -230,7 +237,7 @@
                   <div class="variant-picker-item variant-color">
                     <div class="variant-picker-label">
                       <div class="h4 fw-semibold">
-                        Colors
+                        Color
                         <span class="variant-picker-label-value value-currentColor">orange</span>
                       </div>
                     </div>
@@ -349,22 +356,14 @@
             <div class="tf-mini-cart-item align-items-start">
               <div class="tf-mini-cart-image">
                 <img alt="img-product" class="lazyload"
-                     data-src="/images/products/fashion/thumbs/thumbs-1.jpg"
-                     src="/images/products/fashion/thumbs/thumbs-1.jpg">
+                     th:data-src="${productDetail.images != null ? productDetail.images[0].imageUrl : '/images/products/product-default.jpg'}"
+                     th:src="${productDetail.images != null ? productDetail.images[0].imageUrl : '/images/products/product-default.jpg'}">
               </div>
               <div class="tf-mini-cart-info">
                 <h6 class="title">
-                  <a class="link text-line-clamp-1" href="product-detail.html">Queen fashion long
-                    sleeve shirt, basic
-                    t-shirt</a>
+                  <a class="link text-line-clamp-1" href="#" th:text="${productDetail.name}"></a>
                 </h6>
-                <div class="size">
-                  <div class="text-small text-main-2 sub">Size: XS</div>
-                  <div class="text-small text-main-2 sub">Color:</div>
-                  <div class="dot-color bg-caramel"></div>
-                </div>
-                <div class="h6 fw-semibold">
-                  $69,99
+                <div class="h6 fw-semibold" th:text="${#numbers.formatInteger(productDetail.salePrice, 3, 'COMMA')} + ' ₫'">
                 </div>
               </div>
             </div>
@@ -375,10 +374,23 @@
                 <h6 class="title">Size:</h6>
                 <div class="tf-select style-1">
                   <select class="font-sora">
-                    <option selected="selected">M</option>
-                    <option>S</option>
-                    <option>L</option>
-                    <option>XL</option>
+                    <option th:each="size, iterStat : ${productDetail.sizes}"
+                            th:text="${size.name}"
+                            th:value="${size.id}"
+                            th:classappend="${iterStat.first} ? 'active' : ''">
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="tf-sticky-atc-variant-price">
+                <h6 class="title">Color:</h6>
+                <div class="tf-select style-1">
+                  <select class="font-sora">
+                    <option th:each="color, iterStat : ${productDetail.colors}"
+                            th:text="${color.name}"
+                            th:value="${color.id}"
+                            th:classappend="${iterStat.first} ? 'active' : ''">
+                    </option>
                   </select>
                 </div>
               </div>

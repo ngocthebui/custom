@@ -217,7 +217,7 @@
         <div class="tf-product-info-inner tf-product-info-list">
           <div class="tf-product-info-heading">
             <a class="link product-info-name fw-medium h1"
-               th:href="@{'/products/' + ${product.sku}}"
+               th:href="@{'/products/' + ${product.categories[0].code} + '/' + ${product.sku}}"
                th:text="${product.name}"></a>
             <div class="product-info-meta">
               <div class="rating" th:with="displayRating=${product.rating == 0 ? 5 : product.rating},
@@ -225,7 +225,8 @@
                           decimal=${displayRating - floor}">
                 <div class="d-flex gap-4">
                   <svg fill="none"
-                       height="14" th:each="i : ${#numbers.sequence(1,5)}" viewBox="0 0 14 14" width="14"
+                       height="14" th:each="i : ${#numbers.sequence(1,5)}" viewBox="0 0 14 14"
+                       width="14"
                        xmlns="http://www.w3.org/2000/svg">
 
                     <defs>
@@ -385,7 +386,7 @@
             </div>
           </div>
           <a class="tf-btn-line text-normal letter-space-0 fw-normal"
-             th:href="@{'/products/' + ${product.sku}}">
+             th:href="@{'/products/' + ${product.categories[0].code} + '/' + ${product.sku}}">
             <span class="h5">View full details</span>
             <i class="icon icon-arrow-top-right fs-24"></i>
           </a>

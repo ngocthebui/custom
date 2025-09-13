@@ -1,7 +1,7 @@
 <!-- Toolbar -->
 <div class="tf-toolbar-bottom" th:fragment="toolbar">
   <div class="toolbar-item">
-    <a href="shop-default.html">
+    <a href="/products">
                 <span class="toolbar-icon">
                     <i class="icon icon-storefront"></i>
                 </span>
@@ -17,11 +17,11 @@
     </a>
   </div>
   <div class="toolbar-item">
-    <a href="account-page.html">
-                <span class="toolbar-icon">
-                    <i class="icon icon-user"></i>
-                </span>
-      <span class="toolbar-label">Account</span>
+    <a class="toolbar-item" th:href="${isAdmin} ? '/admin/users' : '/user/setting'">
+      <span class="toolbar-icon">
+        <i class="icon icon-user"></i>
+      </span>
+      <span class="toolbar-label" th:text="${isAdmin} ? 'Admin' : 'Account'">Account</span>
     </a>
   </div>
   <div class="toolbar-item">

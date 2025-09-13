@@ -48,23 +48,29 @@
   <!-- /Top Bar -->
 
   <!-- Header -->
-  <header class="tf-header header-fix header-abs-1">
+  <header class="tf-header header-fix bg-off-white">
     <div class="container-full">
       <div th:replace="~{view/shop/fragments/header :: header}"></div>
     </div>
   </header>
 
   <!-- Page Title -->
-  <section class="s-page-title">
+  <section class="s-page-title style-2">
     <div class="container">
       <div class="content">
-        <h1 class="title-page">Shop 4 Columns</h1>
         <ul class="breadcrumbs-page">
-          <li><a class="h6 link" href="index.html">Home</a></li>
+          <li><a class="h6 link" href="/">Home</a></li>
           <li class="d-flex"><i class="icon icon-caret-right"></i></li>
-          <li>
+
+          <li th:if="${categoryValue == null}">
             <h6 class="current-page fw-normal">Shop</h6>
           </li>
+
+          <th:block th:if="${categoryValue != null}">
+            <li><a class="h6 link" href="/products">Shop</a></li>
+            <li class="d-flex"><i class="icon icon-caret-right"></i></li>
+            <li><h6 class="current-page fw-normal" th:text="${categoryValue.name}">Category</h6></li>
+          </th:block>
         </ul>
       </div>
     </div>
@@ -123,7 +129,7 @@
                th:with="mainProductImgUrl=${product.colors[0].imageUrls.isEmpty() ? '/images/products/product-default.jpg' : product.colors[0].imageUrls.first},
               hoverProductImgUrl=${product.colors[0].imageUrls.size() > 1 ? product.colors[0].imageUrls[1] : '/images/products/product-default.jpg'}">
             <div class="card-product_wrapper">
-              <a class="product-img" th:href="@{'/products/' + ${product.sku}}">
+              <a class="product-img" th:href="@{'/products/' + ${product.categories[0].code} + '/' + ${product.sku}}">
                 <img alt="Product" class="lazyload img-product"
                      th:data-src="${mainProductImgUrl}"
                      th:src="${mainProductImgUrl}">
@@ -212,7 +218,7 @@
             </div>
             <div class="card-product_info">
               <a class="name-product h4 link"
-                 th:href="@{'/products/' + ${product.sku}}"
+                 th:href="@{'/products/' + ${product.categories[0].code} + '/' + ${product.sku}}"
                  th:text="${product.name}">
                 Product Name
               </a>
@@ -239,7 +245,7 @@
 
           <!-- Pagination -->
           <div class="wd-full wg-pagination m-0 justify-content-center"
-               th:if="${!response.data.isEmpty()}">
+               th:if="${response.totalPages > 1}">
             <!-- Previous -->
             <a class="pagination-item h6 direct"
                th:href="@{/products(page=${response.page - 1})}"

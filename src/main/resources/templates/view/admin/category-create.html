@@ -72,11 +72,18 @@
                 </h2>
                 <div class="form_content site-change">
                   <fieldset>
-                    <input placeholder="Name *" required
+                    <label for="name">Name</label>
+                    <input id="name" placeholder="Name *" required
                            th:field="*{name}" type="text">
                   </fieldset>
                   <fieldset>
-                    <textarea maxlength="255" placeholder="Description *"
+                    <label for="code">Code</label>
+                    <input id="code" placeholder="Name *" required
+                           th:field="*{code}" type="text">
+                  </fieldset>
+                  <fieldset>
+                    <label for="description">Description</label>
+                    <textarea id="description" maxlength="255" placeholder="Description *"
                               th:field="*{description}" type="text"></textarea>
                   </fieldset>
                 </div>

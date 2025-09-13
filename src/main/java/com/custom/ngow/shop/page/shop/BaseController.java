@@ -14,6 +14,7 @@ import com.custom.ngow.shop.common.MessageUtil;
 import com.custom.ngow.shop.demoEntity.CartItem;
 import com.custom.ngow.shop.demoEntity.Collection;
 import com.custom.ngow.shop.demoEntity.TrendingProduct;
+import com.custom.ngow.shop.service.CategoryService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -23,6 +24,7 @@ public class BaseController {
 
   @Autowired private HttpSession session;
   @Autowired private MessageUtil messageUtil;
+  @Autowired private CategoryService categoryService;
 
   public void addDefaultToModel(Model model) {
     addTopbarDataToModel(model);
@@ -36,6 +38,7 @@ public class BaseController {
   }
 
   public void addHeaderDataToModel(Model model) {
+    addNavbarToModel(model);
     // collection
     List<Collection> collections =
         Arrays.asList(
@@ -107,6 +110,10 @@ public class BaseController {
       cartItems.add(cartItem);
     }
     model.addAttribute("cartItems", cartItems);
+  }
+
+  private void addNavbarToModel(Model model) {
+    model.addAttribute("categoryList", categoryService.getAllCategories());
   }
 
   public static <T> List<List<T>> partition(List<T> list, int size) {

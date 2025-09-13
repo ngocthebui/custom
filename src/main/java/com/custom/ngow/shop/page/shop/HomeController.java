@@ -20,6 +20,7 @@ import com.custom.ngow.shop.dto.ProductDto;
 import com.custom.ngow.shop.dto.ProductImageDto;
 import com.custom.ngow.shop.dto.UserRegistration;
 import com.custom.ngow.shop.entity.Banner;
+import com.custom.ngow.shop.entity.Category;
 import com.custom.ngow.shop.entity.ProductSize;
 
 import jakarta.servlet.http.HttpSession;
@@ -373,6 +374,7 @@ public class HomeController extends BaseController {
     productDto1.setColors(colors1);
     productDto1.setCountdownTimer(25472);
     productDto1.setIsTopSale(false);
+    productDto1.setCategories(Set.of(new Category(1L, "Test", "test", "", null, null, null)));
 
     ProductDto productDto2 = new ProductDto();
     productDto2.setName("Cotton high waisted panties");
@@ -384,6 +386,7 @@ public class HomeController extends BaseController {
     productDto2.setColors(colors2);
     productDto2.setCountdownTimer(0);
     productDto2.setIsTopSale(true);
+    productDto2.setCategories(Set.of(new Category(1L, "Test", "test", "", null, null, null)));
 
     ProductDto productDto3 = new ProductDto();
     productDto3.setName("Sexy lace panties");
@@ -395,6 +398,7 @@ public class HomeController extends BaseController {
     productDto3.setColors(colors3);
     productDto3.setCountdownTimer(0);
     productDto3.setIsTopSale(true);
+    productDto3.setCategories(Set.of(new Category(1L, "Test", "test", "", null, null, null)));
 
     ProductDto productDto4 = new ProductDto();
     productDto4.setName("Seamless underwear");
@@ -406,6 +410,7 @@ public class HomeController extends BaseController {
     productDto4.setColors(colors4);
     productDto4.setCountdownTimer(25472);
     productDto4.setIsTopSale(false);
+    productDto4.setCategories(Set.of(new Category(1L, "Test", "test", "", null, null, null)));
 
     ProductDto productDto5 = new ProductDto();
     productDto5.setName("Half sleeve crop top");
@@ -417,6 +422,7 @@ public class HomeController extends BaseController {
     productDto5.setColors(colors5);
     productDto5.setCountdownTimer(0);
     productDto5.setIsTopSale(false);
+    productDto5.setCategories(Set.of(new Category(1L, "Test", "test", "", null, null, null)));
 
     ProductDto productDto6 = new ProductDto();
     productDto6.setName("Elastic waist panties");
@@ -428,6 +434,7 @@ public class HomeController extends BaseController {
     productDto6.setColors(colors6);
     productDto6.setCountdownTimer(0);
     productDto6.setIsTopSale(false);
+    productDto6.setCategories(Set.of(new Category(1L, "Test", "test", "", null, null, null)));
 
     ProductDto productDto7 = new ProductDto();
     productDto7.setName("Seamless breathable thong");
@@ -439,6 +446,7 @@ public class HomeController extends BaseController {
     productDto7.setColors(colors7);
     productDto7.setCountdownTimer(0);
     productDto7.setIsTopSale(true);
+    productDto7.setCategories(Set.of(new Category(1L, "Test", "test", "", null, null, null)));
 
     ProductDto productDto8 = new ProductDto();
     productDto8.setName("Cotton high waisted panties");
@@ -450,6 +458,7 @@ public class HomeController extends BaseController {
     productDto8.setColors(colors8);
     productDto8.setCountdownTimer(0);
     productDto8.setIsTopSale(true);
+    productDto8.setCategories(Set.of(new Category(1L, "Test", "test", "", null, null, null)));
 
     // add to list
     return List.of(

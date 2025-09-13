@@ -17,10 +17,12 @@
           <div class="sub-menu">
             <ul class="sub-menu_list">
               <li><a class="sub-menu_link" href="/products">Tất Cả Sản Phẩm</a></li>
-              <li><a class="sub-menu_link" href="blog-grid.html">Túi Đeo Chéo</a></li>
-              <li><a class="sub-menu_link" href="blog-list-1.html">Túi Xách Tay</a></li>
-              <li><a class="sub-menu_link" href="blog-list-2.html">Balo</a></li>
-              <li><a class="sub-menu_link" href="blog-detail.html">Ví & Clutch</a></li>
+              <li th:each="category : ${categoryList}">
+                <a class="sub-menu_link"
+                   th:href="'/products/' + ${category.code}"
+                   th:text="${category.name}">
+                </a>
+              </li>
             </ul>
           </div>
         </li>
@@ -530,7 +532,7 @@
         <div class="heading">
           <h4 class="title flex-grow-1">Trending product</h4>
           <a class="tf-btn-line has-icon none-line fw-medium fs-18 text-normal"
-             href="/all-products">
+             href="/products">
             View All Product
             <i class="icon icon-caret-circle-right"></i>
           </a>

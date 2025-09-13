@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.custom.ngow.shop.service.CategoryService;
 import com.custom.ngow.shop.service.ProductService;
 
 import lombok.RequiredArgsConstructor;
@@ -19,18 +20,32 @@ public class ProductController extends BaseController {
   private static final int PAGE_SIZE = 12;
 
   private final ProductService productService;
+  private final CategoryService categoryService;
 
   @GetMapping
   public String getAllProducts(@RequestParam(defaultValue = "0") int page, Model model) {
     addDefaultToModel(model);
+    model.addAttribute("categoryValue", null);
     model.addAttribute("response", productService.getAllProducts(page, PAGE_SIZE));
     return "view/shop/pages/products";
   }
 
-  @GetMapping("/{sku}")
-  public String getProductDetail(@PathVariable String sku, Model model) {
+  @GetMapping("/{categoryCode}/{sku}")
+  public String getProductDetail(
+      @PathVariable String categoryCode, @PathVariable String sku, Model model) {
+    model.addAttribute("categoryValue", categoryService.getCategoryByCode(categoryCode));
     model.addAttribute("productDetail", productService.getProductDetailBySku(sku));
     addDefaultToModel(model);
     return "view/shop/pages/product-detail";
+  }
+
+  @GetMapping("/{categoryCode}")
+  public String getAllProductsByCategory(
+      @PathVariable String categoryCode, @RequestParam(defaultValue = "0") int page, Model model) {
+    model.addAttribute("categoryValue", categoryService.getCategoryByCode(categoryCode));
+    addDefaultToModel(model);
+    model.addAttribute(
+        "response", productService.getAllProductsByCategory(categoryCode, page, PAGE_SIZE));
+    return "view/shop/pages/products";
   }
 }

@@ -38,6 +38,7 @@ import com.custom.ngow.shop.entity.ProductColor;
 import com.custom.ngow.shop.entity.ProductImage;
 import com.custom.ngow.shop.entity.ProductSize;
 import com.custom.ngow.shop.exception.CustomException;
+import com.custom.ngow.shop.repository.CategoryRepository;
 import com.custom.ngow.shop.repository.ProductColorRepository;
 import com.custom.ngow.shop.repository.ProductImageRepository;
 import com.custom.ngow.shop.repository.ProductRepository;
@@ -53,6 +54,7 @@ public class ProductService {
   private final ProductRepository productRepository;
   private final ProductImageRepository productImageRepository;
   private final ProductColorRepository productColorRepository;
+  private final CategoryRepository categoryRepository;
   private final CategoryService categoryService;
   private final MessageUtil messageUtil;
   private final ModelMapper modelMapper;
@@ -335,6 +337,21 @@ public class ProductService {
     // get list product ids
     Page<Long> productIds = productRepository.findAllActiveProductIdsPaging(pageable);
 
+    return getProductDtoByIdList(productIds);
+  }
+
+  /** get all product for product list by category */
+  public ResponseData<ProductDto> getAllProductsByCategory(
+      String categoryCode, int page, int size) {
+    Pageable pageable = PageRequest.of(page, size);
+    // get list product ids
+    Page<Long> productIds =
+        categoryRepository.findAllProductIdsByCategoryCode(categoryCode, pageable);
+
+    return getProductDtoByIdList(productIds);
+  }
+
+  private ResponseData<ProductDto> getProductDtoByIdList(Page<Long> productIds) {
     // get products with id list
     List<Product> productsWithCollections =
         productRepository.findActiveProductsWithCollections(productIds.getContent());

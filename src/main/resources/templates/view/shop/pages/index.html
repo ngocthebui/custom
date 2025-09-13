@@ -202,7 +202,7 @@
                     hoverProductImgUrl=${product.images.size() > 1 ? product.images[1].imageUrl : '/images/products/product-default.jpg'}">
                 <div class="card-product">
                   <div class="card-product_wrapper">
-                    <a class="product-img" th:href="@{'/products/' + ${product.sku}}">
+                    <a class="product-img" th:href="@{'/products/' + ${product.categories[0].code} + '/' + ${product.sku}}">
                       <img alt="Product" class="lazyload img-product"
                            th:data-src="${mainProductImgUrl}"
                            th:src="${mainProductImgUrl}">
