@@ -2,6 +2,7 @@ package com.custom.ngow.shop.service;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -243,6 +244,10 @@ public class ProductService {
 
     if (product != null) {
       productRegistration = modelMapper.map(product, ProductRegistration.class);
+
+      List<Long> categoryIdList = new ArrayList<>();
+      product.getCategories().forEach(category -> categoryIdList.add(category.getId()));
+      productRegistration.setCategoryIdList(categoryIdList);
     }
 
     return productRegistration;

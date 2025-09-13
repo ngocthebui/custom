@@ -256,27 +256,27 @@
   /* Variant Picker
   -------------------------------------------------------------------------*/
   var variantPicker = function () {
-    if ($(".variant-picker-item").length) {
-      $(".color-btn").on("click", function (e) {
-        var value = $(this).data("scroll");
+    $(".variant-picker-item").each(function() {
+      var $picker = $(this);
+
+      $picker.find(".color-btn").on("click", function (e) {
         var value2 = $(this).data("color");
 
-        $(".value-currentColor").text(value);
-        $(".value-currentColor").text(value2);
-
-        $(this).closest(".variant-picker-values").find(
-            ".color-btn").removeClass("active");
+        // Chỉ tìm trong chính variant picker này
+        $picker.find(".value-currentColor").text(value2);
+        $picker.find(".color-btn").removeClass("active");
         $(this).addClass("active");
       });
-      $(".size-btn").on("click", function (e) {
+
+      $picker.find(".size-btn").on("click", function (e) {
         var value = $(this).data("size");
-        $(".value-currentSize").text(value);
 
-        $(this).closest(".variant-picker-values").find(".size-btn").removeClass(
-            "active");
+        // Chỉ tìm trong chính variant picker này
+        $picker.find(".value-currentSize").text(value);
+        $picker.find(".size-btn").removeClass("active");
         $(this).addClass("active");
       });
-    }
+    });
   };
 
   /* Change Value

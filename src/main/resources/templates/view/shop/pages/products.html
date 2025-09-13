@@ -160,7 +160,7 @@
                 </li>
                 <li>
                   <a class="hover-tooltip tooltip-left box-icon" data-bs-toggle="modal"
-                     href="#quickView">
+                     th:href="'#quickView_' + ${product.id}">
                     <span class="icon icon-view"></span>
                     <span class="tooltip">Quick view</span>
                   </a>
@@ -486,7 +486,9 @@
 <!-- Product actions -->
 <div th:replace="~{view/shop/fragments/product-actions :: size-guide}"></div>
 <div th:replace="~{view/shop/fragments/product-actions :: compare}"></div>
-<div th:replace="~{view/shop/fragments/product-actions :: quick-view}"></div>
+<th:block th:each="product : ${productList}">
+  <div th:replace="~{view/shop/fragments/product-actions :: quick-view(${product})}"></div>
+</th:block>
 <!-- /Product actions -->
 
 <!-- Search -->

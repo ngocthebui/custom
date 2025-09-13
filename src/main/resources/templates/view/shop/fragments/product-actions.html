@@ -193,43 +193,20 @@
 <!-- /Compare -->
 
 <!-- Quick View -->
-<div class="modal modalCentered fade modal-quick-view" id="quickView" th:fragment="quick-view">
+<div class="modal modalCentered fade modal-quick-view" th:id="'quickView_' + ${product.id}" th:fragment="quick-view(product)">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <i class="icon icon-close icon-close-popup" data-bs-dismiss="modal"></i>
       <div class="tf-product-media-wrap tf-btn-swiper-item">
         <div class="swiper tf-single-slide" dir="ltr">
           <div class="swiper-wrapper">
-            <div class="swiper-slide" data-color="beige" data-size="XS">
-              <div class="item">
+            <div th:each="color : ${product.colors}"
+                 class="swiper-slide"
+                 th:data-color="${color.name}" data-size="S">
+              <div class="item" th:if="${color.imageUrls != null and !color.imageUrls.isEmpty()}">
                 <img alt="Image" class="lazyload"
-                     data-src="/images/products/product-9.jpg" src="/images/products/product-9.jpg">
-              </div>
-            </div>
-            <div class="swiper-slide" data-color="pink" data-size="L">
-              <div class="item">
-                <img alt="Image" class="lazyload"
-                     data-src="/images/products/product-39.jpg"
-                     src="/images/products/product-39.jpg">
-              </div>
-            </div>
-            <div class="swiper-slide" data-color="green" data-size="M">
-              <div class="item">
-                <img alt="Image" class="lazyload"
-                     data-src="/images/products/product-1.jpg" src="/images/products/product-1.jpg">
-              </div>
-            </div>
-            <div class="swiper-slide" data-color="blue" data-size="S">
-              <div class="item">
-                <img alt="Image" class="lazyload"
-                     data-src="/images/products/product-4.jpg" src="/images/products/product-4.jpg">
-              </div>
-            </div>
-            <div class="swiper-slide" data-color="black" data-size="L">
-              <div class="item">
-                <img alt="Image" class="lazyload"
-                     data-src="/images/products/product-47.jpg"
-                     src="/images/products/product-47.jpg">
+                     th:data-src="${color.imageUrls.get(0)}"
+                     th:src="${color.imageUrls.get(0)}">
               </div>
             </div>
           </div>
@@ -238,44 +215,34 @@
       <div class="tf-product-info-wrap">
         <div class="tf-product-info-inner tf-product-info-list">
           <div class="tf-product-info-heading">
-            <a class="link product-info-name fw-medium h1" href="product-detail.html"> Casual
-              Round
-              Neck T-Shirt </a>
+            <a class="link product-info-name fw-medium h1"
+               th:text="${product.name}"
+               th:href="@{'/products/' + ${product.sku}}"></a>
             <div class="product-info-meta">
               <div class="rating">
                 <div class="d-flex gap-4">
-                  <svg fill="none" height="14" viewBox="0 0 14 14" width="14"
+                  <svg fill="none"
+                       height="14" th:each="i : ${#numbers.sequence(1,5)}" viewBox="0 0 14 14"
+                       width="14"
                        xmlns="http://www.w3.org/2000/svg">
+
+                    <defs>
+                      <linearGradient id="halfStar" x1="0" x2="1" y1="0" y2="0">
+                        <stop offset="50%" stop-color="#EF9122"/>
+                        <stop offset="50%" stop-color="#ddd"/>
+                      </linearGradient>
+                    </defs>
+
                     <path
                         d="M14 5.4091L8.913 5.07466L6.99721 0.261719L5.08143 5.07466L0 5.4091L3.89741 8.7184L2.61849 13.7384L6.99721 10.9707L11.376 13.7384L10.097 8.7184L14 5.4091Z"
-                        fill="#EF9122"/>
-                  </svg>
-                  <svg fill="none" height="14" viewBox="0 0 14 14" width="14"
-                       xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M14 5.4091L8.913 5.07466L6.99721 0.261719L5.08143 5.07466L0 5.4091L3.89741 8.7184L2.61849 13.7384L6.99721 10.9707L11.376 13.7384L10.097 8.7184L14 5.4091Z"
-                        fill="#EF9122"/>
-                  </svg>
-                  <svg fill="none" height="14" viewBox="0 0 14 14" width="14"
-                       xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M14 5.4091L8.913 5.07466L6.99721 0.261719L5.08143 5.07466L0 5.4091L3.89741 8.7184L2.61849 13.7384L6.99721 10.9707L11.376 13.7384L10.097 8.7184L14 5.4091Z"
-                        fill="#EF9122"/>
-                  </svg>
-                  <svg fill="none" height="14" viewBox="0 0 14 14" width="14"
-                       xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M14 5.4091L8.913 5.07466L6.99721 0.261719L5.08143 5.07466L0 5.4091L3.89741 8.7184L2.61849 13.7384L6.99721 10.9707L11.376 13.7384L10.097 8.7184L14 5.4091Z"
-                        fill="#EF9122"/>
-                  </svg>
-                  <svg fill="none" height="14" viewBox="0 0 14 14" width="14"
-                       xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M14 5.4091L8.913 5.07466L6.99721 0.261719L5.08143 5.07466L0 5.4091L3.89741 8.7184L2.61849 13.7384L6.99721 10.9707L11.376 13.7384L10.097 8.7184L14 5.4091Z"
-                        fill="#EF9122"/>
+                        th:attr="fill=${i <= floor ? '#EF9122' : (i == floor + 1 and decimal >= 0.0) ? 'url(#halfStar)' : '#ddd'}"
+                        th:with="floor=${T(java.lang.Math).floor(product.rating)},
+                            decimal=${product.rating - floor}"/>
                   </svg>
                 </div>
-                <div class="reviews text-main">(3.671 review)</div>
+                <div class="reviews text-main"
+                     th:text="'(' + ${product.reviewCount} + ' review)'">(0 review)
+                </div>
               </div>
               <div class="people-add text-primary">
                 <i class="icon icon-shopping-cart-simple"></i>
@@ -284,17 +251,17 @@
             </div>
             <div class="product-info-price">
               <div class="price-wrap">
-                <span class="price-new price-on-sale h2">$ 14.99</span>
-                <span class="price-old compare-at-price h6">$ 24.99</span>
-                <p class="badges-on-sale h6 fw-semibold">
-                  <span class="number-sale" data-person-sale="29"> -29 % </span>
+                <span class="price-new h2" th:text="${#numbers.formatInteger(product.salePrice, 3, 'COMMA')} + ' ₫'">0</span>
+                <span th:if="${product.salePercentage} > 0" class="price-old h6" th:text="${#numbers.formatInteger(product.price, 3, 'COMMA')} + ' ₫'">$ 0</span>
+                <p th:if="${product.salePercentage} > 0"
+                   class="badges-on-sale h6 fw-semibold">
+                  <span class="number-sale"
+                        th:data-person-sale="${product.salePercentage}"
+                        th:text="'-' + ${product.salePercentage} + ' %'"> 0 % </span>
                 </p>
               </div>
             </div>
-            <p class="product-infor-sub text-main h6">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse justo dolor,
-              consectetur vel metus vitae,
-              tincidunt finibus dui fusce tellus enim.
+            <p class="product-infor-sub text-main h6" th:text="${product.description}">
             </p>
           </div>
           <div class="tf-product-variant w-100">
@@ -302,7 +269,8 @@
               <div class="variant-picker-label">
                 <div class="h4 fw-semibold">
                   Size
-                  <span class="variant-picker-label-value value-currentSize">medium</span>
+                  <span class="variant-picker-label-value value-currentSize"
+                        th:text="${!product.sizes.isEmpty() ? product.sizes[0].name : 'Select size'}">medium</span>
                 </div>
                 <a class="size-guide link h6 fw-medium" data-bs-toggle="modal" href="#size-guide">
                   <i class="icon icon-ruler"></i>
@@ -310,39 +278,29 @@
                 </a>
               </div>
               <div class="variant-picker-values">
-                <span class="size-btn active" data-size="XS">XS</span>
-                <span class="size-btn" data-size="S">S</span>
-                <span class="size-btn" data-size="M">M</span>
-                <span class="size-btn" data-size="L">L</span>
+                <span class="size-btn"
+                      th:each="size, iterStat : ${product.sizes}"
+                      th:classappend="${iterStat.first} ? 'active' : ''"
+                      th:data-size="${size.name}"
+                      th:text="${size.name}">
+                </span>
               </div>
             </div>
             <div class="variant-picker-item variant-color">
               <div class="variant-picker-label">
                 <div class="h4 fw-semibold">
                   Colors
-                  <span class="variant-picker-label-value value-currentColor">orange</span>
+                  <span class="variant-picker-label-value value-currentColor"></span>
                 </div>
               </div>
               <div class="variant-picker-values">
-                <div class="hover-tooltip tooltip-bot color-btn active" data-color="beige">
-                  <span class="check-color bg-light-beige"></span>
-                  <span class="tooltip">Beige</span>
-                </div>
-                <div class="hover-tooltip tooltip-bot color-btn" data-color="pink">
-                  <span class="check-color bg-hot-pink"></span>
-                  <span class="tooltip">Pink</span>
-                </div>
-                <div class="hover-tooltip tooltip-bot color-btn" data-color="green">
-                  <span class="check-color bg-sage-green"></span>
-                  <span class="tooltip">Green</span>
-                </div>
-                <div class="hover-tooltip tooltip-bot color-btn" data-color="blue">
-                  <span class="check-color bg-baby-blue"></span>
-                  <span class="tooltip">Blue</span>
-                </div>
-                <div class="hover-tooltip tooltip-bot color-btn" data-color="black">
-                  <span class="check-color bg-dark-charcoal"></span>
-                  <span class="tooltip">Dark</span>
+                <div class="hover-tooltip tooltip-bot color-btn"
+                     th:classappend="${iterStat.first} ? 'active' : ''"
+                     th:data-color="${color.name}"
+                     th:each="color, iterStat : ${product.colors}">
+                        <span class="check-color"
+                              th:style="'background-color: ' + ${color.code}"></span>
+                  <span class="tooltip" th:text="${color.name}">Color</span>
                 </div>
               </div>
             </div>
@@ -358,8 +316,8 @@
                   <i class="icon icon-plus"></i>
                 </button>
               </div>
-              <p class="h6 d-none d-sm-block">
-                15 products available
+              <p class="h6 d-none d-sm-block" th:text="${product.stockQuantity} + ' products available'">
+                0 products available
               </p>
               <button class="d-sm-none hover-tooltip box-icon btn-add-wishlist flex-sm-shrink-0"
                       type="button">

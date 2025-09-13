@@ -136,83 +136,90 @@ $(window).on("load", function () {
     });
 });
 
-if ($(".modal-quick-view").length > 0) {
-    var $modalRoot = $(".modal-quick-view");
-    var mainQV = new Swiper(".modal-quick-view .tf-single-slide", {
-        slidesPerView: 1,
-        spaceBetween: 0,
-        observer: true,
-        observeParents: true,
-        speed: 800,
-        navigation: {
-            nextEl: ".modal-quick-view .single-slide-next",
-            prevEl: ".modal-quick-view .single-slide-prev",
-        },
+// Thay vì khởi tạo 1 lần, khởi tạo cho từng modal
+$(".modal-quick-view").each(function(index) {
+  var $modalRoot = $(this);
+
+  // Tạo Swiper riêng cho từng modal
+  var mainQV = new Swiper($modalRoot.find(".tf-single-slide")[0], {
+    slidesPerView: 1,
+    spaceBetween: 0,
+    observer: true,
+    observeParents: true,
+    speed: 800,
+    navigation: {
+      nextEl: $modalRoot.find(".single-slide-next")[0],
+      prevEl: $modalRoot.find(".single-slide-prev")[0],
+    },
+  });
+
+  function updateModalActiveButton(type, activeIndex) {
+    var btnClass = `.${type}-btn`;
+    var dataAttr = `data-${type}`;
+    var currentClass = `.value-current${capitalizeFirstLetter(type)}`;
+    var selectClass = `.select-current${capitalizeFirstLetter(type)}`;
+
+    // Chỉ tác động lên modal hiện tại
+    $modalRoot.find(btnClass).removeClass("active");
+
+    var currentSlide = $modalRoot.find(".tf-single-slide .swiper-slide").eq(activeIndex);
+    var currentValue = currentSlide.attr(dataAttr);
+
+    if (currentValue) {
+      $modalRoot.find(`${btnClass}[${dataAttr}='${currentValue}']`).addClass("active");
+      $modalRoot.find(currentClass).text(currentValue);
+      $modalRoot.find(selectClass).text(currentValue);
+    }
+  }
+
+  function scrollToModalSlide(type, value, color) {
+    if (!value || !color) return;
+
+    var matchingSlides = $modalRoot.find(".tf-single-slide .swiper-slide").filter(function () {
+      return $(this).attr(`data-${type}`) === value && $(this).attr("data-color") === color;
     });
 
-    function updateModalActiveButton(type, activeIndex) {
-        var btnClass = `.${type}-btn`;
-        var dataAttr = `data-${type}`;
-        var currentClass = `.value-current${capitalizeFirstLetter(type)}`;
-        var selectClass = `.select-current${capitalizeFirstLetter(type)}`;
-        $modalRoot.find(btnClass).removeClass("active");
+    if (matchingSlides.length > 0) {
+      var firstIndex = matchingSlides.first().index();
+      mainQV.slideTo(firstIndex, 1000, false);
+    } else {
+      var fallbackSlides = $modalRoot.find(".tf-single-slide .swiper-slide").filter(function () {
+        return $(this).attr(`data-${type}`) === value;
+      });
 
-        var currentSlide = $modalRoot.find(".tf-single-slide .swiper-slide").eq(activeIndex);
-        var currentValue = currentSlide.attr(dataAttr);
-
-        if (currentValue) {
-            $modalRoot.find(`${btnClass}[${dataAttr}='${currentValue}']`).addClass("active");
-            $modalRoot.find(currentClass).text(currentValue);
-            $modalRoot.find(selectClass).text(currentValue);
-        }
+      if (fallbackSlides.length > 0) {
+        var fallbackIndex = fallbackSlides.first().index();
+        mainQV.slideTo(fallbackIndex, 1000, false);
+      }
     }
+  }
 
-    function scrollToModalSlide(type, value, color) {
-        if (!value || !color) return;
+  function setupModalVariantButtons(type) {
+    // Chỉ bind event cho modal hiện tại
+    $modalRoot.find(`.${type}-btn`).on("click", function (e) {
+      var value = $(this).data(type);
+      var color = $modalRoot.find(".value-currentColor").text();
 
-        var matchingSlides = $modalRoot.find(".tf-single-slide .swiper-slide").filter(function () {
-            return $(this).attr(`data-${type}`) === value && $(this).attr("data-color") === color;
-        });
+      $modalRoot.find(`.${type}-btn`).removeClass("active");
+      $(this).addClass("active");
 
-        if (matchingSlides.length > 0) {
-            var firstIndex = matchingSlides.first().index();
-            mainQV.slideTo(firstIndex, 1000, false);
-        } else {
-            var fallbackSlides = $modalRoot.find(".tf-single-slide .swiper-slide").filter(function () {
-                return $(this).attr(`data-${type}`) === value;
-            });
-
-            if (fallbackSlides.length > 0) {
-                var fallbackIndex = fallbackSlides.first().index();
-                mainQV.slideTo(fallbackIndex, 1000, false);
-            }
-        }
-    }
-
-    function setupModalVariantButtons(type) {
-        $modalRoot.find(`.${type}-btn`).on("click", function (e) {
-            var value = $(this).data(type);
-            var color = $modalRoot.find(".value-currentColor").text();
-
-            $modalRoot.find(`.${type}-btn`).removeClass("active");
-            $(this).addClass("active");
-
-            scrollToModalSlide(type, value, color);
-        });
-    }
-
-    function capitalizeFirstLetter(string) {
-        return string.charAt(0).toUpperCase() + string.slice(1);
-    }
-
-    ["color"].forEach((type) => {
-        mainQV.on("slideChange", function () {
-            updateModalActiveButton(type, this.activeIndex);
-        });
-        setupModalVariantButtons(type);
-        updateModalActiveButton(type, mainQV.activeIndex);
+      scrollToModalSlide(type, value, color);
     });
-}
+  }
+
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  // Setup cho modal hiện tại
+  ["color"].forEach((type) => {
+    mainQV.on("slideChange", function () {
+      updateModalActiveButton(type, this.activeIndex);
+    });
+    setupModalVariantButtons(type);
+    updateModalActiveButton(type, mainQV.activeIndex);
+  });
+});
 
 if ($(".tf-sw-thumbs").length > 0) {
     var thumbSwiper = new Swiper(".sw-thumb", {
