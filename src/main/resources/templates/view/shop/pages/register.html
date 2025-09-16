@@ -20,6 +20,8 @@
   <meta
       content="Themesflat Ochaka - A modern and elegant Multipurpose eCommerce HTML Template, perfect for online stores selling rings, necklaces, watches, and other accessories. SEO-optimized, fast-loading, and fully customizable."
       name="description">
+  <meta name="_csrf" th:content="${_csrf.token}"/>
+  <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 
   <!-- font -->
   <link rel="stylesheet" th:href="@{/fonts/fonts.css}">

@@ -501,26 +501,26 @@
           </fieldset>
           <button class="link" type="submit"><i class="icon icon-magnifying-glass"></i></button>
         </form>
-        <ul class="quick-link-list">
-          <li><a class="link-item text-main h6 link" href="shop-default-list.html">Graphic
-            tees</a>
+        <ul class="quick-link-list justify-content-between">
+          <li th:each="category : ${categoryList}">
+            <a class="link-item text-main h6 link"
+               th:href="'/products/' + ${category.code}"
+               th:text="${category.name}">
+            </a>
           </li>
-          <li><a class="link-item text-main h6 link" href="shop-default-list.html">Plain
-            t-shirts</a></li>
-          <li><a class="link-item text-main h6 link" href="shop-default-list.html">Vintage
-            t-shirts</a></li>
-          <li><a class="link-item text-main h6 link" href="shop-default-list.html">Band tees</a>
-          </li>
-          <li><a class="link-item text-main h6 link" href="shop-default-list.html">Custom
-            t-shirts</a></li>
-          <li><a class="link-item text-main h6 link" href="shop-default-list.html">Oversized
-            t-shirts</a></li>
-          <li><a class="link-item text-main h6 link" href="shop-default-list.html">Crew neck
-            t-shirts</a></li>
         </ul>
       </div>
       <div class="view-history-wrap" th:if="${not #lists.isEmpty(searchHistory)}">
-        <h4 class="title">History</h4>
+        <div class="d-flex justify-content-between">
+          <h4 class="title">History</h4>
+          <form class="delete-search-form" style="display: inline;">
+            <button class="title tf-btn-line has-icon none-line"
+                    title="Delete history"
+                    type="submit">
+              <i class="icon icon-trash"></i>
+            </button>
+          </form>
+        </div>
         <div class="view-history-list" th:each="history : ${searchHistory}">
           <a class="item text-main link h6" th:href="@{/search(q=${history})}">
             <span th:text="${history}"></span>

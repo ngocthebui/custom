@@ -23,10 +23,7 @@ public class ClientSearchHistoryServiceImpl implements SearchHistoryService {
 
   @Override
   public List<String> getHistory() {
-    HttpSession session = request.getSession(false);
-    if (session == null) {
-      return Collections.emptyList();
-    }
+    HttpSession session = request.getSession(true);
 
     @SuppressWarnings("unchecked")
     List<String> history = (List<String>) session.getAttribute(SEARCH_HISTORY_KEY);

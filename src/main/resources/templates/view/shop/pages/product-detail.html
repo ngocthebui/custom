@@ -20,6 +20,8 @@
   <meta
       content="Themesflat Ochaka - A modern and elegant Multipurpose eCommerce HTML Template, perfect for online stores selling rings, necklaces, watches, and other accessories. SEO-optimized, fast-loading, and fully customizable."
       name="description">
+  <meta name="_csrf" th:content="${_csrf.token}"/>
+  <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 
   <!-- font -->
   <link href="/fonts/fonts.css" rel="stylesheet">
@@ -75,8 +77,8 @@
           <li class="d-flex"><i class="icon icon-caret-right"></i></li>
           <li>
             <a class="h6 link"
-                 th:href="@{'/products/' + ${categoryValue.code}}"
-                 th:text="${categoryValue.name}">
+               th:href="@{'/products/' + ${categoryValue.code}}"
+               th:text="${categoryValue.name}">
             </a>
           </li>
           <li class="d-flex"><i class="icon icon-caret-right"></i></li>
@@ -363,7 +365,8 @@
                 <h6 class="title">
                   <a class="link text-line-clamp-1" href="#" th:text="${productDetail.name}"></a>
                 </h6>
-                <div class="h6 fw-semibold" th:text="${#numbers.formatInteger(productDetail.salePrice, 3, 'COMMA')} + ' ₫'">
+                <div class="h6 fw-semibold"
+                     th:text="${#numbers.formatInteger(productDetail.salePrice, 3, 'COMMA')} + ' ₫'">
                 </div>
               </div>
             </div>
@@ -374,10 +377,10 @@
                 <h6 class="title">Size:</h6>
                 <div class="tf-select style-1">
                   <select class="font-sora">
-                    <option th:each="size, iterStat : ${productDetail.sizes}"
+                    <option th:classappend="${iterStat.first} ? 'active' : ''"
+                            th:each="size, iterStat : ${productDetail.sizes}"
                             th:text="${size.name}"
-                            th:value="${size.id}"
-                            th:classappend="${iterStat.first} ? 'active' : ''">
+                            th:value="${size.id}">
                     </option>
                   </select>
                 </div>
@@ -386,10 +389,10 @@
                 <h6 class="title">Color:</h6>
                 <div class="tf-select style-1">
                   <select class="font-sora">
-                    <option th:each="color, iterStat : ${productDetail.colors}"
+                    <option th:classappend="${iterStat.first} ? 'active' : ''"
+                            th:each="color, iterStat : ${productDetail.colors}"
                             th:text="${color.name}"
-                            th:value="${color.id}"
-                            th:classappend="${iterStat.first} ? 'active' : ''">
+                            th:value="${color.id}">
                     </option>
                   </select>
                 </div>

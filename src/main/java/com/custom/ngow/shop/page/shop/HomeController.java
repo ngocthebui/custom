@@ -24,7 +24,6 @@ import com.custom.ngow.shop.entity.Category;
 import com.custom.ngow.shop.entity.ProductSize;
 import com.custom.ngow.shop.service.SearchHistoryCompositeService;
 
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -86,13 +85,6 @@ public class HomeController extends BaseController {
       @ModelAttribute("userRegistration") UserRegistration userRegistration, Model model) {
     addDefaultToModel(model);
     return "view/shop/pages/register";
-  }
-
-  @GetMapping("/search")
-  public String search(@RequestParam("q") String query, HttpSession session, Model model) {
-    searchHistoryCompositeService.saveQuery(query);
-
-    return "redirect:/";
   }
 
   private void setBannersToModel(Model model) {
