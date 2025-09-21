@@ -30,13 +30,28 @@ if ($(".product-thumbs-slider").length > 0) {
     observer: true,
     observeParents: true,
     speed: 800,
+
+    // Thêm mousewheel navigation
+    mousewheel: {
+      invert: false,           // false = cuộn xuống -> slide tiếp theo
+      forceToAxis: false,      // cho phép cuộn theo cả 2 chiều
+      sensitivity: 3,          // độ nhạy cuộn (1 = bình thường)
+      releaseOnEdges: false    // tiếp tục cuộn khi đến slide cuối/đầu
+    },
+
+    // Tùy chọn: có thể comment navigation nếu không muốn dùng nút
     navigation: {
       nextEl: ".thumbs-next",
       prevEl: ".thumbs-prev",
     },
+
+    // Giữ nguyên thumbs sync
     thumbs: {
       swiper: thumbs,
     },
+
+    // Tùy chọn: thêm loop để cuộn vô tận
+    loop: true,
   });
 
   const modelViewer = document.querySelector(".slide-3d");
@@ -276,8 +291,8 @@ if ($(".product-thumbs-slider").length > 0) {
 
   // Dom Ready
   $(function () {
-    section_zoom();
-    cus_zoom();
+    // section_zoom();
+    // cus_zoom();
     image_zoom_magnifier();
     image_zoom_inner();
     lightboxswiper();

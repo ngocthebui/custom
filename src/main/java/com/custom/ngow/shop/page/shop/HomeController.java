@@ -22,8 +22,8 @@ import com.custom.ngow.shop.dto.UserRegistration;
 import com.custom.ngow.shop.entity.Banner;
 import com.custom.ngow.shop.entity.Category;
 import com.custom.ngow.shop.entity.ProductSize;
+import com.custom.ngow.shop.service.SearchHistoryCompositeService;
 
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -31,6 +31,8 @@ import lombok.RequiredArgsConstructor;
 public class HomeController extends BaseController {
 
   private final MessageUtil messageUtil;
+
+  private final SearchHistoryCompositeService searchHistoryCompositeService;
 
   @GetMapping
   public String home(Model model) {
@@ -83,24 +85,6 @@ public class HomeController extends BaseController {
       @ModelAttribute("userRegistration") UserRegistration userRegistration, Model model) {
     addDefaultToModel(model);
     return "view/shop/pages/register";
-  }
-
-  @GetMapping("/search")
-  public String search(@RequestParam("q") String query, HttpSession session, Model model) {
-    List<String> history = (List<String>) session.getAttribute(SEARCH_HISTORY_KEY);
-    if (history == null) {
-      history = new ArrayList<>();
-    }
-
-    history.remove(query);
-    history.addFirst(query);
-
-    if (history.size() > 6) {
-      history = new ArrayList<>(history.subList(0, 6));
-    }
-    session.setAttribute(SEARCH_HISTORY_KEY, history);
-
-    return "products";
   }
 
   private void setBannersToModel(Model model) {

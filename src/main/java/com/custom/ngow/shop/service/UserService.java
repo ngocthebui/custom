@@ -9,9 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -45,6 +42,7 @@ public class UserService {
   private final OtpService otpService;
   private final MediaStorageService mediaStorageService;
   private final MessageUtil messageUtil;
+  private final AuthenticationService authenticationService;
 
   @Value("${homepage.url}")
   private String homePageUrl;
@@ -120,15 +118,7 @@ public class UserService {
   }
 
   public User getCurrentUser() {
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-    if (authentication == null
-        || !authentication.isAuthenticated()
-        || authentication instanceof AnonymousAuthenticationToken) {
-      return null;
-    }
-
-    String email = authentication.getName();
+    String email = authenticationService.getCurrentUserEmail();
     return userRepository
         .findByEmail(email)
         .orElseThrow(

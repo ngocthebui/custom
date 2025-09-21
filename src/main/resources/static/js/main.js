@@ -1535,6 +1535,41 @@
       location.reload();
     });
   };
+
+  // delete search history
+  function deleteHistory() {
+    $(document).on('submit', '.delete-search-form', function(e) {
+      e.preventDefault();
+
+      const form = $(this);
+      const url = '/search/delete';
+
+      // Lấy CSRF token
+      const token = $('meta[name="_csrf"]').attr('content');
+      const header = $('meta[name="_csrf_header"]').attr('content');
+
+      fetch(url, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          [header]: token
+        }
+      })
+      .then(response => {
+        if (response.ok) {
+          // Tìm và xóa thẻ chứa history
+          const historyItem = form.closest('.view-history-wrap');
+          historyItem.fadeOut(300, function() {
+            $(this).remove();
+          });
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    });
+  }
+
   // Dom Ready
   $(function () {
     headerSticky();
@@ -1581,5 +1616,6 @@
     hoverPin();
     RTL();
     preloader();
+    deleteHistory();
   });
 })(jQuery);

@@ -20,6 +20,8 @@
   <meta
       content="Themesflat Ochaka - A modern and elegant Multipurpose eCommerce HTML Template, perfect for online stores selling rings, necklaces, watches, and other accessories. SEO-optimized, fast-loading, and fully customizable."
       name="description">
+  <meta name="_csrf" th:content="${_csrf.token}"/>
+  <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 
   <!-- font -->
   <link rel="stylesheet" th:href="@{/fonts/fonts.css}">
@@ -69,7 +71,8 @@
           <th:block th:if="${categoryValue != null}">
             <li><a class="h6 link" href="/products">Shop</a></li>
             <li class="d-flex"><i class="icon icon-caret-right"></i></li>
-            <li><h6 class="current-page fw-normal" th:text="${categoryValue.name}">Category</h6></li>
+            <li><h6 class="current-page fw-normal" th:text="${categoryValue.name}">Category</h6>
+            </li>
           </th:block>
         </ul>
       </div>
@@ -129,7 +132,8 @@
                th:with="mainProductImgUrl=${product.colors[0].imageUrls.isEmpty() ? '/images/products/product-default.jpg' : product.colors[0].imageUrls.first},
               hoverProductImgUrl=${product.colors[0].imageUrls.size() > 1 ? product.colors[0].imageUrls[1] : '/images/products/product-default.jpg'}">
             <div class="card-product_wrapper">
-              <a class="product-img" th:href="@{'/products/' + ${product.categories[0].code} + '/' + ${product.sku}}">
+              <a class="product-img"
+                 th:href="@{'/products/' + ${product.categories[0].code} + '/' + ${product.sku}}">
                 <img alt="Product" class="lazyload img-product"
                      th:data-src="${mainProductImgUrl}"
                      th:src="${mainProductImgUrl}">

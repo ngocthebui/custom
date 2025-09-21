@@ -2,12 +2,10 @@ package com.custom.ngow.shop.page.shop;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.ui.Model;
 
 import com.custom.ngow.shop.common.MessageUtil;
@@ -15,6 +13,7 @@ import com.custom.ngow.shop.demoEntity.CartItem;
 import com.custom.ngow.shop.demoEntity.Collection;
 import com.custom.ngow.shop.demoEntity.TrendingProduct;
 import com.custom.ngow.shop.service.CategoryService;
+import com.custom.ngow.shop.service.SearchHistoryService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -25,6 +24,10 @@ public class BaseController {
   @Autowired private HttpSession session;
   @Autowired private MessageUtil messageUtil;
   @Autowired private CategoryService categoryService;
+
+  @Qualifier("searchHistoryCompositeService")
+  @Autowired
+  private SearchHistoryService searchHistoryService;
 
   public void addDefaultToModel(Model model) {
     addTopbarDataToModel(model);
@@ -59,10 +62,7 @@ public class BaseController {
     model.addAttribute("collectionList", collections);
 
     // search history
-    List<String> history = (List<String>) session.getAttribute(SEARCH_HISTORY_KEY);
-    if (history == null) {
-      history = Collections.emptyList();
-    }
+    List<String> history = searchHistoryService.getHistory();
     model.addAttribute("searchHistory", history);
 
     // search trending product
@@ -122,12 +122,5 @@ public class BaseController {
       partitions.add(list.subList(i, Math.min(i + size, list.size())));
     }
     return partitions;
-  }
-
-  private boolean isUserLoggedIn() {
-    Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-    return authentication != null
-        && authentication.isAuthenticated()
-        && !authentication.getName().equals("anonymousUser");
   }
 }
