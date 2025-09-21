@@ -3096,25 +3096,28 @@
       </div>
       <div class="compare-color_list list-empty tf-grid-layout tf-col-4 gap-0">
         <p class="box-text_empty h6 text-main">Your compare is curently empty</p>
-        <div class="compare-color_item file-delete">
+        <div class="compare-color_item file-delete"
+             th:each="colorDeltail : ${productDetail.colors}">
           <div class="compare_image">
             <img alt="Image" class="lazyload"
-                 data-src="/images/products/product-4.jpg" src="/images/products/product-4.jpg">
+                 th:data-src="${colorImage}"
+                 th:src="${colorImage}"
+                 th:with="colorImage=${colorDeltail.imageUrls.isEmpty() ? '/images/products/product-default.jpg' : colorDeltail.imageUrls.first}">
             <span class="remove">
-                                <i class="icon icon-trash"></i>
-                            </span>
+              <i class="icon icon-trash"></i>
+            </span>
           </div>
           <div class="compare_colour">
-            <span class="color bg-teal-blue"></span>
-            <span class="fw-medium text-black">Teal Blue</span>
+            <span class="color" th:style="'background-color: ' + ${colorDeltail.code}"></span>
+            <span class="fw-medium text-black" th:text="${colorDeltail.name}"></span>
           </div>
           <div class="compare_bot">
             <div class="tf-select style-border">
               <select class="h6">
-                <option>XS - $49,99</option>
-                <option selected="selected">S - $69,99</option>
-                <option>M - $79,99</option>
-                <option>XL - $89,99</option>
+                <option th:each="size, iterStat : ${productDetail.sizes}"
+                        th:selected="${iterStat.first} ? 'active' : ''"
+                        th:text="${size.name} + ' - ' + ${#numbers.formatInteger(productDetail.salePrice, 3, 'COMMA')} + ' ₫'">
+                </option>
               </select>
             </div>
             <a class="tf-btn animate-btn rounded-0 w-100" data-bs-toggle="offcanvas"
@@ -3123,121 +3126,6 @@
               <i class="icon icon-shopping-cart-simple"></i>
             </a>
           </div>
-
-        </div>
-        <div class="compare-color_item file-delete">
-          <div class="compare_image">
-            <img alt="Image" class="lazyload"
-                 data-src="/images/products/product-21.jpg" src="/images/products/product-21.jpg">
-            <span class="remove">
-                                <i class="icon icon-trash"></i>
-                            </span>
-          </div>
-          <div class="compare_colour">
-            <span class="color bg-black"></span>
-            <span class="fw-medium text-black">Black</span>
-          </div>
-          <div class="compare_bot">
-            <div class="tf-select style-border">
-              <select class="h6">
-                <option>XS - $79,99</option>
-                <option>S - $89,99</option>
-                <option selected="selected">M - $99,99</option>
-                <option>XL - $109,99</option>
-                <option>2XL - $109,99</option>
-              </select>
-            </div>
-            <a class="tf-btn animate-btn rounded-0 w-100" data-bs-toggle="offcanvas"
-               href="#shoppingCart">
-              ADD TO CART
-              <i class="icon icon-shopping-cart-simple"></i>
-            </a>
-          </div>
-
-        </div>
-        <div class="compare-color_item file-delete">
-          <div class="compare_image">
-            <img alt="Image" class="lazyload"
-                 data-src="/images/products/product-30.jpg" src="/images/products/product-30.jpg">
-            <span class="remove">
-                                <i class="icon icon-trash"></i>
-                            </span>
-          </div>
-          <div class="compare_colour">
-            <span class="color bg-medium-gray"></span>
-            <span class="fw-medium text-black">Medium grey</span>
-          </div>
-          <div class="compare_bot">
-            <div class="tf-select style-border">
-              <select class="h6">
-                <option>S - $119,99</option>
-                <option selected="selected">M - $129,99</option>
-              </select>
-            </div>
-            <a class="tf-btn animate-btn rounded-0 w-100" data-bs-toggle="offcanvas"
-               href="#shoppingCart">
-              ADD TO CART
-              <i class="icon icon-shopping-cart-simple"></i>
-            </a>
-          </div>
-
-        </div>
-        <div class="compare-color_item file-delete">
-          <div class="compare_image">
-            <img alt="Image" class="lazyload"
-                 data-src="/images/products/product-26.jpg" src="/images/products/product-26.jpg">
-            <span class="remove">
-                                <i class="icon icon-trash"></i>
-                            </span>
-          </div>
-          <div class="compare_colour">
-            <span class="color bg-dusty-olive"></span>
-            <span class="fw-medium text-black">Grey</span>
-          </div>
-          <div class="compare_bot">
-            <div class="tf-select style-border">
-              <select class="h6">
-                <option>XS - $79,99</option>
-                <option>S - $89,99</option>
-                <option selected="selected">M - $99,99</option>
-              </select>
-            </div>
-            <a class="tf-btn animate-btn rounded-0 w-100" data-bs-toggle="offcanvas"
-               href="#shoppingCart">
-              ADD TO CART
-              <i class="icon icon-shopping-cart-simple"></i>
-            </a>
-          </div>
-
-        </div>
-        <div class="compare-color_item file-delete">
-          <div class="compare_image">
-            <img alt="Image" class="lazyload"
-                 data-src="/images/products/product-4.jpg" src="/images/products/product-4.jpg">
-            <span class="remove">
-                                <i class="icon icon-trash"></i>
-                            </span>
-          </div>
-          <div class="compare_colour">
-            <span class="color bg-teal-blue"></span>
-            <span class="fw-medium text-black">Teal Blue</span>
-          </div>
-          <div class="compare_bot">
-            <div class="tf-select style-border">
-              <select class="h6">
-                <option>XS - $49,99</option>
-                <option selected="selected">S - $69,99</option>
-                <option>M - $79,99</option>
-                <option>XL - $89,99</option>
-              </select>
-            </div>
-            <a class="tf-btn animate-btn rounded-0 w-100" data-bs-toggle="offcanvas"
-               href="#shoppingCart">
-              ADD TO CART
-              <i class="icon icon-shopping-cart-simple"></i>
-            </a>
-          </div>
-
         </div>
       </div>
     </div>

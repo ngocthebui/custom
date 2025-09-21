@@ -324,8 +324,13 @@ public class ProductService {
     ProductDto productDto = new ProductDto();
     if (product != null) {
       Set<ProductImageDto> imageDtoList = productImageRepository.findByProductId(product.getId());
+
+      Map<Long, Set<ProductColorDto>> colorsmap =
+          loadProductColors(Collections.singleton(product.getId()));
+
       productDto = modelMapper.map(product, ProductDto.class);
       productDto.setImages(imageDtoList);
+      productDto.setColors(colorsmap.get(product.getId()));
     }
 
     return productDto;
