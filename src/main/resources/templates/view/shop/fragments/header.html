@@ -26,342 +26,342 @@
             </ul>
           </div>
         </li>
-        <li class="menu-item">
-          <a class="item-link" href="#">
-            <span th:remove="tag" th:text="#{navbar.collections}">COLLECTIONS</span>
-            <i class="icon icon-caret-down"></i>
-          </a>
-          <div class="sub-menu mega-menu mega-home">
-            <div class="container">
-              <div class="row-demo">
-                <div class="demo-item" th:each="collection : ${collectionList}">
-                  <a class="demo-img" th:href="@{${collection.url}}">
-                    <img alt="Demo"
-                         class="lazyload"
-                         th:alt="${collection.name}"
-                         th:data-src="@{${collection.imageUrl}}"
-                         th:src="@{${collection.imageUrl}}">
-                    <div class="demo-label" th:if="${collection.isNew}">
-                      <span>New</span>
-                    </div>
-                  </a>
-                  <a class="demo-name" th:href="@{${collection.url}}" th:text="${collection.name}">Collection
-                    Name</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li class="menu-item">
-          <a class="item-link" href="#">
-            <span th:remove="tag" th:text="#{navbar.shop}">SHOP</span>
-            <i class="icon icon-caret-down"></i>
-          </a>
-          <div class="sub-menu mega-menu">
-            <div class="container">
-              <div class="row">
-                <div class="col-2">
-                  <div class="mega-menu-item">
-                    <h4 class="menu-heading">Shop Layout</h4>
-                    <ul class="sub-menu_list">
-                      <li><a class="sub-menu_link" href="shop-default.html">Default Grid</a>
-                      </li>
-                      <li><a class="sub-menu_link" href="shop-default-list.html">Default
-                        List</a></li>
-                      <li><a class="sub-menu_link" href="shop-2-columns.html">Shop 2
-                        Columns</a></li>
-                      <li><a class="sub-menu_link" href="shop-3-columns.html">Shop 3
-                        Columns</a></li>
-                      <li><a class="sub-menu_link" href="shop-4-columns.html">Shop 4
-                        Columns</a></li>
-                      <li><a class="sub-menu_link" href="shop-5-columns.html">Shop 5
-                        Columns</a></li>
-                      <li><a class="sub-menu_link" href="shop-6-columns.html">Shop 6
-                        Columns</a></li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div class="mega-menu-item">
-                    <h4 class="menu-heading">Shop Features</h4>
-                    <ul class="sub-menu_list">
-                      <li><a class="sub-menu_link" href="shop-full-width-list.html">Full Width
-                        List</a></li>
-                      <li><a class="sub-menu_link" href="shop-full-width-grid.html">Full Width
-                        Grid</a></li>
-                      <li><a class="sub-menu_link" href="shop-left-sidebar.html">Left
-                        Sidebar</a></li>
-                      <li><a class="sub-menu_link" href="shop-right-sidebar.html">Right
-                        Sidebar</a></li>
-                      <li><a class="sub-menu_link" href="shop-filter-dropdown.html">Filter
-                        Dropdown</a></li>
-                      <li><a class="sub-menu_link" href="shop-filter-drawer.html">Filter
-                        Drawer</a></li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div class="mega-menu-item">
-                    <h4 class="menu-heading">Shop Hover</h4>
-                    <ul class="sub-menu_list">
-                      <li><a class="sub-menu_link" href="shop-hover-01.html">Hover Style
-                        01</a></li>
-                      <li><a class="sub-menu_link" href="shop-hover-02.html">Hover Style
-                        02</a></li>
-                      <li><a class="sub-menu_link" href="shop-hover-03.html">Hover Style
-                        03</a></li>
-                      <li><a class="sub-menu_link" href="shop-hover-04.html">Hover Style
-                        04</a></li>
-                      <li><a class="sub-menu_link" href="shop-hover-05.html">Hover Style
-                        05</a></li>
-                      <li><a class="sub-menu_link" href="shop-hover-06.html">Hover Style
-                        06</a></li>
-                      <li><a class="sub-menu_link" href="shop-hover-07.html">Hover Style
-                        07</a></li>
-                      <li><a class="sub-menu_link" href="shop-hover-08.html">Hover Style
-                        08</a></li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="col-6">
-                  <ul class="list-hor">
-                    <li class="wg-cls hover-img">
-                      <a class="image img-style" href="shop-default.html">
-                        <img alt="Collection"
-                             class="lazyload" data-src="/images/collections/cls-header-1.jpg"
-                             src="/images/collections/cls-header-1.jpg">
-                      </a>
-                      <div class="cls-content">
-                        <h4 class="tag_cls">Men</h4>
-                        <span class="br-line type-vertical"></span>
-                        <a class="tf-btn-line" href="shop-default.html"> Shop now </a>
-                      </div>
-                    </li>
-                    <li class="wg-cls hover-img">
-                      <a class="image img-style" href="shop-default.html">
-                        <img alt="Collection"
-                             class="lazyload" data-src="/images/collections/cls-header-2.jpg"
-                             src="/images/collections/cls-header-2.jpg">
-                      </a>
-                      <div class="cls-content">
-                        <h4 class="tag_cls">Women</h4>
-                        <span class="br-line type-vertical"></span>
-                        <a class="tf-btn-line" href="shop-default.html"> Shop now </a>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li class="menu-item">
-          <a class="item-link" href="#">
-            <span th:remove="tag" th:text="#{navbar.product}">PRODUCT</span>
-            <i class="icon icon-caret-down"></i>
-          </a>
-          <div class="sub-menu mega-menu">
-            <div class="container">
-              <div class="row">
-                <div class="col-2">
-                  <div class="mega-menu-item">
-                    <h4 class="menu-heading">Product Layout</h4>
-                    <ul class="sub-menu_list">
-                      <li><a class="sub-menu_link" href="product-detail.html">Product
-                        Detail</a></li>
-                      <li>
-                        <a class="sub-menu_link" href="product-left-thumbnail.html">Product
-                          Left Thumbnail</a>
-                      </li>
-                      <li>
-                        <a class="sub-menu_link" href="product-right-thumbnail.html">Product
-                          Right
-                          Thumbnail</a>
-                      </li>
-                      <li>
-                        <a class="sub-menu_link" href="product-bottom-thumbnail.html">Product
-                          Bottom
-                          Thumbnail</a>
-                      </li>
-                      <li><a class="sub-menu_link" href="product-grid.html">Product Grid</a>
-                      </li>
-                      <li><a class="sub-menu_link" href="product-grid-2.html">Product Grid
-                        2</a></li>
-                      <li><a class="sub-menu_link" href="product-stacked.html">Product
-                        Stacked</a></li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div class="mega-menu-item">
-                    <h4 class="menu-heading">Product Details</h4>
-                    <!-- prettier-ignore -->
-                    <ul class="sub-menu_list">
-                      <li><a class="sub-menu_link" href="product-information.html">Product
-                        Information</a></li>
-                      <li><a class="sub-menu_link" href="product-group.html">Product Group</a>
-                      </li>
-                      <li><a class="sub-menu_link" href="product-options-customizer.html">Product
-                        Option
-                        Customize</a></li>
-                      <li><a class="sub-menu_link" href="product-available.html">Product
-                        Avaialable</a></li>
-                      <li><a class="sub-menu_link" href="product-video.html">Product Video</a>
-                      </li>
-                      <li><a class="sub-menu_link" href="product-buyX-getY.html">Product Buy X
-                        Get Y</a></li>
-                      <li><a class="sub-menu_link" href="product-buy-the-look.html">Product
-                        Buy The Look</a>
-                      </li>
-                      <li><a class="sub-menu_link" href="product-out-of-stock.html">Product
-                        Out Of Stock</a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div class="mega-menu-item">
-                    <h4 class="menu-heading">Product Feature</h4>
-                    <ul class="sub-menu_list">
-                      <li>
-                        <a class="sub-menu_link"
-                           href="product-frequently-bought-together.html">Buy
-                          Together</a>
-                      </li>
-                      <li>
-                        <a class="sub-menu_link" href="product-often-purchased-together.html">Often
-                          Purchased
-                          Together</a>
-                      </li>
-                      <li>
-                        <a class="sub-menu_link" href="product-countdown-timer.html">Countdown
-                          Timer</a>
-                      </li>
-                      <li>
-                        <a class="sub-menu_link" href="product-volume-discount.html">Volume
-                          Discount</a>
-                      </li>
-                      <li>
-                        <a class="sub-menu_link"
-                           href="product-volume-discount-thumbnail.html">Volume Discount
-                          Thumbnail</a>
-                      </li>
-                      <li>
-                        <a class="sub-menu_link" href="product-swatch-dropdown.html">Swatch
-                          Dropdown</a>
-                      </li>
-                      <li>
-                        <a class="sub-menu_link" href="product-swatch-dropdown-color.html">Swatch
-                          Dropdown
-                          Color</a>
-                      </li>
-                      <li><a class="sub-menu_link" href="product-swatch-image.html">Swatch
-                        Image</a></li>
-                      <li>
-                        <a class="sub-menu_link" href="product-swatch-image-square.html">Swatch
-                          Image
-                          Retangle</a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="col-2">
-                  <div class="mega-menu-item">
-                    <h4 class="menu-heading">Product Description</h4>
-                    <ul class="sub-menu_list">
-                      <li>
-                        <a class="sub-menu_link" href="product-description-accordion.html">Product
-                          Description
-                          Accordion</a>
-                      </li>
-                      <li>
-                        <a class="sub-menu_link" href="product-description-list.html">Product
-                          Description
-                          List</a>
-                      </li>
-                      <li>
-                        <a class="sub-menu_link" href="product-description-vertical.html">Product
-                          Description
-                          Vertical</a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="col-4">
-                  <div class="mega-menu-item mn-none">
-                    <h4 class="menu-heading">Recent Products</h4>
-                    <ul class="list-ver">
-                      <li class="prd-recent hover-img">
-                        <a class="image img-style" href="product-detail.html">
-                          <img alt="Image"
-                               class="lazyload"
-                               data-src="/images/section/recent-1.jpg"
-                               src="/images/section/recent-1.jpg">
-                        </a>
-                        <div class="content">
-                          <span class="badge-tag">T-shirt</span>
-                          <a class="name-prd h6 fw-medium link" href="product-detail.html">
-                            Women's Short Sleeve V-Neck Activewear T-Shirt Dry-Fit Wicking
-                            Yoga Top
-                          </a>
-                          <span class="price-wrap h6 fw-semibold text-black"> $69,99 </span>
-                        </div>
-                      </li>
-                      <li class="br-line"></li>
-                      <li class="prd-recent hover-img">
-                        <a class="image img-style" href="product-detail.html">
-                          <img alt="Image"
-                               class="lazyload"
-                               data-src="/images/section/recent-2.jpg"
-                               src="/images/section/recent-2.jpg">
-                        </a>
-                        <div class="content">
-                          <span class="badge-tag">T-shirt</span>
-                          <a class="name-prd h6 fw-medium link" href="product-detail.html">
-                            Women's Short Sleeve V-Neck Activewear T-Shirt Dry-Fit Wicking
-                            Yoga Top
-                          </a>
-                          <span class="price-wrap h6 fw-semibold text-black"> $69,99 </span>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li class="menu-item position-relative">
-          <a class="item-link" href="#">
-            <span th:remove="tag" th:text="#{navbar.pages}">PAGE</span>
-            <i class="icon icon-caret-down"></i>
-          </a>
-          <div class="sub-menu">
-            <ul class="sub-menu_list">
-              <li><a class="sub-menu_link" href="about-us.html">About us</a></li>
-              <li><a class="sub-menu_link" href="store-list.html">Store List</a></li>
-              <li><a class="sub-menu_link" href="404.html">404</a></li>
-              <li><a class="sub-menu_link" href="faq.html">FAQs</a></li>
-              <li><a class="sub-menu_link" href="track-order.html">Order Tracking</a></li>
-              <li><a class="sub-menu_link" href="invoice.html">Invoice</a></li>
-              <li><a class="sub-menu_link" href="account-page.html">My account</a></li>
-            </ul>
-          </div>
-        </li>
-        <li class="menu-item position-relative">
-          <a class="item-link" href="#">
-            <span th:remove="tag" th:text="#{navbar.blog}">BLOG</span>
-            <i class="icon icon-caret-down"></i>
-          </a>
-          <div class="sub-menu">
-            <ul class="sub-menu_list">
-              <li><a class="sub-menu_link" href="blog-grid.html">Blog Grid</a></li>
-              <li><a class="sub-menu_link" href="blog-list-1.html">Blog List 1</a></li>
-              <li><a class="sub-menu_link" href="blog-list-2.html">Blog List 2</a></li>
-              <li><a class="sub-menu_link" href="blog-detail.html">Blog Single</a></li>
-            </ul>
-          </div>
-        </li>
+<!--        <li class="menu-item">-->
+<!--          <a class="item-link" href="#">-->
+<!--            <span th:remove="tag" th:text="#{navbar.collections}">COLLECTIONS</span>-->
+<!--            <i class="icon icon-caret-down"></i>-->
+<!--          </a>-->
+<!--          <div class="sub-menu mega-menu mega-home">-->
+<!--            <div class="container">-->
+<!--              <div class="row-demo">-->
+<!--                <div class="demo-item" th:each="collection : ${collectionList}">-->
+<!--                  <a class="demo-img" th:href="@{${collection.url}}">-->
+<!--                    <img alt="Demo"-->
+<!--                         class="lazyload"-->
+<!--                         th:alt="${collection.name}"-->
+<!--                         th:data-src="@{${collection.imageUrl}}"-->
+<!--                         th:src="@{${collection.imageUrl}}">-->
+<!--                    <div class="demo-label" th:if="${collection.isNew}">-->
+<!--                      <span>New</span>-->
+<!--                    </div>-->
+<!--                  </a>-->
+<!--                  <a class="demo-name" th:href="@{${collection.url}}" th:text="${collection.name}">Collection-->
+<!--                    Name</a>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </li>-->
+<!--        <li class="menu-item">-->
+<!--          <a class="item-link" href="#">-->
+<!--            <span th:remove="tag" th:text="#{navbar.shop}">SHOP</span>-->
+<!--            <i class="icon icon-caret-down"></i>-->
+<!--          </a>-->
+<!--          <div class="sub-menu mega-menu">-->
+<!--            <div class="container">-->
+<!--              <div class="row">-->
+<!--                <div class="col-2">-->
+<!--                  <div class="mega-menu-item">-->
+<!--                    <h4 class="menu-heading">Shop Layout</h4>-->
+<!--                    <ul class="sub-menu_list">-->
+<!--                      <li><a class="sub-menu_link" href="shop-default.html">Default Grid</a>-->
+<!--                      </li>-->
+<!--                      <li><a class="sub-menu_link" href="shop-default-list.html">Default-->
+<!--                        List</a></li>-->
+<!--                      <li><a class="sub-menu_link" href="shop-2-columns.html">Shop 2-->
+<!--                        Columns</a></li>-->
+<!--                      <li><a class="sub-menu_link" href="shop-3-columns.html">Shop 3-->
+<!--                        Columns</a></li>-->
+<!--                      <li><a class="sub-menu_link" href="shop-4-columns.html">Shop 4-->
+<!--                        Columns</a></li>-->
+<!--                      <li><a class="sub-menu_link" href="shop-5-columns.html">Shop 5-->
+<!--                        Columns</a></li>-->
+<!--                      <li><a class="sub-menu_link" href="shop-6-columns.html">Shop 6-->
+<!--                        Columns</a></li>-->
+<!--                    </ul>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="col-2">-->
+<!--                  <div class="mega-menu-item">-->
+<!--                    <h4 class="menu-heading">Shop Features</h4>-->
+<!--                    <ul class="sub-menu_list">-->
+<!--                      <li><a class="sub-menu_link" href="shop-full-width-list.html">Full Width-->
+<!--                        List</a></li>-->
+<!--                      <li><a class="sub-menu_link" href="shop-full-width-grid.html">Full Width-->
+<!--                        Grid</a></li>-->
+<!--                      <li><a class="sub-menu_link" href="shop-left-sidebar.html">Left-->
+<!--                        Sidebar</a></li>-->
+<!--                      <li><a class="sub-menu_link" href="shop-right-sidebar.html">Right-->
+<!--                        Sidebar</a></li>-->
+<!--                      <li><a class="sub-menu_link" href="shop-filter-dropdown.html">Filter-->
+<!--                        Dropdown</a></li>-->
+<!--                      <li><a class="sub-menu_link" href="shop-filter-drawer.html">Filter-->
+<!--                        Drawer</a></li>-->
+<!--                    </ul>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="col-2">-->
+<!--                  <div class="mega-menu-item">-->
+<!--                    <h4 class="menu-heading">Shop Hover</h4>-->
+<!--                    <ul class="sub-menu_list">-->
+<!--                      <li><a class="sub-menu_link" href="shop-hover-01.html">Hover Style-->
+<!--                        01</a></li>-->
+<!--                      <li><a class="sub-menu_link" href="shop-hover-02.html">Hover Style-->
+<!--                        02</a></li>-->
+<!--                      <li><a class="sub-menu_link" href="shop-hover-03.html">Hover Style-->
+<!--                        03</a></li>-->
+<!--                      <li><a class="sub-menu_link" href="shop-hover-04.html">Hover Style-->
+<!--                        04</a></li>-->
+<!--                      <li><a class="sub-menu_link" href="shop-hover-05.html">Hover Style-->
+<!--                        05</a></li>-->
+<!--                      <li><a class="sub-menu_link" href="shop-hover-06.html">Hover Style-->
+<!--                        06</a></li>-->
+<!--                      <li><a class="sub-menu_link" href="shop-hover-07.html">Hover Style-->
+<!--                        07</a></li>-->
+<!--                      <li><a class="sub-menu_link" href="shop-hover-08.html">Hover Style-->
+<!--                        08</a></li>-->
+<!--                    </ul>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="col-6">-->
+<!--                  <ul class="list-hor">-->
+<!--                    <li class="wg-cls hover-img">-->
+<!--                      <a class="image img-style" href="shop-default.html">-->
+<!--                        <img alt="Collection"-->
+<!--                             class="lazyload" data-src="/images/collections/cls-header-1.jpg"-->
+<!--                             src="/images/collections/cls-header-1.jpg">-->
+<!--                      </a>-->
+<!--                      <div class="cls-content">-->
+<!--                        <h4 class="tag_cls">Men</h4>-->
+<!--                        <span class="br-line type-vertical"></span>-->
+<!--                        <a class="tf-btn-line" href="shop-default.html"> Shop now </a>-->
+<!--                      </div>-->
+<!--                    </li>-->
+<!--                    <li class="wg-cls hover-img">-->
+<!--                      <a class="image img-style" href="shop-default.html">-->
+<!--                        <img alt="Collection"-->
+<!--                             class="lazyload" data-src="/images/collections/cls-header-2.jpg"-->
+<!--                             src="/images/collections/cls-header-2.jpg">-->
+<!--                      </a>-->
+<!--                      <div class="cls-content">-->
+<!--                        <h4 class="tag_cls">Women</h4>-->
+<!--                        <span class="br-line type-vertical"></span>-->
+<!--                        <a class="tf-btn-line" href="shop-default.html"> Shop now </a>-->
+<!--                      </div>-->
+<!--                    </li>-->
+<!--                  </ul>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </li>-->
+<!--        <li class="menu-item">-->
+<!--          <a class="item-link" href="#">-->
+<!--            <span th:remove="tag" th:text="#{navbar.product}">PRODUCT</span>-->
+<!--            <i class="icon icon-caret-down"></i>-->
+<!--          </a>-->
+<!--          <div class="sub-menu mega-menu">-->
+<!--            <div class="container">-->
+<!--              <div class="row">-->
+<!--                <div class="col-2">-->
+<!--                  <div class="mega-menu-item">-->
+<!--                    <h4 class="menu-heading">Product Layout</h4>-->
+<!--                    <ul class="sub-menu_list">-->
+<!--                      <li><a class="sub-menu_link" href="product-detail.html">Product-->
+<!--                        Detail</a></li>-->
+<!--                      <li>-->
+<!--                        <a class="sub-menu_link" href="product-left-thumbnail.html">Product-->
+<!--                          Left Thumbnail</a>-->
+<!--                      </li>-->
+<!--                      <li>-->
+<!--                        <a class="sub-menu_link" href="product-right-thumbnail.html">Product-->
+<!--                          Right-->
+<!--                          Thumbnail</a>-->
+<!--                      </li>-->
+<!--                      <li>-->
+<!--                        <a class="sub-menu_link" href="product-bottom-thumbnail.html">Product-->
+<!--                          Bottom-->
+<!--                          Thumbnail</a>-->
+<!--                      </li>-->
+<!--                      <li><a class="sub-menu_link" href="product-grid.html">Product Grid</a>-->
+<!--                      </li>-->
+<!--                      <li><a class="sub-menu_link" href="product-grid-2.html">Product Grid-->
+<!--                        2</a></li>-->
+<!--                      <li><a class="sub-menu_link" href="product-stacked.html">Product-->
+<!--                        Stacked</a></li>-->
+<!--                    </ul>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="col-2">-->
+<!--                  <div class="mega-menu-item">-->
+<!--                    <h4 class="menu-heading">Product Details</h4>-->
+<!--                    &lt;!&ndash; prettier-ignore &ndash;&gt;-->
+<!--                    <ul class="sub-menu_list">-->
+<!--                      <li><a class="sub-menu_link" href="product-information.html">Product-->
+<!--                        Information</a></li>-->
+<!--                      <li><a class="sub-menu_link" href="product-group.html">Product Group</a>-->
+<!--                      </li>-->
+<!--                      <li><a class="sub-menu_link" href="product-options-customizer.html">Product-->
+<!--                        Option-->
+<!--                        Customize</a></li>-->
+<!--                      <li><a class="sub-menu_link" href="product-available.html">Product-->
+<!--                        Avaialable</a></li>-->
+<!--                      <li><a class="sub-menu_link" href="product-video.html">Product Video</a>-->
+<!--                      </li>-->
+<!--                      <li><a class="sub-menu_link" href="product-buyX-getY.html">Product Buy X-->
+<!--                        Get Y</a></li>-->
+<!--                      <li><a class="sub-menu_link" href="product-buy-the-look.html">Product-->
+<!--                        Buy The Look</a>-->
+<!--                      </li>-->
+<!--                      <li><a class="sub-menu_link" href="product-out-of-stock.html">Product-->
+<!--                        Out Of Stock</a>-->
+<!--                      </li>-->
+<!--                    </ul>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="col-2">-->
+<!--                  <div class="mega-menu-item">-->
+<!--                    <h4 class="menu-heading">Product Feature</h4>-->
+<!--                    <ul class="sub-menu_list">-->
+<!--                      <li>-->
+<!--                        <a class="sub-menu_link"-->
+<!--                           href="product-frequently-bought-together.html">Buy-->
+<!--                          Together</a>-->
+<!--                      </li>-->
+<!--                      <li>-->
+<!--                        <a class="sub-menu_link" href="product-often-purchased-together.html">Often-->
+<!--                          Purchased-->
+<!--                          Together</a>-->
+<!--                      </li>-->
+<!--                      <li>-->
+<!--                        <a class="sub-menu_link" href="product-countdown-timer.html">Countdown-->
+<!--                          Timer</a>-->
+<!--                      </li>-->
+<!--                      <li>-->
+<!--                        <a class="sub-menu_link" href="product-volume-discount.html">Volume-->
+<!--                          Discount</a>-->
+<!--                      </li>-->
+<!--                      <li>-->
+<!--                        <a class="sub-menu_link"-->
+<!--                           href="product-volume-discount-thumbnail.html">Volume Discount-->
+<!--                          Thumbnail</a>-->
+<!--                      </li>-->
+<!--                      <li>-->
+<!--                        <a class="sub-menu_link" href="product-swatch-dropdown.html">Swatch-->
+<!--                          Dropdown</a>-->
+<!--                      </li>-->
+<!--                      <li>-->
+<!--                        <a class="sub-menu_link" href="product-swatch-dropdown-color.html">Swatch-->
+<!--                          Dropdown-->
+<!--                          Color</a>-->
+<!--                      </li>-->
+<!--                      <li><a class="sub-menu_link" href="product-swatch-image.html">Swatch-->
+<!--                        Image</a></li>-->
+<!--                      <li>-->
+<!--                        <a class="sub-menu_link" href="product-swatch-image-square.html">Swatch-->
+<!--                          Image-->
+<!--                          Retangle</a>-->
+<!--                      </li>-->
+<!--                    </ul>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="col-2">-->
+<!--                  <div class="mega-menu-item">-->
+<!--                    <h4 class="menu-heading">Product Description</h4>-->
+<!--                    <ul class="sub-menu_list">-->
+<!--                      <li>-->
+<!--                        <a class="sub-menu_link" href="product-description-accordion.html">Product-->
+<!--                          Description-->
+<!--                          Accordion</a>-->
+<!--                      </li>-->
+<!--                      <li>-->
+<!--                        <a class="sub-menu_link" href="product-description-list.html">Product-->
+<!--                          Description-->
+<!--                          List</a>-->
+<!--                      </li>-->
+<!--                      <li>-->
+<!--                        <a class="sub-menu_link" href="product-description-vertical.html">Product-->
+<!--                          Description-->
+<!--                          Vertical</a>-->
+<!--                      </li>-->
+<!--                    </ul>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="col-4">-->
+<!--                  <div class="mega-menu-item mn-none">-->
+<!--                    <h4 class="menu-heading">Recent Products</h4>-->
+<!--                    <ul class="list-ver">-->
+<!--                      <li class="prd-recent hover-img">-->
+<!--                        <a class="image img-style" href="product-detail.html">-->
+<!--                          <img alt="Image"-->
+<!--                               class="lazyload"-->
+<!--                               data-src="/images/section/recent-1.jpg"-->
+<!--                               src="/images/section/recent-1.jpg">-->
+<!--                        </a>-->
+<!--                        <div class="content">-->
+<!--                          <span class="badge-tag">T-shirt</span>-->
+<!--                          <a class="name-prd h6 fw-medium link" href="product-detail.html">-->
+<!--                            Women's Short Sleeve V-Neck Activewear T-Shirt Dry-Fit Wicking-->
+<!--                            Yoga Top-->
+<!--                          </a>-->
+<!--                          <span class="price-wrap h6 fw-semibold text-black"> $69,99 </span>-->
+<!--                        </div>-->
+<!--                      </li>-->
+<!--                      <li class="br-line"></li>-->
+<!--                      <li class="prd-recent hover-img">-->
+<!--                        <a class="image img-style" href="product-detail.html">-->
+<!--                          <img alt="Image"-->
+<!--                               class="lazyload"-->
+<!--                               data-src="/images/section/recent-2.jpg"-->
+<!--                               src="/images/section/recent-2.jpg">-->
+<!--                        </a>-->
+<!--                        <div class="content">-->
+<!--                          <span class="badge-tag">T-shirt</span>-->
+<!--                          <a class="name-prd h6 fw-medium link" href="product-detail.html">-->
+<!--                            Women's Short Sleeve V-Neck Activewear T-Shirt Dry-Fit Wicking-->
+<!--                            Yoga Top-->
+<!--                          </a>-->
+<!--                          <span class="price-wrap h6 fw-semibold text-black"> $69,99 </span>-->
+<!--                        </div>-->
+<!--                      </li>-->
+<!--                    </ul>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </li>-->
+<!--        <li class="menu-item position-relative">-->
+<!--          <a class="item-link" href="#">-->
+<!--            <span th:remove="tag" th:text="#{navbar.pages}">PAGE</span>-->
+<!--            <i class="icon icon-caret-down"></i>-->
+<!--          </a>-->
+<!--          <div class="sub-menu">-->
+<!--            <ul class="sub-menu_list">-->
+<!--              <li><a class="sub-menu_link" href="about-us.html">About us</a></li>-->
+<!--              <li><a class="sub-menu_link" href="store-list.html">Store List</a></li>-->
+<!--              <li><a class="sub-menu_link" href="404.html">404</a></li>-->
+<!--              <li><a class="sub-menu_link" href="faq.html">FAQs</a></li>-->
+<!--              <li><a class="sub-menu_link" href="track-order.html">Order Tracking</a></li>-->
+<!--              <li><a class="sub-menu_link" href="invoice.html">Invoice</a></li>-->
+<!--              <li><a class="sub-menu_link" href="account-page.html">My account</a></li>-->
+<!--            </ul>-->
+<!--          </div>-->
+<!--        </li>-->
+<!--        <li class="menu-item position-relative">-->
+<!--          <a class="item-link" href="#">-->
+<!--            <span th:remove="tag" th:text="#{navbar.blog}">BLOG</span>-->
+<!--            <i class="icon icon-caret-down"></i>-->
+<!--          </a>-->
+<!--          <div class="sub-menu">-->
+<!--            <ul class="sub-menu_list">-->
+<!--              <li><a class="sub-menu_link" href="blog-grid.html">Blog Grid</a></li>-->
+<!--              <li><a class="sub-menu_link" href="blog-list-1.html">Blog List 1</a></li>-->
+<!--              <li><a class="sub-menu_link" href="blog-list-2.html">Blog List 2</a></li>-->
+<!--              <li><a class="sub-menu_link" href="blog-detail.html">Blog Single</a></li>-->
+<!--            </ul>-->
+<!--          </div>-->
+<!--        </li>-->
       </ul>
     </nav>
   </div>
@@ -620,8 +620,8 @@
                     the right product</p>
                 </div>
                 <div class="shop-empty_bot">
-                  <a class="tf-btn animate-btn" href="shop-default.html"> Shopping </a>
-                  <a class="tf-btn style-line" href="index.html"> Back to home </a>
+                  <a class="tf-btn animate-btn" href="/products"> Shopping </a>
+                  <a class="tf-btn style-line" href="/"> Back to home </a>
                 </div>
               </div>
               <div class="tf-mini-cart-item file-delete" th:each="item : ${cartItems}">
@@ -637,22 +637,20 @@
                   </div>
                   <h6 class="title">
                     <a class="link text-line-clamp-1" href="product-detail.html"
-                       th:text="${item.product.name}">Queen fashion
-                      Product Name
+                       th:text="${item.product.name}">
                     </a>
                   </h6>
                   <div class="size">
-                    <div class="text-small text-main-2 sub" th:text="'Size: ' + ${item.size}">Size:
-                      XS
+                    <div class="text-small text-main-2 sub" th:text="'Size: ' + ${item.size}">
                     </div>
                     <div class="text-small text-main-2 sub">Color:</div>
                     <div class="dot-color" th:classappend="${item.colorClass}"></div>
                   </div>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="h6 fw-semibold">
-                      <span class="number" th:text="${item.quantity} + 'x'">1x</span>
+                      <span class="number" th:text="${item.quantity} + 'x'"></span>
                       <span class="price text-primary tf-mini-card-price"
-                            th:text="'$' + ${item.product.salePrice}">$0.00</span>
+                            th:text="'$' + ${item.product.salePrice}"></span>
                     </div>
                     <i class="icon link icon-close remove"></i>
                   </div>
