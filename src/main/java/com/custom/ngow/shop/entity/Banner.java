@@ -1,5 +1,10 @@
 package com.custom.ngow.shop.entity;
 
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,7 +37,33 @@ public class Banner {
   @Column(nullable = false)
   private String link;
 
+  private Integer sortOrder;
+
   private Boolean isActive = true;
 
-  private Integer sortOrder = 0;
+  private Boolean isAlwaysView = false;
+
+  private LocalDateTime startDate;
+  private LocalDateTime endDate;
+
+  @CreationTimestamp private LocalDateTime createdAt;
+
+  @UpdateTimestamp private LocalDateTime updatedAt;
+
+  public Banner(
+      Long id,
+      String title,
+      String subtitle,
+      String imageUrl,
+      String link,
+      Boolean isActive,
+      Integer sortOrder) {
+    this.id = id;
+    this.title = title;
+    this.subtitle = subtitle;
+    this.imageUrl = imageUrl;
+    this.link = link;
+    this.sortOrder = sortOrder;
+    this.isActive = isActive;
+  }
 }

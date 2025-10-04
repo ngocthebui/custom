@@ -12,9 +12,9 @@ spring:
   #postgresql
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: ${POSTGRES_URL:jdbc:postgresql://localhost:54321/custom}
-    username: ${POSTGRES_USERNAME:custom}
-    password: ${POSTGRES_PASSWORD:custom}
+    url: ${POSTGRES_URL:jdbc:postgresql://aws-0-ap-southeast-1.pooler.supabase.com:6543/postgres}
+    username: ${POSTGRES_USERNAME:postgres.cpmbiildtwwdramvyeaf}
+    password: ${POSTGRES_PASSWORD:ngocthe@6820}
 
     #connection pool
     hikari:
