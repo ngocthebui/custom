@@ -69,8 +69,9 @@
           <div class="slider-wrap">
             <div class="sld_image">
               <img alt="Image" class="lazyload"
-                   th:data-src="${banner.imageUrl}"
-                   th:src="${banner.imageUrl}">>
+                   th:data-src="${imgUrl}"
+                   th:src="${imgUrl}"
+                   th:with="imgUrl=${#strings.isEmpty(banner.imageUrl) ? '/images/slider/slide-default.jpg' : banner.imageUrl}">
             </div>
             <div class="sld_content">
               <div class="container">

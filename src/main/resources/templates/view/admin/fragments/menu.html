@@ -25,6 +25,13 @@
         </a>
       </li>
       <li>
+        <a class="my-account-nav_item h5" href="/admin/banners"
+           th:classappend="${activePage == 'banners'} ? ' active' : ''">
+          <i class="icon icon-image-dou"></i>
+          Banners
+        </a>
+      </li>
+      <li>
         <a class="my-account-nav_item h5" href="/admin/categories"
            th:classappend="${activePage == 'categories'} ? ' active' : ''">
           <i class="icon icon-box-arrow-down"></i>
@@ -39,8 +46,8 @@
         </a>
       </li>
       <li>
-        <a class="my-account-nav_item h5" href="account-setting.html"
-           th:classappend="${activePage == 'x'} ? ' active' : ''">
+        <a class="my-account-nav_item h5" href="/user/setting"
+           th:classappend="${activePage == 'user'} ? ' active' : ''">
           <i class="icon icon-setting"></i>
           Setting
         </a>

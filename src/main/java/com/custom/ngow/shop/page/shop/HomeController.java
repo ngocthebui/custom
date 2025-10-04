@@ -2,7 +2,6 @@ package com.custom.ngow.shop.page.shop;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -19,10 +18,9 @@ import com.custom.ngow.shop.dto.ProductColorDto;
 import com.custom.ngow.shop.dto.ProductDto;
 import com.custom.ngow.shop.dto.ProductImageDto;
 import com.custom.ngow.shop.dto.UserRegistration;
-import com.custom.ngow.shop.entity.Banner;
 import com.custom.ngow.shop.entity.Category;
 import com.custom.ngow.shop.entity.ProductSize;
-import com.custom.ngow.shop.service.SearchHistoryCompositeService;
+import com.custom.ngow.shop.security.BannerService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -31,8 +29,7 @@ import lombok.RequiredArgsConstructor;
 public class HomeController extends BaseController {
 
   private final MessageUtil messageUtil;
-
-  private final SearchHistoryCompositeService searchHistoryCompositeService;
+  private final BannerService bannerService;
 
   @GetMapping
   public String home(Model model) {
@@ -88,34 +85,7 @@ public class HomeController extends BaseController {
   }
 
   private void setBannersToModel(Model model) {
-    // sliders
-    List<Banner> bannerSlides =
-        Arrays.asList(
-            new Banner(
-                1L,
-                "Fall Winter Collection",
-                "Vivamus lacinia odio vitae vestibulum vestibulum.",
-                "/images/slider/slider-1.jpg",
-                "shop-default-list.html",
-                true,
-                0),
-            new Banner(
-                2L,
-                "Spring Summer Collection",
-                "Discover the elegance of renewal with soft tones and flowing textures.",
-                "/images/slider/slider-2.jpg",
-                "shop-default-list.html",
-                true,
-                1),
-            new Banner(
-                3L,
-                "Urban Edge Series",
-                "Bold cuts and minimalist design for the modern city lifestyle.",
-                "/images/slider/slider-3.jpg",
-                "shop-default-list.html",
-                true,
-                2));
-    model.addAttribute("bannerSlides", bannerSlides);
+    model.addAttribute("bannerSlides", bannerService.getAllSuitableBanner());
   }
 
   private void setPromotionalProductsToModel(Model model) {
