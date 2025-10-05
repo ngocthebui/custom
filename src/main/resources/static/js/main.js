@@ -344,9 +344,56 @@
       $("#wishlist").modal("show");
     });
 
-    $(".btn-add-to-cart").on("click", function () {
-      $(".tf-add-cart-success").addClass("active");
+    // ===== ADD TO CART =====
+    $(".btn-add-to-cart").on("click", function (e) {
+      e.preventDefault();
+
+      var $form = $(this).closest('form');
+      var productId, sizeId, colorId, quantity;
+
+      if ($form.length > 0 && $form.find('select[name="sizeId"]').length > 0) {
+        // Lấy từ form (có select)
+        productId = parseInt($form.find('input[name="productId"]').val(), 10);
+        sizeId = parseInt($form.find('select[name="sizeId"]').val(), 10);
+        colorId = parseInt($form.find('select[name="colorId"]').val(), 10);
+        quantity = parseInt($form.find('.quantity-product').val(), 10);
+      } else {
+        // Lấy từ variant picker
+        productId = parseInt($('input[name="productId"]').val(), 10);
+        sizeId = parseInt($('.variant-size .size-btn.active').data('size-id'),
+            10);
+        colorId = parseInt(
+            $('.variant-color .color-btn.active').data('color-id'), 10);
+        quantity = parseInt($('.quantity-product').first().val(), 10);
+      }
+
+      // Lấy CSRF token
+      var token = $("meta[name='_csrf']").attr("content");
+      var header = $("meta[name='_csrf_header']").attr("content");
+
+      fetch('/api/cart/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          [header]: token
+        },
+        body: JSON.stringify({
+          productId: productId,
+          sizeId: sizeId,
+          colorId: colorId,
+          quantity: quantity
+        })
+      })
+      .then(response => {
+        if (response.ok) {
+          $(".tf-add-cart-success").addClass("active");
+        }
+      })
+      .catch(error => {
+        console.error('Lỗi:', error);
+      });
     });
+
     $(".tf-add-cart-success .tf-add-cart-close").on("click", function () {
       $(".tf-add-cart-success").removeClass("active");
     });
@@ -1538,7 +1585,7 @@
 
   // delete search history
   function deleteHistory() {
-    $(document).on('submit', '.delete-search-form', function(e) {
+    $(document).on('submit', '.delete-search-form', function (e) {
       e.preventDefault();
 
       const form = $(this);
@@ -1559,7 +1606,7 @@
         if (response.ok) {
           // Tìm và xóa thẻ chứa history
           const historyItem = form.closest('.view-history-wrap');
-          historyItem.fadeOut(300, function() {
+          historyItem.fadeOut(300, function () {
             $(this).remove();
           });
         }

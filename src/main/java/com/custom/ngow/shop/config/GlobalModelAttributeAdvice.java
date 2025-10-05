@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.custom.ngow.shop.constant.UserRole;
 import com.custom.ngow.shop.entity.User;
-import com.custom.ngow.shop.service.UserService;
+import com.custom.ngow.shop.service.UserAuthenticationService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -15,12 +15,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class GlobalModelAttributeAdvice {
 
-  private final UserService userService;
+  private final UserAuthenticationService userAuthenticationService;
 
   @ModelAttribute("isAdmin")
   public Boolean isAdmin() {
     if (isUserLoggedIn()) {
-      User user = userService.getCurrentUser();
+      User user = userAuthenticationService.getCurrentUser();
       return user.getRole() == UserRole.ADMIN;
     }
     return false;

@@ -31,6 +31,15 @@ public class CartItem {
   @Column(nullable = false)
   private Integer quantity;
 
+  @Column(nullable = false)
+  private String size;
+
+  @Column(nullable = false)
+  private String color;
+
+  private String colorCode;
+  private String imageUrl;
+
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "cart_id", nullable = false)
   private Cart cart;

@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SearchHistoryCompositeService implements SearchHistoryService {
 
-  private final AuthenticationService authenticationService;
+  private final UserAuthenticationService userAuthenticationService;
   private final UserSearchHistoryServiceImpl userSearchHistoryService;
   private final ClientSearchHistoryServiceImpl clientSearchHistoryService;
 
@@ -33,7 +33,7 @@ public class SearchHistoryCompositeService implements SearchHistoryService {
   }
 
   private SearchHistoryService getCurrentService() {
-    if (authenticationService.isUserLoggedIn()) {
+    if (userAuthenticationService.isUserLoggedIn()) {
       return userSearchHistoryService;
     } else {
       return clientSearchHistoryService;

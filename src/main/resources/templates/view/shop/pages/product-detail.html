@@ -231,6 +231,7 @@
                       <span class="size-btn"
                             th:classappend="${iterStat.first} ? 'active' : ''"
                             th:data-size="${size.name}"
+                            th:data-size-id="${size.id}"
                             th:each="size, iterStat : ${productDetail.sizes}"
                             th:text="${size.name}">M
                       </span>
@@ -247,6 +248,7 @@
                       <div class="hover-tooltip tooltip-bot color-btn"
                            th:classappend="${iterStat.first} ? 'active' : ''"
                            th:data-color="${color.name}"
+                           th:data-color-id="${color.id}"
                            th:each="color, iterStat : ${productDetail.colors}">
                         <span class="check-color"
                               th:style="'background-color: ' + ${color.code}"></span>
@@ -372,49 +374,55 @@
             </div>
           </div>
           <div class="tf-sticky-atc-infos">
-            <form class="">
+            <form id="sticky-add-to-cart-form">
+              <input name="productId" th:value="${productDetail.id}" type="hidden">
+
               <div class="tf-sticky-atc-variant-price">
                 <h6 class="title">Size:</h6>
                 <div class="tf-select style-1">
-                  <select class="font-sora">
-                    <option th:classappend="${iterStat.first} ? 'active' : ''"
-                            th:each="size, iterStat : ${productDetail.sizes}"
+                  <select class="font-sora" id="stickySizeSelect" name="sizeId">
+                    <option th:each="size, iterStat : ${productDetail.sizes}"
+                            th:selected="${iterStat.first}"
                             th:text="${size.name}"
                             th:value="${size.id}">
                     </option>
                   </select>
                 </div>
               </div>
+
               <div class="tf-sticky-atc-variant-price">
                 <h6 class="title">Color:</h6>
                 <div class="tf-select style-1">
-                  <select class="font-sora">
-                    <option th:classappend="${iterStat.first} ? 'active' : ''"
-                            th:each="color, iterStat : ${productDetail.colors}"
+                  <select class="font-sora" id="stickyColorSelect" name="colorId">
+                    <option th:each="color, iterStat : ${productDetail.colors}"
+                            th:selected="${iterStat.first}"
                             th:text="${color.name}"
                             th:value="${color.id}">
                     </option>
                   </select>
                 </div>
               </div>
+
               <div class="tf-product-info-quantity">
                 <h6 class="title">Quantity:</h6>
                 <div class="wg-quantity">
-                  <button class="btn-quantity minus-btn">
+                  <button class="btn-quantity minus-btn" type="button">
                     <i class="icon icon-minus"></i>
                   </button>
-                  <input class="quantity-product" name="number" type="text" value="1">
-                  <button class="btn-quantity plus-btn">
+                  <input class="quantity-product" name="quantity" type="text" value="1">
+                  <button class="btn-quantity plus-btn" type="button">
                     <i class="icon icon-plus"></i>
                   </button>
                 </div>
               </div>
+
               <div class="tf-sticky-atc-btns">
-                <a class="tf-btn animate-btn btn-add-to-cart" data-bs-toggle="offcanvas"
-                   href="#shoppingCart">
+                <button class="tf-btn animate-btn btn-add-to-cart" data-bs-toggle="offcanvas"
+                        href="#shoppingCart"
+                        type="submit">
                   Add to cart
                   <i class="icon icon-shopping-cart-simple"></i>
-                </a>
+                </button>
               </div>
             </form>
           </div>
