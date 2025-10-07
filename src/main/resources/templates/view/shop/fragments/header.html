@@ -629,30 +629,30 @@
               <div class="tf-mini-cart-item file-delete" th:each="item : ${cart.items}">
                 <div class="tf-mini-cart-image">
                   <img alt="img-product" class="lazyload"
-                       th:alt="${item.name}"
+                       th:alt="${item.productName}"
                        th:data-src="${item.imageUrl}"
                        th:src="${item.imageUrl}">
                 </div>
                 <div class="tf-mini-cart-info">
-                  <div class="text-small text-main-2 sub" th:text="${item.category}">
+                  <div class="text-small text-main-2 sub" th:text="${item.categoryName}">
                   </div>
                   <h6 class="title">
                     <a class="link text-line-clamp-1"
                        th:href="@{'/products/' + ${item.categoryCode} + '/' + ${item.sku}}"
-                       th:text="${item.name}">
+                       th:text="${item.productName}">
                     </a>
                   </h6>
                   <div class="size">
-                    <div class="text-small text-main-2 sub" th:text="'Size: ' + ${item.size}">
+                    <div class="text-small text-main-2 sub" th:text="'Size: ' + ${item.sizeName}">
                     </div>
                     <div class="text-small text-main-2 sub">Color:</div>
-                    <div class="dot-color" th:classappend="${item.colorCode}"></div>
+                    <div class="dot-color" th:style="'background-color: ' + ${item.colorCode}"></div>
                   </div>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="h6 fw-semibold">
                       <span class="number" th:text="${item.quantity} + 'x'"></span>
                       <span class="price text-primary tf-mini-card-price"
-                            th:text="'$' + ${item.price}"></span>
+                            th:text="${#numbers.formatInteger(item.price, 3, 'COMMA')} + ' ₫'"></span>
                     </div>
                     <i class="icon link icon-close remove"></i>
                   </div>

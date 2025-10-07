@@ -7,17 +7,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.custom.ngow.shop.dto.CartItemRequest;
+import com.custom.ngow.shop.service.CartCompositeService;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 
 @RestController
-@Slf4j
+@RequiredArgsConstructor
 @RequestMapping("/api/cart")
 public class CartController {
 
+  private final CartCompositeService cartCompositeService;
+
   @PostMapping("/add")
-  public ResponseEntity<?> addToCart(@RequestBody CartItemRequest cart) {
-    log.info(cart.toString());
+  public ResponseEntity<Void> addToCart(@RequestBody CartItemRequest cart) {
+    cartCompositeService.addItemToCart(cart);
     return ResponseEntity.ok().build();
   }
 }

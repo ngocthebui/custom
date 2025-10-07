@@ -3,6 +3,7 @@ package com.custom.ngow.shop.service.impl;
 import org.springframework.stereotype.Service;
 
 import com.custom.ngow.shop.dto.CartDto;
+import com.custom.ngow.shop.dto.CartItemRequest;
 import com.custom.ngow.shop.service.CartService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -33,4 +34,7 @@ public class ClientCartServiceImpl implements CartService {
       return cart;
     }
   }
+
+  @Override
+  public void addItemToCart(CartItemRequest request) {}
 }

@@ -3,6 +3,7 @@ package com.custom.ngow.shop.service;
 import org.springframework.stereotype.Service;
 
 import com.custom.ngow.shop.dto.CartDto;
+import com.custom.ngow.shop.dto.CartItemRequest;
 import com.custom.ngow.shop.service.impl.ClientCartServiceImpl;
 import com.custom.ngow.shop.service.impl.UserCartServiceImpl;
 
@@ -19,6 +20,11 @@ public class CartCompositeService implements CartService {
   @Override
   public CartDto getOrCreateCart() {
     return getCurrentService().getOrCreateCart();
+  }
+
+  @Override
+  public void addItemToCart(CartItemRequest request) {
+    getCurrentService().addItemToCart(request);
   }
 
   private CartService getCurrentService() {

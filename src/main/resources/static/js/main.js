@@ -93,62 +93,76 @@
   /* Delete File
   -------------------------------------------------------------------------*/
   var deleteFile = function (e) {
-    function updateCount() {
-      var count = $(".list-file-delete .file-delete").length;
-      $(".prd-count").text(count);
+    // --- helpers ---
+    function parseCurrency(text) {
+      return Math.max(0, parseInt((text || "").replace(/[^\d]/g, ""), 10) || 0);
     }
 
-    function updateTotalPrice() {
-      var total = 0;
-
-      $(".list-file-delete .tf-mini-cart-item").each(function () {
-        var priceText = $(this).find(".tf-mini-card-price").text().replace("$",
-            "").replace(",", "").trim();
-        var price = parseFloat(priceText);
-        if (!isNaN(price)) {
-          total += price;
-        }
-      });
-
-      var formatted = total.toLocaleString("en-US",
-          {style: "currency", currency: "USD"});
-      $(".tf-totals-total-value").text(formatted);
+    // $el can be a jQuery set (input or span) or empty
+    function parseQuantity($el) {
+      $el = $el || $(); // ensure jQuery
+      // prefer input value if any
+      var $input = $el.filter("input").add($el.find("input")).first();
+      if ($input.length) {
+        return parseInt($input.val(), 10) || 0;
+      }
+      // otherwise take first element's text
+      var txt = ($el.filter(":not(input)").first().text() || "");
+      return parseInt(txt.replace(/\D/g, ""), 10) || 0;
     }
 
+    // --- update functions ---
     function updatePriceEach() {
       $(".each-prd").each(function () {
-        var priceText = $(this).find(".each-price").text().replace("$",
-            "").replace(",", "").trim();
-        var price = parseFloat(priceText);
-        var quantity = parseInt($(this).find(".quantity-product").val(), 10);
-        if (!isNaN(price) && !isNaN(quantity)) {
-          var subtotal = price * quantity;
-          var formatted = subtotal.toLocaleString("en-US",
-              {style: "currency", currency: "USD"});
-          $(this).find(".each-subtotal-price").text(formatted);
-        }
+        var $prd = $(this);
+        var qty = parseQuantity($prd.find(".quantity-product, .number"));
+        var price = parseCurrency($prd.find(".each-price").text());
+        var subtotal = price * qty;
+        $prd.find(".each-subtotal-price").text(
+            subtotal.toLocaleString("vi-VN") + " ₫");
       });
     }
 
     function updateTotalPriceEach() {
-      var total = 0;
-
+      var total = 0, totalItems = 0;
       $(".each-list-prd .each-prd").each(function () {
-        var priceText = $(this).find(".each-subtotal-price").text().replace("$",
-            "").replace(",", "").trim();
-        var price = parseFloat(priceText);
-        var quantity = parseInt($(this).find(".quantity-product").val(), 10);
-
-        if (!isNaN(price) && !isNaN(quantity)) {
-          total += price * quantity;
-        }
+        var $prd = $(this);
+        var qty = parseQuantity($prd.find(".quantity-product, .number"));
+        var price = parseCurrency($prd.find(".each-price").text());
+        total += price * qty;
+        totalItems += qty;
       });
-
-      var formatted = total.toLocaleString("en-US",
-          {style: "currency", currency: "USD"});
-      $(".each-total-price").text(formatted);
+      $(".each-total-price").text(total.toLocaleString("vi-VN") + " ₫");
+      $(".prd-count").text(totalItems); // tổng số lượng item
+      // optional: if you still want line-count, write to .prd-lines-count (if exists)
+      $(".prd-lines-count").text($(".each-list-prd .each-prd").length);
     }
 
+    function updateTotalPrice() {
+      var total = 0, totalItems = 0;
+      $(".list-file-delete .tf-mini-cart-item").each(function () {
+        var $prd = $(this);
+        var qty = parseQuantity($prd.find(".quantity-product, .number"));
+        var price = parseCurrency($prd.find(".tf-mini-card-price").text());
+        total += price * qty;
+        totalItems += qty;
+      });
+      $(".tf-totals-total-value").text(total.toLocaleString("vi-VN") + " ₫");
+      $(".prd-count").text(totalItems); // also keep total items in mini cart
+    }
+
+    // updateCount: compute BOTH line count and total items
+    function updateCount() {
+      var lineCount = $(".list-file-delete .file-delete").length;
+      var totalItems = 0;
+      $(".list-file-delete .file-delete").each(function () {
+        totalItems += parseQuantity($(this).find(".quantity-product, .number"));
+      });
+      $(".prd-count").text(totalItems);
+      $(".prd-lines-count").text(lineCount); // optional, only if you have this element
+    }
+
+    // rest of helper functions left as before
     function checkListEmpty() {
       $(".wrap-empty_text").each(function () {
         var $listEmpty = $(this);
@@ -165,67 +179,77 @@
       });
     }
 
-    if ($(".main-list-clear").length) {
-      $(".main-list-clear").each(function () {
-        var $mainList = $(this);
-
-        $mainList.find(".clear-list-empty").on("click", function () {
-          $mainList.find(".list-empty").children().not(
-              ".box-text_empty").remove();
-          checkListEmpty();
-        });
-      });
-    }
-
     function ortherDel() {
       $(".container .orther-del").remove();
     }
 
-    $(".list-file-delete").on("input", ".quantity-product", function () {
+    // --- debounce helper ---
+    function debounce(fn, delay) {
+      var t;
+      return function () {
+        var args = arguments, ctx = this;
+        clearTimeout(t);
+        t = setTimeout(function () {
+          fn.apply(ctx, args);
+        }, delay || 100);
+      };
+    }
+
+    var updateAllDebounced = debounce(function () {
+      updatePriceEach();
+      updateTotalPriceEach();
       updateTotalPrice();
-    });
+      updateCount();
+    }, 120);
 
-    $(".list-file-delete,.each-prd").on("click",
-        ".minus-quantity, .plus-quantity", function () {
-          var $quantityInput = $(this).siblings(".quantity-product");
-          var currentQuantity = parseInt($quantityInput.val(), 10);
-
-          if ($(this).hasClass("plus-quantity")) {
-            $quantityInput.val(currentQuantity + 1);
-          } else if ($(this).hasClass("minus-quantity") && currentQuantity
-              > 1) {
-            $quantityInput.val(currentQuantity - 1);
-          }
-
-          updateTotalPrice();
-          updatePriceEach();
-          updateTotalPriceEach();
+    // --- delegated event handlers (robust) ---
+    // quantity input change (typing)
+    $(document).on("input",
+        ".list-file-delete .quantity-product, .each-list-prd .quantity-product",
+        function () {
+          updateAllDebounced();
         });
 
-    $(".remove").on("click", function (e) {
-      e.preventDefault();
-      var $this = $(this);
-      $this.closest(".file-delete").remove();
-      updateCount();
-      updateTotalPrice();
-      checkListEmpty();
-      updateTotalPriceEach();
-      ortherDel();
+    // plus / minus (use closest container to find the input)
+    $(document).on("click", ".plus-quantity, .minus-quantity", function (e) {
+      var $btn = $(this);
+      // find nearest product row (either .file-delete or .each-prd)
+      var $row = $btn.closest(".file-delete, .each-prd");
+      var $input = $row.find(".quantity-product").first();
+      var current = parseInt($input.val(), 10) || 0;
+      if ($btn.hasClass("plus-quantity")) {
+        $input.val(current + 1);
+      } else if ($btn.hasClass("minus-quantity") && current > 1) {
+        $input.val(current - 1);
+      }
+      updateAllDebounced();
     });
 
-    $(".clear-file-delete").on("click", function (e) {
+    // remove item (delegated)
+    $(document).on("click", ".list-file-delete .remove, .each-list-prd .remove",
+        function (e) {
+          e.preventDefault();
+          $(this).closest(".file-delete, .each-prd").remove();
+          updateAllDebounced();
+          checkListEmpty();
+          ortherDel();
+        });
+
+    // clear all
+    $(document).on("click", ".clear-file-delete", function (e) {
       e.preventDefault();
       $(this).closest(".list-file-delete").find(".file-delete").remove();
-      updateCount();
-      updateTotalPrice();
+      updateAllDebounced();
       checkListEmpty();
     });
+
+    // init run
     checkListEmpty();
-    updateCount();
-    updateTotalPrice();
     updatePriceEach();
     updateTotalPriceEach();
-  };
+    updateTotalPrice();
+    updateCount();
+  }; // end deleteFile
 
   /* Go Top
   -------------------------------------------------------------------------*/

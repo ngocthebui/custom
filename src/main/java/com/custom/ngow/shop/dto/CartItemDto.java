@@ -17,11 +17,11 @@ public class CartItemDto implements Serializable {
 
   private Long id;
   private Integer quantity;
-  private String category;
+  private String categoryName;
   private String categoryCode;
-  private String name;
+  private String productName;
   private String sku;
-  private String size;
+  private String sizeName;
   private String colorCode;
   private String imageUrl;
   private BigDecimal price;
