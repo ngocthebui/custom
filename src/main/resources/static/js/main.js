@@ -149,6 +149,13 @@
       });
       $(".tf-totals-total-value").text(total.toLocaleString("vi-VN") + " ₫");
       $(".prd-count").text(totalItems); // also keep total items in mini cart
+
+      // --- Update progress ---
+      var target = 10000000; // ví dụ: miễn phí ship khi đạt 10 triệu
+      var percent = Math.min((total / target) * 100, 100); // max 100%
+      $(".tf-progress-bar .value")
+      .attr("data-progress", percent.toFixed(0)) // cập nhật attribute
+      .css("width", percent + "%");             // cập nhật style
     }
 
     // updateCount: compute BOTH line count and total items
