@@ -196,6 +196,7 @@
 <div class="modal modalCentered fade modal-quick-view" th:fragment="quick-view(product)"
      th:id="'quickView_' + ${product.id}">
   <div class="modal-dialog modal-dialog-centered">
+    <input type="hidden" name="productId" th:value="${product.id}">
     <div class="modal-content">
       <i class="icon icon-close icon-close-popup" data-bs-dismiss="modal"></i>
       <div class="tf-product-media-wrap tf-btn-swiper-item">
@@ -285,6 +286,7 @@
                 <span class="size-btn"
                       th:classappend="${iterStat.first} ? 'active' : ''"
                       th:data-size="${size.name}"
+                      th:data-size-id="${size.id}"
                       th:each="size, iterStat : ${product.sizes}"
                       th:text="${size.name}">
                 </span>
@@ -301,6 +303,7 @@
                 <div class="hover-tooltip tooltip-bot color-btn"
                      th:classappend="${iterStat.first} ? 'active' : ''"
                      th:data-color="${color.name}"
+                     th:data-color-id="${color.id}"
                      th:each="color, iterStat : ${product.colors}">
                         <span class="check-color"
                               th:style="'background-color: ' + ${color.code}"></span>

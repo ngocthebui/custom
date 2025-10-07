@@ -412,6 +412,7 @@
 
       var $form = $(this).closest('form');
       var productId, sizeId, colorId, quantity;
+      var $button = $(this);
 
       if ($form.length > 0 && $form.find('select[name="sizeId"]').length > 0) {
         // Lấy từ form (có select)
@@ -420,13 +421,22 @@
         colorId = parseInt($form.find('select[name="colorId"]').val(), 10);
         quantity = parseInt($form.find('.quantity-product').val(), 10);
       } else {
-        // Lấy từ variant picker
-        productId = parseInt($('input[name="productId"]').val(), 10);
-        sizeId = parseInt($('.variant-size .size-btn.active').data('size-id'),
-            10);
-        colorId = parseInt(
-            $('.variant-color .color-btn.active').data('color-id'), 10);
-        quantity = parseInt($('.quantity-product').first().val(), 10);
+        // Kiểm tra xem có trong modal không
+        var $modal = $button.closest('[id^="quickView_"]');
+
+        if ($modal.length > 0) {
+          // Trong modal
+          productId = parseInt($modal.find('input[name="productId"]').val(), 10);
+          sizeId = parseInt($modal.find('.size-btn.active').data('size-id'), 10);
+          colorId = parseInt($modal.find('.color-btn.active').data('color-id'), 10);
+          quantity = parseInt($modal.find('.quantity-product').val(), 10);
+        } else {
+          // Không trong modal - Lấy từ variant picker
+          productId = parseInt($('input[name="productId"]').val(), 10);
+          sizeId = parseInt($('.variant-size .size-btn.active').data('size-id'), 10);
+          colorId = parseInt($('.variant-color .color-btn.active').data('color-id'), 10);
+          quantity = parseInt($('.quantity-product').first().val(), 10);
+        }
       }
 
       // Lấy CSRF token
