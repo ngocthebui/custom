@@ -37,4 +37,7 @@ public class ClientCartServiceImpl implements CartService {
 
   @Override
   public void addItemToCart(CartItemRequest request) {}
+
+  @Override
+  public void removeItemFromCart(Long id) {}
 }

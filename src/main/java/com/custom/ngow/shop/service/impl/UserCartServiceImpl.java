@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import com.custom.ngow.shop.common.MessageUtil;
 import com.custom.ngow.shop.dto.CartDto;
 import com.custom.ngow.shop.dto.CartItemDto;
 import com.custom.ngow.shop.dto.CartItemRequest;
@@ -18,6 +19,7 @@ import com.custom.ngow.shop.entity.ProductColor;
 import com.custom.ngow.shop.entity.ProductImage;
 import com.custom.ngow.shop.entity.ProductSize;
 import com.custom.ngow.shop.entity.User;
+import com.custom.ngow.shop.exception.CustomException;
 import com.custom.ngow.shop.repository.CartItemRepository;
 import com.custom.ngow.shop.repository.CartRepository;
 import com.custom.ngow.shop.service.CartService;
@@ -36,6 +38,7 @@ public class UserCartServiceImpl implements CartService {
 
   private final CartRepository cartRepository;
   private final ModelMapper modelMapper;
+  private final MessageUtil messageUtil;
   private final CartItemRepository cartItemRepository;
   private final UserAuthenticationService userAuthenticationService;
   private final ProductService productService;
@@ -135,5 +138,18 @@ public class UserCartServiceImpl implements CartService {
 
     String currentUserEmail = userAuthenticationService.getCurrentUserEmail();
     log.info("User {} added new item to cart", currentUserEmail);
+  }
+
+  @Override
+  public void removeItemFromCart(Long id) {
+    CartItem cartItem =
+        cartItemRepository
+            .findById(id)
+            .orElseThrow(
+                () ->
+                    new CustomException(
+                        messageUtil, "", new String[] {"CardItem id: " + id}, "error.notExist"));
+
+    cartItemRepository.delete(cartItem);
   }
 }

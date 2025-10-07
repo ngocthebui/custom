@@ -153,13 +153,16 @@
 
     // updateCount: compute BOTH line count and total items
     function updateCount() {
-      var lineCount = $(".list-file-delete .file-delete").length;
       var totalItems = 0;
       $(".list-file-delete .file-delete").each(function () {
         totalItems += parseQuantity($(this).find(".quantity-product, .number"));
       });
       $(".prd-count").text(totalItems);
-      $(".prd-lines-count").text(lineCount); // optional, only if you have this element
+      if (totalItems === 0) {
+        $(".count").hide();
+      } else {
+        $(".count").show().text(totalItems);
+      }
     }
 
     // rest of helper functions left as before
@@ -226,14 +229,42 @@
     });
 
     // remove item (delegated)
-    $(document).on("click", ".list-file-delete .remove, .each-list-prd .remove",
-        function (e) {
-          e.preventDefault();
-          $(this).closest(".file-delete, .each-prd").remove();
-          updateAllDebounced();
-          checkListEmpty();
-          ortherDel();
-        });
+    $(document).on("click", ".list-file-delete .remove, .each-list-prd .remove", function (e) {
+      e.preventDefault();
+
+      const $item = $(this).closest(".file-delete, .each-prd");
+      const itemId = $item.data("id"); // lấy ra cartItemId
+
+      $item.remove();
+      updateAllDebounced();
+      checkListEmpty();
+      ortherDel();
+
+      if (!itemId) {
+        console.error("Không tìm thấy ID của item");
+        return;
+      }
+
+      // Lấy CSRF token
+      const token = $('meta[name="_csrf"]').attr('content');
+      const header = $('meta[name="_csrf_header"]').attr('content');
+
+      fetch(`/api/cart/delete/${itemId}`, {
+        method: "DELETE",
+        headers: {
+          'Content-Type': 'application/json',
+          [header]: token
+        }
+      })
+      .then(response => {
+        if (!response.ok) {
+          console.error("Xoá item thất bại, status:", response.status);
+        }
+      })
+      .catch(err => {
+        console.error("Lỗi khi gọi API xoá item:", err);
+      });
+    });
 
     // clear all
     $(document).on("click", ".clear-file-delete", function (e) {

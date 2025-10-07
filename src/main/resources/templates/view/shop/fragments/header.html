@@ -626,7 +626,9 @@
                   <a class="tf-btn style-line" href="/"> Back to home </a>
                 </div>
               </div>
-              <div class="tf-mini-cart-item file-delete" th:each="item : ${cart.items}">
+              <div class="tf-mini-cart-item file-delete"
+                   th:each="item : ${cart.items}"
+                   th:attr="data-id=${item.id}">
                 <div class="tf-mini-cart-image">
                   <img alt="img-product" class="lazyload"
                        th:alt="${item.productName}"

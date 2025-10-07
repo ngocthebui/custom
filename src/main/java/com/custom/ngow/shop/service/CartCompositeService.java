@@ -27,6 +27,11 @@ public class CartCompositeService implements CartService {
     getCurrentService().addItemToCart(request);
   }
 
+  @Override
+  public void removeItemFromCart(Long id) {
+    getCurrentService().removeItemFromCart(id);
+  }
+
   private CartService getCurrentService() {
     if (userAuthenticationService.isUserLoggedIn()) {
       return userCartServiceImpl;
