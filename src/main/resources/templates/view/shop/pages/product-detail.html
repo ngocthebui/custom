@@ -182,9 +182,9 @@
                 <div class="tf-product-heading">
                   <div class="product-info-price price-wrap">
                     <span class="price-new h2 fw-4"
-                          th:text="${#numbers.formatInteger(productDetail.salePrice, 3, 'COMMA')} + ' ₫'">0</span>
+                          th:text="${#numbers.formatInteger(productDetail.salePrice, 3, 'POINT')} + ' ₫'">0</span>
                     <span class="price-old h6" th:if="${productDetail.salePercentage} > 0"
-                          th:text="${#numbers.formatInteger(productDetail.price, 3, 'COMMA')} + ' ₫'">$ 0</span>
+                          th:text="${#numbers.formatInteger(productDetail.price, 3, 'POINT')} + ' ₫'">$ 0</span>
                     <p class="badges-on-sale h6 fw-semibold"
                        th:if="${productDetail.salePercentage} > 0">
                       <span class="number-sale"
@@ -368,7 +368,7 @@
                   <a class="link text-line-clamp-1" href="#" th:text="${productDetail.name}"></a>
                 </h6>
                 <div class="h6 fw-semibold"
-                     th:text="${#numbers.formatInteger(productDetail.salePrice, 3, 'COMMA')} + ' ₫'">
+                     th:text="${#numbers.formatInteger(productDetail.salePrice, 3, 'POINT')} + ' ₫'">
                 </div>
               </div>
             </div>
@@ -3124,7 +3124,7 @@
               <select class="h6">
                 <option th:each="size, iterStat : ${productDetail.sizes}"
                         th:selected="${iterStat.first} ? 'active' : ''"
-                        th:text="${size.name} + ' - ' + ${#numbers.formatInteger(productDetail.salePrice, 3, 'COMMA')} + ' ₫'">
+                        th:text="${size.name} + ' - ' + ${#numbers.formatInteger(productDetail.salePrice, 3, 'POINT')} + ' ₫'">
                 </option>
               </select>
             </div>

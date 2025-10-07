@@ -652,7 +652,7 @@
                     <div class="h6 fw-semibold">
                       <span class="number" th:text="${item.quantity} + 'x'"></span>
                       <span class="price text-primary tf-mini-card-price"
-                            th:text="${#numbers.formatInteger(item.price, 3, 'COMMA')} + ' ₫'"></span>
+                            th:text="${#numbers.formatInteger(item.price, 3, 'POINT')} + ' ₫'"></span>
                     </div>
                     <i class="icon link icon-close remove"></i>
                   </div>
