@@ -93,62 +93,86 @@
   /* Delete File
   -------------------------------------------------------------------------*/
   var deleteFile = function (e) {
-    function updateCount() {
-      var count = $(".list-file-delete .file-delete").length;
-      $(".prd-count").text(count);
+    // --- helpers ---
+    function parseCurrency(text) {
+      return Math.max(0, parseInt((text || "").replace(/[^\d]/g, ""), 10) || 0);
     }
 
-    function updateTotalPrice() {
-      var total = 0;
-
-      $(".list-file-delete .tf-mini-cart-item").each(function () {
-        var priceText = $(this).find(".tf-mini-card-price").text().replace("$",
-            "").replace(",", "").trim();
-        var price = parseFloat(priceText);
-        if (!isNaN(price)) {
-          total += price;
-        }
-      });
-
-      var formatted = total.toLocaleString("en-US",
-          {style: "currency", currency: "USD"});
-      $(".tf-totals-total-value").text(formatted);
+    // $el can be a jQuery set (input or span) or empty
+    function parseQuantity($el) {
+      $el = $el || $(); // ensure jQuery
+      // prefer input value if any
+      var $input = $el.filter("input").add($el.find("input")).first();
+      if ($input.length) {
+        return parseInt($input.val(), 10) || 0;
+      }
+      // otherwise take first element's text
+      var txt = ($el.filter(":not(input)").first().text() || "");
+      return parseInt(txt.replace(/\D/g, ""), 10) || 0;
     }
 
+    // --- update functions ---
     function updatePriceEach() {
       $(".each-prd").each(function () {
-        var priceText = $(this).find(".each-price").text().replace("$",
-            "").replace(",", "").trim();
-        var price = parseFloat(priceText);
-        var quantity = parseInt($(this).find(".quantity-product").val(), 10);
-        if (!isNaN(price) && !isNaN(quantity)) {
-          var subtotal = price * quantity;
-          var formatted = subtotal.toLocaleString("en-US",
-              {style: "currency", currency: "USD"});
-          $(this).find(".each-subtotal-price").text(formatted);
-        }
+        var $prd = $(this);
+        var qty = parseQuantity($prd.find(".quantity-product, .number"));
+        var price = parseCurrency($prd.find(".each-price").text());
+        var subtotal = price * qty;
+        $prd.find(".each-subtotal-price").text(
+            subtotal.toLocaleString("vi-VN") + " ₫");
       });
     }
 
     function updateTotalPriceEach() {
-      var total = 0;
-
+      var total = 0, totalItems = 0;
       $(".each-list-prd .each-prd").each(function () {
-        var priceText = $(this).find(".each-subtotal-price").text().replace("$",
-            "").replace(",", "").trim();
-        var price = parseFloat(priceText);
-        var quantity = parseInt($(this).find(".quantity-product").val(), 10);
-
-        if (!isNaN(price) && !isNaN(quantity)) {
-          total += price * quantity;
-        }
+        var $prd = $(this);
+        var qty = parseQuantity($prd.find(".quantity-product, .number"));
+        var price = parseCurrency($prd.find(".each-price").text());
+        total += price * qty;
+        totalItems += qty;
       });
-
-      var formatted = total.toLocaleString("en-US",
-          {style: "currency", currency: "USD"});
-      $(".each-total-price").text(formatted);
+      $(".each-total-price").text(total.toLocaleString("vi-VN") + " ₫");
+      $(".prd-count").text(totalItems); // tổng số lượng item
+      // optional: if you still want line-count, write to .prd-lines-count (if exists)
+      $(".prd-lines-count").text($(".each-list-prd .each-prd").length);
     }
 
+    function updateTotalPrice() {
+      var total = 0, totalItems = 0;
+      $(".list-file-delete .tf-mini-cart-item").each(function () {
+        var $prd = $(this);
+        var qty = parseQuantity($prd.find(".quantity-product, .number"));
+        var price = parseCurrency($prd.find(".tf-mini-card-price").text());
+        total += price * qty;
+        totalItems += qty;
+      });
+      $(".tf-totals-total-value").text(total.toLocaleString("vi-VN") + " ₫");
+      $(".prd-count").text(totalItems); // also keep total items in mini cart
+
+      // --- Update progress ---
+      var target = 10000000; // ví dụ: miễn phí ship khi đạt 10 triệu
+      var percent = Math.min((total / target) * 100, 100); // max 100%
+      $(".tf-progress-bar .value")
+      .attr("data-progress", percent.toFixed(0)) // cập nhật attribute
+      .css("width", percent + "%");             // cập nhật style
+    }
+
+    // updateCount: compute BOTH line count and total items
+    function updateCount() {
+      var totalItems = 0;
+      $(".list-file-delete .file-delete").each(function () {
+        totalItems += parseQuantity($(this).find(".quantity-product, .number"));
+      });
+      $(".prd-count").text(totalItems);
+      if (totalItems === 0) {
+        $(".count").hide();
+      } else {
+        $(".count").show().text(totalItems);
+      }
+    }
+
+    // rest of helper functions left as before
     function checkListEmpty() {
       $(".wrap-empty_text").each(function () {
         var $listEmpty = $(this);
@@ -165,67 +189,105 @@
       });
     }
 
-    if ($(".main-list-clear").length) {
-      $(".main-list-clear").each(function () {
-        var $mainList = $(this);
-
-        $mainList.find(".clear-list-empty").on("click", function () {
-          $mainList.find(".list-empty").children().not(
-              ".box-text_empty").remove();
-          checkListEmpty();
-        });
-      });
-    }
-
     function ortherDel() {
       $(".container .orther-del").remove();
     }
 
-    $(".list-file-delete").on("input", ".quantity-product", function () {
+    // --- debounce helper ---
+    function debounce(fn, delay) {
+      var t;
+      return function () {
+        var args = arguments, ctx = this;
+        clearTimeout(t);
+        t = setTimeout(function () {
+          fn.apply(ctx, args);
+        }, delay || 100);
+      };
+    }
+
+    var updateAllDebounced = debounce(function () {
+      updatePriceEach();
+      updateTotalPriceEach();
       updateTotalPrice();
-    });
+      updateCount();
+    }, 120);
 
-    $(".list-file-delete,.each-prd").on("click",
-        ".minus-quantity, .plus-quantity", function () {
-          var $quantityInput = $(this).siblings(".quantity-product");
-          var currentQuantity = parseInt($quantityInput.val(), 10);
-
-          if ($(this).hasClass("plus-quantity")) {
-            $quantityInput.val(currentQuantity + 1);
-          } else if ($(this).hasClass("minus-quantity") && currentQuantity
-              > 1) {
-            $quantityInput.val(currentQuantity - 1);
-          }
-
-          updateTotalPrice();
-          updatePriceEach();
-          updateTotalPriceEach();
+    // --- delegated event handlers (robust) ---
+    // quantity input change (typing)
+    $(document).on("input",
+        ".list-file-delete .quantity-product, .each-list-prd .quantity-product",
+        function () {
+          updateAllDebounced();
         });
 
-    $(".remove").on("click", function (e) {
-      e.preventDefault();
-      var $this = $(this);
-      $this.closest(".file-delete").remove();
-      updateCount();
-      updateTotalPrice();
-      checkListEmpty();
-      updateTotalPriceEach();
-      ortherDel();
+    // plus / minus (use closest container to find the input)
+    $(document).on("click", ".plus-quantity, .minus-quantity", function (e) {
+      var $btn = $(this);
+      // find nearest product row (either .file-delete or .each-prd)
+      var $row = $btn.closest(".file-delete, .each-prd");
+      var $input = $row.find(".quantity-product").first();
+      var current = parseInt($input.val(), 10) || 0;
+      if ($btn.hasClass("plus-quantity")) {
+        $input.val(current + 1);
+      } else if ($btn.hasClass("minus-quantity") && current > 1) {
+        $input.val(current - 1);
+      }
+      updateAllDebounced();
     });
 
-    $(".clear-file-delete").on("click", function (e) {
+    // remove item (delegated)
+    $(document).on("click", ".list-file-delete .remove, .each-list-prd .remove", function (e) {
+      e.preventDefault();
+
+      const $item = $(this).closest(".file-delete, .each-prd");
+      const itemId = $item.data("id"); // lấy ra cartItemId
+
+      $item.remove();
+      updateAllDebounced();
+      checkListEmpty();
+      ortherDel();
+
+      if (!itemId) {
+        console.error("Không tìm thấy ID của item");
+        return;
+      }
+
+      // Lấy CSRF token
+      const token = $('meta[name="_csrf"]').attr('content');
+      const header = $('meta[name="_csrf_header"]').attr('content');
+
+      fetch(`/api/cart/delete/${itemId}`, {
+        method: "DELETE",
+        headers: {
+          'Content-Type': 'application/json',
+          [header]: token
+        }
+      })
+      .then(response => {
+        if (!response.ok) {
+          console.error("Xoá item thất bại, status:", response.status);
+        }
+      })
+      .catch(err => {
+        console.error("Lỗi khi gọi API xoá item:", err);
+      });
+    });
+
+    // clear all
+    $(document).on("click", ".clear-file-delete", function (e) {
       e.preventDefault();
       $(this).closest(".list-file-delete").find(".file-delete").remove();
-      updateCount();
-      updateTotalPrice();
+      updateAllDebounced();
       checkListEmpty();
     });
+
+    // init run
     checkListEmpty();
-    updateCount();
-    updateTotalPrice();
     updatePriceEach();
     updateTotalPriceEach();
-  };
+    updateTotalPrice();
+    updateCount();
+  }; // end deleteFile
 
   /* Go Top
   -------------------------------------------------------------------------*/
@@ -344,9 +406,66 @@
       $("#wishlist").modal("show");
     });
 
-    $(".btn-add-to-cart").on("click", function () {
-      $(".tf-add-cart-success").addClass("active");
+    // ===== ADD TO CART =====
+    $(".btn-add-to-cart").on("click", function (e) {
+      e.preventDefault();
+
+      var $form = $(this).closest('form');
+      var productId, sizeId, colorId, quantity;
+      var $button = $(this);
+
+      if ($form.length > 0 && $form.find('select[name="sizeId"]').length > 0) {
+        // Lấy từ form (có select)
+        productId = parseInt($form.find('input[name="productId"]').val(), 10);
+        sizeId = parseInt($form.find('select[name="sizeId"]').val(), 10);
+        colorId = parseInt($form.find('select[name="colorId"]').val(), 10);
+        quantity = parseInt($form.find('.quantity-product').val(), 10);
+      } else {
+        // Kiểm tra xem có trong modal không
+        var $modal = $button.closest('[id^="quickView_"]');
+
+        if ($modal.length > 0) {
+          // Trong modal
+          productId = parseInt($modal.find('input[name="productId"]').val(), 10);
+          sizeId = parseInt($modal.find('.size-btn.active').data('size-id'), 10);
+          colorId = parseInt($modal.find('.color-btn.active').data('color-id'), 10);
+          quantity = parseInt($modal.find('.quantity-product').val(), 10);
+        } else {
+          // Không trong modal - Lấy từ variant picker
+          productId = parseInt($('input[name="productId"]').val(), 10);
+          sizeId = parseInt($('.variant-size .size-btn.active').data('size-id'), 10);
+          colorId = parseInt($('.variant-color .color-btn.active').data('color-id'), 10);
+          quantity = parseInt($('.quantity-product').first().val(), 10);
+        }
+      }
+
+      // Lấy CSRF token
+      var token = $("meta[name='_csrf']").attr("content");
+      var header = $("meta[name='_csrf_header']").attr("content");
+
+      fetch('/api/cart/add', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          [header]: token
+        },
+        body: JSON.stringify({
+          productId: productId,
+          sizeId: sizeId,
+          colorId: colorId,
+          quantity: quantity
+        })
+      })
+      .then(response => {
+        if (response.ok) {
+          $(".tf-add-cart-success").addClass("active");
+        }
+      })
+      .catch(error => {
+        console.error('Lỗi:', error);
+      });
     });
+
     $(".tf-add-cart-success .tf-add-cart-close").on("click", function () {
       $(".tf-add-cart-success").removeClass("active");
     });
@@ -1538,7 +1657,7 @@
 
   // delete search history
   function deleteHistory() {
-    $(document).on('submit', '.delete-search-form', function(e) {
+    $(document).on('submit', '.delete-search-form', function (e) {
       e.preventDefault();
 
       const form = $(this);
@@ -1559,7 +1678,7 @@
         if (response.ok) {
           // Tìm và xóa thẻ chứa history
           const historyItem = form.closest('.view-history-wrap');
-          historyItem.fadeOut(300, function() {
+          historyItem.fadeOut(300, function () {
             $(this).remove();
           });
         }

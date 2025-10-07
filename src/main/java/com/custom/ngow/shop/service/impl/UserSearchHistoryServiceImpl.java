@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.custom.ngow.shop.entity.SearchHistory;
 import com.custom.ngow.shop.entity.composite.SearchHistoryId;
 import com.custom.ngow.shop.repository.SearchHistoryRepository;
-import com.custom.ngow.shop.service.AuthenticationService;
 import com.custom.ngow.shop.service.SearchHistoryService;
+import com.custom.ngow.shop.service.UserAuthenticationService;
 
 import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
@@ -26,13 +26,13 @@ import lombok.extern.slf4j.Slf4j;
 public class UserSearchHistoryServiceImpl implements SearchHistoryService {
 
   private final SearchHistoryRepository searchHistoryRepository;
-  private final AuthenticationService authenticationService;
+  private final UserAuthenticationService userAuthenticationService;
   private static final int MAX_HISTORY_SIZE = 6;
 
   @Override
   @Transactional(readOnly = true)
   public List<String> getHistory() {
-    String userEmail = authenticationService.getCurrentUserEmail();
+    String userEmail = userAuthenticationService.getCurrentUserEmail();
     if (userEmail == null) {
       return Collections.emptyList();
     }
@@ -54,7 +54,7 @@ public class UserSearchHistoryServiceImpl implements SearchHistoryService {
       return;
     }
 
-    String userEmail = authenticationService.getCurrentUserEmail();
+    String userEmail = userAuthenticationService.getCurrentUserEmail();
     if (userEmail == null) {
       log.debug("Cannot save search history: user not logged in");
       return;
@@ -92,7 +92,7 @@ public class UserSearchHistoryServiceImpl implements SearchHistoryService {
   @Override
   @Transactional
   public void clearHistory() {
-    String userEmail = authenticationService.getCurrentUserEmail();
+    String userEmail = userAuthenticationService.getCurrentUserEmail();
     if (userEmail == null) {
       return;
     }

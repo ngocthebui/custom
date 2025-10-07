@@ -21,6 +21,7 @@ import com.custom.ngow.shop.dto.UserDto;
 import com.custom.ngow.shop.dto.UserPasswordRequest;
 import com.custom.ngow.shop.dto.UserRegistration;
 import com.custom.ngow.shop.dto.UserResetPasswordRequest;
+import com.custom.ngow.shop.entity.Cart;
 import com.custom.ngow.shop.entity.User;
 import com.custom.ngow.shop.exception.CustomException;
 import com.custom.ngow.shop.repository.UserRepository;
@@ -42,7 +43,7 @@ public class UserService {
   private final OtpService otpService;
   private final MediaStorageService mediaStorageService;
   private final MessageUtil messageUtil;
-  private final AuthenticationService authenticationService;
+  private final UserAuthenticationService userAuthenticationService;
 
   @Value("${homepage.url}")
   private String homePageUrl;
@@ -70,6 +71,10 @@ public class UserService {
     user.setPassword(passwordEncoder.encode(userRegistration.getPassword()));
     user.setRole(UserRole.USER);
     user.setStatus(UserStatus.ACTIVE);
+
+    Cart cart = new Cart();
+    cart.setUser(user);
+    user.setCart(cart);
 
     userRepository.save(user);
 
@@ -117,21 +122,13 @@ public class UserService {
     return userRepository.existsByEmail(email);
   }
 
-  public User getCurrentUser() {
-    String email = authenticationService.getCurrentUserEmail();
-    return userRepository
-        .findByEmail(email)
-        .orElseThrow(
-            () -> new CustomException(messageUtil, "", new String[] {"Email"}, "error.notExist"));
-  }
-
   public UserDto getCurrentUserDto() {
-    User user = getCurrentUser();
+    User user = userAuthenticationService.getCurrentUser();
     return modelMapper.map(user, UserDto.class);
   }
 
   public void updateUserInfo(UserDto userDto) {
-    User user = getCurrentUser();
+    User user = userAuthenticationService.getCurrentUser();
     String email = userDto.getEmail();
     log.info("Updating user {}", email);
 
@@ -156,7 +153,7 @@ public class UserService {
   }
 
   public void changeUserPassword(UserPasswordRequest userPasswordRequest) {
-    User user = getCurrentUser();
+    User user = userAuthenticationService.getCurrentUser();
     log.info("User: {} is changing password", user.getEmail());
     if (!isPasswordMatching(userPasswordRequest.getCurrentPassword(), user.getPassword())) {
       log.error("User:{} Password is incorrect", user.getEmail());

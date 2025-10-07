@@ -35,6 +35,7 @@ public class Category {
   @Column(nullable = false, unique = true)
   private String code;
 
+  @Column(columnDefinition = "TEXT")
   private String description;
 
   @ManyToMany(mappedBy = "categories")

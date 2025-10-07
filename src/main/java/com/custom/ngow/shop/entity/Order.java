@@ -57,6 +57,7 @@ public class Order {
   @Enumerated(EnumType.STRING)
   private PaymentStatus paymentStatus = PaymentStatus.PENDING;
 
+  @Column(columnDefinition = "TEXT")
   private String notes;
 
   //  @ManyToOne(fetch = FetchType.LAZY)

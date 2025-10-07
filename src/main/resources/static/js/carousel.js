@@ -159,6 +159,13 @@ $(".modal-quick-view").each(function (index) {
       nextEl: $modalRoot.find(".single-slide-next")[0],
       prevEl: $modalRoot.find(".single-slide-prev")[0],
     },
+    // Thêm mousewheel navigation
+    mousewheel: {
+      invert: false,           // false = cuộn xuống -> slide tiếp theo
+      forceToAxis: false,      // cho phép cuộn theo cả 2 chiều
+      sensitivity: 3,          // độ nhạy cuộn (1 = bình thường)
+      releaseOnEdges: false    // tiếp tục cuộn khi đến slide cuối/đầu
+    },
   });
 
   function updateModalActiveButton(type, activeIndex) {

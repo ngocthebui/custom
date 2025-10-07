@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.ui.Model;
 
 import com.custom.ngow.shop.common.MessageUtil;
-import com.custom.ngow.shop.demoEntity.CartItem;
 import com.custom.ngow.shop.demoEntity.Collection;
 import com.custom.ngow.shop.demoEntity.TrendingProduct;
+import com.custom.ngow.shop.service.CartCompositeService;
 import com.custom.ngow.shop.service.CategoryService;
 import com.custom.ngow.shop.service.SearchHistoryService;
 
@@ -24,6 +24,7 @@ public class BaseController {
   @Autowired private HttpSession session;
   @Autowired private MessageUtil messageUtil;
   @Autowired private CategoryService categoryService;
+  @Autowired private CartCompositeService cartService;
 
   @Qualifier("searchHistoryCompositeService")
   @Autowired
@@ -100,16 +101,7 @@ public class BaseController {
     model.addAttribute("productSuggestion", trendingProducts);
 
     // Shopping Cart: cart items
-    List<CartItem> cartItems = new ArrayList<>();
-    for (TrendingProduct trendingProduct : trendingProducts) {
-      CartItem cartItem = new CartItem();
-      cartItem.setSize("L");
-      cartItem.setQuantity(1);
-      cartItem.setProduct(trendingProduct);
-      cartItem.setColorClass("bg-sage-green");
-      cartItems.add(cartItem);
-    }
-    model.addAttribute("cartItems", cartItems);
+    model.addAttribute("cart", cartService.getOrCreateCart());
   }
 
   private void addNavbarToModel(Model model) {

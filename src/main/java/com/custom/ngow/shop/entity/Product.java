@@ -60,7 +60,7 @@ public class Product {
 
   private Integer stockQuantity;
 
-  @Column(length = 1000)
+  @Column(length = 1000, columnDefinition = "TEXT")
   private String description;
 
   private String material; // Chất liệu

@@ -4,8 +4,19 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.custom.ngow.shop.common.MessageUtil;
+import com.custom.ngow.shop.entity.User;
+import com.custom.ngow.shop.exception.CustomException;
+import com.custom.ngow.shop.repository.UserRepository;
+
+import lombok.RequiredArgsConstructor;
+
 @Service
-public class AuthenticationService {
+@RequiredArgsConstructor
+public class UserAuthenticationService {
+
+  private final UserRepository userRepository;
+  private final MessageUtil messageUtil;
 
   public boolean isUserLoggedIn() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -20,5 +31,13 @@ public class AuthenticationService {
       return authentication.getName();
     }
     return null;
+  }
+
+  public User getCurrentUser() {
+    String email = getCurrentUserEmail();
+    return userRepository
+        .findByEmail(email)
+        .orElseThrow(
+            () -> new CustomException(messageUtil, "", new String[] {"Email"}, "error.notExist"));
   }
 }

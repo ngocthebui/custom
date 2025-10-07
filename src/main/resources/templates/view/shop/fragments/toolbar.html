@@ -37,7 +37,9 @@
     <a href="view-cart.html">
                 <span class="toolbar-icon">
                     <i class="icon icon-shopping-cart-simple"></i>
-                    <span class="toolbar-count">24</span>
+                    <span class="toolbar-count"
+                          th:if="${cart.items.size() > 0}"
+                          th:text="${cart.items.size()}"></span>
                 </span>
       <span class="toolbar-label">Cart</span>
     </a>

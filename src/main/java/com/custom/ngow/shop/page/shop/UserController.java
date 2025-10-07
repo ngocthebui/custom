@@ -20,6 +20,7 @@ import com.custom.ngow.shop.dto.UserRegistration;
 import com.custom.ngow.shop.dto.UserResetPasswordRequest;
 import com.custom.ngow.shop.entity.User;
 import com.custom.ngow.shop.exception.CustomException;
+import com.custom.ngow.shop.service.UserAuthenticationService;
 import com.custom.ngow.shop.service.UserService;
 
 import jakarta.validation.Valid;
@@ -33,6 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 public class UserController extends BaseController {
 
   private final UserService userService;
+  private final UserAuthenticationService userAuthenticationService;
   private final MessageUtil messageUtil;
 
   @PostMapping("/register")
@@ -178,7 +180,7 @@ public class UserController extends BaseController {
   @ResponseBody
   public ResponseEntity<?> uploadAvatar(
       @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
-    User user = userService.getCurrentUser();
+    User user = userAuthenticationService.getCurrentUser();
     try {
       userService.uploadAvatar(user, file);
     } catch (RuntimeException e) {

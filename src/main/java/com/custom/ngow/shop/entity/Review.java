@@ -33,7 +33,7 @@ public class Review {
 
   private String title;
 
-  @Column(length = 1000)
+  @Column(length = 1000, columnDefinition = "TEXT")
   private String comment;
 
   private Boolean isVerifiedPurchase = false;
